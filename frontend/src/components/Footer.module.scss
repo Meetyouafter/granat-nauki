@@ -1,0 +1,38 @@
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  background: var(--card);
+  margin-top: 48px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+.link {
+  color: var(--muted);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+
