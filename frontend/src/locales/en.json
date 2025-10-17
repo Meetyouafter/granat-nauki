@@ -1,0 +1,39 @@
+{
+    "HomePage": {
+        "title": "Psychologist — Business Card Website",
+        "hero": {
+            "title": "Helping you find support in emotions and relationships",
+            "lead": "Individual and family therapy. Online and in-person.",
+            "ctaPrimary": "Book a consultation",
+            "ctaSecondary": "Learn about me"
+        },
+        "services": {
+            "title": "How I can help",
+            "lead": "We'll choose a format that suits your needs.",
+            "items": [
+                "Individual therapy",
+                "Couple/family therapy",
+                "Working with anxiety and burnout",
+                "Support during crisis periods"
+            ]
+        },
+        "reviews": {
+            "title": "Client reviews",
+            "lead": "Fragments of feedback after sessions.",
+            "items": [
+                "«I feel calmer, there's a sense of support and clarity»",
+                "«We worked through important relationship topics, it became easier to communicate»",
+                "«Very gentle and professional, thank you for the support»"
+            ]
+        },
+        "articles": {
+            "title": "Articles",
+            "lead": "Short notes about emotions, relationships and self-care.",
+            "items": [
+                "How to deal with anxiety at work",
+                "First steps in emotional burnout",
+                "Boundaries in relationships: how to notice and defend them"
+            ]
+        }
+    }
+}
