@@ -1,10 +1,11 @@
-import Section from '../../components/Section';
-import Container from '../../components/Container';
+import Section from '../../components/Section/Section';
+import Container from '../../components/Container/Container';
 import styles from './page.module.scss';
 import { getTranslations } from 'next-intl/server';
 
 export default async function HomePage() {
   const t = await getTranslations('HomePage');
+
   return (
     <main>
       <h1>{t('title')}</h1>

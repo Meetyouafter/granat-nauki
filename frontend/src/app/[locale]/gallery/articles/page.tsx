@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 import Image from 'next/image';
-import Section from '../../../../components/Section';
-import Container from '../../../../components/Container';
+import Section from '../../../../components/Section/Section';
+import Container from '../../../../components/Container/Container';
 import styles from './page.module.scss';
 
 async function readPublicImages(subdir: string): Promise<{ src: string; alt: string }[]> {

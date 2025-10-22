@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Container from './Container';
+import Container from '../Container/Container';
 import styles from './Footer.module.scss';
 
 export default function Footer() {

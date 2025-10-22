@@ -1,4 +1,4 @@
-import Section from '../../../components/Section';
+import Section from '../../../components/Section/Section';
 import styles from './page.module.scss';
 
 export default async function ServicesPage() {
