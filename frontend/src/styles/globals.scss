@@ -1,4 +1,5 @@
 :root {
+  /* Темная тема (по умолчанию) */
   --bg: #0d0f12;
   --card: #12151a;
   --text: #e6eaf2;
@@ -6,6 +7,17 @@
   --accent: #7aa2f7;
   --accent-2: #f6c177;
   --border: #20242b;
+}
+
+[data-theme="light"] {
+  /* Светлая тема */
+  --bg: #ffffff;
+  --card: #f8f9fa;
+  --text: #1a1a1a;
+  --muted: #6c757d;
+  --accent: #007bff;
+  --accent-2: #ffc107;
+  --border: #e9ecef;
 }
 
 * {

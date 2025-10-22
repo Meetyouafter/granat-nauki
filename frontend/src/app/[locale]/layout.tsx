@@ -1,5 +1,7 @@
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import ThemeSwitcher from '@/components/ThemeSwitcher/ThemeSwitcher';
 
 import '@/styles/globals.scss'; 
 import '@/styles/reset.scss';
@@ -15,9 +17,12 @@ export default async function LocaleLayout({children, params}: Props) {
   return (
     <html lang={locale}>
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          {children}
+          <Footer />
+          <ThemeSwitcher />
+        </ThemeProvider>
       </body>
     </html>
   );

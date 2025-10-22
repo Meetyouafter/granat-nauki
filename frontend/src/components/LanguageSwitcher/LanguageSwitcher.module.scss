@@ -21,11 +21,12 @@
 }
 
 .buttonActive {
-  background-color: #0070f3;
-  color: white;
+  background-color: var(--accent);
+  color: var(--bg);
 }
 
 .buttonInactive {
-  background-color: #f0f0f0;
-  color: black;
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
