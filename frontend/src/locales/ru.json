@@ -35,5 +35,37 @@
         "Границы в отношениях: как заметить и отстоять"
       ]
     }
+  },
+  "ContactsPage": {
+    "title": "Контакты",
+    "contacts": {
+      "telegram": "Написать в Telegram",
+      "email": "Написать на email",
+      "whatsapp": "Написать в WhatsApp"
+    },
+    "request": {
+      "title": "Запрос на консультацию",
+      "name": "Имя",
+      "namePlaceholder": "Ваше имя",
+      "contact": "Способ связи",
+      "contactPlaceholder": "Телефон или Telegram",
+      "message": "Коротко о запросе",
+      "submit": "Отправить"
+    }
+  },
+  "Footer": {
+    "copyright": "© {year} Гранат науки. Все права защищены.",
+    "links": {
+      "contacts": "Контакты",
+      "privacy": "Политика конфиденциальности",
+      "terms": "Пользовательское соглашение"
+    },
+    "socials": {
+      "title": "Мои социальные сети"
+    },
+    "languages": {
+      "ru": "Русский",
+      "en": "English"
+    }
   }
 }

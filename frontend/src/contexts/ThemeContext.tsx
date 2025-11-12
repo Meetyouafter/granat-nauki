@@ -24,19 +24,20 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
+  // Инициализируем тему синхронно из localStorage или системных настроек
+  const [theme, setTheme] = useState<Theme>(() => {
     // Проверяем сохраненную тему в localStorage
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme') as Theme;
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        return savedTheme;
+      }
       // Проверяем системные настройки
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+      return prefersDark ? 'dark' : 'light';
     }
-  }, []);
+    return 'dark';
+  });
 
   useEffect(() => {
     // Применяем тему к документу
@@ -45,6 +46,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }, [theme]);
 
   const toggleTheme = () => {
+    console.log('toggleTheme');
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
 

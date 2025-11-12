@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import Container from '../Container/Container';
 import styles from './Header.module.scss';
-import paths from '@/constants';
-import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
-import { NextIntlClientProvider } from 'next-intl';
+import { paths } from '@/constants';
 
 export default function Header() {
   return (
@@ -22,9 +20,6 @@ export default function Header() {
             <Link className={styles.link} href={paths.faq}>FAQ</Link>
             <Link className={styles.cta} href={paths.contacts}>Записаться</Link>
           </nav>
-          <NextIntlClientProvider>
-            <LanguageSwitcher />
-          </NextIntlClientProvider>
         </div>
       </Container>
     </header>

@@ -1,3 +1,44 @@
+@import '@/styles/mixins.scss';
+
+.root {
+  @include container;
+  display: grid;
+  grid-template-areas:
+    'picture title'
+    'picture request'
+    'contacts contacts';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 24px;
+
+  .picture {
+    grid-area: picture;
+    position: relative;
+
+    img {
+      object-fit: cover;
+      clip-path: polygon(0% 0%, 59% 0%, 100% 47%, 66% 99%, 0% 100%);
+    }
+  }
+
+  .title {
+    grid-area: title;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .contacts {
+    grid-area: contacts;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .request {
+    grid-area: request;
+  }
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

@@ -1,33 +1,44 @@
-import Section from '../../../components/Section/Section';
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { contacts } from '@/constants';
+
 import styles from './page.module.scss';
 
 export default async function ContactsPage() {
+  const t = await getTranslations('ContactsPage');
+
   return (
-    <main>
-      <Section title="Контакты" lead="Выберите удобный способ связи.">
-        <ul className={styles.list}>
-          <li className={styles.card}>Telegram: @username</li>
-          <li className={styles.card}>Email: hello@example.ru</li>
-          <li className={styles.card}>Телефон: +7 (999) 000-00-00</li>
-        </ul>
-        <div className={styles.formWrap}>
-          <form action="#" method="post" className={styles.form}>
-            <label>
-              Имя
-              <input name="name" placeholder="Ваше имя" className={styles.input} />
-            </label>
-            <label>
-              Способ связи
-              <input name="contact" placeholder="Телефон или Telegram" className={styles.input} />
-            </label>
-            <label>
-              Коротко о запросе
-              <textarea name="message" rows={5} placeholder="Чем могу помочь?" className={styles.textarea} />
-            </label>
-            <button type="submit" className={styles.submit}>Отправить</button>
-          </form>
-        </div>
-      </Section>
+    <main className={styles.root}>
+      <div className={styles.picture}>
+        <Image
+          src="/images/image.jpg"
+          alt={t('title')}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
+      <h2 className={styles.title}>{t('title')}</h2>
+      <form action="#" method="post" className={styles.request}>
+        <label>
+          {t('request.name')}
+          <input name="name" placeholder={t('request.namePlaceholder')} className={styles.input} />
+        </label>
+        <label>
+          {t('request.contact')}
+          <input name="contact" placeholder={t('request.contactPlaceholder')} className={styles.input} />
+        </label>
+        <label>
+          {t('request.message')}
+          <textarea name="message" rows={5} placeholder="Чем могу помочь?" className={styles.textarea} />
+        </label>
+        <button type="submit" className={styles.submit}>{t('request.submit')}</button>
+      </form>
+      <div className={styles.contacts}>
+        <a href={contacts.telegram} target="_blank" rel="noreferrer">{t('contacts.telegram')}</a>
+        <a href={contacts.email} target="_blank" rel="noreferrer">{t('contacts.email')}</a>
+        <a href={contacts.whatsapp} target="_blank" rel="noreferrer">{t('contacts.whatsapp')}</a>
+      </div>
     </main>
   );
 }
