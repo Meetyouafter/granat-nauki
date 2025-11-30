@@ -1,4 +1,14 @@
 {
+  "Header": {
+    "navigation": {
+      "about": "Обо мне",
+      "services": "Услуги",
+      "articles": "Статьи",
+      "reviews": "Отзывы",
+      "faq": "FAQ",
+      "contacts": "Записаться"
+    }
+  },
   "HomePage": {
     "title": "Психолог — сайт‑визитка",
     "hero": {

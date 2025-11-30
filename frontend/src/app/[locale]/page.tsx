@@ -6,6 +6,10 @@ import { getTranslations } from 'next-intl/server';
 export default async function HomePage() {
   const t = await getTranslations('HomePage');
 
+  // const response = await fetch('http://localhost:3040/api/contacts');
+  // const data = await response.json();
+  // console.log(data);
+  
   return (
     <main>
       <h1>{t('title')}</h1>

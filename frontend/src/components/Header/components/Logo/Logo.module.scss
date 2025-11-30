@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 600;
+
+  span {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 14px;
+  }
+}

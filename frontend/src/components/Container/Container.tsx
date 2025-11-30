@@ -1,8 +1,16 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import styles from './Container.module.scss';
+import cns from 'classnames';
 
-export default function Container({ children }: { children: ReactNode }) {
-  return <div className={styles.container}>{children}</div>;
+interface IContainer {
+  children: ReactNode;
+  className?: string;
 }
+
+const Container: FC<IContainer> = ({ children, className }) => (
+  <div className={cns(styles.container, className)}>{children}</div>
+);
+
+export default Container;
 
 
