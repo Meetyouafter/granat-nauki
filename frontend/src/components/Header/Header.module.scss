@@ -1,3 +1,5 @@
+@use '../../styles/mixins';
+
 .root {
   z-index: 20;
   position: fixed;
@@ -9,10 +11,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 64px;
   gap: 16px;
+  padding: 0 24px;
 
-  @media (max-width: 1024px) {
+  @include mixins.tablet {
     justify-content: flex-start;
   }
 }

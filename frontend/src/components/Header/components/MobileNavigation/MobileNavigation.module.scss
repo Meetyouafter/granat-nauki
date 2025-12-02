@@ -1,3 +1,5 @@
+@use '../../../../styles/mixins';
+
 .overlay {
   display: none;
   position: fixed;
@@ -8,7 +10,7 @@
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 
-  @media (max-width: 1024px) {
+  @include mixins.tablet {
     display: block;
   }
 
@@ -35,7 +37,7 @@
     display: none;
   }
 
-  @media (max-width: 1024px) {
+  @include mixins.tablet {
     display: flex;
     flex-direction: column;
   }

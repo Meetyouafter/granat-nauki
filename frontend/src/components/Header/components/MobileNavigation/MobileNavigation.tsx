@@ -14,18 +14,6 @@ const MobileNavigation = () => {
 
   const handleToggleMenu = () => setIsOpen(prev => !prev);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   // Закрываем меню при изменении маршрута
   useEffect(() => {
     setIsOpen(false);

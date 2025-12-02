@@ -1,14 +1,30 @@
+@use '../../../../styles/mixins';
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 1.15, 1.15);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 .root {
   display: flex;
   align-items: center;
   gap: 16px;
 
-  @media (max-width: 1024px) {
+  @include mixins.tablet {
     display: none;
   }
 
   &.mobile {
-    @media (max-width: 1024px) {
+    @include mixins.tablet {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -20,6 +36,7 @@
     color: var(--muted);
 
     &:hover {
+      animation: pulse 0.5s ease-in-out;
       color: var(--text);
     }
   }
@@ -35,7 +52,7 @@
       filter: brightness(1.05);
     }
 
-    @media (max-width: 1024px) {
+    @include mixins.tablet {
       width: 100%;
       text-align: center;
       margin-top: auto;
@@ -45,7 +62,7 @@
   &.mobile {
     .link,
     .cta {
-      @media (max-width: 1024px) {
+      @include mixins.tablet {
         width: 100%;
         padding: 12px 0;
         font-size: 18px;
