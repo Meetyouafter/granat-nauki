@@ -1,3 +1,5 @@
+@use 'animations';
+
 @mixin container {
   width: 100%;
   max-width: 1440px;
@@ -14,5 +16,26 @@
 @mixin mobile {
   @media (max-width: 768px) {
     @content;
+  }
+}
+
+@mixin link {
+  color: var(--text);
+
+  &:hover {
+    animation: pulse 0.5s ease-in-out;
+    color: var(--text-muted);
+  }
+}
+
+@mixin button {
+  padding: 8px 12px;
+  background-color: var(--accent);
+  color: var(--main);
+  border-radius: 8px;
+  font-weight: 600;
+
+  &:hover {
+    filter: brightness(1.05);
   }
 }

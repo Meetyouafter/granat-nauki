@@ -1,23 +1,11 @@
 @use '../../../../styles/mixins';
-
-@keyframes pulse {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    transform: scale3d(1.15, 1.15, 1.15);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
-}
+@use '../../../../styles/typography';
 
 .root {
   display: flex;
   align-items: center;
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 24px;
 
   @include mixins.tablet {
     display: none;
@@ -33,40 +21,20 @@
   }
 
   .link {
-    color: var(--muted);
+    @include mixins.link;
 
-    &:hover {
-      animation: pulse 0.5s ease-in-out;
-      color: var(--text);
+    @include mixins.tablet {
+      @include typography.text-md;
     }
   }
 
   .cta {
-    padding: 8px 12px;
-    background: var(--accent);
-    color: #0b0e14;
-    border-radius: 8px;
-    font-weight: 600;
-
-    &:hover {
-      filter: brightness(1.05);
-    }
+    @include mixins.button;
 
     @include mixins.tablet {
       width: 100%;
       text-align: center;
       margin-top: auto;
-    }
-  }
-
-  &.mobile {
-    .link,
-    .cta {
-      @include mixins.tablet {
-        width: 100%;
-        padding: 12px 0;
-        font-size: 18px;
-      }
     }
   }
 }

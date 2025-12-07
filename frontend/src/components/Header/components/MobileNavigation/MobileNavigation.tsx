@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Navigation from '../Navigation/Navigation';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
@@ -9,7 +9,6 @@ import { createPortal } from 'react-dom';
 
 const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
   const handleToggleMenu = () => setIsOpen(prev => !prev);
@@ -19,23 +18,21 @@ const MobileNavigation = () => {
     setIsOpen(false);
   }, [pathname]);
 
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
-
   return (
     <>
+    {createPortal(
+      <>
       <HamburgerMenu isOpen={isOpen} onClick={handleToggleMenu} />
-      {isOpen && createPortal(
-        <>
-          <div className={`${styles.overlay} ${styles.open}`} onClick={closeMenu} />
-          <div className={`${styles.menu} ${styles.open}`}>
-            <HamburgerMenu isOpen={isOpen} onClick={handleToggleMenu} />
-            <Navigation handleToggleMenu={closeMenu} isMobile />
+      <div 
+            className={`${styles.overlay} ${isOpen ? styles.open : ''}`} 
+            onClick={handleToggleMenu} 
+          />
+          <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
+            <Navigation handleToggleMenu={handleToggleMenu} isMobile />
           </div>
-        </>,
-        document.body
-      )}
+      </>,
+      document.body
+    )}
     </>
   );
 };

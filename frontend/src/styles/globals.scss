@@ -1,10 +1,13 @@
+@use 'typography';
+
 html,
 body {
+  @include typography.text-sm;
   padding: 0;
   margin: 0;
   width: 100dvw;
   min-height: 100dvh;
-  background: var(--bg);
+  background-color: var(--main);
   color: var(--text);
 }
 

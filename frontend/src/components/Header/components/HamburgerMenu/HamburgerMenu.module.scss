@@ -1,26 +1,29 @@
+@use '../../../../styles/mixins';
+
 .root {
+  z-index: 100;
+  transition: all 0.5s ease;
+  position: fixed;
+  inset: 24px auto auto 24px;
   display: none;
   flex-direction: column;
   justify-content: space-around;
   width: 24px;
   height: 20px;
-  background: transparent;
-  border: none;
+  background-color: transparent;
   cursor: pointer;
-  padding: 0;
-  z-index: 21;
 
-  @media (max-width: 1043px) {
+  @include mixins.tablet {
     display: flex;
   }
 
   .line {
-    width: 100%;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
+    border-radius: 2px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text);
   }
 
   &.open {

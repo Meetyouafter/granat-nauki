@@ -14,8 +14,4 @@
   height: 64px;
   gap: 16px;
   padding: 0 24px;
-
-  @include mixins.tablet {
-    justify-content: flex-start;
-  }
 }

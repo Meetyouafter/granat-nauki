@@ -6,10 +6,10 @@ import MobileNavigation from './components/MobileNavigation/MobileNavigation';
 const Header = () => (
   <header className={styles.root}>
     <div className={styles.container}>
-      <MobileNavigation />
       <Logo />
       <Navigation />
     </div>
+    <MobileNavigation />
   </header>
 );
 
