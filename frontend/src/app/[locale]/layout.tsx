@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import Cookie from '@/components/Cookie/Cookie';
 
 import '@/styles/index.scss';
 
@@ -29,6 +30,7 @@ export default async function LocaleLayout({children, params}: Props) {
             <Header />
             {children}
             <Footer />
+            <Cookie />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

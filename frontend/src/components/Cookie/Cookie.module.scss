@@ -1,0 +1,46 @@
+@use '@/styles/typography';
+@use '@/styles/mixins';
+@use '@/styles/animations';
+
+.root {
+  animation: fadeInDown 0.5s ease forwards;
+  position: fixed;
+  inset: auto 16px 16px auto;
+  max-width: 320px;
+  padding: 16px;
+  background-color: var(--secondary);
+
+  &_hidden {
+    animation: lightSpeedOutRight 0.5s forwards;
+  }
+
+  @include mixins.mobile {
+    inset: auto 8px 8px;
+    max-width: 100%;
+  }
+
+  .title {
+    @include typography.text-md;
+    margin-bottom: 8px;
+    color: var(--main);
+  }
+
+  .description {
+    @include typography.text-sm;
+    margin-bottom: 8px;
+    color: var(--main);
+  }
+
+  .actions {
+    display: flex;
+    gap: 16px;
+  }
+
+  .accept {
+    @include mixins.main_button;
+  }
+
+  .reject {
+    @include mixins.secondary_button;
+  }
+}

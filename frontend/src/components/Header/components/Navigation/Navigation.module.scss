@@ -29,7 +29,7 @@
   }
 
   .cta {
-    @include mixins.button;
+    @include mixins.main_button;
 
     @include mixins.tablet {
       width: 100%;

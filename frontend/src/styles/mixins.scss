@@ -28,9 +28,21 @@
   }
 }
 
-@mixin button {
+@mixin main_button {
   padding: 8px 12px;
   background-color: var(--accent);
+  color: var(--main);
+  border-radius: 8px;
+  font-weight: 600;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+}
+
+@mixin secondary_button {
+  padding: 8px 12px;
+  background-color: var(--secondary);
   color: var(--main);
   border-radius: 8px;
   font-weight: 600;

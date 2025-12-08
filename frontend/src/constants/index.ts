@@ -20,3 +20,5 @@ export const socialLinks = {
   telegram: 'https://t.me/lev_ant',
   instagram: 'https://www.instagram.com/lev_ant',
 };
+
+export const COOKIE_ACCEPTED = 'cookie_accepted';
