@@ -6,7 +6,8 @@
   animation: fadeInDown 0.5s ease forwards;
   position: fixed;
   inset: auto 16px 16px auto;
-  max-width: 320px;
+  border-radius: 8px;
+  max-width: 400px;
   padding: 16px;
   background-color: var(--secondary);
 
@@ -31,16 +32,8 @@
     color: var(--main);
   }
 
-  .actions {
-    display: flex;
-    gap: 16px;
-  }
-
-  .accept {
+  .button {
     @include mixins.main_button;
-  }
-
-  .reject {
-    @include mixins.secondary_button;
+    min-width: 120px;
   }
 }

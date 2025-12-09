@@ -37,8 +37,6 @@ const Cookie = () => {
     }
   };
 
-  const handleReject = () => setIsHidden(true);
-
   return (
     isCookieAccepted ? null : (
       <div className={classNames(styles.root, {
@@ -46,10 +44,7 @@ const Cookie = () => {
       })}>
         <h6 className={styles.title}>{t('title')}</h6>
         <p className={styles.description}>{t('description')}</p>
-        <div className={styles.actions}>
-          <button className={styles.accept} onClick={handleAccept}>{t('accept')}</button>
-          <button className={styles.reject} onClick={handleReject}>{t('reject')}</button>
-        </div>
+        <button className={styles.button} onClick={handleAccept}>{t('accept')}</button>
       </div>
     )
   );
