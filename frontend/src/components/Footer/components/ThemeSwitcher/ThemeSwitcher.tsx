@@ -8,16 +8,11 @@ export default function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button
-      onClick={toggleTheme}
-      className={styles.themeButton}
-      aria-label={`Переключить на ${theme === 'light' ? 'темную' : 'светлую'} тему`}
-    >
-      {theme === 'light' ? (
-        <Image src="/icons/moon.svg" alt="Moon" width={24} height={24} />
-      ) : (
-        <Image src="/icons/sun.svg" alt="Sun" width={24} height={24} />
-      )}
-    </button>
+    <label htmlFor="theme-switcher" className={styles.switch}>
+      <input id="theme-switcher" type="checkbox" checked={theme === 'light'} onClick={toggleTheme} />
+      <span className={styles.slider}></span>
+      <Image className={styles.moonIcon} src="/icons/moon.svg" alt="Moon" width={20} height={20} />
+      <Image className={styles.sunIcon} src="/icons/sun.svg" alt="Sun" width={20} height={20} />
+    </label>
   );
 }

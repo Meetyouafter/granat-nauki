@@ -22,3 +22,4 @@ export const socialLinks = {
 };
 
 export const COOKIE_ACCEPTED = 'cookie_accepted';
+export const THEME = 'theme';

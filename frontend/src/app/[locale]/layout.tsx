@@ -4,10 +4,14 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Cookie from '@/components/Cookie/Cookie';
+import { cookies } from 'next/headers';
 
 import '@/styles/index.scss';
 
 import { Roboto } from 'next/font/google';
+import { THEME } from '@/constants';
+import { Suspense } from 'react';
+import Loading from './loading';
  
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -18,17 +22,20 @@ type Props = {
   params: Promise<{locale: string}>;
 };
  
-export default async function LocaleLayout({children, params}: Props) {
+const Layout = async ({children, params}: Props) => {
+  const theme = await cookies().then(res => res.get(THEME)?.value);
   const {locale} = await params;
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html data-theme={theme} lang={locale}>
       <body className={roboto.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <ThemeProvider>
             <Header />
-            {children}
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
             <Footer />
             <Cookie />
           </ThemeProvider>
@@ -36,4 +43,6 @@ export default async function LocaleLayout({children, params}: Props) {
       </body>
     </html>
   );
-}
+};
+
+export default Layout;

@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { THEME } from '@/constants';
+import { createContext, useContext, useState, ReactNode, useLayoutEffect, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -24,31 +25,34 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  // Инициализируем тему синхронно из localStorage или системных настроек
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Проверяем сохраненную тему в localStorage
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') as Theme;
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        return savedTheme;
-      }
-      // Проверяем системные настройки
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
+  const [theme, setTheme] = useState<Theme | null>(null);
+
+  const actionSetTheme = useCallback((correctTheme: Theme) => {
+    document.documentElement.setAttribute('data-theme', correctTheme);
+    setTheme(correctTheme);
+    cookieStore.set({
+      name: THEME,
+      value: correctTheme,
+      path: '/',
+      expires: Date.now() + 365 * 24 * 60 * 60 * 1000, // 1 year
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    // смотрим тему установленную из cookies
+    const settedTheme = document.documentElement.getAttribute('data-theme');
+    if (settedTheme) {
+      setTheme(settedTheme as Theme);
+      return;
     }
-    return 'dark';
-  });
 
-  useEffect(() => {
-    // Применяем тему к документу
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  const toggleTheme = () => {
-    console.log('toggleTheme');
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+    const correctTheme = prefersDark ? 'dark' : 'light';
+    actionSetTheme(correctTheme);
+  }, [actionSetTheme]);
+
+  const toggleTheme = () => actionSetTheme(theme === 'light' ? 'dark' : 'light');
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

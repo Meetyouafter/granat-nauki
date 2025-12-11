@@ -1,28 +1,61 @@
-.themeButton {
-  border-radius: 50%;
-  background: var(--card);
-  color: var(--text);
+.switch {
+  position: relative;
+  display: block;
+  height: 24px;
+  width: 48px;
+  border-radius: 30px;
   cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-  &:hover {
-    opacity: 0.8;
-    background: var(--accent);
-    color: var(--bg);
-    transform: scale(1.05);
-  }
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  img {
-    transition: transform 0.2s ease;
-  }
+.slider {
+  transition: .4s;
+  position: absolute;
+  inset: 0;
+  border-radius: 34px;
+  background-color: #fff;
+  cursor: pointer;
+}
 
-  &:hover img {
-    transform: scale(1.2);
-  }
+.slider:before {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  inset: 0;
+  height: 24px;
+  width: 24px;
+  background-color: green;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.moonIcon {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+}
+
+.sunIcon {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  transform: translateX(24px);
 }
