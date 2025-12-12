@@ -1,10 +1,17 @@
+@use '@/styles/mixins';
+
 .switch {
   position: relative;
   display: block;
-  height: 24px;
-  width: 48px;
+  margin-left: auto;
   border-radius: 30px;
+  height: 32px;
+  width: 64px;
   cursor: pointer;
+
+  @include mixins.mobile {
+    margin-left: 0;
+  }
 }
 
 .switch input {
@@ -27,8 +34,8 @@
   z-index: 2;
   position: absolute;
   inset: 0;
-  height: 24px;
-  width: 24px;
+  height: 32px;
+  width: 32px;
   background-color: green;
   transition: .4s;
   border-radius: 50%;
@@ -37,7 +44,7 @@
 .moonIcon {
   position: absolute;
   top: 50%;
-  left: 2px;
+  left: 4px;
   transform: translateY(-50%);
 }
 
@@ -57,5 +64,5 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-  transform: translateX(24px);
+  transform: translateX(32px);
 }

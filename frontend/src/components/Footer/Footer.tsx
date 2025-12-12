@@ -10,13 +10,15 @@ export default async function Footer() {
 
   return (
     <footer className={styles.root}>
-      <div className={styles.content}>
+      <div className={styles.block}>
         <p>logo</p>
         <ThemeSwitcher />
         <LanguageSwitcher />
       </div>
-      <Socials />
-      <p className={styles.copyright}>{t('copyright', { year })}</p>
+      <div className={styles.block}>
+        <p className={styles.copyright}>{t('copyright', { year })}</p>
+        <Socials />
+      </div>
     </footer>
   );
 }

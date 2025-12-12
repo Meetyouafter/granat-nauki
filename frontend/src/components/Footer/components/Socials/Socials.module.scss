@@ -1,8 +1,11 @@
+@use '@/styles/animations';
+
 .root {
   display: flex;
-  gap: 16px;
-}
+  gap: 8px;
 
-.link:hover {
-  opacity: 0.8;
+  .link:hover {
+    animation: pulse 0.5s ease-in-out;
+    opacity: 0.8;
+  }
 }

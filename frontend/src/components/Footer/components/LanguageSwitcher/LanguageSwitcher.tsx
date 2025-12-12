@@ -21,7 +21,7 @@ const LanguageSwitcher = () => {
       onClick={() => switchLanguage('ru')}
       className={styles.button}
     >
-      <Image src="/icons/flags/ru.svg" alt="Russian" width={24} height={24} />
+      <Image src="/icons/flags/ru.svg" alt="Russian" width={32} height={32} />
       <span>{t('ru')}</span>
     </button>
   ) : (
@@ -29,7 +29,7 @@ const LanguageSwitcher = () => {
       onClick={() => switchLanguage('en')}
       className={styles.button}
     >
-      <Image src="/icons/flags/en.svg" alt="English" width={24} height={24} />
+      <Image src="/icons/flags/en.svg" alt="English" width={32} height={32} />
       <span>{t('en')}</span>
     </button>
   );
