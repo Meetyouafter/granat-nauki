@@ -20,18 +20,18 @@
 }
 
 @mixin link {
-  color: var(--text);
+  color: var(--color-text-primary);
 
   &:hover {
     animation: pulse 0.5s ease-in-out;
-    color: var(--text-muted);
+    color: var(--color-text-secondary);
   }
 }
 
 @mixin main_button {
   padding: 8px 12px;
-  background-color: var(--accent);
-  color: var(--main);
+  background-color: var(--color-accent-primary);
+  color: var(--color-text-inverse);
   border-radius: 8px;
   font-weight: 600;
 
@@ -42,8 +42,8 @@
 
 @mixin secondary_button {
   padding: 8px 12px;
-  background-color: var(--secondary);
-  color: var(--main);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-primary);
   border-radius: 8px;
   font-weight: 600;
 

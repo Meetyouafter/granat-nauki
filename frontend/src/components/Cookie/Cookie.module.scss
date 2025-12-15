@@ -9,7 +9,7 @@
   border-radius: 8px;
   max-width: 400px;
   padding: 16px;
-  background-color: var(--secondary);
+  background-color: var(--color-surface-secondary);
 
   &_hidden {
     animation: lightSpeedOutRight 0.5s forwards;
@@ -23,13 +23,13 @@
   .title {
     @include typography.text-md;
     margin-bottom: 8px;
-    color: var(--main);
+    color: var(--color-text-primary);
   }
 
   .description {
     @include typography.text-sm;
     margin-bottom: 8px;
-    color: var(--main);
+    color: var(--color-text-primary);
   }
 
   .button {

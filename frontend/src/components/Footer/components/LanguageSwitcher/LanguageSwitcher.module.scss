@@ -11,7 +11,7 @@
   span {
     @include typography.text-sm;
     position: relative;
-    color: var(--secondary);
+    color: var(--color-text-secondary);
 
     &::after {
       content: "";

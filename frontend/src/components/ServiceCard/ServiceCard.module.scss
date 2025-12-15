@@ -2,9 +2,9 @@
 @use '@/styles/mixins';
 
 .card {
-    background: var(--card, var(--color-surface-primary));
+    background: var(--color-surface-primary);
     border-radius: 16px;
-    border: 1px solid var(--border, var(--color-border-primary));
+    border: 1px solid var(--color-border-primary);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
@@ -21,7 +21,7 @@
     &:hover {
         transform: translateY(-8px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        border-color: var(--accent, var(--color-accent-primary));
+        border-color: var(--color-accent-primary);
 
         .imageWrapper {
             transform: scale(1.05);
@@ -32,7 +32,7 @@
         }
 
         .title {
-            color: var(--accent, var(--color-accent-primary));
+            color: var(--color-accent-primary);
         }
     }
 
@@ -59,7 +59,7 @@
     width: 50%;
     min-height: 360px;
     overflow: hidden;
-    background: var(--color-bg-secondary, #f5f6f8);
+    background: var(--color-bg-secondary);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     @include mixins.tablet {
@@ -99,7 +99,7 @@
 .title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text, var(--color-text-primary));
+    color: var(--color-text-primary);
     margin: 0;
     transition: color 0.3s ease;
 
@@ -111,7 +111,7 @@
 .description {
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--text, var(--color-text-secondary));
+    color: var(--color-text-secondary);
     margin: 0;
     flex: 1;
     opacity: 0.8;
@@ -126,7 +126,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 16px;
-    border-top: 1px solid var(--border, var(--color-border-primary));
+    border-top: 1px solid var(--color-border-primary);
     gap: 16px;
 
     @include mixins.mobile {
@@ -138,7 +138,7 @@
 
 .duration {
     font-size: 0.9rem;
-    color: var(--text, var(--color-text-tertiary));
+    color: var(--color-text-tertiary);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -157,7 +157,7 @@
 .price {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--accent, var(--color-accent-primary));
+    color: var(--color-accent-primary);
 
     @include mixins.mobile {
         font-size: 1.1rem;
