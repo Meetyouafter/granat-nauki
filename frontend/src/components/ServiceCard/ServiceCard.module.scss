@@ -1,0 +1,177 @@
+@use '@/styles/animations';
+@use '@/styles/mixins';
+
+.card {
+    background: var(--card, var(--color-surface-primary));
+    border-radius: 16px;
+    border: 1px solid var(--border, var(--color-border-primary));
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(30px);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 320px;
+
+    &.visible {
+        animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        border-color: var(--accent, var(--color-accent-primary));
+
+        .imageWrapper {
+            transform: scale(1.05);
+        }
+
+        .image {
+            filter: brightness(1.1);
+        }
+
+        .title {
+            color: var(--accent, var(--color-accent-primary));
+        }
+    }
+
+    &:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    @include mixins.mobile {
+        flex-direction: column;
+        min-height: 0;
+
+        &:nth-child(even) {
+            flex-direction: column;
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    width: 50%;
+    min-height: 360px;
+    overflow: hidden;
+    background: var(--color-bg-secondary, #f5f6f8);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @include mixins.tablet {
+        min-height: 320px;
+    }
+
+    @include mixins.mobile {
+        width: 100%;
+        min-height: 220px;
+    }
+}
+
+.image {
+    object-fit: cover;
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+    width: 50%;
+
+    @include mixins.tablet {
+        padding: 22px;
+    }
+
+    @include mixins.mobile {
+        padding: 20px;
+        gap: 10px;
+        width: 100%;
+    }
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text, var(--color-text-primary));
+    margin: 0;
+    transition: color 0.3s ease;
+
+    @include mixins.mobile {
+        font-size: 1.25rem;
+    }
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text, var(--color-text-secondary));
+    margin: 0;
+    flex: 1;
+    opacity: 0.8;
+
+    @include mixins.mobile {
+        font-size: 0.9rem;
+    }
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border, var(--color-border-primary));
+    gap: 16px;
+
+    @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: var(--text, var(--color-text-tertiary));
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+
+    &::before {
+        content: '⏱';
+        font-size: 1rem;
+    }
+
+    @include mixins.mobile {
+        font-size: 0.85rem;
+    }
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent, var(--color-accent-primary));
+
+    @include mixins.mobile {
+        font-size: 1.1rem;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
