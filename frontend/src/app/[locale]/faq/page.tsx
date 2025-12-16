@@ -1,6 +1,6 @@
 import Section from '../../../components/Section/Section';
 import styles from './page.module.scss';
-import { faqData } from '../../../data/faqData';
+import { faqData } from '@data/faqData';
 
 const FaqPage = () => {
   return (

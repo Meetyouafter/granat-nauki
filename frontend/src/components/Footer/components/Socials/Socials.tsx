@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { socialLinks } from '@/constants';
+import { socialLinks } from '@constants';
 
 import styles from './Socials.module.scss';
 

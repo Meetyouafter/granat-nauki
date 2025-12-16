@@ -1,5 +1,5 @@
-@use '@/styles/typography';
-@use '@/styles/mixins';
+@use '@styles/typography';
+@use '@styles/mixins';
 
 .root {
   border-top: 1px solid var(--color-border-secondary);

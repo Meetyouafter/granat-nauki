@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { paths } from '@/constants';
+import { paths } from '@constants';
 import styles from './Navigation.module.scss';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';

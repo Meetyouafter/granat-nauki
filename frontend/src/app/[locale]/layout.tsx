@@ -1,15 +1,15 @@
-import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
+import Footer from '@components/Footer/Footer';
+import Header from '@components/Header/Header';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import Cookie from '@/components/Cookie/Cookie';
+import Cookie from '@components/Cookie/Cookie';
 import { cookies } from 'next/headers';
 
-import '@/styles/index.scss';
+import '@styles/index.scss';
 
 import { Roboto } from 'next/font/google';
-import { THEME } from '@/constants';
+import { THEME } from '@constants';
  
 const roboto = Roboto({
   subsets: ['cyrillic'],

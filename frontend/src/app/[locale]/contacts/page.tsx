@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
-import { contacts } from '@/constants';
+import { contacts } from '@constants';
 
 import styles from './page.module.scss';
 

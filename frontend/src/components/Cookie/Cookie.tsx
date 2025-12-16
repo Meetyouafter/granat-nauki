@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import styles from './Cookie.module.scss';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { COOKIE_ACCEPTED } from '@/constants';
+import { COOKIE_ACCEPTED } from '@constants';
 
 const Cookie = () => {
   const [isCookieAccepted, setIsCookieAccepted] = useState(true);

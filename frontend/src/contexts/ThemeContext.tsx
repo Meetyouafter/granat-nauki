@@ -1,6 +1,6 @@
 'use client';
 
-import { THEME } from '@/constants';
+import { THEME } from '@constants';
 import { createContext, useContext, useState, ReactNode, useLayoutEffect, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
