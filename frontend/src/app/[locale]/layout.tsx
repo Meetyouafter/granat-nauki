@@ -10,8 +10,6 @@ import '@/styles/index.scss';
 
 import { Roboto } from 'next/font/google';
 import { THEME } from '@/constants';
-import { Suspense } from 'react';
-import Loading from './loading';
  
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -33,9 +31,7 @@ const Layout = async ({children, params}: Props) => {
         <NextIntlClientProvider messages={messages} locale={locale}>
           <ThemeProvider>
             <Header />
-            <Suspense fallback={<Loading />}>
-              {children}
-            </Suspense>
+            {children}
             <Footer />
             <Cookie />
           </ThemeProvider>

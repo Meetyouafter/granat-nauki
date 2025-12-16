@@ -1,25 +1,22 @@
 import Section from '../../../components/Section/Section';
 import styles from './page.module.scss';
+import { faqData } from '../../../data/faqData';
 
-export default async function FaqPage() {
+const FaqPage = () => {
   return (
     <main>
       <Section title="Частые вопросы" lead="Коротко о важном.">
-        <details className={styles.item}>
-          <summary>Как проходит первая консультация?</summary>
-          <p>Знакомимся, формулируем ваш запрос и договариваемся о формате.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>Можно ли онлайн?</summary>
-          <p>Да, работаю в Zoom/Meet. Очные сессии — по договоренности.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>Конфиденциальность?</summary>
-          <p>Строго соблюдается. Ваши данные и содержание встреч не передаются третьим лицам.</p>
-        </details>
+        <div className={styles.list}>
+          {faqData.map((item, index) => (
+            <details key={index} className={styles.item}>
+              <summary className={styles.summary}>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
       </Section>
     </main>
   );
-}
+};
 
-
+export default FaqPage;

@@ -35,5 +35,42 @@
                 "Boundaries in relationships: how to notice and defend them"
             ]
         }
+    },
+    "AboutPage": {
+        "title": "About me",
+        "subtitle": "Practicing psychologist with over 5 years of experience. I work in humanistic and cognitive-behavioral approaches.",
+        "experience": "years of experience",
+        "about": {
+            "title": "About my work",
+            "description": "Practicing psychologist with over 5 years of experience. I work in humanistic and cognitive-behavioral approaches.",
+            "help": "I help cope with anxiety, burnout, relationship difficulties, and self-esteem issues."
+        },
+        "approaches": {
+            "title": "Therapeutic approaches",
+            "humanistic": "Humanistic approach",
+            "cbt": "Cognitive-behavioral therapy"
+        },
+        "helpAreas": {
+            "title": "What I help with",
+            "anxiety": "Anxiety and panic attacks",
+            "burnout": "Emotional burnout",
+            "relationships": "Relationship difficulties",
+            "selfEsteem": "Self-esteem and confidence"
+        },
+        "qualifications": {
+            "title": "Qualifications",
+            "education": {
+                "title": "Higher psychological education",
+                "description": "Received a degree in psychology, regularly improve my qualifications."
+            },
+            "supervision": {
+                "title": "Supervision and personal therapy",
+                "description": "Regularly undergo supervision and personal therapy to maintain professional standards."
+            },
+            "training": {
+                "title": "Regular training",
+                "description": "Constantly study new methods and approaches, attend seminars and conferences."
+            }
+        }
     }
 }

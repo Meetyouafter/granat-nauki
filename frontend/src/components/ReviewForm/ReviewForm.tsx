@@ -1,10 +1,22 @@
-import Section from '../../../../components/Section/Section';
-import styles from './page.module.scss';
+'use client';
 
-export default async function NewReviewPage() {
+import { useState } from 'react';
+import styles from './ReviewForm.module.scss';
+
+const ReviewForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <main>
-      <Section title="Оставить отзыв" lead="Анонимно, по желанию.">
+    <div className={styles.wrapper}>
+      <button 
+        type="button" 
+        onClick={() => setIsOpen(!isOpen)} 
+        className={styles.toggleButton}
+      >
+        {isOpen ? 'Скрыть форму' : 'Оставить отзыв'}
+      </button>
+      
+      {isOpen && (
         <form action="#" method="post" className={styles.form}>
           <label>
             Имя (опционально)
@@ -16,9 +28,10 @@ export default async function NewReviewPage() {
           </label>
           <button type="submit" className={styles.submit}>Отправить</button>
         </form>
-      </Section>
-    </main>
+      )}
+    </div>
   );
-}
+};
 
+export default ReviewForm;
 
