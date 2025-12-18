@@ -3,6 +3,16 @@ import Section from '../../../components/Section/Section';
 import ReviewForm from '../../../components/ReviewForm/ReviewForm';
 import styles from './page.module.scss';
 import { reviewsData } from '../../../data/reviewsData';
+import metadata from '@/data/metadata';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}): Promise<Metadata> {
+  return metadata.reviews[params.locale as keyof typeof metadata.reviews] ?? metadata.reviews.en;
+}
 
 const ReviewsPage = () => {
   return (

@@ -2,6 +2,16 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import Section from '../../../components/Section/Section';
 import styles from './page.module.scss';
+import { Metadata } from 'next';
+import metadata from '@/data/metadata';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}): Promise<Metadata> {
+  return metadata.about[params.locale as keyof typeof metadata.about] ?? metadata.about.en;
+}
 
 const AboutPage = async () => {
   const t = await getTranslations('AboutPage');

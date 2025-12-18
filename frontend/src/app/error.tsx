@@ -11,7 +11,6 @@ interface IError {
 const Error: FC<IError> = ({ error, reset }) => {
   return (
     <Section>
-      <h2>Ошибка загрузки FAQ</h2>
       <p>{error.message}</p>
       <button onClick={() => reset()}>Повторить</button>
     </Section>

@@ -3,6 +3,16 @@ import { getTranslations } from 'next-intl/server';
 import { contacts } from '@constants';
 
 import styles from './page.module.scss';
+import metadata from '@/data/metadata';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}): Promise<Metadata> {
+  return metadata.contacts[params.locale as keyof typeof metadata.contacts] ?? metadata.contacts.en;
+}
 
 const ContactsPage = async () => {
   const t = await getTranslations('ContactsPage');

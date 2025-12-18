@@ -5,15 +5,25 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Cookie from '@components/Cookie/Cookie';
 import { cookies } from 'next/headers';
+import { Metadata } from 'next';
 
 import '@styles/index.scss';
 
 import { Roboto } from 'next/font/google';
 import { THEME } from '@constants';
+import metadata from '@data/metadata';
  
 const roboto = Roboto({
   subsets: ['cyrillic'],
 });
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}): Promise<Metadata> {
+  return metadata.template[params.locale as keyof typeof metadata.template] ?? metadata.template.en;
+}
 
 type Props = {
   children: React.ReactNode;
