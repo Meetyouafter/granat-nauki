@@ -1,20 +1,48 @@
 {
     "HomePage": {
-        "title": "Psychologist — Business Card Website",
+        "title": "Child Psychologist and Tutor — Pomegranate of Science",
         "hero": {
-            "title": "Helping you find support in emotions and relationships",
-            "lead": "Individual and family therapy. Online and in-person.",
+            "title": "Supporting children and families: psychology, school readiness and learning",
+            "lead": "Child psychologist, school preparation tutor, and tutor for middle school students. Online and in-person.",
             "ctaPrimary": "Book a consultation",
             "ctaSecondary": "Learn about me"
         },
+        "aboutPsychologist": {
+            "title": "What is a psychologist and why you might need one",
+            "lead": "A psychologist is a professional who helps people make sense of emotions, behavior, and relationships.",
+            "paragraph1": "When working with children, a psychologist does not diagnose or prescribe medication. They create a safe space where a child can express feelings, learn to understand themselves, and find ways to cope with difficulties such as anxiety, fears, conflicts with peers or family, low self-esteem, and challenges with learning and motivation.",
+            "paragraph2": "For parents, a psychologist helps see what lies behind \"difficult\" behavior or moodiness, how to support the child, and how to build trusting relationships. Working together with the family often leads to the most lasting results."
+        },
+        "personalExperience": {
+            "title": "Personal experience and path into the profession",
+            "lead": "I came to psychology from a desire to help people — and especially children — feel understood and accepted.",
+            "paragraph1": "I have been working for over five years in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
+            "paragraph2": "It is important to me that every session feels safe and useful: no pressure, with respect for the child's pace and the parents' needs. I see the results when children cope better with emotions and parents feel more confident in supporting them."
+        },
+        "workWithChildren": {
+            "title": "Working with children: what I do",
+            "lead": "Three areas in which I support children and families.",
+            "childPsychologist": {
+                "title": "Child psychologist",
+                "description": "Consultations and sessions for children: anxiety, fears, aggression, difficulties in communication, low self-esteem, adaptation to kindergarten or school, coping with divorce or family conflict. I work using play and talk therapy, and involve parents when needed."
+            },
+            "schoolPrep": {
+                "title": "School preparation tutor",
+                "description": "Comprehensive preparation for 1st grade: developing attention, memory, thinking, speech, motor skills, and the ability to follow rules. I help the child ease into a school routine, reduce anxiety about starting school, and lay the foundation for successful adaptation."
+            },
+            "tutor": {
+                "title": "Tutor for middle school",
+                "description": "Support for students in grades 5–9: organizing study time, planning, developing independence and motivation. I help with workload, stress, and difficulties with teachers or classmates so that learning becomes conscious and manageable."
+            }
+        },
         "services": {
             "title": "How I can help",
-            "lead": "We'll choose a format that suits your needs.",
+            "lead": "We'll choose a format that fits your needs and your child's age.",
             "items": [
-                "Individual therapy",
-                "Couple/family therapy",
-                "Working with anxiety and burnout",
-                "Support during crisis periods"
+                "Child psychologist: consultations and sessions",
+                "School preparation (preschoolers)",
+                "Tutoring support (grades 5–9)",
+                "Family consultations and parent support"
             ]
         },
         "reviews": {

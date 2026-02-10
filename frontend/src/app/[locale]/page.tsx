@@ -40,6 +40,40 @@ const HomePage = async () => {
         </div>
       </Section>
 
+      <Section id="about-psychologist" title={t('aboutPsychologist.title')} lead={t('aboutPsychologist.lead')}>
+        <div className={styles.textBlock}>
+          <p>{t('aboutPsychologist.paragraph1')}</p>
+          <p>{t('aboutPsychologist.paragraph2')}</p>
+        </div>
+      </Section>
+
+      <Section id="personal-experience" title={t('personalExperience.title')} lead={t('personalExperience.lead')}>
+        <div className={styles.textBlock}>
+          <p>{t('personalExperience.paragraph1')}</p>
+          <p>{t('personalExperience.paragraph2')}</p>
+        </div>
+      </Section>
+
+      <Section id="work-with-children" title={t('workWithChildren.title')} lead={t('workWithChildren.lead')}>
+        <ul className={styles.workWithChildrenGrid}>
+          <li className={styles.workCard}>
+            <div className={styles.workCardIcon}>🧒</div>
+            <h3 className={styles.workCardTitle}>{t('workWithChildren.childPsychologist.title')}</h3>
+            <p className={styles.workCardDesc}>{t('workWithChildren.childPsychologist.description')}</p>
+          </li>
+          <li className={styles.workCard}>
+            <div className={styles.workCardIcon}>📚</div>
+            <h3 className={styles.workCardTitle}>{t('workWithChildren.schoolPrep.title')}</h3>
+            <p className={styles.workCardDesc}>{t('workWithChildren.schoolPrep.description')}</p>
+          </li>
+          <li className={styles.workCard}>
+            <div className={styles.workCardIcon}>🎒</div>
+            <h3 className={styles.workCardTitle}>{t('workWithChildren.tutor.title')}</h3>
+            <p className={styles.workCardDesc}>{t('workWithChildren.tutor.description')}</p>
+          </li>
+        </ul>
+      </Section>
+
       <Section id="services" title={t('services.title')} lead={t('services.lead')}>
         <ul className={styles.servicesGrid}>
           {t.raw('services.items').map((item: string, index: number) => (

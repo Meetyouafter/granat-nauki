@@ -3,24 +3,84 @@
 
 .root {
   border-top: 1px solid var(--color-border-secondary);
-  padding: 16px;
   background: var(--color-surface-primary);
+  margin-top: auto;
+}
 
-  .block {
-    display: flex;
+.container {
+  @include mixins.container;
+  padding-top: 32px;
+  padding-bottom: 24px;
+
+  @include mixins.mobile {
+    padding-top: 24px;
+    padding-bottom: 20px;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  row-gap: 20px;
+
+  @include mixins.tablet {
+    gap: 20px;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @include mixins.mobile {
+    order: 1;
+    justify-content: center;
+  }
+}
+
+.socialsBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+
+  @include mixins.mobile {
+    order: 2;
     align-items: center;
-    justify-content: space-between;
-    column-gap: 16px;
-
-    @include mixins.mobile {
-      flex-direction: column;
-      align-items: flex-start;
-      row-gap: 16px;
-    }
   }
+}
 
-  .copyright {
-    @include typography.text-sm;
-    color: var(--color-text-tertiary);
+.socialsTitle {
+  @include typography.text-xs;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bottom {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-secondary);
+
+  @include mixins.mobile {
+    margin-top: 20px;
+    padding-top: 16px;
+    text-align: center;
   }
+}
+
+.copyright {
+  @include typography.text-xs;
+  color: var(--color-text-tertiary);
+  margin: 0;
 }
