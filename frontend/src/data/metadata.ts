@@ -16,51 +16,61 @@ const metadata = {
   about: {
     ru: {
       title: 'Обо мне',
-      description: 'Описание на русском',
+      description: 'Практикующий психолог, тьютор и репетитор по подготовке к школе — о профессиональном пути и подходах в работе.',
     },
     en: {
       title: 'About me',
-      description: 'Description in English',
+      description: 'Practicing child psychologist, tutor and school-readiness coach — my background and approach to working with children.',
     },
   },
   contacts: {
     ru: {
-      title: 'Обо мне',
-      description: 'Описание на русском',
+      title: 'Контакты',
+      description: 'Свяжитесь со мной удобным способом: Telegram, email, WhatsApp — или оставьте заявку на консультацию.',
     },
     en: {
-      title: 'About me',
-      description: 'Description in English',
+      title: 'Contacts',
+      description: 'Get in touch via Telegram, email, or WhatsApp — or send a consultation request.',
     },
   },
   faq: {
     ru: {
-      title: 'Обо мне',
-      description: 'Описание на русском',
+      title: 'Частые вопросы',
+      description: 'Ответы на частые вопросы о консультациях, формате занятий и подготовке к школе.',
     },
     en: {
-      title: 'About me',
-      description: 'Description in English',
+      title: 'FAQ',
+      description: 'Answers to frequently asked questions about sessions, formats, and school readiness preparation.',
     },
   },
   reviews: {
     ru: {
-      title: 'Обо мне',
-      description: 'Описание на русском',
+      title: 'Отзывы',
+      description: 'Отзывы клиентов о консультациях и занятиях.',
     },
     en: {
-      title: 'About me',
-      description: 'Description in English',
+      title: 'Reviews',
+      description: 'Client reviews about consultations and sessions.',
     },
   },
   services: {
     ru: {
-      title: 'Обо мне',
-      description: 'Описание на русском',
+      title: 'Услуги',
+      description: 'Развивающие занятия, диагностика, психологические сессии и консультации.',
     },
     en: {
-      title: 'About me',
-      description: 'Description in English',
+      title: 'Services',
+      description: 'Developmental sessions, diagnostics, psychological sessions, and consultations.',
+    },
+  },
+  articles: {
+    ru: {
+      title: 'Статьи',
+      description: 'Небольшие заметки про эмоции, отношения и заботу о себе.',
+    },
+    en: {
+      title: 'Articles',
+      description: 'Short notes about emotions, relationships and self-care.',
     },
   },
 };

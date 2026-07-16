@@ -9,31 +9,36 @@ import { createPortal } from 'react-dom';
 
 const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
   const handleToggleMenu = () => setIsOpen(prev => !prev);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Закрываем меню при изменении маршрута
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  return (
+  if (!isMounted) {
+    return null;
+  }
+
+  return createPortal(
     <>
-    {createPortal(
-      <>
       <HamburgerMenu isOpen={isOpen} onClick={handleToggleMenu} />
-      <div 
-            className={`${styles.overlay} ${isOpen ? styles.open : ''}`} 
-            onClick={handleToggleMenu} 
-          />
-          <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
-            <Navigation handleToggleMenu={handleToggleMenu} isMobile />
-          </div>
-      </>,
-      document.body
-    )}
-    </>
+      <div
+        className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
+        onClick={handleToggleMenu}
+      />
+      <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
+        <Navigation handleToggleMenu={handleToggleMenu} isMobile />
+      </div>
+    </>,
+    document.body
   );
 };
 

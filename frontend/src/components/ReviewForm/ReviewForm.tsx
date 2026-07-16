@@ -1,32 +1,34 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import styles from './ReviewForm.module.scss';
 
 const ReviewForm = () => {
+  const t = useTranslations('ReviewForm');
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.wrapper}>
-      <button 
-        type="button" 
-        onClick={() => setIsOpen(!isOpen)} 
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
         className={styles.toggleButton}
       >
-        {isOpen ? 'Скрыть форму' : 'Оставить отзыв'}
+        {isOpen ? t('toggleClose') : t('toggleOpen')}
       </button>
-      
+
       {isOpen && (
         <form action="#" method="post" className={styles.form}>
           <label>
-            Имя (опционально)
-            <input name="name" placeholder="Например, Анна" className={styles.input} />
+            {t('name')}
+            <input name="name" placeholder={t('namePlaceholder')} className={styles.input} />
           </label>
           <label>
-            Отзыв
-            <textarea name="text" placeholder="Ваши впечатления" rows={6} className={styles.textarea} />
+            {t('text')}
+            <textarea name="text" placeholder={t('textPlaceholder')} rows={6} className={styles.textarea} />
           </label>
-          <button type="submit" className={styles.submit}>Отправить</button>
+          <button type="submit" className={styles.submit}>{t('submit')}</button>
         </form>
       )}
     </div>

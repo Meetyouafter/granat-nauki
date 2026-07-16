@@ -9,9 +9,10 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return metadata.contacts[params.locale as keyof typeof metadata.contacts] ?? metadata.contacts.en;
+  const { locale } = await params;
+  return metadata.contacts[locale as keyof typeof metadata.contacts] ?? metadata.contacts.en;
 }
 
 const ContactsPage = async () => {

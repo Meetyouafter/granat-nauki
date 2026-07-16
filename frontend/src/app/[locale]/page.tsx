@@ -106,7 +106,7 @@ const HomePage = async () => {
               <div className={styles.articleIcon}>📝</div>
               <h3 className={styles.articleTitle}>{item}</h3>
               <div className={styles.articleLink}>
-                <span>Читать</span>
+                <span>{t('articles.readMore')}</span>
                 <span className={styles.articleArrow}>→</span>
               </div>
             </li>

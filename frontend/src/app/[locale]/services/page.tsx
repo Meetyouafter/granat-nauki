@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import Section from '../../../components/Section/Section';
 import ServiceCard from '../../../components/ServiceCard/ServiceCard';
 import styles from './page.module.scss';
@@ -8,24 +9,28 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return metadata.services[params.locale as keyof typeof metadata.services] ?? metadata.services.en;
+  const { locale } = await params;
+  return metadata.services[locale as keyof typeof metadata.services] ?? metadata.services.en;
 }
 
-const ServicesPage = () => {
+const ServicesPage = async () => {
+  const t = await getTranslations('ServicesPage');
+  const items = t.raw('items') as { title: string; description: string; duration: string }[];
+
   return (
     <main className={styles.main}>
-      <Section title="Услуги" lead="Профессиональная помощь в развитии и психологической поддержке.">
+      <Section title={t('title')} lead={t('lead')}>
         <ul className={styles.list}>
-          {servicesData.map((service, index) => (
+          {items.map((item, index) => (
             <ServiceCard
-              key={service.title}
-              title={service.title}
-              description={service.description}
-              duration={service.duration}
-              price={service.price}
-              image={service.image}
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              duration={item.duration}
+              price={servicesData[index].price}
+              image={servicesData[index].image}
               index={index}
             />
           ))}

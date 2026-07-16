@@ -1,4 +1,14 @@
 {
+    "Header": {
+        "navigation": {
+            "about": "About",
+            "services": "Services",
+            "articles": "Articles",
+            "reviews": "Reviews",
+            "faq": "FAQ",
+            "contacts": "Book a session"
+        }
+    },
     "HomePage": {
         "title": "Child Psychologist and Tutor — Pomegranate of Science",
         "hero": {
@@ -57,6 +67,7 @@
         "articles": {
             "title": "Articles",
             "lead": "Short notes about emotions, relationships and self-care.",
+            "readMore": "Read more",
             "items": [
                 "How to deal with anxiety at work",
                 "First steps in emotional burnout",
@@ -100,5 +111,101 @@
                 "description": "Constantly study new methods and approaches, attend seminars and conferences."
             }
         }
+    },
+    "ServicesPage": {
+        "title": "Services",
+        "lead": "Professional support for development and psychological well-being.",
+        "items": [
+            {
+                "title": "Developmental sessions",
+                "description": "Individual sessions focused on developing memory, attention, thinking, and emotional intelligence. Includes exercises for concentration, working with imagery and planning, plus gentle support to build confidence. Suitable for children and adults who want to build resources and learn to handle difficult tasks.",
+                "duration": "50 minutes"
+            },
+            {
+                "title": "Diagnostics",
+                "description": "Comprehensive psychological assessment: identifying features of development, emotional state, and cognitive processes. Uses questionnaires, projective techniques, and conversation to give a clear picture of the current state and recommendations for next steps.",
+                "duration": "60 minutes"
+            },
+            {
+                "title": "Psychological session",
+                "description": "An individual session to work through stress, anxiety, burnout, and personal issues. I attentively guide the process, helping you notice your feelings, understand their causes, and choose sustainable strategies to regain clarity and energy for change.",
+                "duration": "50 minutes"
+            },
+            {
+                "title": "Consultation",
+                "description": "A one-off consultation for a quick look at your situation and decision-making. Suitable when you need an outside perspective, want to clarify options, and get concrete recommendations on steps and risks.",
+                "duration": "30 minutes"
+            }
+        ]
+    },
+    "ReviewsPage": {
+        "title": "Reviews",
+        "lead": "Real screenshots of thank-you messages — no names, just genuine experiences.",
+        "hint": "All reviews are presented as screenshots.",
+        "reviewAlt": "Review {number}",
+        "screenshotBadge": "Screenshot"
+    },
+    "ReviewForm": {
+        "toggleOpen": "Leave a review",
+        "toggleClose": "Hide the form",
+        "name": "Name (optional)",
+        "namePlaceholder": "e.g. Anna",
+        "text": "Review",
+        "textPlaceholder": "Share your impressions",
+        "submit": "Send"
+    },
+    "FaqPage": {
+        "title": "FAQ",
+        "lead": "A brief overview of what matters most."
+    },
+    "ArticlesPage": {
+        "title": "Articles",
+        "lead": "Short notes about emotions, relationships and self-care.",
+        "comingSoon": "This section is under construction. Articles are coming soon."
+    },
+    "ContactsPage": {
+        "title": "Contacts",
+        "subtitle": "Get in touch in whichever way is most convenient for you",
+        "contacts": {
+            "title": "Contacts",
+            "telegram": "Message on Telegram",
+            "email": "Send an email",
+            "whatsapp": "Message on WhatsApp"
+        },
+        "request": {
+            "title": "Consultation request",
+            "name": "Name",
+            "namePlaceholder": "Your name",
+            "contact": "Contact method",
+            "contactPlaceholder": "Phone or Telegram",
+            "message": "Briefly describe your request",
+            "messagePlaceholder": "How can I help?",
+            "submit": "Send"
+        }
+    },
+    "Footer": {
+        "copyright": "© {year} Granat Nauki. All rights reserved.",
+        "links": {
+            "contacts": "Contacts",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service"
+        },
+        "socials": {
+            "title": "My social media"
+        },
+        "languages": {
+            "ru": "Русский",
+            "en": "English"
+        }
+    },
+    "Cookie": {
+        "title": "🍪 Cookies",
+        "description": "Our website uses cookies to ensure proper functionality and improve your browsing experience. By continuing to use the site, you agree to the use of cookies.",
+        "accept": "Accept",
+        "reject": "Reject"
+    },
+    "LanguageSwitcher": {
+        "ru": "Русский",
+        "en": "English"
     }
 }

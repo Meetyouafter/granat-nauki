@@ -37,6 +37,21 @@ const Cookie = () => {
     }
   };
 
+  const handleReject = () => {
+    try {
+      cookieStore.set({
+        name: COOKIE_ACCEPTED,
+        value: 'false',
+        path: '/',
+        expires: Date.now() + 365 * 24 * 60 * 60 * 1000, // 1 year
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsHidden(true);
+    }
+  };
+
   return (
     isCookieAccepted ? null : (
       <div className={classNames(styles.root, {
@@ -44,7 +59,10 @@ const Cookie = () => {
       })}>
         <h6 className={styles.title}>{t('title')}</h6>
         <p className={styles.description}>{t('description')}</p>
-        <button className={styles.button} onClick={handleAccept}>{t('accept')}</button>
+        <div className={styles.actions}>
+          <button className={styles.button} onClick={handleAccept}>{t('accept')}</button>
+          <button className={styles.rejectButton} onClick={handleReject}>{t('reject')}</button>
+        </div>
       </div>
     )
   );

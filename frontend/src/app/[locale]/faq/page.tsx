@@ -5,13 +5,14 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return metadata.faq[params.locale as keyof typeof metadata.faq] ?? metadata.faq.en;
+  const { locale } = await params;
+  return metadata.faq[locale as keyof typeof metadata.faq] ?? metadata.faq.en;
 }
 
-async function getFaqData() {
-  const res = await fetch('http://localhost:4000/faq2', {
+async function getFaqData(locale: string) {
+  const res = await fetch(`http://localhost:4000/faq?locale=${locale}`, {
     cache: 'no-store'
   });
 
@@ -21,8 +22,13 @@ async function getFaqData() {
 
   return res.json();
 }
- 
-export default async function Page() {
-  const faqData = await getFaqData();
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params;
+  const faqData = await getFaqData(locale);
   return <FaqPage faqData={faqData} />;
 }

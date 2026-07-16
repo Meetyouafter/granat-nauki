@@ -32,8 +32,20 @@
     color: var(--color-text-primary);
   }
 
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
   .button {
     @include mixins.main_button;
     min-width: 120px;
+  }
+
+  .rejectButton {
+    @include mixins.secondary_button;
+    min-width: 120px;
+    border: 1px solid var(--color-border-primary);
   }
 }

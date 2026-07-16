@@ -8,9 +8,10 @@ import metadata from '@/data/metadata';
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return metadata.about[params.locale as keyof typeof metadata.about] ?? metadata.about.en;
+  const { locale } = await params;
+  return metadata.about[locale as keyof typeof metadata.about] ?? metadata.about.en;
 }
 
 const AboutPage = async () => {
