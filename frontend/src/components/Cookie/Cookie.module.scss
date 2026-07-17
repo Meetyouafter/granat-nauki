@@ -3,21 +3,21 @@
 @use '@styles/animations';
 
 .root {
-  animation: fadeInDown 0.5s ease forwards;
   position: fixed;
   inset: auto 16px 16px auto;
   border-radius: 8px;
   max-width: 400px;
   padding: 16px;
+  animation: fadeInDown 0.5s ease forwards;
   background-color: var(--color-surface-secondary);
-
-  &_hidden {
-    animation: lightSpeedOutRight 0.5s forwards;
-  }
 
   @include mixins.mobile {
     inset: auto 8px 8px;
     max-width: 100%;
+  }
+
+  &_hidden {
+    animation: lightSpeedOutRight 0.5s forwards;
   }
 
   .title {
@@ -34,8 +34,8 @@
 
   .actions {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .button {
@@ -45,7 +45,7 @@
 
   .rejectButton {
     @include mixins.secondary_button;
-    min-width: 120px;
     border: 1px solid var(--color-border-primary);
+    min-width: 120px;
   }
 }

@@ -5,10 +5,10 @@
 }
 
 .placeholder {
-  text-align: center;
-  padding: 48px 0;
-  color: var(--color-text-secondary);
   @include typography.text-sm;
+  padding: 48px 0;
+  text-align: center;
+  color: var(--color-text-secondary);
 }
 
 @keyframes fadeIn {

@@ -1,12 +1,12 @@
 @use '../../../../styles/mixins';
 
 .overlay {
-  z-index: 98;
-  transition: all 0.3s ease;
-  visibility: hidden;
   opacity: 0;
+  visibility: hidden;
+  z-index: 98;
   position: fixed;
   inset: 0;
+  transition: all 0.3s ease;
   background-color: rgba(var(--color-shadow-rgb), 0.5);
 
   &.open {
@@ -17,23 +17,23 @@
 
 .menu {
   z-index: 99;
-  transition: transform 0.3s ease;
+  transform: translateX(-100%);
   position: fixed;
   inset: 0 auto 0 0;
-  transform: translateX(-100%);
   display: none;
   min-width: 320px;
   padding: 80px 24px 24px;
+  transition: transform 0.3s ease;
   background-color: var(--color-bg-primary);
   scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   @include mixins.tablet {
     display: flex;
     flex-direction: column;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
   &.open {

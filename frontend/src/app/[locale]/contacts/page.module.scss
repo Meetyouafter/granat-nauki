@@ -3,9 +3,9 @@
 
 .root {
   @include mixins.container;
-  animation: fadeIn 0.6s ease-out;
   padding-top: 48px;
   padding-bottom: 64px;
+  animation: fadeIn 0.6s ease-out;
 
   @include mixins.tablet {
     padding-top: 32px;
@@ -21,9 +21,9 @@
 .header {
   display: grid;
   grid-template-columns: 400px 1fr;
+  align-items: center;
   gap: 48px;
   margin-bottom: 64px;
-  align-items: center;
 
   @include mixins.tablet {
     grid-template-columns: 300px 1fr;
@@ -40,12 +40,17 @@
 
 .picture {
   position: relative;
+  border-radius: 24px;
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(var(--color-shadow-rgb), 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 32px rgba(var(--color-shadow-rgb), 0.12);
+
+  @include mixins.mobile {
+    margin: 0 auto;
+    max-width: 300px;
+  }
 
   &:hover {
     transform: translateY(-4px);
@@ -53,13 +58,8 @@
   }
 
   img {
-    object-fit: cover;
     border-radius: 24px;
-  }
-
-  @include mixins.mobile {
-    max-width: 300px;
-    margin: 0 auto;
+    object-fit: cover;
   }
 }
 
@@ -75,8 +75,8 @@
   margin: 0;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @include mixins.tablet {
     @include typography.text-xl;
@@ -92,9 +92,9 @@
 
 .subtitle {
   @include typography.text-md;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
   margin: 0;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
 
   @include mixins.mobile {
     @include typography.text-sm;
@@ -106,8 +106,8 @@
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
   align-items: start;
+  gap: 48px;
 
   @include mixins.tablet {
     gap: 32px;
@@ -142,21 +142,21 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: var(--color-surface-primary);
-  padding: 32px;
-  border-radius: 20px;
   border: 1px solid var(--color-border-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.04);
+  border-radius: 20px;
+  padding: 32px;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(var(--color-shadow-rgb), 0.08);
-    border-color: var(--color-border-secondary);
-  }
+  background: var(--color-surface-primary);
+  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.04);
 
   @include mixins.mobile {
-    padding: 24px;
     border-radius: 16px;
+    padding: 24px;
+  }
+
+  &:hover {
+    border-color: var(--color-border-secondary);
+    box-shadow: 0 8px 24px rgba(var(--color-shadow-rgb), 0.08);
   }
 }
 
@@ -174,15 +174,15 @@
 
 .input,
 .textarea {
+  @include typography.text-sm;
+  border: 2px solid var(--color-border-primary);
+  border-radius: 12px;
   width: 100%;
   padding: 14px 16px;
-  border-radius: 12px;
-  border: 2px solid var(--color-border-primary);
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  @include typography.text-sm;
-  font-family: inherit;
   transition: all 0.3s ease;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
   outline: none;
 
   &::placeholder {
@@ -190,9 +190,9 @@
   }
 
   &:focus {
+    transform: translateY(-1px);
     border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.1);
-    transform: translateY(-1px);
   }
 
   &:hover:not(:focus) {
@@ -201,23 +201,23 @@
 }
 
 .textarea {
-  resize: vertical;
   min-height: 120px;
   line-height: 1.6;
+  resize: vertical;
 }
 
 .submit {
-  padding: 16px 24px;
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  color: var(--color-text-inverse);
-  border-radius: 12px;
   @include typography.text-sm;
   @include typography.bold;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
   margin-top: 8px;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 24px;
+  transition: all 0.3s ease;
+  color: var(--color-text-inverse);
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.3);
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
@@ -241,20 +241,20 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 20px 24px;
-  background: var(--color-surface-primary);
-  border-radius: 16px;
   border: 2px solid var(--color-border-primary);
+  border-radius: 16px;
+  padding: 20px 24px;
+  transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  background: var(--color-surface-primary);
   box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.04);
 
   &:hover {
     transform: translateY(-4px);
+    background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
     box-shadow: 0 8px 24px rgba(var(--color-accent-rgb), 0.15);
-    background: var(--color-surface-elevated);
   }
 
   &:active {
@@ -264,15 +264,15 @@
 
 .contactIcon {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
   width: 56px;
   height: 56px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  color: var(--color-text-inverse);
-  flex-shrink: 0;
   transition: transform 0.3s ease;
+  color: var(--color-text-inverse);
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
 
   svg {
     width: 28px;
@@ -286,17 +286,17 @@
 
 .contactInfo {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
 }
 
 .contactLabel {
   @include typography.text-xxs;
   @include typography.semibold;
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
 }
 
 .contactValue {

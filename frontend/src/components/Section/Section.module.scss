@@ -1,8 +1,8 @@
 @use '@styles/typography';
 
 .section {
-  padding: 64px 0;
   flex-grow: 1;
+  padding: 64px 0;
 }
 
 .title {
@@ -11,6 +11,6 @@
 }
 
 .lead {
-  color: var(--color-text-tertiary);
   margin: 0 0 24px;
+  color: var(--color-text-tertiary);
 }

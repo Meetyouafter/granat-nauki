@@ -4,8 +4,8 @@
 .root {
   display: flex;
   align-items: center;
-  column-gap: 16px;
   row-gap: 24px;
+  column-gap: 16px;
 
   @include mixins.tablet {
     display: none;
@@ -32,9 +32,9 @@
     @include mixins.main_button;
 
     @include mixins.tablet {
+      margin-top: auto;
       width: 100%;
       text-align: center;
-      margin-top: auto;
     }
   }
 }

@@ -2,12 +2,12 @@
 @use '@styles/typography';
 
 .card {
-    position: relative;
-    list-style: none;
-    perspective: 1200px;
     opacity: 0;
     transform: translateY(24px) scale(0.98);
+    perspective: 1200px;
+    position: relative;
     will-change: transform, opacity;
+    list-style: none;
 
     &.visible {
         animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -16,13 +16,13 @@
 
 .imageWrapper {
     position: relative;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 14px;
     width: 100%;
     aspect-ratio: 3 / 4;
-    border-radius: 14px;
     overflow: hidden;
-    background: var(--color-surface-primary);
-    border: 1px solid var(--color-border-primary);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    background: var(--color-surface-primary);
     box-shadow: 0 12px 32px rgba(var(--color-shadow-rgb), 0.18);
 
     &:hover {
@@ -42,29 +42,29 @@
 }
 
 .badge {
-    position: absolute;
-    left: 12px;
-    top: 12px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(var(--color-shadow-rgb), 0.55);
-    color: #fff;
     @include typography.text-xxs;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: 999px;
+    padding: 6px 10px;
     letter-spacing: 0.02em;
+    color: #fff;
+    background: rgba(var(--color-shadow-rgb), 0.55);
     backdrop-filter: blur(6px);
 }
 
 .shine {
+    opacity: 0.2;
+    transform: translateX(-120%);
     position: absolute;
     inset: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
     background: linear-gradient(120deg,
             rgba(255, 255, 255, 0) 20%,
             rgba(255, 255, 255, 0.35) 50%,
             rgba(255, 255, 255, 0) 80%);
-    transform: translateX(-120%);
-    transition: transform 0.8s ease, opacity 0.8s ease;
     pointer-events: none;
-    opacity: 0.2;
 }
 
 @keyframes fadeInUp {

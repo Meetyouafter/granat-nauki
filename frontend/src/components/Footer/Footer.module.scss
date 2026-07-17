@@ -2,9 +2,9 @@
 @use '@styles/mixins';
 
 .root {
+  margin-top: auto;
   border-top: 1px solid var(--color-border-secondary);
   background: var(--color-surface-primary);
-  margin-top: auto;
 }
 
 .container {
@@ -20,9 +20,9 @@
 
 .top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 24px;
   row-gap: 20px;
 
@@ -43,8 +43,8 @@
   gap: 16px;
 
   @include mixins.mobile {
-    order: 1;
     justify-content: center;
+    order: 1;
   }
 }
 
@@ -55,22 +55,22 @@
   gap: 12px;
 
   @include mixins.mobile {
-    order: 2;
     align-items: center;
+    order: 2;
   }
 }
 
 .socialsTitle {
   @include typography.text-xs;
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
 }
 
 .bottom {
   margin-top: 24px;
-  padding-top: 20px;
   border-top: 1px solid var(--color-border-secondary);
+  padding-top: 20px;
 
   @include mixins.mobile {
     margin-top: 20px;
@@ -81,6 +81,6 @@
 
 .copyright {
   @include typography.text-xs;
-  color: var(--color-text-tertiary);
   margin: 0;
+  color: var(--color-text-tertiary);
 }

@@ -1,0 +1,82 @@
+{
+  "customSyntax": "postcss-scss",
+  "plugins": ["stylelint-scss", "stylelint-order"],
+  "rules": {
+    "order/order": [
+      { "type": "at-rule", "name": "include" },
+      "declarations",
+      { "type": "at-rule", "name": "include", "hasBlock": true },
+      "rules"
+    ],
+    "order/properties-order": [
+      [
+        {
+          "groupName": "visibility",
+          "properties": ["opacity", "visibility", "z-index"]
+        },
+        {
+          "groupName": "transform",
+          "properties": ["transform", "transform-origin", "rotate", "scale", "translate", "perspective"]
+        },
+        {
+          "groupName": "position",
+          "properties": ["position", "inset", "top", "right", "bottom", "left"]
+        },
+        {
+          "groupName": "layout",
+          "properties": [
+            "display",
+            "flex", "flex-direction", "flex-wrap", "flex-flow", "flex-grow", "flex-shrink", "flex-basis",
+            "grid", "grid-template", "grid-template-columns", "grid-template-rows", "grid-template-areas",
+            "grid-auto-columns", "grid-auto-rows", "grid-auto-flow", "grid-column", "grid-row", "grid-area",
+            "align-items", "align-content", "align-self",
+            "justify-content", "justify-items", "justify-self",
+            "place-items", "place-content", "place-self",
+            "gap", "row-gap", "column-gap"
+          ]
+        },
+        {
+          "groupName": "margin",
+          "properties": ["margin", "margin-top", "margin-right", "margin-bottom", "margin-left"]
+        },
+        {
+          "groupName": "border",
+          "properties": ["border", "border-top", "border-right", "border-bottom", "border-left", "border-width", "border-style", "border-radius"]
+        },
+        {
+          "groupName": "dimensions",
+          "properties": ["width", "min-width", "max-width", "height", "min-height", "max-height", "aspect-ratio"]
+        },
+        {
+          "groupName": "padding",
+          "properties": ["padding", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "groupName": "overflow",
+          "properties": ["overflow", "overflow-x", "overflow-y"]
+        },
+        {
+          "groupName": "animation",
+          "properties": ["transition", "transition-property", "transition-duration", "transition-timing-function", "animation", "animation-name", "animation-duration", "will-change"]
+        },
+        {
+          "groupName": "font",
+          "properties": [
+            "font", "font-family", "font-size", "font-weight", "font-style",
+            "line-height", "letter-spacing", "text-align", "text-transform",
+            "text-decoration", "white-space", "text-wrap"
+          ]
+        },
+        {
+          "groupName": "color",
+          "properties": [
+            "color", "background", "background-color", "background-image", "background-clip",
+            "border-color",
+            "box-shadow", "fill", "stroke", "cursor", "filter", "backdrop-filter"
+          ]
+        }
+      ],
+      { "unspecified": "bottomAlphabetical" }
+    ]
+  }
+}

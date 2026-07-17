@@ -2,10 +2,10 @@
 @use 'typography';
 
 @mixin container {
+  margin: 0 auto;
   width: 100%;
   max-width: 1440px;
   padding: 24px;
-  margin: 0 auto;
 }
 
 @mixin tablet {
@@ -30,11 +30,11 @@
 }
 
 @mixin main_button {
-  padding: 8px 12px;
-  background-color: var(--color-accent-primary);
-  color: var(--color-text-inverse);
-  border-radius: 8px;
   @include typography.semibold;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--color-text-inverse);
+  background-color: var(--color-accent-primary);
 
   &:hover {
     filter: brightness(1.05);
@@ -42,11 +42,11 @@
 }
 
 @mixin secondary_button {
-  padding: 8px 12px;
-  background-color: var(--color-surface-secondary);
-  color: var(--color-text-primary);
-  border-radius: 8px;
   @include typography.semibold;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
 
   &:hover {
     filter: brightness(1.05);

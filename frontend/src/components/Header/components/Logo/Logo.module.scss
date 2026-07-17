@@ -2,18 +2,18 @@
 @use '../../../../styles/typography';
 
 .root {
+  @include typography.semibold;
   display: flex;
   align-items: baseline;
   gap: 8px;
-  @include typography.semibold;
-
-  span {
-    color: var(--color-text-tertiary);
-    @include typography.text-xs;
-    @include typography.regular;
-  }
 
   @include mixins.tablet {
     margin: 0 auto;
+  }
+
+  span {
+    @include typography.text-xs;
+    @include typography.regular;
+    color: var(--color-text-tertiary);
   }
 }

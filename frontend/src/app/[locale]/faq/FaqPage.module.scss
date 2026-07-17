@@ -8,17 +8,17 @@
 }
 
 .item {
-  background: var(--color-surface-primary);
-  border-radius: 16px;
   border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s ease;
+  background: var(--color-surface-primary);
   box-shadow: 0 1px 3px rgba(var(--color-shadow-rgb), 0.05);
 
   &:hover {
+    transform: translateY(-2px);
     border-color: var(--color-border-secondary);
     box-shadow: 0 4px 12px rgba(var(--color-shadow-rgb), 0.08);
-    transform: translateY(-2px);
   }
 
   &[open] {
@@ -37,17 +37,17 @@
   .summary {
     @include typography.text-sm;
     @include typography.semibold;
-    padding: 20px 24px;
-    cursor: pointer;
-    list-style: none;
     position: relative;
-    color: var(--color-text-primary);
-    transition: color 0.2s ease;
-    user-select: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    padding: 20px 24px;
+    transition: color 0.2s ease;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
 
     &::-webkit-details-marker {
       display: none;
@@ -58,12 +58,12 @@
     }
 
     &::after {
-      content: '▼';
       @include typography.text-xxs;
-      color: var(--color-text-tertiary);
-      transition: transform 0.3s ease, color 0.2s ease;
       flex-shrink: 0;
       margin-left: auto;
+      transition: transform 0.3s ease, color 0.2s ease;
+      color: var(--color-text-tertiary);
+      content: '▼';
     }
 
     &:hover {
@@ -78,11 +78,11 @@
   p {
     @include typography.text-sm;
     @include typography.regular;
-    padding: 0 24px 24px 24px;
     margin: 0;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
+    padding: 0 24px 24px 24px;
     animation: fadeInDown 0.3s ease;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
   }
 }
 
@@ -103,15 +103,15 @@
     border-radius: 12px;
 
     .summary {
-      padding: 16px 20px;
       @include typography.text-sm;
       @include typography.semibold;
+      padding: 16px 20px;
     }
 
     p {
-      padding: 0 20px 20px 20px;
       @include typography.text-sm;
       @include typography.regular;
+      padding: 0 20px 20px 20px;
     }
   }
 }

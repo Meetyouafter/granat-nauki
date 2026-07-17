@@ -3,17 +3,30 @@
 @use '@styles/typography';
 
 .card {
-    background: var(--color-surface-primary);
-    border-radius: 16px;
-    border: 1px solid var(--color-border-primary);
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translateY(30px);
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 16px;
     min-height: 320px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-surface-primary);
+
+    @include mixins.mobile {
+        flex-direction: column;
+        min-height: 0;
+
+        &:nth-child(even) {
+            flex-direction: column;
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+    }
 
     &.visible {
         animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -21,8 +34,8 @@
 
     &:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(var(--color-shadow-rgb), 0.15);
         border-color: var(--color-accent-primary);
+        box-shadow: 0 12px 24px rgba(var(--color-shadow-rgb), 0.15);
 
         .imageWrapper {
             transform: scale(1.05);
@@ -40,19 +53,6 @@
     &:nth-child(even) {
         flex-direction: row-reverse;
     }
-
-    @include mixins.mobile {
-        flex-direction: column;
-        min-height: 0;
-
-        &:nth-child(even) {
-            flex-direction: column;
-        }
-
-        &:hover {
-            transform: translateY(-4px);
-        }
-    }
 }
 
 .imageWrapper {
@@ -60,8 +60,8 @@
     width: 50%;
     min-height: 360px;
     overflow: hidden;
-    background: var(--color-bg-secondary);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-bg-secondary);
 
     @include mixins.tablet {
         min-height: 320px;
@@ -74,35 +74,35 @@
 }
 
 .image {
-    object-fit: cover;
     transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
 }
 
 .content {
-    padding: 24px;
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
     gap: 12px;
     width: 50%;
+    padding: 24px;
 
     @include mixins.tablet {
         padding: 22px;
     }
 
     @include mixins.mobile {
-        padding: 20px;
         gap: 10px;
         width: 100%;
+        padding: 20px;
     }
 }
 
 .title {
     @include typography.text-lg;
     @include typography.bold;
-    color: var(--color-text-primary);
     margin: 0;
     transition: color 0.3s ease;
+    color: var(--color-text-primary);
 
     @include mixins.mobile {
         @include typography.text-md;
@@ -112,11 +112,11 @@
 
 .description {
     @include typography.text-sm;
+    opacity: 0.8;
+    flex: 1;
+    margin: 0;
     line-height: 1.6;
     color: var(--color-text-secondary);
-    margin: 0;
-    flex: 1;
-    opacity: 0.8;
 
     @include mixins.mobile {
         @include typography.text-xs;
@@ -126,11 +126,11 @@
 
 .details {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-border-primary);
+    justify-content: space-between;
     gap: 16px;
+    border-top: 1px solid var(--color-border-primary);
+    padding-top: 16px;
 
     @include mixins.mobile {
         flex-direction: column;
@@ -141,19 +141,19 @@
 
 .duration {
     @include typography.text-xs;
-    color: var(--color-text-tertiary);
+    opacity: 0.7;
     display: flex;
     align-items: center;
     gap: 6px;
-    opacity: 0.7;
-
-    &::before {
-        content: '⏱';
-        @include typography.text-sm;
-    }
+    color: var(--color-text-tertiary);
 
     @include mixins.mobile {
         @include typography.text-xs;
+    }
+
+    &::before {
+        @include typography.text-sm;
+        content: '⏱';
     }
 }
 

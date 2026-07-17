@@ -3,19 +3,19 @@
 html,
 body {
   @include typography.text-sm;
-  padding: 0;
   margin: 0;
   width: 100%;
   height: 100dvh;
-  background-color: var(--color-bg-primary);
+  padding: 0;
   color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 }
 
 body {
-  overflow-x: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 main {
@@ -23,6 +23,6 @@ main {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
