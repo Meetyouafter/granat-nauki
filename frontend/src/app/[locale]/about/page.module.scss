@@ -1,4 +1,5 @@
 @use '@styles/mixins';
+@use '@styles/typography';
 
 .root {
   animation: fadeIn 0.6s ease-out;
@@ -30,12 +31,12 @@
   aspect-ratio: 1;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 48px rgba(var(--color-shadow-rgb), 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 16px 64px rgba(var(--color-shadow-rgb), 0.2);
   }
 
   @include mixins.mobile {
@@ -56,9 +57,8 @@
 }
 
 .title {
-  font-size: 56px;
-  font-weight: 800;
-  line-height: 1.2;
+  @include typography.text-xxl;
+  @include typography.extrabold;
   margin: 0;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   -webkit-background-clip: text;
@@ -66,23 +66,24 @@
   background-clip: text;
 
   @include mixins.tablet {
-    font-size: 48px;
+    @include typography.text-xl;
+    @include typography.extrabold;
   }
 
   @include mixins.mobile {
-    font-size: 36px;
+    @include typography.text-xl;
+    @include typography.extrabold;
     text-align: center;
   }
 }
 
 .subtitle {
-  font-size: 20px;
+  @include typography.text-md;
   color: var(--color-text-secondary);
   line-height: 1.7;
   margin: 0;
 
   @include mixins.mobile {
-    font-size: 18px;
     text-align: center;
   }
 }
@@ -95,7 +96,7 @@
   background: var(--color-surface-primary);
   border-radius: 16px;
   border: 2px solid var(--color-border-primary);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
   width: fit-content;
 
   @include mixins.mobile {
@@ -104,8 +105,8 @@
 }
 
 .experienceNumber {
-  font-size: 48px;
-  font-weight: 800;
+  @include typography.text-xxl;
+  @include typography.extrabold;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -113,13 +114,15 @@
   line-height: 1;
 
   @include mixins.mobile {
-    font-size: 40px;
+    @include typography.text-xl;
+    @include typography.extrabold;
+    line-height: 1;
   }
 }
 
 .experienceText {
-  font-size: 16px;
-  font-weight: 600;
+  @include typography.text-sm;
+  @include typography.semibold;
   color: var(--color-text-secondary);
 }
 
@@ -147,24 +150,21 @@
 }
 
 .sectionTitle {
-  font-size: 32px;
-  font-weight: 700;
+  @include typography.text-lg;
+  @include typography.bold;
   margin: 0;
   color: var(--color-text-primary);
-
-  @include mixins.mobile {
-    font-size: 28px;
-  }
 }
 
 .text {
-  font-size: 18px;
+  @include typography.text-md;
   line-height: 1.8;
   color: var(--color-text-secondary);
   margin: 0;
 
   @include mixins.mobile {
-    font-size: 16px;
+    @include typography.text-sm;
+    line-height: 1.8;
   }
 }
 
@@ -183,12 +183,12 @@
   border-radius: 12px;
   border: 2px solid var(--color-border-primary);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.04);
 
   &:hover {
     transform: translateY(-2px);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 6px 20px rgba(78, 116, 245, 0.12);
+    box-shadow: 0 6px 20px rgba(var(--color-accent-rgb), 0.12);
   }
 }
 
@@ -197,8 +197,8 @@
 }
 
 .approachText {
-  font-size: 16px;
-  font-weight: 600;
+  @include typography.text-sm;
+  @include typography.semibold;
   color: var(--color-text-primary);
 }
 
@@ -221,12 +221,12 @@
   border-radius: 12px;
   border: 2px solid var(--color-border-primary);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.04);
 
   &:hover {
     transform: translateY(-4px);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 8px 24px rgba(78, 116, 245, 0.15);
+    box-shadow: 0 8px 24px rgba(var(--color-accent-rgb), 0.15);
     background: var(--color-surface-elevated);
   }
 }
@@ -237,8 +237,8 @@
 }
 
 .helpAreaText {
-  font-size: 16px;
-  font-weight: 600;
+  @include typography.text-sm;
+  @include typography.semibold;
   color: var(--color-text-primary);
 }
 
@@ -262,12 +262,12 @@
   border-radius: 20px;
   border: 2px solid var(--color-border-primary);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   &:hover {
     transform: translateY(-6px);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(78, 116, 245, 0.15);
+    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
     background: var(--color-surface-elevated);
   }
 
@@ -284,14 +284,14 @@
 }
 
 .qualificationTitle {
-  font-size: 20px;
-  font-weight: 700;
+  @include typography.text-md;
+  @include typography.bold;
   margin: 0;
   color: var(--color-text-primary);
 }
 
 .qualificationDescription {
-  font-size: 16px;
+  @include typography.text-sm;
   line-height: 1.6;
   color: var(--color-text-secondary);
   margin: 0;

@@ -1,3 +1,5 @@
+@use '@styles/typography';
+
 .wrapper {
   margin-bottom: 18px;
 }
@@ -53,7 +55,7 @@
   background: var(--color-accent-primary);
   color: var(--color-text-inverse);
   border-radius: 10px;
-  font-weight: 700;
+  @include typography.bold;
   border: none;
   cursor: pointer;
   transition: opacity 0.2s ease;

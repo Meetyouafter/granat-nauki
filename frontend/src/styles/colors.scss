@@ -3,67 +3,72 @@
 
   /* Backgrounds */
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f5f6f8;
-  --color-bg-tertiary: #eef0f3;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
 
   /* Surfaces */
   --color-surface-primary: #ffffff;
-  --color-surface-secondary: #f9fafb;
+  --color-surface-secondary: #f8fafc;
   --color-surface-elevated: #ffffff;
 
   /* Text */
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-tertiary: #9ca3af;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
   --color-text-inverse: #ffffff;
 
   /* Borders */
-  --color-border-primary: #e5e7eb;
-  --color-border-secondary: #d1d5db;
+  --color-border-primary: #e2e8f0;
+  --color-border-secondary: #cbd5e1;
 
-  /* Brand / Accent */
-  --color-accent-primary: #4e74f5;
-  --color-accent-hover: #3b5fe0;
-  --color-accent-active: #2f4cc8;
+  /* Brand / Accent (monochrome) */
+  --color-accent-primary: #0f172a;
+  --color-accent-hover: #1e293b;
+  --color-accent-active: #334155;
+  --color-accent-rgb: 15, 23, 42;
 
   /* States */
-  --color-success: #16a34a;
+  --color-success: #059669;
   --color-warning: #f59e0b;
   --color-error: #dc2626;
-  --color-info: #2563eb;
+  --color-info: #0284c7;
+
+  /* Shadows (fixed across themes, used as rgba(var(--color-shadow-rgb), alpha)) */
+  --color-shadow-rgb: 15, 23, 42;
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
   /* Backgrounds */
-  --color-bg-primary: #0b0f19;
-  --color-bg-secondary: #111827;
-  --color-bg-tertiary: #1f2937;
+  --color-bg-primary: #020617;
+  --color-bg-secondary: #0f172a;
+  --color-bg-tertiary: #1e293b;
 
   /* Surfaces */
-  --color-surface-primary: #111827;
-  --color-surface-secondary: #1f2937;
-  --color-surface-elevated: #273449;
+  --color-surface-primary: #0f172a;
+  --color-surface-secondary: #1e293b;
+  --color-surface-elevated: #334155;
 
   /* Text */
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: #d1d5db;
-  --color-text-tertiary: #9ca3af;
-  --color-text-inverse: #111827;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #64748b;
+  --color-text-inverse: #0f172a;
 
   /* Borders */
-  --color-border-primary: #273449;
-  --color-border-secondary: #374151;
+  --color-border-primary: #1e293b;
+  --color-border-secondary: #334155;
 
-  /* Brand / Accent */
-  --color-accent-primary: #6c8cff;
-  --color-accent-hover: #5a7aff;
-  --color-accent-active: #4e6ef5;
+  /* Brand / Accent (monochrome) */
+  --color-accent-primary: #f1f5f9;
+  --color-accent-hover: #e2e8f0;
+  --color-accent-active: #cbd5e1;
+  --color-accent-rgb: 241, 245, 249;
 
   /* States */
-  --color-success: #22c55e;
+  --color-success: #10b981;
   --color-warning: #fbbf24;
   --color-error: #ef4444;
-  --color-info: #60a5fa;
+  --color-info: #38bdf8;
 }

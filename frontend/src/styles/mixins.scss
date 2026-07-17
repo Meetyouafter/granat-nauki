@@ -1,4 +1,5 @@
 @use 'animations';
+@use 'typography';
 
 @mixin container {
   width: 100%;
@@ -33,7 +34,7 @@
   background-color: var(--color-accent-primary);
   color: var(--color-text-inverse);
   border-radius: 8px;
-  font-weight: 600;
+  @include typography.semibold;
 
   &:hover {
     filter: brightness(1.05);
@@ -45,7 +46,7 @@
   background-color: var(--color-surface-secondary);
   color: var(--color-text-primary);
   border-radius: 8px;
-  font-weight: 600;
+  @include typography.semibold;
 
   &:hover {
     filter: brightness(1.05);

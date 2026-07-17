@@ -1,14 +1,9 @@
 @mixin text-xxs {
-  font-size: 10px;
-  line-height: 14px;
-}
-
-@mixin text-xs {
   font-size: 12px;
   line-height: 18px;
 }
 
-@mixin text-s {
+@mixin text-xs {
   font-size: 14px;
   line-height: 20px;
 }
@@ -24,20 +19,20 @@
 }
 
 @mixin text-lg {
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 28px;
+  line-height: 36px;
 }
 
 @mixin text-xl {
-  font-size: 32px;
-  line-height: 38px;
-  letter-spacing: -0.64px;
-}
-
-@mixin text-xxl {
   font-size: 40px;
   line-height: 48px;
   letter-spacing: -0.8px;
+}
+
+@mixin text-xxl {
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: -1.12px;
 }
 
 @mixin regular {
@@ -50,4 +45,8 @@
 
 @mixin bold {
   font-weight: 700;
+}
+
+@mixin extrabold {
+  font-weight: 800;
 }

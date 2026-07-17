@@ -1,4 +1,5 @@
 @use '@styles/mixins';
+@use '@styles/typography';
 
 .root {
   @include mixins.container;
@@ -43,12 +44,12 @@
   aspect-ratio: 1;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 32px rgba(var(--color-shadow-rgb), 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 12px 48px rgba(var(--color-shadow-rgb), 0.16);
   }
 
   img {
@@ -69,9 +70,8 @@
 }
 
 .title {
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1.2;
+  @include typography.text-xxl;
+  @include typography.extrabold;
   margin: 0;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   -webkit-background-clip: text;
@@ -79,23 +79,26 @@
   background-clip: text;
 
   @include mixins.tablet {
-    font-size: 40px;
+    @include typography.text-xl;
+    @include typography.extrabold;
   }
 
   @include mixins.mobile {
-    font-size: 32px;
+    @include typography.text-lg;
+    @include typography.extrabold;
     text-align: center;
   }
 }
 
 .subtitle {
-  font-size: 18px;
+  @include typography.text-md;
   color: var(--color-text-secondary);
   line-height: 1.6;
   margin: 0;
 
   @include mixins.mobile {
-    font-size: 16px;
+    @include typography.text-sm;
+    line-height: 1.6;
     text-align: center;
   }
 }
@@ -124,13 +127,14 @@
 }
 
 .sectionTitle {
-  font-size: 28px;
-  font-weight: 700;
+  @include typography.text-lg;
+  @include typography.bold;
   margin: 0;
   color: var(--color-text-primary);
 
   @include mixins.mobile {
-    font-size: 24px;
+    @include typography.text-md;
+    @include typography.bold;
   }
 }
 
@@ -142,11 +146,11 @@
   padding: 32px;
   border-radius: 20px;
   border: 1px solid var(--color-border-primary);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.04);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(var(--color-shadow-rgb), 0.08);
     border-color: var(--color-border-secondary);
   }
 
@@ -163,8 +167,8 @@
 }
 
 .labelText {
-  font-size: 14px;
-  font-weight: 600;
+  @include typography.text-xs;
+  @include typography.semibold;
   color: var(--color-text-primary);
 }
 
@@ -176,7 +180,7 @@
   border: 2px solid var(--color-border-primary);
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-size: 16px;
+  @include typography.text-sm;
   font-family: inherit;
   transition: all 0.3s ease;
   outline: none;
@@ -187,7 +191,7 @@
 
   &:focus {
     border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 4px rgba(78, 116, 245, 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.1);
     transform: translateY(-1px);
   }
 
@@ -207,23 +211,23 @@
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   color: var(--color-text-inverse);
   border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
+  @include typography.text-sm;
+  @include typography.bold;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(78, 116, 245, 0.3);
+  box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(78, 116, 245, 0.4);
+    box-shadow: 0 6px 20px rgba(var(--color-accent-rgb), 0.4);
     filter: brightness(1.05);
   }
 
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(78, 116, 245, 0.3);
+    box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.3);
   }
 }
 
@@ -244,12 +248,12 @@
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.04);
 
   &:hover {
     transform: translateY(-4px);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 8px 24px rgba(78, 116, 245, 0.15);
+    box-shadow: 0 8px 24px rgba(var(--color-accent-rgb), 0.15);
     background: var(--color-surface-elevated);
   }
 
@@ -288,16 +292,16 @@
 }
 
 .contactLabel {
-  font-size: 12px;
-  font-weight: 600;
+  @include typography.text-xxs;
+  @include typography.semibold;
   color: var(--color-text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .contactValue {
-  font-size: 16px;
-  font-weight: 600;
+  @include typography.text-sm;
+  @include typography.semibold;
   color: var(--color-text-primary);
 }
 

@@ -1,4 +1,5 @@
 @use '@styles/mixins';
+@use '@styles/typography';
 
 .card {
     position: relative;
@@ -22,12 +23,12 @@
     background: var(--color-surface-primary);
     border: 1px solid var(--color-border-primary);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 12px 32px rgba(var(--color-shadow-rgb), 0.18);
 
     &:hover {
         transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
         border-color: var(--color-accent-primary);
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 18px 40px rgba(var(--color-shadow-rgb), 0.22);
 
         .shine {
             opacity: 0.8;
@@ -46,9 +47,9 @@
     top: 12px;
     padding: 6px 10px;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(var(--color-shadow-rgb), 0.55);
     color: #fff;
-    font-size: 12px;
+    @include typography.text-xxs;
     letter-spacing: 0.02em;
     backdrop-filter: blur(6px);
 }

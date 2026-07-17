@@ -1,15 +1,16 @@
 @use '../../../../styles/mixins';
+@use '../../../../styles/typography';
 
 .root {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  font-weight: 600;
+  @include typography.semibold;
 
   span {
     color: var(--color-text-tertiary);
-    font-weight: 400;
-    font-size: 14px;
+    @include typography.text-xs;
+    @include typography.regular;
   }
 
   @include mixins.tablet {

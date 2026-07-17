@@ -1,5 +1,5 @@
-@import '@styles/typography';
-@import '@styles/mixins';
+@use '@styles/typography';
+@use '@styles/mixins';
 
 .list {
   display: flex;
@@ -13,17 +13,17 @@
   border: 1px solid var(--color-border-primary);
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(var(--color-shadow-rgb), 0.05);
 
   &:hover {
     border-color: var(--color-border-secondary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(var(--color-shadow-rgb), 0.08);
     transform: translateY(-2px);
   }
 
   &[open] {
     border-color: var(--color-accent-primary);
-    box-shadow: 0 4px 16px rgba(78, 116, 245, 0.12);
+    box-shadow: 0 4px 16px rgba(var(--color-accent-rgb), 0.12);
 
     .summary {
       color: var(--color-accent-primary);
@@ -35,8 +35,8 @@
   }
 
   .summary {
-    @include text-sm;
-    @include semibold;
+    @include typography.text-sm;
+    @include typography.semibold;
     padding: 20px 24px;
     cursor: pointer;
     list-style: none;
@@ -59,7 +59,7 @@
 
     &::after {
       content: '▼';
-      font-size: 12px;
+      @include typography.text-xxs;
       color: var(--color-text-tertiary);
       transition: transform 0.3s ease, color 0.2s ease;
       flex-shrink: 0;
@@ -76,8 +76,8 @@
   }
 
   p {
-    @include text-sm;
-    @include regular;
+    @include typography.text-sm;
+    @include typography.regular;
     padding: 0 24px 24px 24px;
     margin: 0;
     color: var(--color-text-secondary);
@@ -98,18 +98,20 @@
   }
 }
 
-@include mobile {
+@include mixins.mobile {
   .item {
     border-radius: 12px;
 
     .summary {
       padding: 16px 20px;
-      font-size: 15px;
+      @include typography.text-sm;
+      @include typography.semibold;
     }
 
     p {
       padding: 0 20px 20px 20px;
-      font-size: 15px;
+      @include typography.text-sm;
+      @include typography.regular;
     }
   }
 }

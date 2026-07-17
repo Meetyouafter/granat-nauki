@@ -1,5 +1,6 @@
 @use '@styles/animations';
 @use '@styles/mixins';
+@use '@styles/typography';
 
 .card {
     background: var(--color-surface-primary);
@@ -20,7 +21,7 @@
 
     &:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 24px rgba(var(--color-shadow-rgb), 0.15);
         border-color: var(--color-accent-primary);
 
         .imageWrapper {
@@ -97,19 +98,20 @@
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: 700;
+    @include typography.text-lg;
+    @include typography.bold;
     color: var(--color-text-primary);
     margin: 0;
     transition: color 0.3s ease;
 
     @include mixins.mobile {
-        font-size: 1.25rem;
+        @include typography.text-md;
+        @include typography.bold;
     }
 }
 
 .description {
-    font-size: 1rem;
+    @include typography.text-sm;
     line-height: 1.6;
     color: var(--color-text-secondary);
     margin: 0;
@@ -117,7 +119,8 @@
     opacity: 0.8;
 
     @include mixins.mobile {
-        font-size: 0.9rem;
+        @include typography.text-xs;
+        line-height: 1.6;
     }
 }
 
@@ -137,7 +140,7 @@
 }
 
 .duration {
-    font-size: 0.9rem;
+    @include typography.text-xs;
     color: var(--color-text-tertiary);
     display: flex;
     align-items: center;
@@ -146,21 +149,21 @@
 
     &::before {
         content: '⏱';
-        font-size: 1rem;
+        @include typography.text-sm;
     }
 
     @include mixins.mobile {
-        font-size: 0.85rem;
+        @include typography.text-xs;
     }
 }
 
 .price {
-    font-size: 1.25rem;
-    font-weight: 700;
+    @include typography.text-md;
+    @include typography.bold;
     color: var(--color-accent-primary);
 
     @include mixins.mobile {
-        font-size: 1.1rem;
+        @include typography.text-sm;
     }
 }
 
