@@ -1,17 +1,10 @@
-@use '@styles/mixins';
-
 .switch {
   position: relative;
   display: block;
-  margin-left: auto;
   border-radius: 30px;
   width: 64px;
   height: 32px;
   cursor: pointer;
-
-  @include mixins.mobile {
-    margin-left: 0;
-  }
 }
 
 .switch input {
@@ -23,22 +16,25 @@
 .slider {
   position: absolute;
   inset: 0;
+  border: 1px solid var(--color-border-primary);
   border-radius: 34px;
   transition: .4s;
-  background-color: var(--color-border-secondary);
+  background-color: var(--color-surface-secondary);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.3);
   cursor: pointer;
-}
 
-.slider:before {
-  z-index: 2;
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  transition: .4s;
-  background-color: var(--color-surface-elevated);
-  content: "";
+  &::before {
+    z-index: 2;
+    position: absolute;
+    inset: -1px 0 0 0;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    transition: .4s;
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 1px 3px rgba(var(--color-shadow-rgb), 0.4);
+    content: "";
+  }
 }
 
 .moonIcon {
@@ -53,14 +49,6 @@
   position: absolute;
   top: 50%;
   right: 2px;
-}
-
-input:checked+.slider {
-  background-color: var(--color-accent-primary);
-}
-
-input:focus+.slider {
-  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.3);
 }
 
 input:checked+.slider:before {

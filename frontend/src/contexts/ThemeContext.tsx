@@ -3,10 +3,10 @@
 import { THEME } from '@constants';
 import { createContext, useContext, useState, ReactNode, useLayoutEffect, useCallback } from 'react';
 
-type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
-  theme: Theme;
+  theme: Theme | null;
   toggleTheme: () => void;
 }
 
@@ -22,27 +22,23 @@ export function useTheme() {
 
 interface ThemeProviderProps {
   children: ReactNode;
+  initialTheme?: Theme;
 }
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme | null>(null);
+export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
+  const [theme, setTheme] = useState<Theme | null>(initialTheme ?? null);
 
   const actionSetTheme = useCallback((correctTheme: Theme) => {
     document.documentElement.setAttribute('data-theme', correctTheme);
     setTheme(correctTheme);
-    cookieStore.set({
-      name: THEME,
-      value: correctTheme,
-      path: '/',
-      expires: Date.now() + 365 * 24 * 60 * 60 * 1000, // 1 year
-    });
+
+    const maxAge = 365 * 24 * 60 * 60; // 1 год
+    document.cookie = `${THEME}=${correctTheme}; path=/; max-age=${maxAge}`;
   }, []);
 
   useLayoutEffect(() => {
-    // смотрим тему установленную из cookies
-    const settedTheme = document.documentElement.getAttribute('data-theme');
-    if (settedTheme) {
-      setTheme(settedTheme as Theme);
+    // тема уже пришла с сервера (из cookie) — донастраивать нечего
+    if (theme) {
       return;
     }
 
@@ -50,7 +46,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
     const correctTheme = prefersDark ? 'dark' : 'light';
     actionSetTheme(correctTheme);
-  }, [actionSetTheme]);
+  }, [theme, actionSetTheme]);
 
   const toggleTheme = () => actionSetTheme(theme === 'light' ? 'dark' : 'light');
 

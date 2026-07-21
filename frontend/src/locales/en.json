@@ -203,9 +203,5 @@
         "description": "Our website uses cookies to ensure proper functionality and improve your browsing experience. By continuing to use the site, you agree to the use of cookies.",
         "accept": "Accept",
         "reject": "Reject"
-    },
-    "LanguageSwitcher": {
-        "ru": "Русский",
-        "en": "English"
     }
 }

@@ -1,6 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
-import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
 import Socials from './components/Socials/Socials';
 import styles from './Footer.module.scss';
 
@@ -11,16 +9,8 @@ export default async function Footer() {
   return (
     <footer className={styles.root}>
       <div className={styles.container}>
-        <div className={styles.top}>
-          <div className={styles.settings}>
-            <ThemeSwitcher />
-            <LanguageSwitcher />
-          </div>
-          <Socials />
-        </div>
-        <div className={styles.bottom}>
-          <p className={styles.copyright}>{t('copyright', { year })}</p>
-        </div>
+        <p className={styles.copyright}>{t('copyright', { year })}</p>
+        <Socials />
       </div>
     </footer>
   );

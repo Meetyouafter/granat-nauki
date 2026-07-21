@@ -16,7 +16,6 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      height: 100%;
     }
   }
 
@@ -32,7 +31,6 @@
     @include mixins.main_button;
 
     @include mixins.tablet {
-      margin-top: auto;
       width: 100%;
       text-align: center;
     }

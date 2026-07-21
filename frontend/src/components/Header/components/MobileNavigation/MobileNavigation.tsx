@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Navigation from '../Navigation/Navigation';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import styles from './MobileNavigation.module.scss';
 import { createPortal } from 'react-dom';
 
@@ -36,6 +38,10 @@ const MobileNavigation = () => {
       />
       <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
         <Navigation handleToggleMenu={handleToggleMenu} isMobile />
+        <div className={styles.settings}>
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
       </div>
     </>,
     document.body
