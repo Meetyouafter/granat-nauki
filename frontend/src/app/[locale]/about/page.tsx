@@ -65,7 +65,7 @@ const AboutPage = async () => {
             <h1 className={styles.title}>{t('title')}</h1>
             <p className={styles.subtitle}>{t('subtitle')}</p>
             <div className={styles.experience}>
-              <span className={styles.experienceNumber}>5+</span>
+              <span className={styles.experienceNumber}>15+</span>
               <span className={styles.experienceText}>{t('experience')}</span>
             </div>
           </div>

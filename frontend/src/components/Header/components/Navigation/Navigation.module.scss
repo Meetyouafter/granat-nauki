@@ -21,9 +21,28 @@
 
   .link {
     @include mixins.link;
+    position: relative;
 
     @include mixins.tablet {
       @include typography.text-md;
+    }
+
+    &.active {
+      color: var(--color-text-secondary);
+
+      &::after {
+        position: absolute;
+        right: 0;
+        bottom: -4px;
+        left: 0;
+        height: 2px;
+        background-color: var(--color-accent-primary);
+        content: '';
+
+        @include mixins.tablet {
+          bottom: -2px;
+        }
+      }
     }
   }
 

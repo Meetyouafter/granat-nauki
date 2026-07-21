@@ -8,7 +8,7 @@ import { THEME } from '@constants';
 import type { Theme } from '@/contexts/ThemeContext';
 
 const roboto = Roboto({
-  subsets: ['cyrillic'],
+  subsets: ['latin', 'cyrillic'],
 });
 
 type Props = {

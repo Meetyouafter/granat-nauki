@@ -1,6 +1,7 @@
 {
     "Header": {
         "navigation": {
+            "home": "Home",
             "about": "About",
             "services": "Services",
             "articles": "Articles",
@@ -12,10 +13,19 @@
     "HomePage": {
         "title": "Child Psychologist and Tutor — Pomegranate of Science",
         "hero": {
-            "title": "Supporting children and families: psychology, school readiness and learning",
-            "lead": "Child psychologist, school preparation tutor, and tutor for middle school students. Online and in-person.",
+            "kicker": "Tatiana Levus · Child Psychologist",
+            "title": "Helping children feel more confident — and helping parents stay close with understanding",
+            "lead": "Psychological support, child development, school readiness, and learning support — from preschool age through grade 9. Online and in-person.",
             "ctaPrimary": "Book a consultation",
             "ctaSecondary": "Learn about me"
+        },
+        "trustBar": {
+            "items": [
+                "15 years of practice",
+                "Humanistic and CBT approach",
+                "Online and in-person",
+                "Supervision and regular training"
+            ]
         },
         "aboutPsychologist": {
             "title": "What is a psychologist and why you might need one",
@@ -26,33 +36,38 @@
         "personalExperience": {
             "title": "Personal experience and path into the profession",
             "lead": "I came to psychology from a desire to help people — and especially children — feel understood and accepted.",
-            "paragraph1": "I have been working for over five years in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
-            "paragraph2": "It is important to me that every session feels safe and useful: no pressure, with respect for the child's pace and the parents' needs. I see the results when children cope better with emotions and parents feel more confident in supporting them."
+            "short": "I work in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
+            "statSuffix": "years of practice",
+            "linkText": "Read the full story →"
         },
         "workWithChildren": {
-            "title": "Working with children: what I do",
-            "lead": "Three areas in which I support children and families.",
+            "title": "Areas of work with children",
+            "lead": "Four areas in which I support children and families.",
             "childPsychologist": {
-                "title": "Child psychologist",
+                "title": "Child psychologist (all ages)",
                 "description": "Consultations and sessions for children: anxiety, fears, aggression, difficulties in communication, low self-esteem, adaptation to kindergarten or school, coping with divorce or family conflict. I work using play and talk therapy, and involve parents when needed."
             },
+            "childDevelopment": {
+                "title": "Child development (ages 2–5)",
+                "description": "Early childhood development: speech, thinking, attention, memory, and fine motor skills through play. We track age norms, build on the child's strengths, and gently support the areas that are still developing."
+            },
             "schoolPrep": {
-                "title": "School preparation tutor",
-                "description": "Comprehensive preparation for 1st grade: developing attention, memory, thinking, speech, motor skills, and the ability to follow rules. I help the child ease into a school routine, reduce anxiety about starting school, and lay the foundation for successful adaptation."
+                "title": "School preparation (ages 5–7)",
+                "description": "Comprehensive preparation for 1st grade: developing attention, memory, thinking, and the ability to follow rules. I help the child ease into a school routine and reduce anxiety about starting school."
             },
             "tutor": {
-                "title": "Tutor for middle school",
+                "title": "Tutor (grades 5–9)",
                 "description": "Support for students in grades 5–9: organizing study time, planning, developing independence and motivation. I help with workload, stress, and difficulties with teachers or classmates so that learning becomes conscious and manageable."
             }
         },
         "services": {
-            "title": "How I can help",
-            "lead": "We'll choose a format that fits your needs and your child's age.",
+            "title": "Not sure where to start?",
+            "lead": "Pick the area that matches your child's age — details above.",
             "items": [
-                "Child psychologist: consultations and sessions",
-                "School preparation (preschoolers)",
-                "Tutoring support (grades 5–9)",
-                "Family consultations and parent support"
+                "Any age: psychologist consultation",
+                "Ages 2–5: child development",
+                "Ages 5–7: school preparation",
+                "Grades 5–9: tutoring support"
             ]
         },
         "reviews": {
@@ -69,20 +84,66 @@
             "lead": "Short notes about emotions, relationships and self-care.",
             "readMore": "Read more",
             "items": [
-                "How to deal with anxiety at work",
-                "First steps in emotional burnout",
-                "Boundaries in relationships: how to notice and defend them"
+                "Helping your child cope with back-to-school anxiety",
+                "Boundaries with your child: how to set them without losing patience",
+                "Tantrums and meltdowns: what's behind them and how to respond"
             ]
+        },
+        "howItWorks": {
+            "title": "How the work goes",
+            "lead": "A simple path from your request to regular sessions.",
+            "steps": [
+                {
+                    "title": "Request",
+                    "description": "Send a request or write directly, and I'll reply within a day."
+                },
+                {
+                    "title": "First meeting",
+                    "description": "A short meeting where we get to know each other and define your request."
+                },
+                {
+                    "title": "Regular sessions",
+                    "description": "We work at a pace that's comfortable for the child, without pressure."
+                },
+                {
+                    "title": "Feedback for parents",
+                    "description": "We discuss progress and what can be supported at home."
+                }
+            ]
+        },
+        "faqPreview": {
+            "title": "Frequently asked questions",
+            "lead": "A brief look at what people ask most often.",
+            "linkText": "See all questions →",
+            "items": [
+                {
+                    "question": "How do I know if my child needs a psychologist?",
+                    "answer": "If you notice prolonged anxiety, sudden behavior changes, difficulties communicating or with school — it's worth discussing at a consultation, even if you're not sure it's \"serious\"."
+                },
+                {
+                    "question": "Can I be present at the session?",
+                    "answer": "For preschoolers and at parents' request — yes. With older students, I usually work one-on-one, and discuss dynamics with parents separately."
+                },
+                {
+                    "question": "How many sessions are needed?",
+                    "answer": "It depends on the request: from a few consultations to several months of regular work. We'll outline a plan after our first meeting."
+                }
+            ]
+        },
+        "finalCta": {
+            "title": "Ready to take the first step?",
+            "lead": "Book a consultation, and together we'll figure out the best way to help your child.",
+            "cta": "Book a consultation →"
         }
     },
     "AboutPage": {
         "title": "About me",
-        "subtitle": "Practicing psychologist with over 5 years of experience. I work in humanistic and cognitive-behavioral approaches.",
+        "subtitle": "Practicing child psychologist with 15 years of experience. I work in humanistic and cognitive-behavioral approaches.",
         "experience": "years of experience",
         "about": {
             "title": "About my work",
-            "description": "Practicing psychologist with over 5 years of experience. I work in humanistic and cognitive-behavioral approaches.",
-            "help": "I help cope with anxiety, burnout, relationship difficulties, and self-esteem issues."
+            "description": "I came to psychology from a desire to help people — and especially children — feel understood and accepted. For 15 years now I have been working in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
+            "help": "It is important to me that every session feels safe and useful: no pressure, with respect for the child's pace and the parents' needs. I see the results when children cope better with emotions and parents feel more confident in supporting them."
         },
         "approaches": {
             "title": "Therapeutic approaches",

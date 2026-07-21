@@ -1,6 +1,7 @@
 import metadata from '@/data/metadata';
 import FaqPage from './FaqPage';
 import { Metadata } from 'next';
+import Api from '@/utils/Api';
  
 export async function generateMetadata({
   params,
@@ -12,15 +13,18 @@ export async function generateMetadata({
 }
 
 async function getFaqData(locale: string) {
-  const res = await fetch(`http://localhost:4000/faq?locale=${locale}`, {
-    cache: 'no-store'
-  });
+  try {
+    const res = await Api.GET({ url: `/faq?locale=${locale}` });
 
-  if (!res.ok) {
-    throw new Error(`FAQ fetch failed: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`FAQ fetch failed: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-
-  return res.json();
 }
 
 export default async function Page({
@@ -30,5 +34,6 @@ export default async function Page({
 }) {
   const { locale } = await params;
   const faqData = await getFaqData(locale);
+  console.log(faqData);
   return <FaqPage faqData={faqData} />;
 }
