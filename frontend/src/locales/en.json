@@ -20,11 +20,25 @@
             "ctaSecondary": "Learn about me"
         },
         "trustBar": {
+            "title": "Why families trust me",
+            "lead": "Experience, approach, and a format you can rely on when choosing a specialist for your child.",
             "items": [
-                "15 years of practice",
-                "Humanistic and CBT approach",
-                "Online and in-person",
-                "Supervision and regular training"
+                {
+                    "title": "15 years of practice",
+                    "description": "Working with children and parents since 2011 — from first consultations to full support throughout school."
+                },
+                {
+                    "title": "Humanistic and CBT approach",
+                    "description": "Combining a caring attitude toward the child with practical cognitive behavioral therapy techniques."
+                },
+                {
+                    "title": "Online and in-person",
+                    "description": "We'll choose the format that works best for your family — from home or in the office."
+                },
+                {
+                    "title": "Supervision and regular training",
+                    "description": "I regularly undergo supervision and further training to work with up-to-date, proven methods."
+                }
             ]
         },
         "aboutPsychologist": {

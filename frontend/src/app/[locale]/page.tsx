@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { paths } from '@constants';
 import Section from '../../components/Section/Section';
 import Reveal from '../../components/Reveal/Reveal';
@@ -9,11 +8,17 @@ import Card from '@ui/Card/Card';
 import CardGrid from '@ui/CardGrid/CardGrid';
 import Button from '@ui/Button/Button';
 import TextLink from '@ui/TextLink/TextLink';
+import Slider from '@ui/Slider/Slider';
 import styles from './page.module.scss';
 import { getTranslations } from 'next-intl/server';
 
 const HomePage = async () => {
   const t = await getTranslations('HomePage');
+
+  const heroSlides = [1, 2, 3, 4, 5].map((index) => ({
+    src: `/images/homePage/slide${index}.jpg`,
+    alt: `${t('hero.title')} ${index}`,
+  }));
 
   return (
     <main className={styles.root}>
@@ -43,25 +48,28 @@ const HomePage = async () => {
             </div>
           </div>
           <div className={styles.heroImage}>
-            <Image
-              src="/images/image.jpg"
-              alt={t('hero.title')}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className={styles.image}
-            />
+            <Slider items={heroSlides} />
           </div>
         </div>
-        <ul className={styles.trustBar}>
-          {t.raw('trustBar.items').map((item: string, index: number) => (
-            <Text as="li" key={index} size="xs" weight="semibold" className={styles.trustBarItem}>
-              <PomegranateMark variant="seed" className={styles.trustBarIcon} />
-              <span>{item}</span>
-            </Text>
-          ))}
-        </ul>
       </Section>
+
+      <Reveal>
+        <Section id="trust-bar" title={t('trustBar.title')} lead={t('trustBar.lead')}>
+          <CardGrid minWidth={240}>
+            {t.raw('trustBar.items').map((item: { title: string; description: string }, index: number) => (
+              <Card key={index} className={styles.trustBarCard}>
+                <PomegranateMark variant="seed" className={styles.trustBarIcon} />
+                <Text as="h3" size="sm" weight="bold" className={styles.trustBarCardTitle}>
+                  {item.title}
+                </Text>
+                <Text as="p" size="xs" className={styles.trustBarCardDesc}>
+                  {item.description}
+                </Text>
+              </Card>
+            ))}
+          </CardGrid>
+        </Section>
+      </Reveal>
 
       <Reveal>
         <Section id="about-psychologist" title={t('aboutPsychologist.title')} lead={t('aboutPsychologist.lead')}>
