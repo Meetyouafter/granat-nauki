@@ -2,6 +2,7 @@
 @use '@styles/typography';
 
 .hero {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 500px;
   align-items: center;
@@ -24,6 +25,29 @@
   }
 }
 
+.heroMotif {
+  opacity: 0.06;
+  z-index: 0;
+  transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: -80px;
+  width: 480px;
+  height: 480px;
+  color: var(--color-accent-primary);
+  pointer-events: none;
+
+  @include mixins.tablet {
+    left: -60px;
+    width: 360px;
+    height: 360px;
+  }
+
+  @include mixins.mobile {
+    display: none;
+  }
+}
+
 .heroContent {
   z-index: 1;
   display: flex;
@@ -43,22 +67,19 @@
 }
 
 .heroTitle {
+  @include typography.display;
   @include typography.text-xxl;
-  @include typography.extrabold;
   margin: 0;
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-accent-primary);
 
   @include mixins.tablet {
     @include typography.text-xl;
-    @include typography.extrabold;
   }
 
   @include mixins.mobile {
     @include typography.text-xl;
-    @include typography.extrabold;
     text-align: center;
   }
 }
@@ -91,18 +112,15 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px 32px;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   text-decoration: none;
   color: var(--color-text-inverse);
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.3);
+  background: var(--color-cta-primary);
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(var(--color-accent-rgb), 0.4);
-    filter: brightness(1.05);
+    background: var(--color-cta-hover);
 
     .ctaArrow {
       transform: translateX(4px);
@@ -110,8 +128,7 @@
   }
 
   &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.3);
+    background: var(--color-cta-active);
   }
 }
 
@@ -126,42 +143,31 @@
   display: inline-flex;
   align-items: center;
   border: 2px solid var(--color-border-primary);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px 32px;
-  transition: all 0.3s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
   color: var(--color-text-primary);
   background: var(--color-surface-primary);
 
   &:hover {
-    transform: translateY(-2px);
     color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.1);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 }
 
 .heroImage {
+  z-index: 1;
   position: relative;
-  border-radius: 24px;
+  border-radius: 16px;
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 12px 48px rgba(var(--color-shadow-rgb), 0.15);
 
   @include mixins.mobile {
     margin: 0 auto;
     max-width: 400px;
-  }
-
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 64px rgba(var(--color-shadow-rgb), 0.2);
   }
 }
 
@@ -196,8 +202,10 @@
 }
 
 .trustBarIcon {
-  font-size: 18px;
-  line-height: 1;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent-primary);
 }
 
 .personalExperience {
@@ -217,13 +225,12 @@
 }
 
 .personalExperienceStatNumber {
+  @include typography.display;
   @include typography.text-xxl;
-  @include typography.extrabold;
+  font-weight: 600;
+  font-style: italic;
   line-height: 1;
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-accent-primary);
 }
 
 .personalExperienceStatSuffix {
@@ -278,39 +285,32 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 32px 28px;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   text-align: left;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   @include mixins.mobile {
     padding: 24px 20px;
   }
 
   &:hover {
-    transform: translateY(-6px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
   }
 }
 
 .workCardIcon {
-  transition: transform 0.3s ease;
-  font-size: 44px;
-  line-height: 1;
-
-  .workCard:hover & {
-    transform: scale(1.08);
-  }
+  width: 28px;
+  height: 28px;
+  color: var(--color-accent-primary);
 }
 
 .workCardTitle {
+  @include typography.display;
   @include typography.text-md;
-  @include typography.bold;
   margin: 0;
   line-height: 1.3;
   color: var(--color-text-primary);
@@ -343,35 +343,27 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 32px 24px;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   text-align: center;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   @include mixins.mobile {
     padding: 24px 20px;
   }
 
   &:hover {
-    transform: translateY(-6px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
   }
 }
 
 .serviceIcon {
-  transition: transform 0.3s ease;
-  font-size: 48px;
-  line-height: 1;
-  filter: grayscale(0.2);
-
-  .serviceCard:hover & {
-    transform: scale(1.1) rotate(5deg);
-  }
+  width: 26px;
+  height: 26px;
+  color: var(--color-accent-primary);
 }
 
 .serviceTitle {
@@ -400,41 +392,29 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  gap: 8px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 32px;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   @include mixins.mobile {
     padding: 24px;
   }
 
   &:hover {
-    transform: translateY(-4px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
   }
 }
 
-.reviewHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.reviewIcon {
-  font-size: 24px;
-}
-
 .reviewQuote {
-  opacity: 0.3;
-  font-family: Georgia, serif;
+  @include typography.display;
+  opacity: 0.35;
+  margin-bottom: -8px;
   font-size: 48px;
+  font-style: italic;
   line-height: 1;
   color: var(--color-accent-primary);
 }
@@ -465,12 +445,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 32px;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
   cursor: pointer;
 
   @include mixins.mobile {
@@ -478,10 +457,8 @@
   }
 
   &:hover {
-    transform: translateY(-6px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
 
     .articleLink {
       color: var(--color-accent-primary);
@@ -494,13 +471,14 @@
 }
 
 .articleIcon {
-  font-size: 40px;
-  line-height: 1;
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent-primary);
 }
 
 .articleTitle {
+  @include typography.display;
   @include typography.text-md;
-  @include typography.bold;
   flex: 1;
   margin: 0;
   line-height: 1.4;
@@ -542,33 +520,33 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 28px 24px;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   @include mixins.mobile {
     padding: 24px 20px;
   }
 
   &:hover {
-    transform: translateY(-6px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-accent-rgb), 0.15);
   }
 }
 
 .stepNumber {
+  @include typography.display;
   font-size: 32px;
+  font-style: italic;
   line-height: 1;
+  color: var(--color-cta-primary);
 }
 
 .stepTitle {
+  @include typography.display;
   @include typography.text-md;
-  @include typography.bold;
   margin: 0;
   line-height: 1.3;
   color: var(--color-text-primary);
@@ -590,11 +568,10 @@
 }
 
 .faqPreviewItem {
-  border: 2px solid var(--color-border-primary);
-  border-radius: 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
   padding: 28px 32px;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.06);
 
   @include mixins.mobile {
     padding: 20px 24px;
@@ -602,8 +579,8 @@
 }
 
 .faqPreviewQuestion {
+  @include typography.display;
   @include typography.text-md;
-  @include typography.bold;
   margin: 0 0 12px;
   line-height: 1.4;
   color: var(--color-text-primary);
@@ -638,10 +615,10 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  border-radius: 24px;
+  border-radius: 16px;
   padding: 64px 32px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.1), rgba(var(--color-accent-rgb), 0.04));
+  background: var(--color-bg-secondary);
 
   @include mixins.mobile {
     padding: 40px 24px;
@@ -649,9 +626,11 @@
 }
 
 .finalCtaTitle {
+  @include typography.display;
   @include typography.text-xl;
-  @include typography.extrabold;
   margin: 0;
+  font-weight: 600;
+  font-style: italic;
   color: var(--color-text-primary);
 }
 

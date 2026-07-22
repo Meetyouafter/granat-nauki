@@ -1,3 +1,11 @@
+@mixin display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+@mixin body-font {
+  font-family: var(--font-body), Arial, sans-serif;
+}
+
 @mixin text-xxs {
   font-size: 12px;
   line-height: 18px;

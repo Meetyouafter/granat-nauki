@@ -3,21 +3,18 @@ import Link from 'next/link';
 import Section from '../../components/Section/Section';
 import Reveal from '../../components/Reveal/Reveal';
 import StatCounter from '../../components/StatCounter/StatCounter';
+import PomegranateMark from '../../components/PomegranateMark/PomegranateMark';
 import styles from './page.module.scss';
 import { getTranslations } from 'next-intl/server';
 
 const HomePage = async () => {
   const t = await getTranslations('HomePage');
 
-  const serviceIcons = ['💙', '🌱', '📚', '🎒'];
-  const reviewIcons = ['⭐', '💫', '✨'];
-  const trustIcons = ['🌱', '💛', '💻', '📚'];
-  const stepIcons = ['📩', '🤝', '🗓️', '💬'];
-
   return (
     <main className={styles.root}>
       <Section id="hero">
         <div className={styles.hero}>
+          <PomegranateMark variant="plate" className={styles.heroMotif} />
           <div className={styles.heroContent}>
             <p className={styles.heroKicker}>{t('hero.kicker')}</p>
             <h1 className={styles.heroTitle}>{t('hero.title')}</h1>
@@ -46,7 +43,7 @@ const HomePage = async () => {
         <ul className={styles.trustBar}>
           {t.raw('trustBar.items').map((item: string, index: number) => (
             <li key={index} className={styles.trustBarItem}>
-              <span className={styles.trustBarIcon}>{trustIcons[index] || '💙'}</span>
+              <PomegranateMark variant="seed" className={styles.trustBarIcon} />
               <span>{item}</span>
             </li>
           ))}
@@ -81,22 +78,22 @@ const HomePage = async () => {
         <Section id="work-with-children" title={t('workWithChildren.title')} lead={t('workWithChildren.lead')}>
           <ul className={styles.workWithChildrenGrid}>
             <li className={styles.workCard}>
-              <div className={styles.workCardIcon}>🧒</div>
+              <PomegranateMark variant="seed" className={styles.workCardIcon} />
               <h3 className={styles.workCardTitle}>{t('workWithChildren.childPsychologist.title')}</h3>
               <p className={styles.workCardDesc}>{t('workWithChildren.childPsychologist.description')}</p>
             </li>
             <li className={styles.workCard}>
-              <div className={styles.workCardIcon}>🌱</div>
+              <PomegranateMark variant="seed" className={styles.workCardIcon} />
               <h3 className={styles.workCardTitle}>{t('workWithChildren.childDevelopment.title')}</h3>
               <p className={styles.workCardDesc}>{t('workWithChildren.childDevelopment.description')}</p>
             </li>
             <li className={styles.workCard}>
-              <div className={styles.workCardIcon}>📚</div>
+              <PomegranateMark variant="seed" className={styles.workCardIcon} />
               <h3 className={styles.workCardTitle}>{t('workWithChildren.schoolPrep.title')}</h3>
               <p className={styles.workCardDesc}>{t('workWithChildren.schoolPrep.description')}</p>
             </li>
             <li className={styles.workCard}>
-              <div className={styles.workCardIcon}>🎒</div>
+              <PomegranateMark variant="seed" className={styles.workCardIcon} />
               <h3 className={styles.workCardTitle}>{t('workWithChildren.tutor.title')}</h3>
               <p className={styles.workCardDesc}>{t('workWithChildren.tutor.description')}</p>
             </li>
@@ -109,7 +106,7 @@ const HomePage = async () => {
           <ul className={styles.servicesGrid}>
             {t.raw('services.items').map((item: string, index: number) => (
               <li key={index} className={styles.serviceCard}>
-                <div className={styles.serviceIcon}>{serviceIcons[index] || '💙'}</div>
+                <PomegranateMark variant="seed" className={styles.serviceIcon} />
                 <h3 className={styles.serviceTitle}>{item}</h3>
               </li>
             ))}
@@ -122,10 +119,7 @@ const HomePage = async () => {
           <ul className={styles.reviewsGrid}>
             {t.raw('reviews.items').map((item: string, index: number) => (
               <li key={index} className={styles.reviewCard}>
-                <div className={styles.reviewHeader}>
-                  <span className={styles.reviewIcon}>{reviewIcons[index] || '⭐'}</span>
-                  <span className={styles.reviewQuote}>&ldquo;</span>
-                </div>
+                <span className={styles.reviewQuote}>&ldquo;</span>
                 <p className={styles.reviewText}>{item}</p>
               </li>
             ))}
@@ -138,7 +132,7 @@ const HomePage = async () => {
           <ul className={styles.articlesGrid}>
             {t.raw('articles.items').map((item: string, index: number) => (
               <li key={index} className={styles.articleCard}>
-                <div className={styles.articleIcon}>📝</div>
+                <PomegranateMark variant="seed" className={styles.articleIcon} />
                 <h3 className={styles.articleTitle}>{item}</h3>
                 <div className={styles.articleLink}>
                   <span>{t('articles.readMore')}</span>
@@ -155,7 +149,7 @@ const HomePage = async () => {
           <ol className={styles.stepsGrid}>
             {t.raw('howItWorks.steps').map((step: { title: string; description: string }, index: number) => (
               <li key={index} className={styles.stepCard}>
-                <div className={styles.stepNumber}>{stepIcons[index] || String(index + 1)}</div>
+                <div className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</div>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
                 <p className={styles.stepDesc}>{step.description}</p>
               </li>

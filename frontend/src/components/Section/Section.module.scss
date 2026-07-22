@@ -6,8 +6,10 @@
 }
 
 .title {
+  @include typography.display;
   @include typography.text-lg;
   margin: 0 0 16px;
+  color: var(--color-text-primary);
 }
 
 .lead {

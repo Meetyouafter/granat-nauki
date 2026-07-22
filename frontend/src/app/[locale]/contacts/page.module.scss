@@ -215,19 +215,19 @@
   padding: 16px 24px;
   transition: all 0.3s ease;
   color: var(--color-text-inverse);
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.3);
+  background: linear-gradient(135deg, var(--color-cta-primary), var(--color-cta-hover));
+  box-shadow: 0 4px 12px rgba(var(--color-cta-rgb), 0.3);
   cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(var(--color-accent-rgb), 0.4);
+    box-shadow: 0 6px 20px rgba(var(--color-cta-rgb), 0.4);
     filter: brightness(1.05);
   }
 
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.3);
+    box-shadow: 0 2px 8px rgba(var(--color-cta-rgb), 0.3);
   }
 }
 

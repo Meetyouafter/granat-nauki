@@ -2,18 +2,25 @@
 @use '../../../../styles/typography';
 
 .root {
-  @include typography.semibold;
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
 
   @include mixins.tablet {
     margin: 0 auto;
   }
+}
 
-  span {
-    @include typography.text-xs;
-    @include typography.regular;
-    color: var(--color-text-tertiary);
-  }
+.mark {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--color-accent-primary);
+}
+
+.wordmark {
+  @include typography.display;
+  @include typography.text-md;
+  font-style: italic;
+  color: var(--color-text-primary);
 }

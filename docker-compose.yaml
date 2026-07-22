@@ -1,5 +1,6 @@
 services:
   backend:
+    container_name: granat-nauki_backend
     build: ./backend
     ports:
       - "4000:4000"
@@ -13,6 +14,7 @@ services:
       - app-network
 
   frontend:
+    container_name: granat-nauki_frontend
     build: ./frontend
     ports:
       - "3000:3000"

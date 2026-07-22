@@ -1,74 +1,86 @@
 :root {
   color-scheme: light;
 
-  /* Backgrounds */
-  --color-bg-primary: #f7f5f0;
-  --color-bg-secondary: #f1eee5;
-  --color-bg-tertiary: #eae5d8;
+  /* Backgrounds — warm off-white, soft "reset" tone, not stark */
+  --color-bg-primary: #f6f3ec;
+  --color-bg-secondary: #efeadd;
+  --color-bg-tertiary: #e6dfcc;
 
   /* Surfaces */
   --color-surface-primary: #ffffff;
-  --color-surface-secondary: #fbfaf7;
+  --color-surface-secondary: #fdfbf7;
   --color-surface-elevated: #ffffff;
 
-  /* Text */
-  --color-text-primary: #2c2c2a;
-  --color-text-secondary: #5c5a54;
-  --color-text-tertiary: #8f8d85;
-  --color-text-inverse: #ffffff;
+  /* Text — soft warm charcoal, not pure black */
+  --color-text-primary: #35322c;
+  --color-text-secondary: #67635a;
+  --color-text-tertiary: #96917f;
+  --color-text-inverse: #fdfbf7;
 
   /* Borders */
-  --color-border-primary: #e6e1d3;
-  --color-border-secondary: #d6cfbb;
+  --color-border-primary: #e6e0d0;
+  --color-border-secondary: #d6cdb4;
 
-  /* Brand / Accent (sage & clay) */
-  --color-accent-primary: #d97757;
-  --color-accent-hover: #c7643f;
-  --color-accent-active: #b5562f;
-  --color-accent-rgb: 217, 119, 87;
+  /* Brand / Accent — sage green: calm, trust. Used broadly (headings, icons, links). */
+  --color-accent-primary: #7c9473;
+  --color-accent-hover: #6a8062;
+  --color-accent-active: #586b52;
+  --color-accent-rgb: 124, 148, 115;
 
-  /* States */
-  --color-success: #7c9473;
-  --color-warning: #e0a458;
-  --color-error: #c0503a;
-  --color-info: #5b8a8a;
+  /* CTA — warm clay/terracotta, reserved for buttons and primary actions only */
+  --color-cta-primary: #c17a54;
+  --color-cta-hover: #a9663f;
+  --color-cta-active: #8f5330;
+  --color-cta-rgb: 193, 122, 84;
+
+  /* States — muted, non-alarming */
+  --color-success: #6f8a67;
+  --color-warning: #c99a52;
+  --color-error: #b2604a;
+  --color-info: #6f8f92;
 
   /* Shadows (fixed across themes, used as rgba(var(--color-shadow-rgb), alpha)) */
-  --color-shadow-rgb: 44, 44, 42;
+  --color-shadow-rgb: 53, 50, 44;
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  /* Backgrounds */
-  --color-bg-primary: #1a2e2a;
-  --color-bg-secondary: #1e3430;
-  --color-bg-tertiary: #24403a;
+  /* Backgrounds — deep teal, not black: softer, less "techno" */
+  --color-bg-primary: #17302b;
+  --color-bg-secondary: #1c3934;
+  --color-bg-tertiary: #23423c;
 
   /* Surfaces */
-  --color-surface-primary: #22383a;
-  --color-surface-secondary: #294240;
-  --color-surface-elevated: #2e4a48;
+  --color-surface-primary: #1f3d37;
+  --color-surface-secondary: #234540;
+  --color-surface-elevated: #2a4d46;
 
-  /* Text */
-  --color-text-primary: #f0ede6;
-  --color-text-secondary: #b9c4bc;
-  --color-text-tertiary: #7e9089;
-  --color-text-inverse: #1a2e2a;
+  /* Text — soft warm cream, not pure white */
+  --color-text-primary: #eee8dc;
+  --color-text-secondary: #b9c2b7;
+  --color-text-tertiary: #839388;
+  --color-text-inverse: #16302c;
 
   /* Borders */
-  --color-border-primary: #2e4a47;
-  --color-border-secondary: #3b5652;
+  --color-border-primary: #2a4a43;
+  --color-border-secondary: #35584f;
 
-  /* Brand / Accent (deep teal calm) */
-  --color-accent-primary: #e8b478;
-  --color-accent-hover: #edc393;
-  --color-accent-active: #f2d2ae;
-  --color-accent-rgb: 232, 180, 120;
+  /* Brand / Accent — mint green, same trust story as light theme */
+  --color-accent-primary: #8fbfa1;
+  --color-accent-hover: #a3ccb2;
+  --color-accent-active: #b7d9c3;
+  --color-accent-rgb: 143, 191, 161;
 
-  /* States */
-  --color-success: #8fbc9a;
-  --color-warning: #e0c468;
-  --color-error: #e08575;
-  --color-info: #7fb3b8;
+  /* CTA — warm sand, keeps the same natural gamut, inverted for dark ground */
+  --color-cta-primary: #dab778;
+  --color-cta-hover: #e3c793;
+  --color-cta-active: #ecd7ae;
+  --color-cta-rgb: 218, 183, 120;
+
+  /* States — muted, non-alarming */
+  --color-success: #9bc48a;
+  --color-warning: #dab778;
+  --color-error: #d98a78;
+  --color-info: #7fa8ac;
 }

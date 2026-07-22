@@ -8,7 +8,7 @@
   border-radius: 8px;
   max-width: 400px;
   padding: 16px;
-  animation: fadeInDown 0.5s ease forwards;
+  animation: fadeInUp 0.4s ease forwards;
   background-color: var(--color-surface-secondary);
 
   @include mixins.mobile {
@@ -17,7 +17,7 @@
   }
 
   &_hidden {
-    animation: lightSpeedOutRight 0.5s forwards;
+    animation: fadeOutDown 0.4s ease forwards;
   }
 
   .title {

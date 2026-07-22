@@ -33,11 +33,12 @@
   @include typography.semibold;
   border-radius: 8px;
   padding: 8px 12px;
+  transition: background-color 0.2s ease;
   color: var(--color-text-inverse);
-  background-color: var(--color-accent-primary);
+  background-color: var(--color-cta-primary);
 
   &:hover {
-    filter: brightness(1.05);
+    background-color: var(--color-cta-hover);
   }
 }
 
