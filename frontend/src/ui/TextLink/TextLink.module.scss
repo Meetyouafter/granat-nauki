@@ -1,0 +1,13 @@
+@use '@styles/typography';
+
+.link {
+  @include typography.text-sm;
+  @include typography.semibold;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  color: var(--color-accent-primary);
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}

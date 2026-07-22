@@ -1,0 +1,49 @@
+@use '@styles/typography';
+
+.size-xxs {
+  @include typography.text-xxs;
+}
+
+.size-xs {
+  @include typography.text-xs;
+}
+
+.size-sm {
+  @include typography.text-sm;
+}
+
+.size-md {
+  @include typography.text-md;
+}
+
+.size-lg {
+  @include typography.text-lg;
+}
+
+.size-xl {
+  @include typography.text-xl;
+}
+
+.size-xxl {
+  @include typography.text-xxl;
+}
+
+.weight-regular {
+  @include typography.regular;
+}
+
+.weight-semibold {
+  @include typography.semibold;
+}
+
+.weight-bold {
+  @include typography.bold;
+}
+
+.weight-extrabold {
+  @include typography.extrabold;
+}
+
+.italic {
+  font-style: italic;
+}

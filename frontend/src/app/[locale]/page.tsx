@@ -1,9 +1,14 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { paths } from '@constants';
 import Section from '../../components/Section/Section';
 import Reveal from '../../components/Reveal/Reveal';
 import StatCounter from '../../components/StatCounter/StatCounter';
 import PomegranateMark from '../../components/PomegranateMark/PomegranateMark';
+import Text from '@ui/Text/Text';
+import Card from '@ui/Card/Card';
+import CardGrid from '@ui/CardGrid/CardGrid';
+import Button from '@ui/Button/Button';
+import TextLink from '@ui/TextLink/TextLink';
 import styles from './page.module.scss';
 import { getTranslations } from 'next-intl/server';
 
@@ -16,17 +21,25 @@ const HomePage = async () => {
         <div className={styles.hero}>
           <PomegranateMark variant="plate" className={styles.heroMotif} />
           <div className={styles.heroContent}>
-            <p className={styles.heroKicker}>{t('hero.kicker')}</p>
-            <h1 className={styles.heroTitle}>{t('hero.title')}</h1>
-            <p className={styles.heroLead}>{t('hero.lead')}</p>
+            <Text as="p" size="md" weight="bold" className={styles.heroKicker}>
+              {t('hero.kicker')}
+            </Text>
+            <Text as="h1" size="xxl" weight="semibold" italic className={styles.heroTitle}>
+              {t('hero.title')}
+            </Text>
+            <Text as="p" size="md" className={styles.heroLead}>
+              {t('hero.lead')}
+            </Text>
             <div className={styles.heroActions}>
-              <Link href="/contacts" className={styles.ctaPrimary}>
+              <Button href={paths.contacts} variant="primary" className={styles.ctaPrimary}>
                 {t('hero.ctaPrimary')}
-                <span className={styles.ctaArrow}>→</span>
-              </Link>
-              <Link href="/about" className={styles.ctaSecondary}>
+                <Text as="span" size="md" className={styles.ctaArrow}>
+                  →
+                </Text>
+              </Button>
+              <Button href={paths.about} variant="secondary">
                 {t('hero.ctaSecondary')}
-              </Link>
+              </Button>
             </div>
           </div>
           <div className={styles.heroImage}>
@@ -42,10 +55,10 @@ const HomePage = async () => {
         </div>
         <ul className={styles.trustBar}>
           {t.raw('trustBar.items').map((item: string, index: number) => (
-            <li key={index} className={styles.trustBarItem}>
+            <Text as="li" key={index} size="xs" weight="semibold" className={styles.trustBarItem}>
               <PomegranateMark variant="seed" className={styles.trustBarIcon} />
               <span>{item}</span>
-            </li>
+            </Text>
           ))}
         </ul>
       </Section>
@@ -53,8 +66,8 @@ const HomePage = async () => {
       <Reveal>
         <Section id="about-psychologist" title={t('aboutPsychologist.title')} lead={t('aboutPsychologist.lead')}>
           <div className={styles.textBlock}>
-            <p>{t('aboutPsychologist.paragraph1')}</p>
-            <p>{t('aboutPsychologist.paragraph2')}</p>
+            <Text as="p">{t('aboutPsychologist.paragraph1')}</Text>
+            <Text as="p">{t('aboutPsychologist.paragraph2')}</Text>
           </div>
         </Section>
       </Reveal>
@@ -63,98 +76,128 @@ const HomePage = async () => {
         <Reveal className={styles.personalExperience}>
           <div className={styles.personalExperienceStat}>
             <StatCounter value={15} className={styles.personalExperienceStatNumber} />
-            <span className={styles.personalExperienceStatSuffix}>{t('personalExperience.statSuffix')}</span>
+            <Text as="span" size="sm" weight="semibold" className={styles.personalExperienceStatSuffix}>
+              {t('personalExperience.statSuffix')}
+            </Text>
           </div>
           <div className={styles.textBlock}>
-            <p>{t('personalExperience.short')}</p>
+            <Text as="p">{t('personalExperience.short')}</Text>
           </div>
-          <Link href="/about" className={styles.personalExperienceLink}>
-            {t('personalExperience.linkText')}
-          </Link>
+          <TextLink href={paths.about}>{t('personalExperience.linkText')}</TextLink>
         </Reveal>
       </Section>
 
       <Reveal>
         <Section id="work-with-children" title={t('workWithChildren.title')} lead={t('workWithChildren.lead')}>
-          <ul className={styles.workWithChildrenGrid}>
-            <li className={styles.workCard}>
+          <CardGrid minWidth={280}>
+            <Card className={styles.workCard}>
               <PomegranateMark variant="seed" className={styles.workCardIcon} />
-              <h3 className={styles.workCardTitle}>{t('workWithChildren.childPsychologist.title')}</h3>
-              <p className={styles.workCardDesc}>{t('workWithChildren.childPsychologist.description')}</p>
-            </li>
-            <li className={styles.workCard}>
+              <Text as="h3" size="md" weight="bold" className={styles.workCardTitle}>
+                {t('workWithChildren.childPsychologist.title')}
+              </Text>
+              <Text as="p" size="xs" className={styles.workCardDesc}>
+                {t('workWithChildren.childPsychologist.description')}
+              </Text>
+            </Card>
+            <Card className={styles.workCard}>
               <PomegranateMark variant="seed" className={styles.workCardIcon} />
-              <h3 className={styles.workCardTitle}>{t('workWithChildren.childDevelopment.title')}</h3>
-              <p className={styles.workCardDesc}>{t('workWithChildren.childDevelopment.description')}</p>
-            </li>
-            <li className={styles.workCard}>
+              <Text as="h3" size="md" weight="bold" className={styles.workCardTitle}>
+                {t('workWithChildren.childDevelopment.title')}
+              </Text>
+              <Text as="p" size="xs" className={styles.workCardDesc}>
+                {t('workWithChildren.childDevelopment.description')}
+              </Text>
+            </Card>
+            <Card className={styles.workCard}>
               <PomegranateMark variant="seed" className={styles.workCardIcon} />
-              <h3 className={styles.workCardTitle}>{t('workWithChildren.schoolPrep.title')}</h3>
-              <p className={styles.workCardDesc}>{t('workWithChildren.schoolPrep.description')}</p>
-            </li>
-            <li className={styles.workCard}>
+              <Text as="h3" size="md" weight="bold" className={styles.workCardTitle}>
+                {t('workWithChildren.schoolPrep.title')}
+              </Text>
+              <Text as="p" size="xs" className={styles.workCardDesc}>
+                {t('workWithChildren.schoolPrep.description')}
+              </Text>
+            </Card>
+            <Card className={styles.workCard}>
               <PomegranateMark variant="seed" className={styles.workCardIcon} />
-              <h3 className={styles.workCardTitle}>{t('workWithChildren.tutor.title')}</h3>
-              <p className={styles.workCardDesc}>{t('workWithChildren.tutor.description')}</p>
-            </li>
-          </ul>
+              <Text as="h3" size="md" weight="bold" className={styles.workCardTitle}>
+                {t('workWithChildren.tutor.title')}
+              </Text>
+              <Text as="p" size="xs" className={styles.workCardDesc}>
+                {t('workWithChildren.tutor.description')}
+              </Text>
+            </Card>
+          </CardGrid>
         </Section>
       </Reveal>
 
       <Reveal>
         <Section id="services" title={t('services.title')} lead={t('services.lead')}>
-          <ul className={styles.servicesGrid}>
+          <CardGrid minWidth={240}>
             {t.raw('services.items').map((item: string, index: number) => (
-              <li key={index} className={styles.serviceCard}>
+              <Card key={index} className={styles.serviceCard}>
                 <PomegranateMark variant="seed" className={styles.serviceIcon} />
-                <h3 className={styles.serviceTitle}>{item}</h3>
-              </li>
+                <Text as="h3" size="md" weight="semibold" className={styles.serviceTitle}>
+                  {item}
+                </Text>
+              </Card>
             ))}
-          </ul>
+          </CardGrid>
         </Section>
       </Reveal>
 
       <Reveal>
         <Section id="reviews" title={t('reviews.title')} lead={t('reviews.lead')}>
-          <ul className={styles.reviewsGrid}>
+          <CardGrid minWidth={300}>
             {t.raw('reviews.items').map((item: string, index: number) => (
-              <li key={index} className={styles.reviewCard}>
+              <Card key={index} className={styles.reviewCard}>
                 <span className={styles.reviewQuote}>&ldquo;</span>
-                <p className={styles.reviewText}>{item}</p>
-              </li>
+                <Text as="p" size="sm" italic className={styles.reviewText}>
+                  {item}
+                </Text>
+              </Card>
             ))}
-          </ul>
+          </CardGrid>
         </Section>
       </Reveal>
 
       <Reveal>
         <Section id="articles" title={t('articles.title')} lead={t('articles.lead')}>
-          <ul className={styles.articlesGrid}>
+          <CardGrid minWidth={280}>
             {t.raw('articles.items').map((item: string, index: number) => (
-              <li key={index} className={styles.articleCard}>
+              <Card key={index} className={styles.articleCard}>
                 <PomegranateMark variant="seed" className={styles.articleIcon} />
-                <h3 className={styles.articleTitle}>{item}</h3>
+                <Text as="h3" size="md" weight="bold" className={styles.articleTitle}>
+                  {item}
+                </Text>
                 <div className={styles.articleLink}>
-                  <span>{t('articles.readMore')}</span>
-                  <span className={styles.articleArrow}>→</span>
+                  <Text as="span" size="xs" weight="semibold">
+                    {t('articles.readMore')}
+                  </Text>
+                  <Text as="span" size="sm" className={styles.articleArrow}>
+                    →
+                  </Text>
                 </div>
-              </li>
+              </Card>
             ))}
-          </ul>
+          </CardGrid>
         </Section>
       </Reveal>
 
       <Reveal>
         <Section id="how-it-works" title={t('howItWorks.title')} lead={t('howItWorks.lead')}>
-          <ol className={styles.stepsGrid}>
+          <CardGrid ordered minWidth={220}>
             {t.raw('howItWorks.steps').map((step: { title: string; description: string }, index: number) => (
-              <li key={index} className={styles.stepCard}>
+              <Card key={index} className={styles.stepCard}>
                 <div className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</div>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
-                <p className={styles.stepDesc}>{step.description}</p>
-              </li>
+                <Text as="h3" size="md" weight="bold" className={styles.stepTitle}>
+                  {step.title}
+                </Text>
+                <Text as="p" size="xs" className={styles.stepDesc}>
+                  {step.description}
+                </Text>
+              </Card>
             ))}
-          </ol>
+          </CardGrid>
         </Section>
       </Reveal>
 
@@ -163,15 +206,17 @@ const HomePage = async () => {
           <div className={styles.faqPreviewList}>
             {t.raw('faqPreview.items').map((item: { question: string; answer: string }, index: number) => (
               <div key={index} className={styles.faqPreviewItem}>
-                <h3 className={styles.faqPreviewQuestion}>{item.question}</h3>
-                <p className={styles.faqPreviewAnswer}>{item.answer}</p>
+                <Text as="h3" size="md" weight="bold" className={styles.faqPreviewQuestion}>
+                  {item.question}
+                </Text>
+                <Text as="p" size="sm" className={styles.faqPreviewAnswer}>
+                  {item.answer}
+                </Text>
               </div>
             ))}
           </div>
           <div className={styles.faqPreviewLinkWrap}>
-            <Link href="/faq" className={styles.faqPreviewLink}>
-              {t('faqPreview.linkText')}
-            </Link>
+            <TextLink href={paths.faq}>{t('faqPreview.linkText')}</TextLink>
           </div>
         </Section>
       </Reveal>
@@ -179,11 +224,15 @@ const HomePage = async () => {
       <Reveal>
         <Section id="final-cta">
           <div className={styles.finalCta}>
-            <h2 className={styles.finalCtaTitle}>{t('finalCta.title')}</h2>
-            <p className={styles.finalCtaLead}>{t('finalCta.lead')}</p>
-            <Link href="/contacts" className={styles.ctaPrimary}>
+            <Text as="h2" size="xl" weight="semibold" italic className={styles.finalCtaTitle}>
+              {t('finalCta.title')}
+            </Text>
+            <Text as="p" size="md" className={styles.finalCtaLead}>
+              {t('finalCta.lead')}
+            </Text>
+            <Button href={paths.contacts} variant="primary">
               {t('finalCta.cta')}
-            </Link>
+            </Button>
           </div>
         </Section>
       </Reveal>
