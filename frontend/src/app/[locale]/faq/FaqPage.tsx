@@ -1,15 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import Section from '../../../components/Section/Section';
 import styles from './FaqPage.module.scss';
+import { FC } from 'react';
+import { FaqItemDto } from '@/types';
 
 interface IFaqPage {
-  faqData: {
-    question: string;
-    answer: string;
-  }[];
+  faqData: FaqItemDto[];
 }
 
-const FaqPage = async ({ faqData }: IFaqPage) => {
+const FaqPage: FC<IFaqPage> = async ({ faqData }) => {
   const t = await getTranslations('FaqPage');
 
   return (
@@ -18,8 +17,8 @@ const FaqPage = async ({ faqData }: IFaqPage) => {
         <div className={styles.list}>
           {faqData.map((item, index) => (
             <details key={index} className={styles.item}>
-              <summary className={styles.summary}>{item.question}</summary>
-              <p>{item.answer}</p>
+              <summary className={styles.summary}>{item.title}</summary>
+              <p>{item.description}</p>
             </details>
           ))}
         </div>

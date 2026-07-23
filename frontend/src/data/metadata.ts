@@ -1,4 +1,14 @@
 const metadata = {
+  main: {
+    ru: {
+      title: 'Главная',
+      description: 'Гранат Науки — это практикующий психолог, тьютор и репетитор по подготовке к школе. Я помогаю детям подготовиться к школе и развиться в социально-коммуникативной сфере.',
+    },
+    en: {
+      title: 'Main',
+      description: 'Granat Nauki — is a practicing psychologist, tutor and school-readiness coach. I help children prepare for school and develop in the social-communicative sphere.',
+    },
+  },
   template: {
     ru: {
       title: {

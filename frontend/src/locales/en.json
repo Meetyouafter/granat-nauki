@@ -128,21 +128,7 @@
         "faqPreview": {
             "title": "Frequently asked questions",
             "lead": "A brief look at what people ask most often.",
-            "linkText": "See all questions →",
-            "items": [
-                {
-                    "question": "How do I know if my child needs a psychologist?",
-                    "answer": "If you notice prolonged anxiety, sudden behavior changes, difficulties communicating or with school — it's worth discussing at a consultation, even if you're not sure it's \"serious\"."
-                },
-                {
-                    "question": "Can I be present at the session?",
-                    "answer": "For preschoolers and at parents' request — yes. With older students, I usually work one-on-one, and discuss dynamics with parents separately."
-                },
-                {
-                    "question": "How many sessions are needed?",
-                    "answer": "It depends on the request: from a few consultations to several months of regular work. We'll outline a plan after our first meeting."
-                }
-            ]
+            "linkText": "See all questions →"
         },
         "finalCta": {
             "title": "Ready to take the first step?",

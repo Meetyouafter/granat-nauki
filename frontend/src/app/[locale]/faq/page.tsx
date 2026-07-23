@@ -2,7 +2,8 @@ import metadata from '@/data/metadata';
 import FaqPage from './FaqPage';
 import { Metadata } from 'next';
 import Api from '@/utils/Api';
- 
+import { FaqItemDto } from '@/types';
+
 export async function generateMetadata({
   params,
 }: {
@@ -14,26 +15,18 @@ export async function generateMetadata({
 
 async function getFaqData(locale: string) {
   try {
-    const res = await Api.GET({ url: `/faq?locale=${locale}` });
-
-    if (!res.ok) {
-      throw new Error(`FAQ fetch failed: ${res.status}`);
-    }
-
-    return res.json();
+    return await Api.GET<FaqItemDto[]>({ url: `/faq?locale=${locale}` });
   } catch (error) {
-    console.error(error);
+    console.error('getFaqData error', error);
     return [];
   }
-}
+};
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+const Page = async ({params}: { params: Promise<{ locale: string }>}) => {
   const { locale } = await params;
   const faqData = await getFaqData(locale);
-  console.log(faqData);
+
   return <FaqPage faqData={faqData} />;
-}
+};
+
+export default Page;
