@@ -44,6 +44,24 @@ services:
     networks:
       - app-network
 
+  db:
+    container_name: granat-nauki_db
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - db-data:/var/lib/postgresql
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
 networks:
   app-network:
     driver: bridge

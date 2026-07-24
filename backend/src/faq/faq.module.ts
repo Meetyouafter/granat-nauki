@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { FaqController } from './faq.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { FaqEntity } from './entities/faq.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([FaqEntity])],
   controllers: [FaqController],
   providers: [FaqService],
 })
