@@ -15,8 +15,8 @@ const FaqPage: FC<IFaqPage> = async ({ faqData }) => {
     <main>
       <Section title={t('title')} lead={t('lead')}>
         <div className={styles.list}>
-          {faqData.map((item, index) => (
-            <details key={index} className={styles.item}>
+          {faqData.map(item => (
+            <details key={item.id} className={styles.item}>
               <summary className={styles.summary}>{item.title}</summary>
               <p>{item.description}</p>
             </details>

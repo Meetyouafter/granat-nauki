@@ -1,8 +1,8 @@
-import { getTranslations } from 'next-intl/server';
-import Section from '../../../components/Section/Section';
-import styles from './page.module.scss';
 import metadata from '@/data/metadata';
 import { Metadata } from 'next';
+import ArticlesPage from './ArticlesPage';
+import Api from '@/utils/Api';
+import { ArticleDto } from '@/types';
 
 export async function generateMetadata({
   params,
@@ -13,16 +13,19 @@ export async function generateMetadata({
   return metadata.articles[locale as keyof typeof metadata.articles] ?? metadata.articles.en;
 }
 
-const ArticlesPage = async () => {
-  const t = await getTranslations('ArticlesPage');
-
-  return (
-    <main className={styles.main}>
-      <Section title={t('title')} lead={t('lead')}>
-        <p className={styles.placeholder}>{t('comingSoon')}</p>
-      </Section>
-    </main>
-  );
+async function getArticlesData(locale: string) {
+  try {
+    return await Api.GET<ArticleDto[]>({ url: `/articles?locale=${locale}` });
+  } catch (error) {
+    throw new Error('getArticlesData error' + error);
+  }
 };
 
-export default ArticlesPage;
+const Page = async ({ params }: { params: Promise<{ locale: string }>}) => {
+  const { locale } = await params;
+  const articles = await getArticlesData(locale);
+
+  return <ArticlesPage articles={articles} />;
+};
+
+export default Page;

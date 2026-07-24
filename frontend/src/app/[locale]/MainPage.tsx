@@ -11,13 +11,14 @@ import TextLink from '@ui/TextLink/TextLink';
 import Slider from '@ui/Slider/Slider';
 import styles from './MainPage.module.scss';
 import { getTranslations } from 'next-intl/server';
-import { FaqItemDto } from '@/types';
+import { ArticleDto, FaqItemDto } from '@/types';
 
 interface IMainPage {
   faqData: FaqItemDto[];
+  articlesData: ArticleDto[];
 }
 
-const MainPage = async ({ faqData }: IMainPage) => {
+const MainPage = async ({ faqData, articlesData }: IMainPage) => {
   const t = await getTranslations('HomePage');
 
   const heroSlides = [1, 2, 3, 4, 5].map((index) => ({
@@ -176,11 +177,11 @@ const MainPage = async ({ faqData }: IMainPage) => {
       <Reveal>
         <Section id="articles" title={t('articles.title')} lead={t('articles.lead')}>
           <CardGrid minWidth={280}>
-            {t.raw('articles.items').map((item: string, index: number) => (
+            {articlesData.map((item: ArticleDto, index: number) => (
               <Card key={index} className={styles.articleCard}>
                 <PomegranateMark variant="seed" className={styles.articleIcon} />
                 <Text as="h3" size="md" weight="bold" className={styles.articleTitle}>
-                  {item}
+                  {item.title}
                 </Text>
                 <div className={styles.articleLink}>
                   <Text as="span" size="xs" weight="semibold">

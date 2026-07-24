@@ -96,12 +96,7 @@
         "articles": {
             "title": "Articles",
             "lead": "Short notes about emotions, relationships and self-care.",
-            "readMore": "Read more",
-            "items": [
-                "Helping your child cope with back-to-school anxiety",
-                "Boundaries with your child: how to set them without losing patience",
-                "Tantrums and meltdowns: what's behind them and how to respond"
-            ]
+            "readMore": "Read more"
         },
         "howItWorks": {
             "title": "How the work goes",
@@ -221,8 +216,7 @@
     },
     "ArticlesPage": {
         "title": "Articles",
-        "lead": "Short notes about emotions, relationships and self-care.",
-        "comingSoon": "This section is under construction. Articles are coming soon."
+        "lead": "Short notes about emotions, relationships and self-care."
     },
     "ContactsPage": {
         "title": "Contacts",

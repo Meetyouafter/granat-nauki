@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import metadata from '@/data/metadata';
 import Api from '@/utils/Api';
 import MainPage from './MainPage';
-import { FaqItemDto } from '@/types';
+import { FaqItemDto, ArticleDto } from '@/types';
 
 export async function generateMetadata({
   params,
@@ -22,12 +22,21 @@ async function getFaqData(locale: string) {
   }
 };
 
+async function getArticlesData(locale: string) {
+  try {
+    return await Api.GET<ArticleDto[]>({ url: `/articles?locale=${locale}?limit=3` });
+  } catch (error) {
+    console.error('getArticlesData error', error);
+    return [];
+  }
+};
+
 const Page = async ({params}: { params: Promise<{ locale: string }>}) => {
   const { locale } = await params;
   const faqData = await getFaqData(locale);
+  const articlesData = await getArticlesData(locale);
 
-  return <MainPage faqData={faqData} />;
-
+  return <MainPage faqData={faqData} articlesData={articlesData} />;
 };
 
 export default Page;

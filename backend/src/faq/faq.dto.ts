@@ -1,14 +1,15 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class FaqItemDto {
-  constructor(title: string, description: string) {
-    this.title = title;
-    this.description = description;
-  }
-
-  @ApiProperty({ description: 'Title of the FAQ item' })
+  @IsString()
+  @IsNotEmpty()
   title: string;
 
-  @ApiProperty({ description: 'Description of the FAQ item' })
+  @IsString()
+  @IsNotEmpty()
   description: string;
+
+  @IsNumber()
+  @IsPositive()
+  id: number;
 }
