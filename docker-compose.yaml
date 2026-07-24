@@ -29,6 +29,21 @@ services:
     networks:
       - app-network
 
+  admin:
+    container_name: granat-nauki_admin
+    build: ./admin
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+    env_file:
+      - ./admin/.env
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

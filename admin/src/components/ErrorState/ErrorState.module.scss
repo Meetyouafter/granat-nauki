@@ -1,0 +1,39 @@
+@use '../../styles/typography';
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.title {
+  @include typography.text-lg;
+  @include typography.semibold;
+  color: var(--color-error);
+}
+
+.message {
+  @include typography.text-sm;
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+
+.button {
+  @include typography.text-xs;
+  @include typography.semibold;
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--color-surface);
+  background-color: var(--color-cta);
+
+  &:hover {
+    background-color: var(--color-cta-hover);
+  }
+}

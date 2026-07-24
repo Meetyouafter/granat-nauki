@@ -1,0 +1,19 @@
+@use 'typography';
+
+html,
+body {
+  @include typography.text-sm;
+  margin: 0;
+  width: 100%;
+  height: 100dvh;
+  padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}

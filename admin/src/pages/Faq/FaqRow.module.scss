@@ -1,0 +1,73 @@
+@use '../../styles/typography';
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.dragging {
+  opacity: 0.4;
+}
+
+.over {
+  border-color: var(--color-accent);
+}
+
+.handle {
+  @include typography.text-md;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  padding-top: 6px;
+  cursor: grab;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.field {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  border-color: var(--color-border);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+}
+
+.title {
+  @include typography.text-sm;
+  @include typography.semibold;
+}
+
+.description {
+  @include typography.text-xs;
+  color: var(--color-text-secondary);
+  resize: vertical;
+}
+
+.delete {
+  @include typography.text-sm;
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  &:hover {
+    color: var(--color-error);
+    background-color: var(--color-bg);
+  }
+}

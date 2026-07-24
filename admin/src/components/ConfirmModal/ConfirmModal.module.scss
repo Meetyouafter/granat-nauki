@@ -1,0 +1,64 @@
+@use '../../styles/typography';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--color-shadow-rgb), 0.4);
+}
+
+.dialog {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 360px;
+  width: calc(100% - 48px);
+  box-shadow: 0 10px 30px rgba(var(--color-shadow-rgb), 0.3);
+}
+
+.title {
+  @include typography.text-md;
+  @include typography.semibold;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.message {
+  @include typography.text-sm;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel {
+  @include typography.text-xs;
+  @include typography.semibold;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+
+  &:hover {
+    background-color: var(--color-bg);
+  }
+}
+
+.confirm {
+  @include typography.text-xs;
+  @include typography.semibold;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--color-surface);
+  background-color: var(--color-error);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

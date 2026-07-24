@@ -1,0 +1,31 @@
+@mixin text-xs {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin text-sm {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@mixin text-md {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@mixin text-lg {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+@mixin regular {
+  font-weight: 400;
+}
+
+@mixin semibold {
+  font-weight: 600;
+}
+
+@mixin bold {
+  font-weight: 700;
+}
