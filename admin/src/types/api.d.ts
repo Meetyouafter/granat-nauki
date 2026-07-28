@@ -28,7 +28,7 @@ export interface paths {
             cookie?: never;
         };
         get: operations["FaqController_getFaqItems"];
-        put?: never;
+        put: operations["FaqController_saveFaqItems"];
         post?: never;
         delete?: never;
         options?: never;
@@ -56,10 +56,18 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        FaqItemDto: {
+        GetFaqDto: {
             title: string;
             description: string;
             id: number;
+        };
+        SaveFaqDto: {
+            title: string;
+            description: string;
+            id: number;
+        };
+        PutFaqDto: {
+            items: components["schemas"]["SaveFaqDto"][];
         };
         ArticleDto: {
             title: string;
@@ -95,7 +103,7 @@ export interface operations {
     FaqController_getFaqItems: {
         parameters: {
             query?: {
-                locale?: string;
+                locale?: "ru" | "en";
                 limit?: number;
             };
             header?: never;
@@ -110,9 +118,30 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        data?: components["schemas"]["FaqItemDto"][];
+                        data?: components["schemas"]["GetFaqDto"][];
                     };
                 };
+            };
+        };
+    };
+    FaqController_saveFaqItems: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PutFaqDto"];
+            };
+        };
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

@@ -1,29 +1,43 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import ErrorState from '../../components/ErrorState/ErrorState'
 import Loader from '../../components/Loader/Loader'
-import ConfirmModal from '../../components/ConfirmModal/ConfirmModal'
+import FormActions from '../../components/FormActions/FormActions'
 import { useToast } from '../../components/Toast/ToastProvider'
 import type { FaqItemDto } from '@types'
-import { getFaq } from './api'
+import { getFaqs, saveFaqs } from './api'
 import FaqRow from './FaqRow'
 import styles from './Faq.module.scss'
 
-let nextTempId = -1
+interface NewItemDto extends Omit<FaqItemDto, 'id'> {
+  fakeId: number 
+}
 
-function Faq() {
+const Faq = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['faq'],
-    queryFn: getFaq,
+    queryFn: getFaqs,
     select: (data) => data.data,
   })
 
   const { notify } = useToast()
-  const [items, setItems] = useState<FaqItemDto[]>([])
+  const [items, setItems] = useState<(FaqItemDto | NewItemDto)[]>([])
   const [syncedData, setSyncedData] = useState(data)
-  const [pendingDelete, setPendingDelete] = useState<FaqItemDto | null>(null)
+
+  const mutate = useMutation({
+    mutationFn: () =>
+      saveFaqs(
+        items.map(({ title, description, ...item }) => ({
+          title,
+          description,
+          ...('id' in item ? { id: item.id } : {}),
+        })),
+      ),
+    onSuccess: () => notify('success', 'Изменения сохранены'),
+    onError: (error) => notify('error', error.message),
+  })
 
   if (data !== syncedData) {
     setSyncedData(data)
@@ -34,23 +48,16 @@ function Faq() {
   if (error) return <ErrorState message={error.message} />
 
   const handleChange = (id: number, patch: Partial<FaqItemDto>) => {
-    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...patch } : item)))
-  }
-
-  const handleFieldCommit = () => {
-    notify('success', 'Изменения сохранены')
-  }
-
-  const handleDeleteConfirm = () => {
-    if (!pendingDelete) return
-    setItems((prev) => prev.filter((item) => item.id !== pendingDelete.id))
-    notify('success', `Вопрос «${pendingDelete.title}» удалён`)
-    setPendingDelete(null)
+    setItems((prev) => prev.map((item) =>
+      (('id' in item ? item.id : item.fakeId) === id ? { ...item, ...patch } : item)))
   }
 
   const handleAdd = () => {
-    setItems((prev) => [...prev, { id: nextTempId--, title: '', description: '' }])
-    notify('success', 'Вопрос добавлен')
+    setItems((prev) => [...prev, { fakeId: Date.now(), title: '', description: '' }])
+  }
+
+  const handleDelete = (id: number) => {
+    setItems((prev) => prev.filter((item) => 'id' in item ? item.id : item.fakeId !== id))
   }
 
   const moveRow = (dragIndex: number, hoverIndex: number) => {
@@ -62,10 +69,6 @@ function Faq() {
     })
   }
 
-  const handleDropRow = () => {
-    notify('success', 'Порядок вопросов обновлён')
-  }
-
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.wrapper}>
@@ -73,29 +76,20 @@ function Faq() {
         <ul className={styles.list}>
           {items.map((item, index) => (
             <FaqRow
-              key={item.id}
+              key={'id' in item ? item.id : item.fakeId}
               item={item}
               index={index}
               moveRow={moveRow}
-              onDropRow={handleDropRow}
               onChange={handleChange}
-              onFieldCommit={handleFieldCommit}
-              onDeleteRequest={() => setPendingDelete(item)}
+              onDeleteRequest={() => handleDelete('id' in item ? item.id : item.fakeId)}
             />
           ))}
         </ul>
         <button type="button" className={styles.addButton} onClick={handleAdd}>
           + Добавить вопрос
         </button>
+        <FormActions onSave={() => mutate.mutate()} />
       </div>
-      {pendingDelete && (
-        <ConfirmModal
-          title="Удалить вопрос?"
-          message={`Вы уверены, что хотите удалить вопрос «${pendingDelete.title}»?`}
-          onConfirm={handleDeleteConfirm}
-          onCancel={() => setPendingDelete(null)}
-        />
-      )}
     </DndProvider>
   )
 }

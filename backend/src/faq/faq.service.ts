@@ -1,112 +1,147 @@
-import { Injectable } from '@nestjs/common';
-import { FaqItemDto } from './faq.dto';
-
-const FAQ_BY_LOCALE: Record<string, FaqItemDto[]> = {
-  ru: [
-    {
-      id: 1,
-      title: 'Как проходит первая консультация?',
-      description:
-        'Знакомимся, формулируем ваш запрос и договариваемся о формате.',
-    },
-    {
-      id: 2,
-      title: 'Можно ли онлайн?',
-      description: 'Да, работаю в Zoom/Meet. Очные сессии — по договоренности.',
-    },
-    {
-      id: 3,
-      title: 'Конфиденциальность?',
-      description:
-        'Строго соблюдается. Ваши данные и содержание встреч не передаются третьим лицам.',
-    },
-    {
-      id: 4,
-      title: 'Какова длительность сессии?',
-      description:
-        'Стандартная сессия длится 50-60 минут. Для диагностики может потребоваться больше времени, это обсуждается заранее.',
-    },
-    {
-      id: 5,
-      title: 'Как часто нужно встречаться?',
-      description:
-        'Обычно рекомендуем встречи раз в неделю. Частота может варьироваться в зависимости от вашего запроса и ситуации.',
-    },
-    {
-      id: 6,
-      title: 'Сколько сессий может потребоваться?',
-      description:
-        'Количество сессий зависит от вашего запроса и целей. Некоторые вопросы решаются за несколько встреч, другие требуют более длительной работы. Это обсуждается индивидуально.',
-    },
-    {
-      id: 7,
-      title: 'Работаете ли вы с детьми?',
-      description:
-        'Да, работаю с детьми и подростками. Формат работы адаптируется под возраст и особенности ребенка.',
-    },
-    {
-      id: 8,
-      title: 'Что делать, если нужно отменить встречу?',
-      description:
-        'Просьба предупредить об отмене минимум за 24 часа. При отмене менее чем за 24 часа стоимость сессии сохраняется.',
-    },
-  ],
-  en: [
-    {
-      id: 1,
-      title: 'How does the first consultation work?',
-      description:
-        'We get acquainted, define your request, and agree on a format.',
-    },
-    {
-      id: 2,
-      title: 'Can sessions be online?',
-      description:
-        'Yes, I work via Zoom/Meet. In-person sessions are available by arrangement.',
-    },
-    {
-      id: 3,
-      title: 'Is confidentiality guaranteed?',
-      description:
-        'Strictly maintained. Your data and the content of sessions are never shared with third parties.',
-    },
-    {
-      id: 4,
-      title: 'How long does a session last?',
-      description:
-        'A standard session lasts 50-60 minutes. Diagnostics may take longer, which is discussed in advance.',
-    },
-    {
-      id: 5,
-      title: 'How often should we meet?',
-      description:
-        'We usually recommend meeting once a week. Frequency can vary depending on your request and situation.',
-    },
-    {
-      id: 6,
-      title: 'How many sessions might I need?',
-      description:
-        'The number of sessions depends on your request and goals. Some issues are resolved in a few meetings, others require longer-term work. This is discussed individually.',
-    },
-    {
-      id: 7,
-      title: 'Do you work with children?',
-      description:
-        'Yes, I work with children and teenagers. The format adapts to the age and needs of the child.',
-    },
-    {
-      id: 8,
-      title: 'What if I need to cancel a session?',
-      description:
-        'Please notify me at least 24 hours in advance. Cancellations made less than 24 hours before the session are still charged in full.',
-    },
-  ],
-};
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FaqEntity } from './entities/faq.entity';
+import { Repository } from 'typeorm';
+import { GetFaqDto } from './dto/getFaq.dto';
+import { SaveFaqDto } from './dto/saveFaq.dto';
+import { LOCALE_RU } from '@constants';
+import { Locale } from '@interfaces';
 
 @Injectable()
 export class FaqService {
-  getFaqItems(locale?: string, limit?: number): FaqItemDto[] {
-    const faqItems = FAQ_BY_LOCALE[locale ?? 'ru'] ?? FAQ_BY_LOCALE.ru;
-    return limit ? faqItems.slice(0, limit) : faqItems;
+  constructor(
+    @InjectRepository(FaqEntity)
+    private readonly faqRepository: Repository<FaqEntity>,
+  ) {}
+
+  async getFaqItems(
+    locale: Locale = LOCALE_RU,
+    limit?: number,
+  ): Promise<GetFaqDto[]> {
+    const query = this.faqRepository
+      .createQueryBuilder('faq')
+      .orderBy('faq.order', 'ASC')
+      .innerJoinAndSelect(
+        'faq.translations',
+        'translation',
+        'translation.locale = :locale',
+        { locale },
+      );
+
+    if (limit) {
+      query.take(limit);
+    }
+
+    const rows = await query.getMany();
+
+    return rows.flatMap((faq) => {
+      const translation = faq.translations.find((t) => t.locale === locale);
+
+      if (!translation) return [];
+
+      return [
+        {
+          id: faq.id,
+          title: translation.title,
+          description: translation.description,
+        },
+      ];
+    });
+  }
+
+  async deleteFaqItem(
+    id: number,
+    repo: Repository<FaqEntity> = this.faqRepository,
+  ): Promise<void> {
+    const result = await repo.delete(id);
+
+    if (result.affected === 0) throw new NotFoundException();
+  }
+
+  async createFaqItem(
+    faq: SaveFaqDto,
+    order: number,
+    repo: Repository<FaqEntity> = this.faqRepository,
+  ): Promise<FaqEntity> {
+    const entity = repo.create({
+      translations: [
+        { locale: LOCALE_RU, title: faq.title, description: faq.description },
+      ],
+      order,
+    });
+
+    return repo.save(entity);
+  }
+
+  async editFaqItem(
+    faq: SaveFaqDto,
+    order: number,
+    repo: Repository<FaqEntity> = this.faqRepository,
+  ): Promise<FaqEntity> {
+    if (!faq.id) throw new BadRequestException();
+
+    const entity = await repo.findOne({
+      where: { id: faq.id },
+      relations: { translations: true },
+    });
+
+    if (!entity) throw new NotFoundException();
+
+    entity.order = order;
+
+    const translation = entity.translations.find((t) => t.locale === LOCALE_RU);
+
+    if (!translation) throw new BadRequestException();
+
+    translation.title = faq.title;
+    translation.description = faq.description;
+
+    return repo.save(entity);
+  }
+
+  async saveFaqItems(faqs: SaveFaqDto[]): Promise<GetFaqDto[]> {
+    return this.faqRepository.manager.transaction(async (manager) => {
+      const repo = manager.getRepository(FaqEntity);
+
+      const existing = await repo.find({
+        relations: { translations: true },
+      });
+
+      const toDelete = existing.filter(
+        (entity) => !faqs.some((faq) => faq.id === entity.id),
+      );
+
+      for (const entity of toDelete) {
+        await this.deleteFaqItem(entity.id, repo);
+      }
+
+      const saved: FaqEntity[] = [];
+
+      for (const [index, faq] of faqs.entries()) {
+        saved.push(
+          faq.id
+            ? await this.editFaqItem(faq, index, repo)
+            : await this.createFaqItem(faq, index, repo),
+        );
+      }
+
+      return saved.map((entity) => this.toGetFaqDto(entity, LOCALE_RU));
+    });
+  }
+
+  private toGetFaqDto(entity: FaqEntity, locale: Locale): GetFaqDto {
+    const translation = entity.translations.find((t) => t.locale === locale);
+
+    if (!translation) throw new NotFoundException();
+
+    return {
+      id: entity.id,
+      title: translation.title,
+      description: translation.description,
+    };
   }
 }

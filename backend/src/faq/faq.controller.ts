@@ -1,10 +1,12 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Put, Query, Body } from '@nestjs/common';
 import { FaqService } from './faq.service';
-import { FaqItemDto } from './faq.dto';
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
+import { GetFaqDto } from './dto/getFaq.dto';
+import { GetFaqQueryDto } from './dto/getFaqQuery.dto';
+import { PutFaqDto } from './dto/putFaq.dto';
 
 @Controller('faq')
-@ApiExtraModels(FaqItemDto)
+@ApiExtraModels(GetFaqDto)
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
@@ -13,16 +15,18 @@ export class FaqController {
       properties: {
         data: {
           type: 'array',
-          items: { $ref: getSchemaPath(FaqItemDto) },
+          items: { $ref: getSchemaPath(GetFaqDto) },
         },
       },
     },
   })
   @Get()
-  getFaqItems(
-    @Query('locale') locale?: string,
-    @Query('limit') limit?: number,
-  ): FaqItemDto[] {
-    return this.faqService.getFaqItems(locale, limit);
+  async getFaqItems(@Query() query: GetFaqQueryDto): Promise<GetFaqDto[]> {
+    return await this.faqService.getFaqItems(query.locale, query.limit);
+  }
+
+  @Put()
+  async saveFaqItems(@Body() body: PutFaqDto): Promise<GetFaqDto[]> {
+    return await this.faqService.saveFaqItems(body.items);
   }
 }

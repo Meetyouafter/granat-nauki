@@ -1,0 +1,32 @@
+@use '../../styles/typography';
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel {
+  @include typography.text-xs;
+  @include typography.semibold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+
+  &:hover {
+    background-color: var(--color-bg);
+  }
+}
+
+.save {
+  @include typography.text-xs;
+  @include typography.semibold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--color-surface);
+  background-color: var(--color-cta);
+
+  &:hover {
+    background-color: var(--color-cta-hover);
+  }
+}

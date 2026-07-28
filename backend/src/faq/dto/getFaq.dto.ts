@@ -1,15 +1,15 @@
 import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
-export class FaqItemDto {
+export class GetFaqDto {
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description!: string;
 
   @IsNumber()
   @IsPositive()
-  id: number;
+  id!: number;
 }

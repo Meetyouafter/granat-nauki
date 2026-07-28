@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import classNames from 'classnames'
 import type { FaqItemDto } from '@types'
@@ -11,13 +11,15 @@ interface IDragItem {
   moved: boolean
 }
 
+interface NewItemDto extends Omit<FaqItemDto, 'id'> {
+  fakeId: number 
+}
+
 interface IFaqRow {
-  item: FaqItemDto
+  item: FaqItemDto | NewItemDto
   index: number
   moveRow: (dragIndex: number, hoverIndex: number) => void
-  onDropRow: () => void
   onChange: (id: number, patch: Partial<FaqItemDto>) => void
-  onFieldCommit: () => void
   onDeleteRequest: () => void
 }
 
@@ -25,12 +27,12 @@ function FaqRow({
   item,
   index,
   moveRow,
-  onDropRow,
   onChange,
-  onFieldCommit,
   onDeleteRequest,
 }: IFaqRow) {
   const ref = useRef<HTMLLIElement>(null)
+
+  const id = 'id' in item ? item.id : item.fakeId
 
   const [{ isDragging }, drag] = useDrag({
     type: ROW_TYPE,
@@ -47,12 +49,11 @@ function FaqRow({
       draggedItem.index = index
       draggedItem.moved = true
     },
-    drop: (draggedItem) => {
-      if (draggedItem.moved) onDropRow()
-    },
   })
 
-  drag(drop(ref))
+  useEffect(() => {
+    drag(drop(ref))
+  }, [drag, drop])
 
   return (
     <li
@@ -66,15 +67,13 @@ function FaqRow({
         <input
           className={classNames(styles.field, styles.title)}
           value={item.title}
-          onChange={(event) => onChange(item.id, { title: event.target.value })}
-          onBlur={onFieldCommit}
+          onChange={(event) => onChange(id, { title: event.target.value })}
           placeholder="Заголовок вопроса"
         />
         <textarea
           className={classNames(styles.field, styles.description)}
           value={item.description}
-          onChange={(event) => onChange(item.id, { description: event.target.value })}
-          onBlur={onFieldCommit}
+          onChange={(event) => onChange(id, { description: event.target.value })}
           placeholder="Описание ответа"
           rows={2}
         />
