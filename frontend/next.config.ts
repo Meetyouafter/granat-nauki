@@ -2,7 +2,7 @@ import {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
  
 const nextConfig: NextConfig = {
-  // Настройка порта для dev сервера
+  reactCompiler: true,
   env: {
     PORT: '1111'
   }

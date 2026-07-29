@@ -7,9 +7,15 @@ interface IFormActions {
   onSave: () => void
   saveLabel?: string
   cancelLabel?: string
+  disabled?: boolean
 }
 
-function FormActions({ onSave, saveLabel = 'Сохранить', cancelLabel = 'Отменить' }: IFormActions) {
+function FormActions({
+  onSave,
+  saveLabel = 'Сохранить',
+  cancelLabel = 'Отменить',
+  disabled = false,
+}: IFormActions) {
   const navigate = useNavigate()
   const [isCancelling, setIsCancelling] = useState(false)
 
@@ -24,7 +30,7 @@ function FormActions({ onSave, saveLabel = 'Сохранить', cancelLabel = '
         <button type="button" className={styles.cancel} onClick={() => setIsCancelling(true)}>
           {cancelLabel}
         </button>
-        <button type="button" className={styles.save} onClick={onSave}>
+        <button type="button" className={styles.save} onClick={onSave} disabled={disabled}>
           {saveLabel}
         </button>
       </div>

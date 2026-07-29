@@ -4,6 +4,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import ErrorState from '../../components/ErrorState/ErrorState'
 import Loader from '../../components/Loader/Loader'
+import LoaderOverlay from '../../components/LoaderOverlay/LoaderOverlay'
 import FormActions from '../../components/FormActions/FormActions'
 import { useToast } from '../../components/Toast/ToastProvider'
 import type { FaqItemDto } from '@types'
@@ -85,11 +86,17 @@ const Faq = () => {
             />
           ))}
         </ul>
-        <button type="button" className={styles.addButton} onClick={handleAdd}>
+        <button
+          type="button"
+          className={styles.addButton}
+          onClick={handleAdd}
+          disabled={mutate.isPending}
+        >
           + Добавить вопрос
         </button>
-        <FormActions onSave={() => mutate.mutate()} />
+        <FormActions onSave={() => mutate.mutate()} disabled={mutate.isPending} />
       </div>
+      {mutate.isPending && <LoaderOverlay />}
     </DndProvider>
   )
 }
