@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vh, 24px);
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.image {
+  width: clamp(160px, 30vh, 320px);
+  height: clamp(160px, 30vh, 320px);
+  max-width: 100%;
+}
+
+.title {
+  color: var(--color-text-primary);
+}

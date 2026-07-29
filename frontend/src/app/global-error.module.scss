@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100dvh;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.message {
+  max-width: 480px;
+  color: var(--color-text-tertiary);
+}
+
+.digest {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}

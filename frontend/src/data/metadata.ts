@@ -83,6 +83,16 @@ const metadata = {
       description: 'Short notes about emotions, relationships and self-care.',
     },
   },
+  notFound: {
+    ru: {
+      title: 'Страница не найдена',
+      description: 'Запрашиваемая страница не найдена. Вернитесь на главную страницу сайта.',
+    },
+    en: {
+      title: 'Page not found',
+      description: 'The requested page could not be found. Return to the homepage.',
+    },
+  },
 };
 
 export default metadata;

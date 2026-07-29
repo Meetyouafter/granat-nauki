@@ -1,5 +1,6 @@
 {
     "Header": {
+        "logo": "Granat Nauki",
         "navigation": {
             "home": "Home",
             "about": "About",
@@ -258,5 +259,11 @@
         "description": "Our website uses cookies to ensure proper functionality and improve your browsing experience. By continuing to use the site, you agree to the use of cookies.",
         "accept": "Accept",
         "reject": "Reject"
+    },
+    "ErrorPage": {
+        "title": "Something went wrong",
+        "description": "An unexpected error occurred. Try refreshing the page or return to the homepage.",
+        "retry": "Try again",
+        "home": "Go home"
     }
 }
