@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FaqEntity } from './entities/faq.entity';
+import { FaqEntity, FaqTranslationEntity } from './entities/faq.entity';
 import { Repository } from 'typeorm';
 import { GetFaqDto } from './dto/getFaq.dto';
 import { SaveFaqDto } from './dto/saveFaq.dto';
@@ -100,6 +100,12 @@ export class FaqService {
     const entity = repo.create({
       translations: [
         { locale: LOCALE_RU, title: faq.title, description: faq.description },
+        {
+          locale: LOCALE_EN,
+          title: '',
+          description: '',
+          status: TranslationStatus.PENDING,
+        },
       ],
       order,
     });
@@ -123,12 +129,37 @@ export class FaqService {
 
     entity.order = order;
 
-    const translation = entity.translations.find((t) => t.locale === LOCALE_RU);
+    const originTranslation = entity.translations.find(
+      (t) => t.locale === LOCALE_RU,
+    );
 
-    if (!translation) throw new BadRequestException();
+    if (!originTranslation) throw new BadRequestException();
 
-    translation.title = faq.title;
-    translation.description = faq.description;
+    // меняем текст перевода только если текст на РУ изменился
+    const textChanged =
+      originTranslation.title !== faq.title ||
+      originTranslation.description !== faq.description;
+
+    if (textChanged) {
+      originTranslation.title = faq.title;
+      originTranslation.description = faq.description;
+
+      let enTranslation = entity.translations.find(
+        (t) => t.locale === LOCALE_EN,
+      );
+
+      if (!enTranslation) {
+        enTranslation = new FaqTranslationEntity();
+        enTranslation.locale = LOCALE_EN;
+        enTranslation.title = '';
+        enTranslation.description = '';
+        entity.translations.push(enTranslation);
+      }
+
+      enTranslation.status = TranslationStatus.PENDING;
+      enTranslation.attempts = 0;
+      enTranslation.lastError = null;
+    }
 
     return repo.save(entity);
   }
