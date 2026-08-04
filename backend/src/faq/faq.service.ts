@@ -8,8 +8,9 @@ import { FaqEntity } from './entities/faq.entity';
 import { Repository } from 'typeorm';
 import { GetFaqDto } from './dto/getFaq.dto';
 import { SaveFaqDto } from './dto/saveFaq.dto';
-import { LOCALE_RU } from '@constants';
+import { LOCALE_EN, LOCALE_RU } from '@constants';
 import { Locale } from '@interfaces';
+import { TranslationStatus } from './entities/translation-status.enum';
 
 @Injectable()
 export class FaqService {
@@ -24,19 +25,48 @@ export class FaqService {
   ): Promise<GetFaqDto[]> {
     const query = this.faqRepository
       .createQueryBuilder('faq')
-      .orderBy('faq.order', 'ASC')
-      .innerJoinAndSelect(
+      .orderBy('faq.order', 'ASC');
+
+    if (locale === LOCALE_RU) {
+      // ru — показываем всё, включая ещё не переведённое + статус
+      query.leftJoinAndSelect('faq.translations', 'translation');
+    } else {
+      // другие языки — показываем только то, что переведено
+      query.innerJoinAndSelect(
         'faq.translations',
         'translation',
-        'translation.locale = :locale',
-        { locale },
+        'translation.locale = :locale AND translation.title != :empty AND translation.description != :empty',
+        { locale, empty: '' },
       );
-
-    if (limit) {
-      query.take(limit);
     }
 
+    if (limit) query.take(limit);
+
     const rows = await query.getMany();
+
+    if (locale === LOCALE_RU) {
+      return rows.flatMap((faq) => {
+        const translation = faq.translations.find(
+          (t) => t.locale === LOCALE_RU,
+        );
+
+        if (!translation) return [];
+
+        const enTranslation = faq.translations.find(
+          (t) => t.locale === LOCALE_EN,
+        );
+
+        return [
+          {
+            id: faq.id,
+            title: translation.title,
+            description: translation.description,
+            translationStatus:
+              enTranslation?.status ?? TranslationStatus.PENDING,
+          },
+        ];
+      });
+    }
 
     return rows.flatMap((faq) => {
       const translation = faq.translations.find((t) => t.locale === locale);

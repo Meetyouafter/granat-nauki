@@ -8,6 +8,8 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
+import { TranslationStatus } from './translation-status.enum';
+import type { Locale } from '@interfaces';
 
 @Entity({ name: 'faq' })
 export class FaqEntity {
@@ -36,13 +38,29 @@ export class FaqTranslationEntity {
   id!: number;
 
   @Column()
-  locale!: string;
+  locale!: Locale;
 
   @Column()
   title!: string;
 
   @Column()
   description!: string;
+
+  @Column({ default: 0 })
+  attempts!: number;
+
+  @Column({ type: 'text', nullable: true, default: null })
+  lastError!: null | string;
+
+  @Column({
+    type: 'enum',
+    enum: TranslationStatus,
+    default: TranslationStatus.DONE,
+  })
+  status!: TranslationStatus;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 
   @ManyToOne(() => FaqEntity, (faq) => faq.translations, {
     onDelete: 'CASCADE',

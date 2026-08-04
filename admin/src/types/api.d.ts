@@ -60,6 +60,8 @@ export interface components {
             title: string;
             description: string;
             id: number;
+            /** @enum {string} */
+            translationStatus?: "pending" | "processing" | "done" | "failed";
         };
         SaveFaqDto: {
             title: string;
@@ -137,11 +139,13 @@ export interface operations {
             };
         };
         responses: {
-            204: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GetFaqDto"][];
+                };
             };
         };
     };

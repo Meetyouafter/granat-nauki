@@ -1,4 +1,12 @@
-import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsEnum,
+  IsOptional,
+} from 'class-validator';
+import { TranslationStatus } from '../entities/translation-status.enum';
 
 export class GetFaqDto {
   @IsString()
@@ -12,4 +20,8 @@ export class GetFaqDto {
   @IsNumber()
   @IsPositive()
   id!: number;
+
+  @IsOptional()
+  @IsEnum(TranslationStatus)
+  translationStatus?: TranslationStatus;
 }

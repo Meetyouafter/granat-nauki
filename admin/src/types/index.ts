@@ -1,3 +1,3 @@
 import type { components } from './api'
 
-export type FaqItemDto = components['schemas']['SaveFaqDto']
+export type FaqItemDto = components['schemas']['GetFaqDto']
