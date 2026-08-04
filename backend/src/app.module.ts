@@ -6,6 +6,8 @@ import { ArticlesModule } from './articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getTypeOrmConfig } from './config/typeorm.config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TranslationModule } from './translation/translation.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { getTypeOrmConfig } from './config/typeorm.config';
     }),
     FaqModule,
     ArticlesModule,
+    TranslationModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
