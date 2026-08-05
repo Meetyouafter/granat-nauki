@@ -9,12 +9,14 @@ import FormActions from '../../components/FormActions/FormActions'
 import { useToast } from '../../components/Toast/ToastProvider'
 import type { FaqItemDto } from '@types'
 import { getFaqs, saveFaqs } from './api'
-import FaqRow from './FaqRow'
+import FaqRow, { type IFaqRowErrors } from './FaqRow'
 import styles from './Faq.module.scss'
 
 interface NewItemDto extends Omit<FaqItemDto, 'id'> {
-  fakeId: number 
+  fakeId: number
 }
+
+const getItemId = (item: FaqItemDto | NewItemDto) => ('id' in item ? item.id : item.fakeId)
 
 const Faq = () => {
   const { isLoading, error, data } = useQuery({
@@ -26,6 +28,8 @@ const Faq = () => {
   const { notify } = useToast()
   const [items, setItems] = useState<(FaqItemDto | NewItemDto)[]>([])
   const [syncedData, setSyncedData] = useState(data)
+  const [errors, setErrors] = useState<Record<number, IFaqRowErrors>>({})
+  const [enteringId, setEnteringId] = useState<number | null>(null)
 
   const mutate = useMutation({
     mutationFn: () =>
@@ -51,17 +55,39 @@ const Faq = () => {
   const handleChange = (id: number, patch: Partial<FaqItemDto>) => {
     setItems((prev) => prev.map((item) =>
       (('id' in item ? item.id : item.fakeId) === id ? { ...item, ...patch } : item)))
+    setErrors((prev) => {
+      if (!prev[id]) return prev
+      const fieldErrors = { ...prev[id] }
+      if ('title' in patch) delete fieldErrors.title
+      if ('description' in patch) delete fieldErrors.description
+      const next = { ...prev }
+      if (Object.keys(fieldErrors).length === 0) {
+        delete next[id]
+      } else {
+        next[id] = fieldErrors
+      }
+      return next
+    })
   }
 
   const handleAdd = () => {
-    setItems((prev) => [...prev, { fakeId: Date.now(), title: '', description: '' }])
+    const fakeId = Date.now()
+    setItems((prev) => [...prev, { fakeId, title: '', description: '' }])
+    setEnteringId(fakeId)
   }
 
   const handleDelete = (id: number) => {
     setItems((prev) => prev.filter((item) => 'id' in item ? item.id : item.fakeId !== id))
+    setErrors((prev) => {
+      if (!(id in prev)) return prev
+      const next = { ...prev }
+      delete next[id]
+      return next
+    })
   }
 
   const moveRow = (dragIndex: number, hoverIndex: number) => {
+    if (hoverIndex < 0 || hoverIndex >= items.length) return
     setItems((prev) => {
       const next = [...prev]
       const [dragged] = next.splice(dragIndex, 1)
@@ -70,22 +96,52 @@ const Faq = () => {
     })
   }
 
+  const handleSave = () => {
+    const nextErrors: Record<number, IFaqRowErrors> = {}
+    items.forEach((item) => {
+      const fieldErrors: IFaqRowErrors = {}
+      if (!item.title.trim()) fieldErrors.title = true
+      if (!item.description.trim()) fieldErrors.description = true
+      if (Object.keys(fieldErrors).length > 0) nextErrors[getItemId(item)] = fieldErrors
+    })
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length > 0) {
+      notify('error', 'Заполните обязательные поля перед сохранением')
+      return
+    }
+    mutate.mutate()
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.wrapper}>
         <h1 className={styles.title}>Вопросы</h1>
-        <ul className={styles.list}>
-          {items.map((item, index) => (
-            <FaqRow
-              key={'id' in item ? item.id : item.fakeId}
-              item={item}
-              index={index}
-              moveRow={moveRow}
-              onChange={handleChange}
-              onDeleteRequest={() => handleDelete('id' in item ? item.id : item.fakeId)}
-            />
-          ))}
-        </ul>
+        {items.length === 0 ? (
+          <div className={styles.empty}>
+            <p className={styles.emptyText}>Пока нет ни одного вопроса</p>
+          </div>
+        ) : (
+          <ul className={styles.list}>
+            {items.map((item, index) => {
+              const id = getItemId(item)
+              return (
+                <FaqRow
+                  key={id}
+                  item={item}
+                  index={index}
+                  isFirst={index === 0}
+                  isLast={index === items.length - 1}
+                  isEntering={id === enteringId}
+                  errors={errors[id]}
+                  moveRow={moveRow}
+                  onChange={handleChange}
+                  onDeleteRequest={() => handleDelete(id)}
+                  onEnterAnimationEnd={() => setEnteringId(null)}
+                />
+              )
+            })}
+          </ul>
+        )}
         <button
           type="button"
           className={styles.addButton}
@@ -94,7 +150,7 @@ const Faq = () => {
         >
           + Добавить вопрос
         </button>
-        <FormActions onSave={() => mutate.mutate()} disabled={mutate.isPending} />
+        <FormActions onSave={handleSave} disabled={mutate.isPending} />
       </div>
       {mutate.isPending && <LoaderOverlay />}
     </DndProvider>

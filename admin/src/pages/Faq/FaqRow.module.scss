@@ -3,11 +3,32 @@
 .row {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--space-3);
+  padding: var(--space-4);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--duration-base) var(--ease-standard);
+
+  &:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  &[data-entering] {
+    animation: rowIn var(--duration-slow) var(--ease-standard);
+  }
+}
+
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dragging {
@@ -18,35 +39,72 @@
   border-color: var(--color-accent);
 }
 
+.dragControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
 .handle {
   @include typography.text-md;
   color: var(--color-text-secondary);
   line-height: 1;
-  padding-top: 6px;
   cursor: grab;
+}
+
+.reorder {
+  @include typography.text-xs;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+
+  &:hover:not(:disabled) {
+    color: var(--color-accent);
+    background-color: var(--color-bg);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 }
 
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
   flex: 1;
   min-width: 0;
 }
 
 .field {
-  border: 1px solid transparent;
-  border-radius: 6px;
-  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
   background: transparent;
   color: var(--color-text);
   font-family: inherit;
-  border-color: var(--color-border);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
 
-  &:focus {
+  &:focus-visible {
     outline: none;
     border-color: var(--color-accent);
+    box-shadow: var(--shadow-focus);
   }
+}
+
+.fieldInvalid {
+  border-color: var(--color-error);
+}
+
+.fieldError {
+  @include typography.text-xs;
+  color: var(--color-error);
 }
 
 .title {
@@ -58,16 +116,64 @@
   @include typography.text-xs;
   color: var(--color-text-secondary);
   resize: vertical;
+  field-sizing: content;
+}
+
+.statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
 }
 
 .delete {
   @include typography.text-sm;
   color: var(--color-text-secondary);
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
 
   &:hover {
     color: var(--color-error);
     background-color: var(--color-bg);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .dragControls,
+  .delete {
+    order: 1;
+    flex-direction: row;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .dragControls {
+    display: flex;
+  }
+
+  .delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+
+  .reorder {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .fields {
+    order: 2;
+    flex-basis: 100%;
   }
 }

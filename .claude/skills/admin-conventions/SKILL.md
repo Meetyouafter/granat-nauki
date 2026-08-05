@@ -7,7 +7,7 @@ description: Code-level styling conventions for the granat-nauki admin panel (Vi
 
 ## Always use color tokens
 
-Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use the CSS custom properties defined in `admin/src/styles/colors.scss` (`--color-bg`, `--color-surface`, `--color-text`, `--color-text-secondary`, `--color-border`, `--color-accent`, `--color-accent-hover`, `--color-cta`, `--color-cta-hover`, `--color-error`, `--color-shadow-rgb`):
+Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use the CSS custom properties defined in `admin/src/styles/colors.scss` (`--color-bg`, `--color-surface`, `--color-text`, `--color-text-secondary`, `--color-border`, `--color-accent`, `--color-accent-hover`, `--color-cta`, `--color-cta-hover`, `--color-error`, `--color-error-bg`, `--color-shadow-rgb`, plus the status tones `--color-success`/`-bg`, `--color-processing`/`-bg`, `--color-pending`/`-bg` used by `StatusBadge`):
 
 ```scss
 .link {
@@ -19,7 +19,9 @@ Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use t
 }
 ```
 
-This is a deliberately small token set (trimmed 2026-07-24 — no tertiary bg/text variants, no success/warning/info) — don't reintroduce those tiers or add a one-off hex value; if a new need doesn't fit an existing token, add a token to `colors.scss` rather than inlining a color.
+The token set was trimmed 2026-07-24 (no tertiary bg/text variants, no generic warning/info) and the FAQ status-badge work (2026-08-04) reintroduced a scoped set of status tones for `TranslationStatus` (success/processing/pending, each with a `-bg` pair) — reuse those for any other status/badge UI rather than adding new ones. Still don't add a generic `warning`/`info` tier or a one-off hex value; if a new need doesn't fit an existing token, add a token to `colors.scss` rather than inlining a color.
+
+Non-color tokens (spacing, radius, shadow, motion easing/duration, z-index) live in `admin/src/styles/tokens.scss` — use `var(--space-*)`, `var(--radius-*)`, `var(--shadow-*)` etc. there instead of hardcoding px/ms values that happen to match the scale.
 
 ## Always use typography mixins
 

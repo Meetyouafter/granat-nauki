@@ -1,12 +1,12 @@
 @use '../../styles/typography';
 
 .wrapper {
-  max-width: 720px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 32px 0;
+  padding: var(--space-7) 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .title {
@@ -18,9 +18,23 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
   list-style: none;
   padding: 0;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-7);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.emptyText {
+  @include typography.text-sm;
+  color: var(--color-text-secondary);
 }
 
 .addButton {
@@ -28,11 +42,28 @@
   @include typography.semibold;
   align-self: flex-start;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   color: var(--color-surface);
   background-color: var(--color-cta);
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
 
   &:hover {
     background-color: var(--color-cta-hover);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: var(--space-3);
   }
 }

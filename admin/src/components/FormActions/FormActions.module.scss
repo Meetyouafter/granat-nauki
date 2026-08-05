@@ -3,14 +3,14 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .cancel {
   @include typography.text-xs;
   @include typography.semibold;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   color: var(--color-text-secondary);
 
   &:hover {
@@ -22,11 +22,17 @@
   @include typography.text-xs;
   @include typography.semibold;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   color: var(--color-surface);
   background-color: var(--color-cta);
+  transition: background-color var(--duration-fast) var(--ease-standard);
 
   &:hover {
     background-color: var(--color-cta-hover);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
