@@ -7,3 +7,5 @@ export const DEEPL_LOCALE_MAP: Record<Locale, string> = {
   [LOCALE_RU]: 'RU',
   [LOCALE_EN]: 'EN-US',
 };
+
+export const MAX_TRANSLATE_ATTEMPTS_COUNT = 5;
