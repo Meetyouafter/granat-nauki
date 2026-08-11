@@ -8,9 +8,8 @@ import { FaqEntity, FaqTranslationEntity } from './entities/faq.entity';
 import { Repository } from 'typeorm';
 import { GetFaqDto } from './dto/getFaq.dto';
 import { SaveFaqDto } from './dto/saveFaq.dto';
-import { LOCALE_EN, LOCALE_RU } from '@constants';
+import { LOCALE_EN, LOCALE_RU, TranslationStatus } from '@constants';
 import { Locale } from '@interfaces';
-import { TranslationStatus } from './entities/translation-status.enum';
 
 @Injectable()
 export class FaqService {

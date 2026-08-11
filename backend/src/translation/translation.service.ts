@@ -4,8 +4,12 @@ import { DeeplService } from './deepl.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FaqTranslationEntity } from 'src/faq/entities/faq.entity';
 import { Repository } from 'typeorm';
-import { TranslationStatus } from 'src/faq/entities/translation-status.enum';
-import { LOCALE_EN, LOCALE_RU, MAX_TRANSLATE_ATTEMPTS_COUNT } from '@constants';
+import {
+  LOCALE_EN,
+  LOCALE_RU,
+  MAX_TRANSLATE_ATTEMPTS_COUNT,
+  TranslationStatus,
+} from '@constants';
 
 @Injectable()
 export class TranslationService {

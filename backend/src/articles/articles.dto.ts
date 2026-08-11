@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsPositive, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsPositive, IsInt } from 'class-validator';
 
 export class ArticleDto {
   @IsString()
@@ -9,7 +9,7 @@ export class ArticleDto {
   @IsNotEmpty()
   content: string;
 
-  @IsNumber()
+  @IsInt()
   @IsPositive()
   id: number;
 }

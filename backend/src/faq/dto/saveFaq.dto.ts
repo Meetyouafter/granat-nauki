@@ -1,9 +1,9 @@
 import {
   IsString,
   IsNotEmpty,
-  IsNumber,
-  IsPositive,
   IsOptional,
+  IsInt,
+  IsPositive,
 } from 'class-validator';
 
 export class SaveFaqDto {
@@ -15,8 +15,8 @@ export class SaveFaqDto {
   @IsNotEmpty()
   description!: string;
 
-  @IsNumber()
+  @IsInt()
   @IsPositive()
   @IsOptional()
-  id!: number;
+  id?: number;
 }

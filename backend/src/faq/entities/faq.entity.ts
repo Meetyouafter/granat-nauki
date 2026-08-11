@@ -8,7 +8,7 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { TranslationStatus } from './translation-status.enum';
+import { TranslationStatus } from '@constants';
 import type { Locale } from '@interfaces';
 
 @Entity({ name: 'faq' })
