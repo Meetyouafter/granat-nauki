@@ -1,14 +1,20 @@
+import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+
+const layer = (name: string) => fileURLToPath(new URL(`./src/${name}`, import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@constants': fileURLToPath(new URL('./src/constants/index.ts', import.meta.url)),
-      '@types': fileURLToPath(new URL('./src/types/index.ts', import.meta.url)),
+      '@app': layer('app'),
+      '@pages': layer('pages'),
+      '@widgets': layer('widgets'),
+      '@features': layer('features'),
+      '@entities': layer('entities'),
+      '@shared': layer('shared'),
     },
   },
   server: {

@@ -1,0 +1,28 @@
+@use '@shared/styles/typography';
+
+.stack {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  @include typography.text-xs;
+  @include typography.regular;
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.25);
+  max-width: 280px;
+}
+
+.error {
+  border-left-color: var(--color-error);
+}

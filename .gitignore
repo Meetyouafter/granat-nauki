@@ -1,1 +1,7 @@
 .env
+
+# some ai files
+.claude
+.agents
+docs
+skills-lock.json

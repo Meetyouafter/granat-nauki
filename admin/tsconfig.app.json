@@ -11,8 +11,13 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@constants": ["./src/constants/index.ts"],
-      "@types": ["./src/types/index.ts"]
+      "@app": ["./src/app/index.ts"],
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@widgets/*": ["./src/widgets/*"],
+      "@features/*": ["./src/features/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@shared/*": ["./src/shared/*"]
     },
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
