@@ -1,0 +1,61 @@
+import classNames from 'classnames'
+
+import { StatusBadge } from '@shared/ui/StatusBadge'
+
+import { formatAge } from '../lib/formatAge'
+import { formatReviewDate } from '../lib/formatReviewDate'
+import { FORMAT_LABELS, type ReviewDto, SERVICE_LABELS, STATUS_LABELS } from '../model/types'
+
+import styles from './ReviewCard.module.scss'
+
+interface IReviewCard {
+  review: ReviewDto
+  onEdit?: () => void
+}
+
+function ReviewCard({ review, onEdit }: IReviewCard) {
+  return (
+    <article className={styles.card} onClick={onEdit}>
+      <header className={styles.header}>
+        <time className={styles.date} dateTime={review.reviewDate}>
+          {formatReviewDate(review.reviewDate)}
+        </time>
+        <div className={styles.badges}>
+          <span
+            className={classNames(
+              styles.status,
+              review.status === 'published' ? styles.statusPublished : styles.statusDraft,
+            )}
+          >
+            {STATUS_LABELS[review.status]}
+          </span>
+          {review.translationStatus && <StatusBadge status={review.translationStatus} />}
+        </div>
+      </header>
+
+      <p className={styles.text}>{review.review}</p>
+
+      <div className={styles.meta}>
+        <span className={styles.tag}>{SERVICE_LABELS[review.service]}</span>
+        <span className={styles.tag}>{FORMAT_LABELS[review.format]}</span>
+        <span className={styles.tag}>{formatAge(review.age)}</span>
+        <span className={styles.id}>#{review.id}</span>
+      </div>
+
+      <footer className={styles.footer}>
+        <button
+          type="button"
+          className={styles.editButton}
+          onClick={(event) => {
+            event.stopPropagation()
+            onEdit?.()
+          }}
+        >
+          Редактировать
+        </button>
+      </footer>
+    </article>
+  )
+}
+
+export default ReviewCard

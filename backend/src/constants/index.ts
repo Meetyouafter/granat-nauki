@@ -1,6 +1,7 @@
 import type { Locale } from '@interfaces';
 
 export * from './translation-status.enum';
+export * from './session-format.enum';
 
 export const LOCALE_RU = 'ru';
 export const LOCALE_EN = 'en';

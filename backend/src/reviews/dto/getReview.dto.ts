@@ -10,9 +10,14 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { MAX_CHILD_AGE, MIN_CHILD_AGE, TranslationStatus } from '@constants';
-import { ReviewFormat } from '../entities/review-format.enum';
+import {
+  MAX_CHILD_AGE,
+  MIN_CHILD_AGE,
+  TranslationStatus,
+  SessionFormat,
+} from '@constants';
 import { ServiceType } from '../entities/service-type.enum';
+import { ReviewStatus } from 'src/constants/review-status.enum';
 
 export class GetReviewDto {
   @IsInt()
@@ -31,12 +36,15 @@ export class GetReviewDto {
   @IsEnum(ServiceType)
   service!: ServiceType;
 
-  @IsEnum(ReviewFormat)
-  format!: ReviewFormat;
+  @IsEnum(SessionFormat)
+  format!: SessionFormat;
 
   @Type(() => Date)
   @IsDate()
   reviewDate!: Date;
+
+  @IsEnum(ReviewStatus)
+  status!: ReviewStatus;
 
   @IsOptional()
   @IsEnum(TranslationStatus)
