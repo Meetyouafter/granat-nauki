@@ -53,9 +53,19 @@
   background-color: var(--color-pending-bg);
 }
 
+.statusPending {
+  color: var(--color-processing);
+  background-color: var(--color-processing-bg);
+}
+
 .statusPublished {
   color: var(--color-success);
   background-color: var(--color-success-bg);
+}
+
+.statusRejected {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
 }
 
 .text {

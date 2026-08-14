@@ -163,9 +163,19 @@
   background-color: var(--color-pending-bg);
 }
 
+.segmentPending {
+  color: var(--color-processing);
+  background-color: var(--color-processing-bg);
+}
+
 .segmentPublished {
   color: var(--color-success);
   background-color: var(--color-success-bg);
+}
+
+.segmentRejected {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
 }
 
 .invalid {

@@ -5,7 +5,7 @@ export type ServiceType = 'developmental' | 'diagnostics' | 'session' | 'consult
 
 export type SessionFormat = 'online' | 'offline'
 
-export type ReviewStatus = 'draft' | 'published'
+export type ReviewStatus = 'draft' | 'pending' | 'published' | 'rejected'
 
 export interface ReviewDto {
   id: number
@@ -36,5 +36,7 @@ export const FORMAT_LABELS: Record<SessionFormat, string> = {
 
 export const STATUS_LABELS: Record<ReviewStatus, string> = {
   draft: 'Черновик',
+  pending: 'На модерации',
   published: 'Опубликован',
+  rejected: 'Отклонён',
 }

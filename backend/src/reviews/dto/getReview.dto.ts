@@ -13,11 +13,11 @@ import {
 import {
   MAX_CHILD_AGE,
   MIN_CHILD_AGE,
+  ReviewStatus,
   TranslationStatus,
   SessionFormat,
 } from '@constants';
 import { ServiceType } from '../entities/service-type.enum';
-import { ReviewStatus } from 'src/constants/review-status.enum';
 
 export class GetReviewDto {
   @IsInt()

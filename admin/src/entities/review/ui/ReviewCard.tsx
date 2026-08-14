@@ -8,9 +8,22 @@ import { StatusBadge } from '@shared/ui/StatusBadge'
 
 import { formatAge } from '../lib/formatAge'
 import { formatReviewDate } from '../lib/formatReviewDate'
-import { FORMAT_LABELS, type ReviewDto, SERVICE_LABELS, STATUS_LABELS } from '../model/types'
+import {
+  FORMAT_LABELS,
+  type ReviewDto,
+  type ReviewStatus,
+  SERVICE_LABELS,
+  STATUS_LABELS,
+} from '../model/types'
 
 import styles from './ReviewCard.module.scss'
+
+const STATUS_CLASS: Record<ReviewStatus, string> = {
+  draft: styles.statusDraft,
+  pending: styles.statusPending,
+  published: styles.statusPublished,
+  rejected: styles.statusRejected,
+}
 
 interface IReviewCard {
   review: ReviewDto
@@ -27,12 +40,7 @@ const ReviewCard: FC<IReviewCard> = ({ review }) => {
           {formatReviewDate(review.reviewDate)}
         </time>
         <div className={styles.badges}>
-          <span
-            className={classNames(
-              styles.status,
-              review.status === 'published' ? styles.statusPublished : styles.statusDraft,
-            )}
-          >
+          <span className={classNames(styles.status, STATUS_CLASS[review.status])}>
             {STATUS_LABELS[review.status]}
           </span>
           {review.translationStatus && <StatusBadge status={review.translationStatus} />}

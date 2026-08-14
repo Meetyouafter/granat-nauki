@@ -63,7 +63,9 @@ const statusOptions = Object.entries(STATUS_LABELS) as [ReviewStatus, string][]
 
 const STATUS_SEGMENT_CLASS: Record<ReviewStatus, string> = {
   draft: styles.segmentDraft,
+  pending: styles.segmentPending,
   published: styles.segmentPublished,
+  rejected: styles.segmentRejected,
 }
 
 const validate = ({ review, age, reviewDate }: IReviewForm) => {
@@ -266,7 +268,7 @@ const ReviewPage = () => {
           </select>
         </div>
 
-        <div className={styles.field}>
+        <div className={classNames(styles.field, styles.fieldWide)}>
           <span className={styles.label} id="status-label">
             Статус
           </span>
@@ -294,6 +296,7 @@ const ReviewPage = () => {
             ))}
           </div>
         </div>
+
       </form>
 
       <FormActions onSave={handleSave} />

@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { GetReviewDto } from './dto/getReview.dto';
 import { ServiceType } from './entities/service-type.enum';
-import { SessionFormat, TranslationStatus } from '@constants';
-import { ReviewStatus } from 'src/constants/review-status.enum';
+import { ReviewStatus, SessionFormat, TranslationStatus } from '@constants';
 
 const REVIEWS_MOCK: GetReviewDto[] = [
   {
@@ -23,7 +22,7 @@ const REVIEWS_MOCK: GetReviewDto[] = [
     format: SessionFormat.ONLINE,
     reviewDate: new Date(),
     translationStatus: TranslationStatus.FAILED,
-    status: ReviewStatus.DRAFT,
+    status: ReviewStatus.PENDING,
   },
 ];
 
