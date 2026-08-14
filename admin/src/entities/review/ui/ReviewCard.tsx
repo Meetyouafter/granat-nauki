@@ -1,5 +1,9 @@
+import type { FC } from 'react'
+import { useNavigate } from 'react-router'
+
 import classNames from 'classnames'
 
+import { paths } from '@shared/config'
 import { StatusBadge } from '@shared/ui/StatusBadge'
 
 import { formatAge } from '../lib/formatAge'
@@ -10,12 +14,14 @@ import styles from './ReviewCard.module.scss'
 
 interface IReviewCard {
   review: ReviewDto
-  onEdit?: () => void
 }
 
-function ReviewCard({ review, onEdit }: IReviewCard) {
+const ReviewCard: FC<IReviewCard> = ({ review }) => {
+  const navigate = useNavigate()
+  const handleRedirect = () => navigate(`${paths.reviews}/${review.id}`)
+
   return (
-    <article className={styles.card} onClick={onEdit}>
+    <article className={styles.card} onClick={handleRedirect}>
       <header className={styles.header}>
         <time className={styles.date} dateTime={review.reviewDate}>
           {formatReviewDate(review.reviewDate)}
@@ -46,10 +52,7 @@ function ReviewCard({ review, onEdit }: IReviewCard) {
         <button
           type="button"
           className={styles.editButton}
-          onClick={(event) => {
-            event.stopPropagation()
-            onEdit?.()
-          }}
+          onClick={handleRedirect} 
         >
           Редактировать
         </button>

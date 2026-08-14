@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { GetReviewDto } from './dto/getReview.dto';
 
@@ -9,5 +9,12 @@ export class ReviewsController {
   @Get()
   async getReviews(): Promise<GetReviewDto[]> {
     return await this.reviewService.getReviews();
+  }
+
+  @Get(':id')
+  async getReview(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<GetReviewDto> {
+    return await this.reviewService.getReview(id);
   }
 }

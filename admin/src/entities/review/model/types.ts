@@ -18,6 +18,10 @@ export interface ReviewDto {
   translationStatus?: TranslationStatus
 }
 
+export const MIN_CHILD_AGE = 3
+
+export const MAX_CHILD_AGE = 16
+
 export const SERVICE_LABELS: Record<ServiceType, string> = {
   developmental: 'Развивающие занятия',
   diagnostics: 'Диагностика',

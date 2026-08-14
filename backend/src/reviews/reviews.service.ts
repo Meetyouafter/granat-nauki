@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { GetReviewDto } from './dto/getReview.dto';
 import { ServiceType } from './entities/service-type.enum';
 import { SessionFormat, TranslationStatus } from '@constants';
@@ -29,11 +29,23 @@ const REVIEWS_MOCK: GetReviewDto[] = [
 
 @Injectable()
 export class ReviewsService {
+  // TODO delete
   async delay() {
     return new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
   }
   async getReviews() {
     await this.delay();
     return REVIEWS_MOCK;
+  }
+
+  async getReview(id: number) {
+    await this.delay();
+    const review = REVIEWS_MOCK.find((el) => el.id === id);
+
+    if (!review) {
+      throw new NotFoundException();
+    }
+
+    return review;
   }
 }
