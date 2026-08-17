@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { DeeplService } from './deepl.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FaqTranslationEntity } from 'src/faq/entities/faq.entity';
+import { FaqTranslationEntity } from '@faq/entities/faq-translation.entity';
 import { Repository } from 'typeorm';
 import {
   LOCALE_EN,
@@ -13,15 +13,16 @@ import {
 
 @Injectable()
 export class TranslationService {
+  private readonly logger = new Logger(TranslationService.name);
+
   constructor(
     private readonly deeplService: DeeplService,
     @InjectRepository(FaqTranslationEntity)
     private readonly translationRepo: Repository<FaqTranslationEntity>,
   ) {}
-  private readonly logger = new Logger(TranslationService.name);
 
   @Cron(CronExpression.EVERY_HOUR)
-  async handleTranslate() {
+  async handleTranslate(): Promise<void> {
     const pending = await this.translationRepo.find({
       where: { status: TranslationStatus.PENDING, locale: LOCALE_EN },
       relations: { faq: { translations: true } },
@@ -29,36 +30,49 @@ export class TranslationService {
     });
 
     for (const translation of pending) {
-      const ru = translation.faq.translations.find(
-        (t) => t.locale === LOCALE_RU,
-      );
-
-      if (!ru) continue;
-
       try {
-        const [title, description] =
-          await this.deeplService.sendTextToTranslate(
-            [ru?.title, ru?.description],
-            LOCALE_EN,
-          );
-        translation.title = title;
-        translation.description = description;
+        const origin = translation.faq.translations.find(
+          (t) => t.locale === LOCALE_RU,
+        );
+
+        if (!origin) {
+          throw new Error(`нет оригинала на "${LOCALE_RU}"`);
+        }
+
+        const [question, answer] = await this.deeplService.sendTextToTranslate(
+          [origin.question, origin.answer],
+          LOCALE_EN,
+        );
+
+        translation.question = question;
+        translation.answer = answer;
         translation.status = TranslationStatus.DONE;
         translation.attempts = 0;
         translation.lastError = null;
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : 'Translation error';
+
         translation.attempts++;
         translation.lastError = errorMessage;
-        this.logger.log('Translation error', translation.id, errorMessage);
         translation.status =
           translation.attempts >= MAX_TRANSLATE_ATTEMPTS_COUNT
             ? TranslationStatus.FAILED
             : TranslationStatus.PENDING;
+
+        this.logger.error(
+          `Перевод ${translation.id}, попытка ${translation.attempts}: ${errorMessage}`,
+        );
       }
 
-      await this.translationRepo.save(translation);
+      try {
+        await this.translationRepo.save(translation);
+      } catch (error) {
+        this.logger.error(
+          `Перевод ${translation.id}: не удалось сохранить результат`,
+          error instanceof Error ? error.stack : String(error),
+        );
+      }
     }
   }
 }

@@ -1,7 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { GetReviewDto } from './dto/getReview.dto';
-import { ServiceType } from './entities/service-type.enum';
-import { ReviewStatus, SessionFormat, TranslationStatus } from '@constants';
+
+import {
+  ReviewStatus,
+  ServiceType,
+  SessionFormat,
+  TranslationStatus,
+} from '@constants';
 
 const REVIEWS_MOCK: GetReviewDto[] = [
   {
@@ -42,7 +47,7 @@ export class ReviewsService {
     const review = REVIEWS_MOCK.find((el) => el.id === id);
 
     if (!review) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Отзыв ${id} не найден`);
     }
 
     return review;

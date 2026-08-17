@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TranslationService } from './translation.service';
 import { DeeplService } from './deepl.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { FaqTranslationEntity } from 'src/faq/entities/faq.entity';
+import { FaqModule } from '@faq/faq.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FaqTranslationEntity])],
+  imports: [FaqModule],
   providers: [DeeplService, TranslationService],
 })
 export class TranslationModule {}

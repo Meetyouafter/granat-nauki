@@ -15,8 +15,8 @@ import {
   MIN_CHILD_AGE,
   ReviewStatus,
   SessionFormat,
+  ServiceType,
 } from '@constants';
-import { ServiceType } from '../entities/service-type.enum';
 
 export class SaveReviewDto {
   @IsInt()

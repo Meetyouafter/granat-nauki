@@ -1,38 +1,18 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
+  Index,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { TranslationStatus } from '@constants';
-import type { Locale } from '@interfaces';
-
-@Entity({ name: 'faq' })
-export class FaqEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Column({ default: 0 })
-  order!: number;
-
-  @OneToMany(() => FaqTranslationEntity, (translation) => translation.faq, {
-    cascade: true,
-  })
-  translations!: FaqTranslationEntity[];
-
-  @CreateDateColumn()
-  createdAt!: Date;
-
-  @UpdateDateColumn()
-  updatedAt!: Date;
-}
+import { TranslationStatus, type Locale } from '@constants';
+import { FaqItemEntity } from './faq-item.entity';
 
 @Entity({ name: 'faq_translations' })
 @Unique(['faq', 'locale'])
+@Index(['locale', 'status'])
 export class FaqTranslationEntity {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -41,10 +21,10 @@ export class FaqTranslationEntity {
   locale!: Locale;
 
   @Column()
-  title!: string;
+  question!: string;
 
   @Column()
-  description!: string;
+  answer!: string;
 
   @Column({ default: 0 })
   attempts!: number;
@@ -62,8 +42,8 @@ export class FaqTranslationEntity {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @ManyToOne(() => FaqEntity, (faq) => faq.translations, {
+  @ManyToOne(() => FaqItemEntity, (faq) => faq.translations, {
     onDelete: 'CASCADE',
   })
-  faq!: FaqEntity;
+  faq!: FaqItemEntity;
 }

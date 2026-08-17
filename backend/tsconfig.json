@@ -23,7 +23,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@constants": ["./src/constants"],
-      "@interfaces": ["src/interfaces"],
+      "@common/*": ["./src/common/*"],
+      "@faq/*": ["./src/faq/*"]
     }
   }
 }

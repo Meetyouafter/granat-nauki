@@ -16,8 +16,8 @@ import {
   ReviewStatus,
   TranslationStatus,
   SessionFormat,
+  ServiceType,
 } from '@constants';
-import { ServiceType } from '../entities/service-type.enum';
 
 export class GetReviewDto {
   @IsInt()

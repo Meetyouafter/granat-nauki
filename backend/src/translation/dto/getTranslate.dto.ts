@@ -1,5 +1,3 @@
-import { IsArray, IsNotEmpty } from 'class-validator';
-
 interface Translation {
   detected_source_language: string;
   text: string;
@@ -9,7 +7,5 @@ interface Translation {
 }
 
 export class GetTranslateDto {
-  @IsArray()
-  @IsNotEmpty()
   translations!: Translation[];
 }

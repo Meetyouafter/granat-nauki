@@ -1,10 +1,10 @@
 import { Type } from 'class-transformer';
 import { ValidateNested, IsArray } from 'class-validator';
-import { SaveFaqDto } from './saveFaq.dto';
+import { SaveFaqItemDto } from './save-faq-item.dto';
 
-export class PutFaqDto {
+export class SaveFaqItemsDto {
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => SaveFaqDto)
-  items!: SaveFaqDto[];
+  @Type(() => SaveFaqItemDto)
+  items!: SaveFaqItemDto[];
 }

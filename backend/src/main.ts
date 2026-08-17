@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { TransformInterceptor } from './common/transform.interceptor';
+import { HttpExceptionFilter } from './common/http-exception.filter';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
@@ -10,6 +11,7 @@ async function bootstrap() {
     origin: process.env.CORS_ORIGINS?.split(',') ?? [],
   });
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('FAQ API')

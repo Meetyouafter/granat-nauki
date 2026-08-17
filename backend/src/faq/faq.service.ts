@@ -1,207 +1,245 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FaqEntity, FaqTranslationEntity } from './entities/faq.entity';
+import { FaqItemEntity } from './entities/faq-item.entity';
+import { FaqTranslationEntity } from './entities/faq-translation.entity';
 import { Repository } from 'typeorm';
-import { GetFaqDto } from './dto/getFaq.dto';
-import { SaveFaqDto } from './dto/saveFaq.dto';
-import { LOCALE_EN, LOCALE_RU, TranslationStatus } from '@constants';
-import { Locale } from '@interfaces';
+import { FaqItemDto } from './dto/faq-item.dto';
+import { SaveFaqItemDto } from './dto/save-faq-item.dto';
+import {
+  LOCALE_EN,
+  LOCALE_RU,
+  TranslationStatus,
+  type Locale,
+} from '@constants';
 
 @Injectable()
 export class FaqService {
+  private readonly logger = new Logger(FaqService.name);
+
   constructor(
-    @InjectRepository(FaqEntity)
-    private readonly faqRepository: Repository<FaqEntity>,
+    @InjectRepository(FaqItemEntity)
+    private readonly faqRepository: Repository<FaqItemEntity>,
   ) {}
 
-  async getFaqItems(
+  async findAll(
     locale: Locale = LOCALE_RU,
     limit?: number,
-  ): Promise<GetFaqDto[]> {
+  ): Promise<FaqItemDto[]> {
     const query = this.faqRepository
       .createQueryBuilder('faq')
-      .orderBy('faq.order', 'ASC');
+      .orderBy('faq.sortOrder', 'ASC');
 
     if (locale === LOCALE_RU) {
-      // ru — показываем всё, включая ещё не переведённое + статус
+      // ru — оригинал, показываем всё. Тянем все переводы, чтобы отдать статус перевода
       query.leftJoinAndSelect('faq.translations', 'translation');
     } else {
-      // другие языки — показываем только то, что переведено
+      // Остальные языки — только то, что переведено хотя бы раз.
+      // Текст при этом может быть устаревшим: после правки оригинала статус
+      // сбрасывается в PENDING, но старый перевод продолжает показываться до следующего прогона крона
       query.innerJoinAndSelect(
         'faq.translations',
         'translation',
-        'translation.locale = :locale AND translation.title != :empty AND translation.description != :empty',
+        'translation.locale = :locale AND translation.question != :empty AND translation.answer != :empty',
         { locale, empty: '' },
       );
     }
 
     if (limit) query.take(limit);
 
-    const rows = await query.getMany();
+    const faqItems = await query.getMany();
 
-    if (locale === LOCALE_RU) {
-      return rows.flatMap((faq) => {
-        const translation = faq.translations.find(
-          (t) => t.locale === LOCALE_RU,
+    return faqItems.flatMap((faqItem) => {
+      if (!this.findTranslation(faqItem, locale)) {
+        this.logger.warn(
+          `FAQ-элемент ${faqItem.id}: нет перевода "${locale}", пропущен в выдаче`,
         );
 
-        if (!translation) return [];
+        return [];
+      }
 
-        const enTranslation = faq.translations.find(
-          (t) => t.locale === LOCALE_EN,
-        );
-
-        return [
-          {
-            id: faq.id,
-            title: translation.title,
-            description: translation.description,
-            translationStatus:
-              enTranslation?.status ?? TranslationStatus.PENDING,
-          },
-        ];
-      });
-    }
-
-    return rows.flatMap((faq) => {
-      const translation = faq.translations.find((t) => t.locale === locale);
-
-      if (!translation) return [];
-
-      return [
-        {
-          id: faq.id,
-          title: translation.title,
-          description: translation.description,
-        },
-      ];
+      return [this.toDto(faqItem, locale)];
     });
   }
 
-  async deleteFaqItem(
+  async remove(
     id: number,
-    repo: Repository<FaqEntity> = this.faqRepository,
+    repo: Repository<FaqItemEntity> = this.faqRepository,
   ): Promise<void> {
     const result = await repo.delete(id);
 
-    if (result.affected === 0) throw new NotFoundException();
+    if (result.affected === 0) {
+      throw new NotFoundException(`FAQ-элемент ${id} не найден`);
+    }
   }
 
-  async createFaqItem(
-    faq: SaveFaqDto,
-    order: number,
-    repo: Repository<FaqEntity> = this.faqRepository,
-  ): Promise<FaqEntity> {
+  async create(
+    faqItem: SaveFaqItemDto,
+    sortOrder: number,
+    repo: Repository<FaqItemEntity> = this.faqRepository,
+  ): Promise<FaqItemEntity> {
     const entity = repo.create({
       translations: [
-        { locale: LOCALE_RU, title: faq.title, description: faq.description },
+        {
+          locale: LOCALE_RU,
+          question: faqItem.question,
+          answer: faqItem.answer,
+        },
         {
           locale: LOCALE_EN,
-          title: '',
-          description: '',
+          question: '',
+          answer: '',
           status: TranslationStatus.PENDING,
         },
       ],
-      order,
+      sortOrder,
     });
 
     return repo.save(entity);
   }
 
-  async editFaqItem(
-    faq: SaveFaqDto,
-    order: number,
-    repo: Repository<FaqEntity> = this.faqRepository,
-  ): Promise<FaqEntity> {
-    if (!faq.id) throw new BadRequestException();
+  async update(
+    entity: FaqItemEntity,
+    faqItem: SaveFaqItemDto,
+    sortOrder: number,
+    repo: Repository<FaqItemEntity> = this.faqRepository,
+  ): Promise<FaqItemEntity> {
+    entity.sortOrder = sortOrder;
 
-    const entity = await repo.findOne({
-      where: { id: faq.id },
-      relations: { translations: true },
-    });
+    const origin = this.findTranslation(entity, LOCALE_RU);
 
-    if (!entity) throw new NotFoundException();
-
-    entity.order = order;
-
-    const originTranslation = entity.translations.find(
-      (t) => t.locale === LOCALE_RU,
-    );
-
-    if (!originTranslation) throw new BadRequestException();
+    if (!origin) {
+      throw new InternalServerErrorException(
+        `FAQ-элемент ${entity.id}: нет оригинала на "${LOCALE_RU}"`,
+      );
+    }
 
     // меняем текст перевода только если текст на РУ изменился
     const textChanged =
-      originTranslation.title !== faq.title ||
-      originTranslation.description !== faq.description;
+      origin.question !== faqItem.question || origin.answer !== faqItem.answer;
 
     if (textChanged) {
-      originTranslation.title = faq.title;
-      originTranslation.description = faq.description;
+      origin.question = faqItem.question;
+      origin.answer = faqItem.answer;
 
-      let enTranslation = entity.translations.find(
-        (t) => t.locale === LOCALE_EN,
-      );
+      let translated = this.findTranslation(entity, LOCALE_EN);
 
-      if (!enTranslation) {
-        enTranslation = new FaqTranslationEntity();
-        enTranslation.locale = LOCALE_EN;
-        enTranslation.title = '';
-        enTranslation.description = '';
-        entity.translations.push(enTranslation);
+      if (!translated) {
+        translated = new FaqTranslationEntity();
+        translated.locale = LOCALE_EN;
+        translated.question = '';
+        translated.answer = '';
+        entity.translations.push(translated);
       }
 
-      enTranslation.status = TranslationStatus.PENDING;
-      enTranslation.attempts = 0;
-      enTranslation.lastError = null;
+      translated.status = TranslationStatus.PENDING;
+      translated.attempts = 0;
+      translated.lastError = null;
     }
 
     return repo.save(entity);
   }
 
-  async saveFaqItems(faqs: SaveFaqDto[]): Promise<GetFaqDto[]> {
-    return this.faqRepository.manager.transaction(async (manager) => {
-      const repo = manager.getRepository(FaqEntity);
+  /**
+   * Полная замена списка: элементы, которых нет во входных данных, удаляются.
+   * Порядок в выдаче задаётся порядком элементов в массиве.
+   */
+  async saveAll(faqItems: SaveFaqItemDto[]): Promise<FaqItemDto[]> {
+    this.assertUniqueIds(faqItems);
 
-      const existing = await repo.find({
-        relations: { translations: true },
-      });
+    return this.faqRepository.manager.transaction(async (manager) => {
+      const repo = manager.getRepository(FaqItemEntity);
+
+      const existing = await repo.find({ relations: { translations: true } });
+      const existingById = new Map(
+        existing.map((entity) => [entity.id, entity]),
+      );
 
       const toDelete = existing.filter(
-        (entity) => !faqs.some((faq) => faq.id === entity.id),
+        (entity) => !faqItems.some((faqItem) => faqItem.id === entity.id),
       );
 
       for (const entity of toDelete) {
-        await this.deleteFaqItem(entity.id, repo);
+        await this.remove(entity.id, repo);
       }
 
-      const saved: FaqEntity[] = [];
+      const saved: FaqItemEntity[] = [];
 
-      for (const [index, faq] of faqs.entries()) {
-        saved.push(
-          faq.id
-            ? await this.editFaqItem(faq, index, repo)
-            : await this.createFaqItem(faq, index, repo),
-        );
+      for (const [index, faqItem] of faqItems.entries()) {
+        if (!faqItem.id) {
+          saved.push(await this.create(faqItem, index, repo));
+          continue;
+        }
+
+        const entity = existingById.get(faqItem.id);
+
+        if (!entity) {
+          throw new NotFoundException(`FAQ-элемент ${faqItem.id} не найден`);
+        }
+
+        saved.push(await this.update(entity, faqItem, index, repo));
       }
 
-      return saved.map((entity) => this.toGetFaqDto(entity, LOCALE_RU));
+      return saved.map((entity) => this.toDto(entity, LOCALE_RU));
     });
   }
 
-  private toGetFaqDto(entity: FaqEntity, locale: Locale): GetFaqDto {
-    const translation = entity.translations.find((t) => t.locale === locale);
+  /**
+   * Дубликат id означает, что один и тот же элемент правится дважды:
+   */
+  private assertUniqueIds(faqItems: SaveFaqItemDto[]): void {
+    const ids = faqItems
+      .map((faqItem) => faqItem.id)
+      .filter((id): id is number => id !== undefined);
 
-    if (!translation) throw new NotFoundException();
+    const duplicates = new Set(
+      ids.filter((id, index) => ids.indexOf(id) !== index),
+    );
 
-    return {
+    if (duplicates.size) {
+      throw new BadRequestException(
+        `Повторяющиеся id в списке: ${[...duplicates].join(', ')}`,
+      );
+    }
+  }
+
+  private findTranslation(
+    entity: FaqItemEntity,
+    locale: Locale,
+  ): FaqTranslationEntity | undefined {
+    return entity.translations.find(
+      (translation) => translation.locale === locale,
+    );
+  }
+
+  private toDto(entity: FaqItemEntity, locale: Locale): FaqItemDto {
+    const localized = this.findTranslation(entity, locale);
+
+    // Не 404: элемент найден, сломан инвариант данных на нашей стороне
+    if (!localized) {
+      throw new InternalServerErrorException(
+        `FAQ-элемент ${entity.id}: нет перевода "${locale}"`,
+      );
+    }
+
+    const dto: FaqItemDto = {
       id: entity.id,
-      title: translation.title,
-      description: translation.description,
+      question: localized.question,
+      answer: localized.answer,
     };
+
+    // Статус перевода нужен админке, которая всегда работает с оригиналом
+    if (locale === LOCALE_RU) {
+      dto.translationStatus =
+        this.findTranslation(entity, LOCALE_EN)?.status ??
+        TranslationStatus.PENDING;
+    }
+
+    return dto;
   }
 }

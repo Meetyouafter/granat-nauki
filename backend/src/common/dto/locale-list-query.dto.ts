@@ -1,11 +1,11 @@
 import { Type } from 'class-transformer';
 import { IsIn, IsInt, IsOptional, IsPositive } from 'class-validator';
-import type { Locale } from '@interfaces';
-import { LOCALE_EN, LOCALE_RU } from '@constants';
+import { LOCALES, type Locale } from '@constants';
 
-export class GetReviewsQueryDto {
+/** Общие query-параметры списочных эндпоинтов. */
+export class LocaleListQueryDto {
   @IsOptional()
-  @IsIn([LOCALE_RU, LOCALE_EN])
+  @IsIn(LOCALES)
   locale?: Locale;
 
   @IsOptional()

@@ -6,14 +6,15 @@ import {
   IsPositive,
 } from 'class-validator';
 
-export class SaveFaqDto {
+/** Без id — новый вопрос, с id — правка существующего. */
+export class SaveFaqItemDto {
   @IsString()
   @IsNotEmpty()
-  title!: string;
+  question!: string;
 
   @IsString()
   @IsNotEmpty()
-  description!: string;
+  answer!: string;
 
   @IsInt()
   @IsPositive()
