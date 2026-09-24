@@ -1,4 +1,5 @@
 import js from '@eslint/js'
+import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
@@ -80,14 +81,17 @@ export default defineConfig([
     ],
     plugins: {
       'simple-import-sort': simpleImportSort,
+      '@stylistic': stylistic,
     },
     languageOptions: {
       globals: globals.browser,
     },
     rules: {
       'simple-import-sort/imports': ['error', { groups: IMPORT_GROUPS }],
+      '@stylistic/comma-spacing': ['error', { before: false, after: true }],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
+      '@stylistic/max-len': ['error', { code: 100, ignoreUrls: true }],
     },
   },
-  // границы слоёв (app — самый верхний, ему разрешено всё, кроме импорта самого себя по алиасу)
   ...LAYERS.map(layerBoundary),
 ])

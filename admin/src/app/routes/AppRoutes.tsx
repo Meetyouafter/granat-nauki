@@ -2,19 +2,24 @@ import { Route, Routes } from 'react-router'
 
 import { FaqPage } from '@pages/faq'
 import { HomePage } from '@pages/home'
-import { LoginPage } from '@pages/login'
 import { ReviewPage } from '@pages/review'
 import { ReviewsPage } from '@pages/reviews'
+import { SignInPage } from '@pages/signin'
+import { SignUpPage } from '@pages/signup'
 
 import { paths } from '@shared/config'
 
-import Layout from '../layouts/Layout'
+import RootLayout from '../layouts/rootLayout/RootLayout'
+import SignLayout from '../layouts/signLayout/SignLayout'
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route index element={<LoginPage />} />
-      <Route element={<Layout />}>
+      <Route element={<SignLayout />}>
+        <Route index element={<SignInPage />} />
+        <Route path={paths.signup} element={<SignUpPage />} />
+      </Route>
+      <Route element={<RootLayout />}>
         <Route path={paths.home} element={<HomePage />} />
         <Route path={paths.faq} element={<FaqPage />} />
         <Route path={paths.reviews} element={<ReviewsPage />} />

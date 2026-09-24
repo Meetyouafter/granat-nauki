@@ -2,9 +2,9 @@ import { Outlet } from 'react-router'
 
 import { Header } from '@widgets/header'
 
-import styles from './Layout.module.scss'
+import styles from './RootLayout.module.scss'
 
-function Layout() {
+const RootLayout = () => {
   return (
     <>
       <Header />
@@ -15,4 +15,4 @@ function Layout() {
   )
 }
 
-export default Layout
+export default RootLayout

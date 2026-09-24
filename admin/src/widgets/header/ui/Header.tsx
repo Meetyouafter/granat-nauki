@@ -8,7 +8,7 @@ import { NAV_ITEMS } from '../model/navItems'
 
 import styles from './Header.module.scss'
 
-function Header() {
+const Header = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
