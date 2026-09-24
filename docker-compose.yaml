@@ -1,15 +1,15 @@
 services:
-  frontend:
-    container_name: granat-nauki_frontend
-    build: ./frontend
+  main:
+    container_name: granat-nauki_main
+    build: ./main
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - ./main:/app
       - /app/node_modules
       - /app/.next
     env_file:
-      - ./frontend/.env
+      - ./main/.env
     depends_on:
       db:
         condition: service_healthy
@@ -27,7 +27,7 @@ services:
     env_file:
       - ./admin/.env
     depends_on:
-      - frontend
+      - main
     networks:
       - app-network
 
