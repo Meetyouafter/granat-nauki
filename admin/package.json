@@ -11,11 +11,12 @@
     "gen:api-types": "openapi-typescript http://localhost:4000/api-json -o src/shared/api/generated.d.ts"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.101.4",
+    "@reduxjs/toolkit": "^2.12.0",
     "react": "^19.2.7",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.7",
+    "react-redux": "^9.3.0",
     "react-router": "^8.3.0"
   },
   "devDependencies": {
