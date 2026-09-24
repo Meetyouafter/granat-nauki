@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-import { useMutation, useQuery } from '@tanstack/react-query'
-
 import { FaqRow, type IFaqRowErrors } from '@features/faq-editor'
 
 import { type FaqItem, type FaqItemDto, getFaqItemId, getFaqs, saveFaqs } from '@entities/faq'
@@ -17,30 +15,15 @@ import { useToast } from '@shared/ui/Toast'
 import styles from './FaqPage.module.scss'
 
 const FaqPage = () => {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['faq'],
-    queryFn: getFaqs,
-    select: (data) => data.data,
-  })
+  const data: any[] = []
+  const isLoading = false
+  const error: any = null
 
   const { notify } = useToast()
   const [items, setItems] = useState<FaqItem[]>([])
   const [syncedData, setSyncedData] = useState(data)
   const [errors, setErrors] = useState<Record<number, IFaqRowErrors>>({})
   const [enteringId, setEnteringId] = useState<number | null>(null)
-
-  const mutate = useMutation({
-    mutationFn: () =>
-      saveFaqs(
-        items.map(({ title, description, ...item }) => ({
-          title,
-          description,
-          ...('id' in item ? { id: item.id } : {}),
-        })),
-      ),
-    onSuccess: () => notify('success', 'Изменения сохранены'),
-    onError: (error) => notify('error', error.message),
-  })
 
   if (data !== syncedData) {
     setSyncedData(data)
@@ -93,21 +76,20 @@ const FaqPage = () => {
     })
   }
 
-  const handleSave = () => {
-    const nextErrors: Record<number, IFaqRowErrors> = {}
-    items.forEach((item) => {
-      const fieldErrors: IFaqRowErrors = {}
-      if (!item.title.trim()) fieldErrors.title = true
-      if (!item.description.trim()) fieldErrors.description = true
-      if (Object.keys(fieldErrors).length > 0) nextErrors[getFaqItemId(item)] = fieldErrors
-    })
-    setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) {
-      notify('error', 'Заполните обязательные поля перед сохранением')
-      return
-    }
-    mutate.mutate()
-  }
+  // const handleSave = () => {
+  //   const nextErrors: Record<number, IFaqRowErrors> = {}
+  //   items.forEach((item) => {
+  //     const fieldErrors: IFaqRowErrors = {}
+  //     if (!item.title.trim()) fieldErrors.title = true
+  //     if (!item.description.trim()) fieldErrors.description = true
+  //     if (Object.keys(fieldErrors).length > 0) nextErrors[getFaqItemId(item)] = fieldErrors
+  //   })
+  //   setErrors(nextErrors)
+  //   if (Object.keys(nextErrors).length > 0) {
+  //     notify('error', 'Заполните обязательные поля перед сохранением')
+  //     return
+  //   }
+  // }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -143,13 +125,13 @@ const FaqPage = () => {
           type="button"
           className={styles.addButton}
           onClick={handleAdd}
-          disabled={mutate.isPending}
+          // disabled={mutate.isPending}
         >
           + Добавить вопрос
         </button>
-        <FormActions onSave={handleSave} disabled={mutate.isPending} />
+        {/* <FormActions onSave={handleSave} disabled={mutate.isPending} /> */}
       </div>
-      {mutate.isPending && <LoaderOverlay />}
+      {/* {mutate.isPending && <LoaderOverlay />} */}
     </DndProvider>
   )
 }

@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { routing } from '@/i18n';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import Header from '@components/Header/Header';
 import Footer from '@components/Footer/Footer';
 import metadata from '@/data/metadata';
 import NotFoundContent from './[locale]/not-found';
+import { routing } from '@/i18n/routing';
 
 export const generateMetadata = (): Metadata => metadata.notFound[routing.defaultLocale];
 

@@ -1,6 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
 
-import { getReviews, ReviewCard } from '@entities/review'
+import { ReviewCard, type ReviewDto } from '@entities/review'
 
 import { ErrorState } from '@shared/ui/ErrorState'
 import { Loader } from '@shared/ui/Loader'
@@ -8,11 +7,9 @@ import { Loader } from '@shared/ui/Loader'
 import styles from './ReviewsPage.module.scss'
 
 const ReviewsPage = () => {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['reviews'],
-    queryFn: getReviews,
-    select: (data) => data.data,
-  })
+  const isLoading = false
+  const error = new Error('')
+  const data: ReviewDto[] = []
 
   if (isLoading) return <Loader />
   if (error) return <ErrorState message={error.message} />

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type SubmitEvent, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import { paths } from '@shared/config'
@@ -10,7 +10,7 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     navigate(paths.home)
   }

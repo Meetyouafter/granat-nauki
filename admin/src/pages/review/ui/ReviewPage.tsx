@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 
 import {
   FORMAT_LABELS,
-  getReview,
   MAX_CHILD_AGE,
   MIN_CHILD_AGE,
   type ReviewDto,
@@ -90,34 +88,19 @@ const validate = ({ review, age, reviewDate }: IReviewForm) => {
 const ReviewPage = () => {
   const { id = '' } = useParams()
   const { notify } = useToast()
-  const queryClient = useQueryClient()
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['review', id],
-    queryFn: () => getReview(id),
-    enabled: Boolean(id),
-    select: (response) => response.data,
-    // переход из списка — форма рисуется сразу из кэша, запрос идёт фоном
-    initialData: () => {
-      const cached = queryClient
-        .getQueryData<{ data: ReviewDto[] }>(['reviews'])
-        ?.data.find((review) => review.id === Number(id))
-
-      return cached && { data: cached }
-    },
-    // возраст наследуется от списка, иначе react-query сочтёт данные свежими и не сходит на сервер
-    initialDataUpdatedAt: () => queryClient.getQueryState(['reviews'])?.dataUpdatedAt,
-  })
+  const isLoading = false
+  const error: any = null
 
   const [values, setValues] = useState<IReviewForm>(EMPTY_FORM)
-  const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>()
+  // const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>()
   const [errors, setErrors] = useState<ReviewFormErrors>({})
 
-  if (data && data !== syncedReview) {
-    setSyncedReview(data)
-    setValues(toForm(data))
-    setErrors({})
-  }
+  // if (data && data !== syncedReview) {
+  //   setSyncedReview(data)
+  //   setValues(toForm(data))
+  //   setErrors({})
+  // }
 
   if (isLoading) return <Loader />
 
@@ -177,7 +160,7 @@ const ReviewPage = () => {
         </Link>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>Отзыв #{id}</h1>
-          {data?.translationStatus && <StatusBadge status={data.translationStatus} />}
+          {/* {data?.translationStatus && <StatusBadge status={data.translationStatus} />} */}
         </div>
       </header>
 
