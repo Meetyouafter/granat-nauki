@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from '@/i18n';
+import { usePathname } from '@/i18n/navigation';
 import { paths } from '@constants';
 import styles from './Navigation.module.scss';
 import { useTranslations } from 'next-intl';

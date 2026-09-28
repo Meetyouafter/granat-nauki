@@ -3,34 +3,38 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development next dev --turbopack -p 3000",
-    "build": "NODE_ENV=production next build --turbopack",
+    "dev": "NODE_ENV=development next dev -p 3000",
+    "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start",
     "prod": "npm run build && npm run start",
     "lint:css": "stylelint \"src/**/*.scss\" --fix"
   },
   "dependencies": {
+    "@prisma/client": "^7.10.0",
     "classnames": "^2.5.1",
-    "next": "15.5.2",
-    "next-intl": "^4.3.12",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "^16.3.6",
+    "next-intl": "^4.14.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "babel-plugin-react-compiler": "^1.0.0",
+    "dotenv": "^18.0.3",
     "eslint": "^9.38.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.4.0",
     "jiti": "^2.6.1",
     "postcss-scss": "^4.0.9",
+    "prisma": "^7.10.0",
     "sass": "^1.93.2",
     "stylelint": "^17.14.0",
     "stylelint-order": "^8.1.1",
     "stylelint-scss": "^7.2.0",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "typescript-eslint": "^8.46.2"
   }
