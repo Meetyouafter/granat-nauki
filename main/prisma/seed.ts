@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import { hashPassword } from '@/lib/auth/password';
 import { normalizeEmail } from '@/lib/auth/normalizeEmail';
 import { isEmailValid, isPasswordValid } from '@/lib/auth/validate';
+import { invalidateUserSessions } from '@/lib/auth/session';
 
 const main = async () => {
   const email = normalizeEmail(process.env.ADMIN_EMAIL ?? '');
@@ -19,8 +20,7 @@ const main = async () => {
       create: { email, passwordHash, role: 'ADMIN' },
       update: { role: 'ADMIN' },
     });
-    // Privilege change: drop existing sessions so they re-login with the new role
-    await tx.session.deleteMany({ where: { userId: user.id } });
+    await invalidateUserSessions(user.id);
     return user;
   });
 
