@@ -1,4 +1,8 @@
 import 'server-only';
+
+import { API_STATUSES } from '@/constants';
+import { AppError } from '@/lib/errors';
+
 import { deleteSessionCookie, getSessionCookie, setSessionCookie } from './cookies';
 import { validateSessionToken } from './session';
 
@@ -23,20 +27,9 @@ Cookie переставляется на каждый успешный запр�
   Поля passwordHash в нём нет и появиться не может.
 **/
 
-export class AuthError extends Error {
-  constructor(readonly status: 401 | 403) {
-    super(status === 401 ? 'Unauthorized' : 'Forbidden');
-  }
-
-  toResponse() {
-    return Response.json({ error: this.message }, { status: this.status });
-  }
-}
-
 export const getCurrentSession = async () => {
   const token = await getSessionCookie();
   if (!token) return null;
-
 
   const current = await validateSessionToken(token);
   if (!current) {
@@ -50,13 +43,13 @@ export const getCurrentSession = async () => {
 
 export const requireUser = async () => {
   const current = await getCurrentSession();
-  if (!current) throw new AuthError(401);
+  if (!current) throw new AppError(API_STATUSES.UNAUTHORIZED);
   return current;
 };
 
 export const requireAdmin = async () => {
   const current = await requireUser();
-  if (current.user.role !== 'ADMIN') throw new AuthError(403);
+  if (current.user.role !== 'ADMIN') throw new AppError(API_STATUSES.FORBIDDEN);
   return current;
 };
 

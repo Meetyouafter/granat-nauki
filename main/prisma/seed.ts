@@ -1,16 +1,13 @@
-import { prisma } from '@/lib/db';
 import { hashPassword } from '@/lib/auth/password';
-import { normalizeEmail } from '@/lib/auth/normalizeEmail';
-import { isEmailValid, isPasswordValid } from '@/lib/auth/validate';
+import { signupSchema } from '@/lib/auth/schemas';
 import { invalidateUserSessions } from '@/lib/auth/session';
+import { prisma } from '@/lib/db';
 
 const main = async () => {
-  const email = normalizeEmail(process.env.ADMIN_EMAIL ?? '');
-  const password = process.env.ADMIN_PASSWORD ?? '';
-
-  if (!isEmailValid(email) || !isPasswordValid(password)) {
-    throw new Error('check ADMIN_EMAIL and ADMIN_PASSWORD');    
-  }
+  const { email, password } = signupSchema.parse({
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
+  });
 
   const passwordHash = await hashPassword(password);
 
@@ -20,7 +17,7 @@ const main = async () => {
       create: { email, passwordHash, role: 'ADMIN' },
       update: { role: 'ADMIN' },
     });
-    await invalidateUserSessions(user.id);
+    await invalidateUserSessions(user.id, tx);
     return user;
   });
 
