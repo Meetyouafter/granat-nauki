@@ -1,7 +1,7 @@
 import 'server-only';
-import { PrismaClient } from '@/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
+import { PrismaClient } from '@/generated/prisma/client';
 
 const createPrismaClient = () => {
   const connectionString = process.env.DATABASE_URL;
@@ -14,7 +14,7 @@ const createPrismaClient = () => {
 };
 
 const globalForPrisma = globalThis as unknown as {
-	prisma?: ReturnType<typeof createPrismaClient>
+  prisma?: ReturnType<typeof createPrismaClient>
 };
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();

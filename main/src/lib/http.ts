@@ -35,20 +35,45 @@ export const parseBody = async <T extends z.ZodType>(request: Request, schema: T
 
 type Handler = (request: Request) => Promise<Response>;
 
+const errorToResponse = (error: unknown) => {
+  if (error instanceof AppError) {
+    return Response.json(
+      { error: error.code, details: error.details },
+      { status: error.status });
+  }
+  console.error(error);
+  return Response.json(
+    { error: API_STATUSES.INTERNAL_SERVER_ERROR.message },
+    { status: API_STATUSES.INTERNAL_SERVER_ERROR.status },
+  );
+};
+
+/*
+Ответы API не кешируются нигде (браузер, прокси): в них данные конкретного пользователя.
+Заголовок ставится на все ответы, включая ошибки.
+Если ручка сама задала Cache-Control (например, public, max-age=60), её решение не трогаем.
+Response.redirect() отдаёт неизменяемые заголовки, поэтому для него ответ пересобирается.
+**/
+const withNoStore = (response: Response) => {
+  if (response.headers.has('Cache-Control')) return response;
+
+  try {
+    response.headers.set('Cache-Control', 'no-store');
+    return response;
+  } catch {
+    const copy = new Response(response.body, response);
+    copy.headers.set('Cache-Control', 'no-store');
+    return copy;
+  }
+};
+
 export const withErrorHandling = (handler: Handler): Handler => async (request) => {
+  let response: Response;
   try {
     if (!SAFE_METHODS.includes(request.method)) assertSameOrigin(request);
-    return await handler(request);
+    response = await handler(request);
   } catch (error) {
-    if (error instanceof AppError) {
-      return Response.json(
-        { error: error.code, details: error.details },
-        { status: error.status });
-    }
-    console.error(error);
-    return Response.json(
-      { error: API_STATUSES.INTERNAL_SERVER_ERROR.message },
-      { status: API_STATUSES.INTERNAL_SERVER_ERROR.status },
-    );
+    response = errorToResponse(error);
   }
+  return withNoStore(response);
 };

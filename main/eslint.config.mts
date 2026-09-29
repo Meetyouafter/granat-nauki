@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -44,6 +46,7 @@ export default defineConfig([
       '@stylistic/quotes': ['error', 'single', { 'avoidEscape': true }],
       '@stylistic/jsx-quotes': ['error', 'prefer-double'],
       '@stylistic/no-multiple-empty-lines': ['error', { 'max': 1, 'maxBOF': 0, 'maxEOF': 0 }],
+      '@stylistic/no-trailing-spaces': 'error',
       'no-duplicate-imports': 'error',
       'simple-import-sort/imports': ['error', {
         'groups': [
@@ -64,6 +67,20 @@ export default defineConfig([
           'message': 'Используй алиас @/... вместо относительного пути из родительской папки.',
         }],
       }],
+    },
+  },
+  // правила с информацией о типах: только для файлов из tsconfig
+  {
+    files: ['src/**/*.{ts,tsx}', 'prisma/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: fileURLToPath(new URL('.', import.meta.url)),
+      },
+    },
+    rules: {
+      // промис без await/.then/.catch: ошибка потеряется, код пойдёт дальше раньше времени
+      '@typescript-eslint/no-floating-promises': 'error',
     },
   },
 ]);

@@ -43,4 +43,3 @@ export const deleteSessionCookie = async () => {
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE, '', { ...baseOptions, maxAge: 0 });
 };
-
