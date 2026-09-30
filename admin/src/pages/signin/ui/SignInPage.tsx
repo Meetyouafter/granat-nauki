@@ -6,9 +6,11 @@ import styles from './SignInPage.module.scss'
 
 const SignInPage = () => {
   const {
+    isLoading,
     email,
     password,
     errors,
+    commonError,
     handleEmailChange,
     handlePasswordChange,
     handleSubmit
@@ -27,7 +29,7 @@ const SignInPage = () => {
             onChange={handleEmailChange}
             placeholder={FORM_TEXTS.email.placeholder}
           />
-          {errors.email && <p className={styles.error}>{errors.email}</p>}
+          <p className={styles.error} aria-live="polite">{errors.email}</p>
         </label>
         <label className={styles.field}>
           <span className={styles.label}>{FORM_TEXTS.password.label}</span>
@@ -38,11 +40,12 @@ const SignInPage = () => {
             onChange={handlePasswordChange}
             placeholder={FORM_TEXTS.password.placeholder}
           />
-          {errors.password && <p className={styles.error}>{errors.password}</p>}
+          <p className={styles.error} aria-live="polite">{errors.password}</p>
         </label>
-        <button type="submit" className={styles.submit}>
+        <button disabled={isLoading} type="submit" className={styles.submit}>
           {FORM_TEXTS.signin.button}
         </button>
+        <p className={styles.error} aria-live="polite">{commonError && 'aw'}</p>
       </form>
     </div>
   )
