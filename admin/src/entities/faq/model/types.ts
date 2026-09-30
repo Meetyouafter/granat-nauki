@@ -1,6 +1,4 @@
-import type { ApiSchemas } from '@shared/api'
-
-export type FaqItemDto = ApiSchemas['GetFaqDto']
+export type FaqItemDto = any
 
 /** Ещё не сохранённый вопрос — вместо id у него временный fakeId. */
 export interface NewFaqItemDto extends Omit<FaqItemDto, 'id'> {

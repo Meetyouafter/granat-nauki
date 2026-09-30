@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 
 const layer = (name: string) => fileURLToPath(new URL(`./src/${name}`, import.meta.url))
+const apiProxyTarget = process.env.API_PROXY_TARGET ?? 'http://main:3000'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -20,5 +21,8 @@ export default defineConfig({
   server: {
     port: 3001,
     host: true,
+    proxy: {
+      '/api': { target: apiProxyTarget }
+    }
   },
 })

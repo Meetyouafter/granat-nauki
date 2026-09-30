@@ -16,7 +16,6 @@ import {
   toDateInputValue,
 } from '@entities/review'
 
-import { ApiError } from '@shared/api'
 import { paths } from '@shared/config'
 import { ErrorState } from '@shared/ui/ErrorState'
 import { FormActions } from '@shared/ui/FormActions'
@@ -104,19 +103,19 @@ const ReviewPage = () => {
 
   if (isLoading) return <Loader />
 
-  if (error instanceof ApiError && error.status === 404) {
-    return (
-      <div className={styles.wrapper}>
-        <header className={styles.header}>
-          <Link className={styles.back} to={paths.reviews}>
-            ← К списку отзывов
-          </Link>
-          <h1 className={styles.title}>Отзыв не найден</h1>
-        </header>
-        <p className={styles.notFound}>Отзыв #{id} не существует или был удалён.</p>
-      </div>
-    )
-  }
+  // if (error instanceof ApiError && error.status === 404) {
+  //   return (
+  //     <div className={styles.wrapper}>
+  //       <header className={styles.header}>
+  //         <Link className={styles.back} to={paths.reviews}>
+  //           ← К списку отзывов
+  //         </Link>
+  //         <h1 className={styles.title}>Отзыв не найден</h1>
+  //       </header>
+  //       <p className={styles.notFound}>Отзыв #{id} не существует или был удалён.</p>
+  //     </div>
+  //   )
+  // }
 
   if (error) return <ErrorState message={error.message} />
 

@@ -24,8 +24,8 @@ services:
     volumes:
       - ./admin:/app
       - /app/node_modules
-    env_file:
-      - ./admin/.env
+    environment:
+      - API_PROXY_TARGET=http://main:3000
     depends_on:
       - main
     networks:
