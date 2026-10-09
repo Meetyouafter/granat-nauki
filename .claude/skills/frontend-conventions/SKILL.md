@@ -1,13 +1,13 @@
 ---
 name: frontend-conventions
-description: Code-level conventions for the granat-nauki Next.js frontend — combining CSS-module classes, import aliases, and the design-system component layout under src/ui. Use when writing or editing any React component/module in frontend/src, not just when touching visual styling (see [[design-system]] for that).
+description: Code-level conventions for the granat-nauki Next.js frontend — combining CSS-module classes, import aliases, and the design-system component layout under src/ui. Use when writing or editing any React component/module in main/src, not just when touching visual styling (see [[design-system]] for that).
 ---
 
 # granat-nauki frontend conventions
 
 ## Combining class names — use `classnames`
 
-Never hand-roll `[a, b, c].filter(Boolean).join(' ')` to merge CSS-module classes. The `classnames` package is already a dependency (`frontend/package.json`) — use it:
+Never hand-roll `[a, b, c].filter(Boolean).join(' ')` to merge CSS-module classes. The `classnames` package is already a dependency (`main/package.json`) — use it:
 
 ```tsx
 import classNames from 'classnames';
@@ -19,9 +19,9 @@ const rootClassName = classNames(
 );
 ```
 
-Reference implementation: `frontend/src/ui/Text/Text.tsx`. Older components (`StatCounter.tsx`, others) still use the manual `.filter(Boolean).join(' ')` pattern — that's drift, not the convention; bring a component onto `classnames` when you touch it rather than copying the old pattern into new code.
+Reference implementation: `main/src/ui/Text/Text.tsx`. Older components (`StatCounter.tsx`, others) still use the manual `.filter(Boolean).join(' ')` pattern — that's drift, not the convention; bring a component onto `classnames` when you touch it rather than copying the old pattern into new code.
 
-## Import aliases (`frontend/tsconfig.json`)
+## Import aliases (`main/tsconfig.json`)
 
 Always import via the configured path aliases, never long relative paths (`../../../`):
 
@@ -36,11 +36,11 @@ Always import via the configured path aliases, never long relative paths (`../..
 
 ## Internal route strings — always from `paths` (`@constants`)
 
-Never write a raw route literal (`href="/contacts"`, `'/about'`, ...) anywhere in JSX or data. `frontend/src/constants/index.ts` exports `paths` (`home`, `about`, `services`, `articles`, `reviews`, `faq`, `contacts`, `privacy`, `terms`) precisely so routes have one source of truth — import it (`import { paths } from '@constants';`) and use `paths.contacts`, not the string. This was already the convention in `Logo.tsx`/`Navigation.tsx`; `frontend/src/app/[locale]/page.tsx` had drifted with hardcoded literals (2026-07-22) and was brought back in line — don't reintroduce a literal when adding a new internal link, and if `paths` is missing a route you need, add it there rather than inlining.
+Never write a raw route literal (`href="/contacts"`, `'/about'`, ...) anywhere in JSX or data. `main/src/constants/index.ts` exports `paths` (`home`, `about`, `services`, `articles`, `reviews`, `faq`, `contacts`, `privacy`, `terms`) precisely so routes have one source of truth — import it (`import { paths } from '@constants';`) and use `paths.contacts`, not the string. This was already the convention in `Logo.tsx`/`Navigation.tsx`; `main/src/app/[locale]/page.tsx` had drifted with hardcoded literals (2026-07-22) and was brought back in line — don't reintroduce a literal when adding a new internal link, and if `paths` is missing a route you need, add it there rather than inlining.
 
 ## Design-system primitives (`src/ui`)
 
-Started 2026-07-22 with `Text` (`frontend/src/ui/Text/Text.tsx`), then `Card`, `CardGrid`, `Button`, `TextLink` the same day while migrating the home page (`frontend/src/app/[locale]/page.tsx`). Current roster:
+Started 2026-07-22 with `Text` (`main/src/ui/Text/Text.tsx`), then `Card`, `CardGrid`, `Button`, `TextLink` the same day while migrating the home page (`main/src/app/[locale]/page.tsx`). Current roster:
 
 - **`Text`** (`size`, `weight`, `italic`, `as`) — replaces ad hoc `@include typography.*` usage in page/component `.module.scss` files. **The only primitive with a polymorphic `as` prop** — it's the one component whose whole job is rendering arbitrary text content in an arbitrary tag (`p`, `span`, `h1`...three, `li`...). Every other primitive below has a single fixed semantic role, so it does not take `as`.
 - **`Card`** — the design-system card contract from [[design-system]] (1px border, 16px radius, hover = border-color + background swap) and nothing else. Always renders a `<li>` (its only real usage is as a grid item inside `CardGrid`) — no `as`. Layout (flex direction, gap, padding, text-align, cursor) stays in the consuming page's own module class, passed via `className`.
@@ -57,4 +57,4 @@ Pattern for new primitives:
 - **Component shape**: props typed via an `interface` named `I<ComponentName>` (e.g. `IText`, `ICard`, `IButton`). For a plain (non-generic) primitive, type the component itself as `const ComponentName: FC<IComponentName> = ({ ... }) => (...)` — explicit `React.FC` typing, not an untyped arrow function with the prop type only on the parameter. `Text` is the one exception: since it's generic over `as`'s element type, `FC` can't express that (`FC` isn't generic), so it stays a bare generic arrow function — `const Text = <T extends ElementType = 'p',>(props: TextProps<T>) => {...}`, with the `IText<T>`/`Omit<ComponentPropsWithoutRef<T>, ...>` intersection pattern already documented for that one case.
 - Written as a `const Component = ...` arrow function, not `function Component(...)`, with a single `export default Component;` statement at the **bottom** of the file (not inline on the declaration).
 
-As pages migrate off direct `@include typography.*`/card-border-and-hover/grid duplication in their own `.module.scss`, prefer swapping them to the matching `ui` primitive rather than leaving both patterns coexisting indefinitely — same "no prolonged drift" rule as in [[design-system]]. Reference migration: `frontend/src/app/[locale]/page.tsx` + `page.module.scss` (2026-07-22) — five near-identical card blocks (`workCard`, `serviceCard`, `reviewCard`, `articleCard`, `stepCard`) and five near-identical grids collapsed onto `Card`/`CardGrid`, keeping only each instance's unique layout rules (gap, padding, align/text-align) in the page module.
+As pages migrate off direct `@include typography.*`/card-border-and-hover/grid duplication in their own `.module.scss`, prefer swapping them to the matching `ui` primitive rather than leaving both patterns coexisting indefinitely — same "no prolonged drift" rule as in [[design-system]]. Reference migration: `main/src/app/[locale]/page.tsx` + `page.module.scss` (2026-07-22) — five near-identical card blocks (`workCard`, `serviceCard`, `reviewCard`, `articleCard`, `stepCard`) and five near-identical grids collapsed onto `Card`/`CardGrid`, keeping only each instance's unique layout rules (gap, padding, align/text-align) in the page module.

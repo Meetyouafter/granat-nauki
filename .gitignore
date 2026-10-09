@@ -1,10 +1,15 @@
 .env
 
-# some ai files
-.claude
-.agents
+# some help files
 docs
-skills-lock.json
+
+# сторонние скиллы: ставятся по skills-lock.json, в .claude/skills на них симлинки
+.agents
+.claude/skills/design-taste-frontend
+.claude/skills/prisma-cli
+.claude/skills/prisma-client-api
+.claude/skills/prisma-upgrade-v7
+
 # список задач
 TODO.md
 HELPER.md

@@ -15,9 +15,9 @@
 src/
   main.tsx        точка входа (вне слоёв)
   app/            провайдеры, роутинг, layout, глобальные стили
-  pages/          faq, home, login, reviews
+  pages/          faq, home, review, reviews, signin, signup
   widgets/        header
-  features/       faq-editor, review-editor
+  features/       faq-editor
   entities/       faq, review
   shared/         ui, api, config, styles
 ```

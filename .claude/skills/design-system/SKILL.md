@@ -5,7 +5,9 @@ description: The visual identity for granat-nauki (child psychologist / school-p
 
 # granat-nauki design system
 
-Established 2026-07-22 to replace a generic AI-SaaS default look (cream+terracotta, all-Roboto, emoji icons, gradient text/buttons, hover-lift+glow cards). Palette revised same day, second pass — see "Why this palette" below. See [[run-frontend]] to preview changes.
+Established 2026-07-22 to replace a generic AI-SaaS default look (cream+terracotta, all-Roboto, emoji icons, gradient text/buttons, hover-lift+glow cards). Palette revised same day, second pass — see "Why this palette" below. See [[run-app]] to preview changes.
+
+Always load [[design-taste-frontend]] alongside this skill for any design or visual-correction task — it holds the general anti-template rules and pre-flight check. Where the two disagree, this file (the project's identity) wins.
 
 ## Why this identity
 
@@ -19,7 +21,7 @@ First pass used a literal deep-garnet/blush palette (driven by the brand name). 
 
 Neither theme uses stark black/white — text colors are soft warm charcoal / warm cream, not `#000`/`#fff`, to keep contrast comfortable rather than harsh. Micro-interaction animations were also toned down at the same time (see Motion below) — "loud" isn't just a color problem here.
 
-## Color tokens — `frontend/src/styles/colors.scss`
+## Color tokens — `main/src/styles/colors.scss`
 
 Two roles, deliberately separate — **don't collapse them back into one accent**:
 - `--color-accent-primary` / `-hover` / `-active` — sage `#7c9473` (light) / mint `#8fbfa1` (dark). The **broad brand color**: headings, kicker text, icons (`PomegranateMark`), links, hover borders, focus rings, stat numbers, the logo wordmark. Used pervasively — this is what should read as "calm."
@@ -32,19 +34,19 @@ Two roles, deliberately separate — **don't collapse them back into one accent*
 ## Motion — calm by default
 
 The user asked explicitly for soft animation, no "loud" micro-interactions, alongside the palette change:
-- `@keyframes pulse` (`frontend/src/styles/animations.scss`, used on link/icon hover via `mixins.link`, `Socials`, `LanguageSwitcher`) is a gentle `scale3d(1.04)`, not a bouncy 1.15 — keep new hover pulses at this amplitude or gentler.
+- `@keyframes pulse` (`main/src/styles/animations.scss`, used on link/icon hover via `mixins.link`, `Socials`, `LanguageSwitcher`) is a gentle `scale3d(1.04)`, not a bouncy 1.15 — keep new hover pulses at this amplitude or gentler.
 - Cookie banner enter/exit use `fadeInUp` / `fadeOutDown` (soft opacity+12px slide) — the old `lightSpeedOutRight` (skew + fly off-screen) was removed as too sharp for this site. Don't bring skew/fly-style exits back here.
 
-## Type roles — `frontend/src/styles/typography.scss`
+## Type roles — `main/src/styles/typography.scss`
 
-Two font roles, set as CSS vars in `frontend/src/app/layout.tsx` via `next/font/google` (`Alegreya` → `--font-display`, `Manrope` → `--font-body`), both loaded with `cyrillic` subset (site is ru/en, this matters):
+Two font roles, set as CSS vars in `main/src/app/layout.tsx` via `next/font/google` (`Alegreya` → `--font-display`, `Manrope` → `--font-body`), both loaded with `cyrillic` subset (site is ru/en, this matters):
 - `@include typography.display` — Alegreya, serif, used **italic** at heavier weight for: page/section headings (`Section.module.scss` `.title`), card titles, hero title, stat numbers, step numerals, logo wordmark. Carries the brand's warmth/personality.
 - `@include typography.body-font` — Manrope, applied globally on `html, body` in `globals.scss`. Everything else (paragraphs, labels, buttons, nav) inherits this by default — don't re-declare it per component.
 - Size/weight mixins (`text-xs` … `text-xxl`, `regular`/`semibold`/`bold`/`extrabold`) are unchanged from before — combine with `display`/`body-font` for the font-family.
 
 ## Signature — `PomegranateMark` component
 
-`frontend/src/components/PomegranateMark/PomegranateMark.tsx` — inline SVG, `color: currentColor` driven, two variants:
+`main/src/components/PomegranateMark/PomegranateMark.tsx` — inline SVG, `color: currentColor` driven, two variants:
 - `variant="seed"` — small single-seed glyph (24×24 viewBox). Used everywhere an emoji icon used to be: card icons, trust-bar icons, article icons, the logo mark. This is a **consistent single glyph**, not a per-topic icon set — differentiation between card types comes from heading/copy, not from swapping icons.
 - `variant="plate"` — the full botanical cross-section (200×200 viewBox), used once as a faint (`opacity: 0.06`) decorative motif behind the hero (`page.module.scss` `.heroMotif`). Don't scatter this large variant around the page — it's a one-place signature, not a repeating pattern.
 
@@ -52,7 +54,7 @@ Never reintroduce raw emoji (💙🌱📚🎒⭐ etc.) as icons — replace with
 
 ## Restrained surface/interaction rules
 
-Established while redoing the home page (`frontend/src/app/[locale]/page.module.scss`) — apply the same when touching other pages:
+Established while redoing the home page (`main/src/app/[locale]/page.module.scss`) — apply the same when touching other pages:
 - Cards: `1px solid var(--color-border-primary)` border (not 2px), `border-radius: 16px` (not 20-24px), hover = border-color + background swap only. **No** `transform: translateY(...)` lift, no glow `box-shadow` on hover, no icon `scale`/`rotate` on hover — those were template tells.
 - Buttons: solid `var(--color-cta-primary)` background (not `accent-primary`, see Color tokens above), not a gradient. `border-radius: 8px`.
 - Headings/stat numbers: solid `--color-accent-primary` + `display` italic, not `background-clip: text` gradient text.
@@ -60,4 +62,4 @@ Established while redoing the home page (`frontend/src/app/[locale]/page.module.
 
 ## Known drift — not yet migrated
 
-`about`, `services`, `faq`, `contacts`, `reviews`, `articles` pages under `frontend/src/app/[locale]/` were **not** touched in the 2026-07-22 pass and may still have raw emoji or the old card hover-lift/glow pattern (confirmed emoji still present in `about/page.tsx`, and `about/page.module.scss` still has the old large icon font-sizes). When you touch one of these pages, bring it in line with this system rather than leaving it as the old default — don't let the two styles coexist longer than necessary.
+`about`, `services`, `faq`, `contacts`, `reviews`, `articles` pages under `main/src/app/[locale]/` were **not** touched in the 2026-07-22 pass and may still have raw emoji or the old card hover-lift/glow pattern (confirmed emoji still present in `about/page.tsx`, and `about/page.module.scss` still has the old large icon font-sizes). When you touch one of these pages, bring it in line with this system rather than leaving it as the old default — don't let the two styles coexist longer than necessary.
