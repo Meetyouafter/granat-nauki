@@ -7,11 +7,13 @@ description: Code-level styling conventions for the granat-nauki admin panel (Vi
 
 ## Layout: Feature-Sliced Design
 
-`admin/src` follows FSD as of 2026-08-11: `app / pages / widgets / features / entities / shared`, imports flowing downward only. Each slice exposes an `index.ts` public API; reach for `@entities/faq`, not `@entities/faq/api/faqApi`. Inside a slice use relative paths, across slices use the aliases `@app @pages @widgets @features @entities @shared` (they work in SCSS too). ESLint enforces the boundaries via `no-restricted-imports` in `admin/eslint.config.js` — a violation fails `npm run lint`. Details in `admin/README.md`.
+`admin/src` follows FSD as of 2026-08-11: `app / pages / widgets / features / entities / shared`, imports flowing downward only. Each slice exposes an `index.ts` public API; reach for `@entities/faq`, not `@entities/faq/api/faqApi`. Inside a slice use relative paths, across slices use the aliases `@app @pages @widgets @features @entities @shared` (they work in SCSS too). ESLint enforces the boundaries via `no-restricted-imports` in `admin/eslint.config.js` — a violation fails `pnpm lint`. Details in `admin/README.md`.
 
-New shared component → `shared/ui/<Name>/` with an `index.ts`. New API call or DTO → the matching `entities/<slice>`, never a page.
+New shared component → `shared/ui/<Name>/` with an `index.ts`. New API call → the matching `entities/<slice>`, never a page.
 
-Import order is enforced by `eslint-plugin-simple-import-sort`, groups separated by a blank line, alphabetical within each: react and `react-*` → other packages → one group per layer in FSD order (`@app @pages @widgets @features @entities @shared`) → relative paths → styles last. Don't hand-order imports — run `npx eslint . --fix`.
+Request/response types, validation limits, zod schemas and error codes come from `@granat/contracts` (a regular package, allowed in any layer), never re-declared here: `builder.query<MeResponse, void>`, `signupSchema.safeParse(form)`, `MIN_PASSWORD_LENGTH`. UI-only types (form state, view models) stay in the slice.
+
+Import order is enforced by `eslint-plugin-simple-import-sort`, groups separated by a blank line, alphabetical within each: react and `react-*` → other packages → one group per layer in FSD order (`@app @pages @widgets @features @entities @shared`) → relative paths → styles last. Don't hand-order imports — run `pnpm eslint . --fix`.
 
 ## Always use color tokens
 

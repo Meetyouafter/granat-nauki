@@ -17,7 +17,6 @@ import {
 } from '@entities/review'
 
 import { paths } from '@shared/config'
-import { ErrorState } from '@shared/ui/ErrorState'
 import { FormActions } from '@shared/ui/FormActions'
 import { Loader } from '@shared/ui/Loader'
 import { StatusBadge } from '@shared/ui/StatusBadge'
@@ -89,17 +88,19 @@ const ReviewPage = () => {
   const { notify } = useToast()
 
   const isLoading = false
-  const error: any = null
+  // const error: null = null
+  // TODO: заменить на запрос отзыва, когда появится API отзывов
+  const data = undefined as ReviewDto | undefined
 
   const [values, setValues] = useState<IReviewForm>(EMPTY_FORM)
-  // const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>()
+  const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>()
   const [errors, setErrors] = useState<ReviewFormErrors>({})
 
-  // if (data && data !== syncedReview) {
-  //   setSyncedReview(data)
-  //   setValues(toForm(data))
-  //   setErrors({})
-  // }
+  if (data && data !== syncedReview) {
+    setSyncedReview(data)
+    setValues(toForm(data))
+    setErrors({})
+  }
 
   if (isLoading) return <Loader />
 
@@ -117,7 +118,7 @@ const ReviewPage = () => {
   //   )
   // }
 
-  if (error) return <ErrorState message={error.message} />
+  // if (error) return <ErrorState message={error.message} />
 
   const handleChange = (patch: Partial<IReviewForm>) => {
     setValues((prev) => ({ ...prev, ...patch }))
@@ -159,7 +160,7 @@ const ReviewPage = () => {
         </Link>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>Отзыв #{id}</h1>
-          {/* {data?.translationStatus && <StatusBadge status={data.translationStatus} />} */}
+          {data?.translationStatus && <StatusBadge status={data.translationStatus} />}
         </div>
       </header>
 

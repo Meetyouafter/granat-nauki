@@ -1,0 +1,15 @@
+packages:
+  - main
+  - admin
+  - packages/*
+
+allowBuilds:
+  '@parcel/watcher': false
+  '@prisma/engines': true
+  '@swc/core': false
+  esbuild: true
+  prisma: true
+
+catalog:
+  zod: ^4.6.5
+  typescript: ~6.0.2

@@ -9,11 +9,12 @@ Commit or push **only when the current user message asks for it**. The `guard.py
 
 ## 1. Gate: checks and build in both packages
 
-Always run all of these, in both `main/` and `admin/`, regardless of which files changed — before staging anything:
+Always run all of these, in `main/`, `admin/` and `packages/contracts/`, regardless of which files changed — before staging anything:
 
 ```bash
-cd main  && npm run check && npm run build     # typecheck + eslint + stylelint, then next build
-cd admin && npm run check && npm run build     # typecheck + eslint, then tsc -b && vite build
+cd main               && pnpm check && pnpm build   # typecheck + eslint + stylelint, then next build
+cd admin              && pnpm check && pnpm build   # typecheck + eslint, then tsc -b && vite build
+cd packages/contracts && pnpm check                  # typecheck
 ```
 
 - `check` = `typecheck` + `lint` (+ `lint:css:check` in main). Nothing is auto-fixed.
@@ -27,7 +28,7 @@ cd admin && npm run check && npm run build     # typecheck + eslint, then tsc -b
    - "закоммить всё" → all changes shown by status.
    - "закоммить X" → only the files for X; leave the rest.
    - Unclear grouping → show the grouped list and ask before staging.
-3. **Never stage**: `.env*` (except `.env.example`), `TODO.md`, `HELPER.md`, `docs/`, `.agents/`, `main/src/generated/`, `node_modules/`, `.next/`, `dist/`, `*.tsbuildinfo` changes caused by the build. If one shows up, stop and tell the user.
+3. **Never stage**: `.env*` (except `.env.example`), `package-lock.json` (the repo uses pnpm), `TODO.md`, `HELPER.md`, `docs/`, `.agents/`, `main/src/generated/`, `node_modules/`, `.next/`, `dist/`, `*.tsbuildinfo` changes caused by the build. If one shows up, stop and tell the user.
 4. Stage by explicit paths (`git add path1 path2`); `git add -A` only when the user said "всё".
 5. If the staged changes are unrelated to each other, propose splitting them into separate commits.
 

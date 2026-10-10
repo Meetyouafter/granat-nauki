@@ -24,4 +24,4 @@ src/
 
 Импорты — только сверху вниз (`app → pages → widgets → features → entities → shared`), слайс подключается через свой `index.ts`, между слайсами — алиасы `@app @pages @widgets @features @entities @shared` (работают и в SCSS).
 
-Границы слоёв и порядок импортов проверяет ESLint; автофикс — `npx eslint . --fix`.
+Границы слоёв и порядок импортов проверяет ESLint; автофикс — `pnpm eslint . --fix`.

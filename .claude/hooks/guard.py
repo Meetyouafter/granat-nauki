@@ -65,7 +65,7 @@ if tool in ('Read', 'Edit', 'Write', 'NotebookEdit'):
 
     if tool != 'Read':
         if relpath.startswith('main/src/generated/'):
-            deny(f'{relpath}: сгенерированный Prisma-клиент, правится только через `npx prisma generate`.')
+            deny(f'{relpath}: сгенерированный Prisma-клиент, правится только через `pnpm prisma generate`.')
         if re.match(r'main/prisma/migrations/[^/]+/migration\.sql$', relpath) and is_committed(path):
             deny(f'{relpath}: миграция уже в git (считаем применённой). Нужна новая миграция, а не правка старой.')
 

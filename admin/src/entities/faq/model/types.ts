@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type FaqItemDto = any
 
 /** Ещё не сохранённый вопрос — вместо id у него временный fakeId. */

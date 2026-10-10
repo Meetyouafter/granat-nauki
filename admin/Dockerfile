@@ -1,12 +1,19 @@
 FROM node:24-alpine
 
-WORKDIR /app
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN corepack enable
 
-COPY package*.json ./
-RUN npm install --legacy-peer-deps
+WORKDIR /repo
 
-COPY . .
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY main/package.json main/
+COPY admin/package.json admin/
+COPY packages/contracts/package.json packages/contracts/
+RUN pnpm install --frozen-lockfile --filter "admin..."
 
+COPY packages packages
+COPY admin admin
+
+WORKDIR /repo/admin
 EXPOSE 3001
-
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "dev"]

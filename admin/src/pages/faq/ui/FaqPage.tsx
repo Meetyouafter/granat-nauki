@@ -4,9 +4,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { FaqRow, type IFaqRowErrors } from '@features/faq-editor'
 
-import { type FaqItem, type FaqItemDto, getFaqItemId, getFaqs, saveFaqs } from '@entities/faq'
+import { type FaqItem, type FaqItemDto, getFaqItemId } from '@entities/faq'
 
-import { ErrorState } from '@shared/ui/ErrorState'
+// import { ErrorState } from '@shared/ui/ErrorState'
 import { FormActions } from '@shared/ui/FormActions'
 import { Loader } from '@shared/ui/Loader'
 import { LoaderOverlay } from '@shared/ui/LoaderOverlay'
@@ -15,9 +15,11 @@ import { useToast } from '@shared/ui/Toast'
 import styles from './FaqPage.module.scss'
 
 const FaqPage = () => {
-  const data: any[] = []
+  const data: [] = []
   const isLoading = false
-  const error: any = null
+  // const error: null = null
+  // TODO: заменить на состояние мутации, когда появится API FAQ
+  const isSaving = false
 
   const { notify } = useToast()
   const [items, setItems] = useState<FaqItem[]>([])
@@ -31,10 +33,11 @@ const FaqPage = () => {
   }
 
   if (isLoading) return <Loader />
-  if (error) return <ErrorState message={error.message} />
+  // if (error) return <ErrorState message={error.message} />
 
   const handleChange = (id: number, patch: Partial<FaqItemDto>) => {
-    setItems((prev) => prev.map((item) => (getFaqItemId(item) === id ? { ...item, ...patch } : item)))
+    setItems((prev) =>
+      prev.map((item) => (getFaqItemId(item) === id ? { ...item, ...patch } : item)))
     setErrors((prev) => {
       if (!prev[id]) return prev
       const fieldErrors = { ...prev[id] }
@@ -76,20 +79,22 @@ const FaqPage = () => {
     })
   }
 
-  // const handleSave = () => {
-  //   const nextErrors: Record<number, IFaqRowErrors> = {}
-  //   items.forEach((item) => {
-  //     const fieldErrors: IFaqRowErrors = {}
-  //     if (!item.title.trim()) fieldErrors.title = true
-  //     if (!item.description.trim()) fieldErrors.description = true
-  //     if (Object.keys(fieldErrors).length > 0) nextErrors[getFaqItemId(item)] = fieldErrors
-  //   })
-  //   setErrors(nextErrors)
-  //   if (Object.keys(nextErrors).length > 0) {
-  //     notify('error', 'Заполните обязательные поля перед сохранением')
-  //     return
-  //   }
-  // }
+  const handleSave = () => {
+    const nextErrors: Record<number, IFaqRowErrors> = {}
+    items.forEach((item) => {
+      const fieldErrors: IFaqRowErrors = {}
+      if (!item.title.trim()) fieldErrors.title = true
+      if (!item.description.trim()) fieldErrors.description = true
+      if (Object.keys(fieldErrors).length > 0) nextErrors[getFaqItemId(item)] = fieldErrors
+    })
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length > 0) {
+      notify('error', 'Заполните обязательные поля перед сохранением')
+      return
+    }
+
+    // TODO: отправить items, когда появится API FAQ
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -125,13 +130,13 @@ const FaqPage = () => {
           type="button"
           className={styles.addButton}
           onClick={handleAdd}
-          // disabled={mutate.isPending}
+          disabled={isSaving}
         >
           + Добавить вопрос
         </button>
-        {/* <FormActions onSave={handleSave} disabled={mutate.isPending} /> */}
+        <FormActions onSave={handleSave} disabled={isSaving} />
       </div>
-      {/* {mutate.isPending && <LoaderOverlay />} */}
+      {isSaving && <LoaderOverlay />}
     </DndProvider>
   )
 }

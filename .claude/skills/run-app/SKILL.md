@@ -5,7 +5,7 @@ description: Launch and verify granat-nauki via Docker — the Next.js site + AP
 
 # Running granat-nauki
 
-Project root is `/home/levis/.vscode-server/projects/granat-nauki`, orchestrated by the top-level `docker-compose.yaml`. There is no separate backend: the `main` service (Next.js, `main/Dockerfile`, node:24-alpine) is both the site and the server (DB access, API for the admin, auth). It runs `npm run dev` on port 3000 and `depends_on` the `db` service (Postgres 18, healthcheck-gated). The admin SPA is the `admin` service on port 3001.
+Project root is `/home/levis/.vscode-server/projects/granat-nauki`, orchestrated by the top-level `docker-compose.yaml`. There is no separate backend: the `main` service (Next.js, `main/Dockerfile`, node:24-alpine) is both the site and the server (DB access, API for the admin, auth). It runs `pnpm dev` on port 3000 and `depends_on` the `db` service (Postgres 18, healthcheck-gated). The admin SPA is the `admin` service on port 3001.
 
 ## Start
 
@@ -17,12 +17,12 @@ timeout 60 bash -c 'until curl -sf http://localhost:3000/ru >/dev/null; do sleep
 
 Add `admin` to the command if the admin panel is needed too (`http://localhost:3001`, its `/api` is proxied to `main`).
 
-- First-ever `up` on this image also runs `npm install` inside the build (~60s, no cache) before the container even starts — the `docker compose up -d` command itself blocks for that. After the image is built once, subsequent `up`/`stop`/`up` cycles reuse the cached image and only pay the first-compile cost.
+- First-ever `up` on this image also runs `pnpm install --frozen-lockfile --filter <pkg>...` inside the build (pnpm itself comes from corepack, version from `packageManager` in the root `package.json`) before the container even starts — the `docker compose up -d` command itself blocks for that. After the image is built once, subsequent `up`/`stop`/`up` cycles reuse the cached image and only pay the first-compile cost.
 - First compile inside the container can take 20-30s (cold `node_modules`, no build cache) — poll, don't `sleep`.
 - Container names are pinned via `container_name:` — `granat-nauki_main`, `granat-nauki_admin`, `granat-nauki_db`, `granat-nauki_dozzle`. Image names stay Compose defaults (`granat-nauki-main`, dash) — that mismatch is expected.
 - Default locale route is `/ru` or `/en` — home page is `http://localhost:3000/ru`.
 - Logs: `docker compose logs -f main` or Dozzle at `http://localhost:8888`. Check here before assuming a change is broken — compile errors show up as a 500 with a stack trace in the log, not always in `curl`'s output.
-- The bind mount (`./main:/app`, with `/app/node_modules` and `/app/.next` as anonymous volumes) means edits on the host are picked up live — no rebuild needed for source changes. A rebuild (`docker compose up -d --build -V main`) is only needed after changing `package.json` or the `Dockerfile`.
+- Build context is the repo root, the repo lives at `/repo` in the container. Bind mounts `./main:/repo/main` and `./packages:/repo/packages` (with `/repo/node_modules`, `/repo/main/node_modules`, `/repo/packages/contracts/node_modules` and `/repo/main/.next` as anonymous volumes) mean edits on the host, including `@granat/contracts`, are picked up live — no rebuild needed for source changes. A rebuild (`docker compose up -d --build -V main`) is only needed after changing a `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml` or the `Dockerfile`; `-V` matters, otherwise the old `node_modules` volumes stay.
 
 ## Stop
 
@@ -40,7 +40,7 @@ timeout 60 bash -c 'until curl -sf http://localhost:3001 >/dev/null; do sleep 2;
 - `http://localhost:3001/` is sign-in, `/signup`, then `/dashboard`, `/faq`, `/reviews`, `/reviews/:id` (`admin/src/shared/config/paths.ts`).
 - The browser only talks to `:3001`; Vite proxies `/api/*` to `main` (`API_PROXY_TARGET=http://main:3000`). That keeps requests same-origin, so the session cookie and the `Sec-Fetch-Site` CSRF check work. Never point the admin at `http://localhost:3000` directly — every POST will get 403 `CSRF`.
 - Signing in needs an admin account. If there is none, the user creates it with the seed (see [[prisma-workflow]]); ask them for credentials, don't invent or seed one yourself. A fresh signup gets role `USER` and sees 403 on content endpoints — that's by design.
-- `admin/node_modules` is an anonymous volume too: after changing `admin/package.json`, `docker compose up -d --build -V admin`.
+- Same layout for `admin` (`./admin:/repo/admin` + `./packages`, `node_modules` as anonymous volumes): after changing `admin/package.json` or the lockfile, `docker compose up -d --build -V admin`.
 
 ## API by hand
 
@@ -73,6 +73,7 @@ Check both `data-theme="light"` and `data-theme="dark"` (theme switcher in the h
 
 ## Gotchas
 
+- `Cannot find module '@granat/contracts'` in a container → `./packages` is not mounted or the image predates the workspace; `ERR_PNPM_OUTDATED_LOCKFILE` during the build → someone changed a `package.json` without running `pnpm install` on the host.
 - `NODE_ENV=development` is baked into the Dockerfile's `CMD`/compose env — don't override it.
 - The cookie-based theme (`THEME` constant) means a fresh `chromium-cli` session always starts in light mode unless a cookie is set first.
 - If port 3000 is already bound on the host by a stray non-Docker `next dev` process from a previous session, `docker compose up` will fail to bind — free it first with `lsof -ti:3000 -sTCP:LISTEN | xargs -r kill` before starting the container.

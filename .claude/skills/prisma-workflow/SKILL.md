@@ -28,31 +28,33 @@ main/src/lib/db.ts               the only PrismaClient (PrismaPg adapter, global
 - Enums: PascalCase + `@@map("snake_case")`, values UPPER_CASE.
 - Every model has `createdAt @default(now()) @map("created_at")`; mutable ones also `updatedAt @updatedAt @map("updated_at")`.
 - Foreign keys: `xxxId Int @map("xxx_id")`, relation with explicit `onDelete` (`Cascade` for rows owned by the parent), and `@@index([xxxId])`. Index columns you filter by (`@@index([status])`).
-- Run `npx prisma format` after editing; it aligns and fixes relation fields.
+- Run `pnpm prisma format` after editing; it aligns and fixes relation fields.
 
 ## Where to run commands
 
 `DATABASE_URL` in `main/.env` points at host `db` (the compose service). From the host it is unreachable (`P1001: Can't reach database server at db:5432`), so:
 
-- **No DB needed — run on the host** in `main/`: `npx prisma format`, `npx prisma validate`, `npx prisma generate`.
+- **No DB needed — run on the host** in `main/`: `pnpm prisma format`, `pnpm prisma validate`, `pnpm prisma generate`.
 - **Needs the DB — run in the `main` container** (from the repo root, `main` must be up):
 
 ```bash
-docker compose exec main npx prisma migrate dev --name add_faq
-docker compose exec main npx prisma migrate status
-docker compose exec -e ADMIN_EMAIL=… -e ADMIN_PASSWORD=… main npx prisma db seed
+docker compose exec main pnpm prisma migrate dev --name add_faq
+docker compose exec main pnpm prisma migrate status
+docker compose exec -e ADMIN_EMAIL=… -e ADMIN_PASSWORD=… main pnpm prisma db seed
 ```
 
 These change the DB — ask the user before running them.
 
 ## Changing the schema
 
-1. Edit `schema.prisma` → `npx prisma format && npx prisma validate`.
-2. `docker compose exec main npx prisma migrate dev --name <snake_case_what_changed>` — one migration per logical change. Read the generated `migration.sql` before moving on (renames come out as drop + add and lose data — fix the SQL by hand before applying if so).
-3. `npx prisma generate` — Prisma 7 `migrate dev` does not regenerate the client by itself. The output lands in `src/generated` through the bind mount, so host and container see the same client. If the dev server still shows old types, restart it: `docker compose restart main`.
-4. `npx tsc --noEmit` in `main/`.
+1. Edit `schema.prisma` → `pnpm prisma format && pnpm prisma validate`.
+2. `docker compose exec main pnpm prisma migrate dev --name <snake_case_what_changed>` — one migration per logical change. Read the generated `migration.sql` before moving on (renames come out as drop + add and lose data — fix the SQL by hand before applying if so).
+3. `pnpm prisma generate` — Prisma 7 `migrate dev` does not regenerate the client by itself. The output lands in `src/generated` through the bind mount, so host and container see the same client. If the dev server still shows old types, restart it: `docker compose restart main`.
+4. `pnpm typecheck` in `main/`.
 
 Never edit a migration that is already applied; add a new one.
+
+`prisma` and `@prisma/engines` must stay `true` in `allowBuilds` (`pnpm-workspace.yaml`): their install scripts fetch the schema engine, without it `migrate` fails.
 
 ## Seed
 

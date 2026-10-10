@@ -1,35 +1,36 @@
 services:
   main:
     container_name: granat-nauki_main
-    build: ./main
+    build:
+      context: .
+      dockerfile: main/Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./main:/app
-      - /app/node_modules
-      - /app/.next
+      - ./main:/repo/main
+      - ./packages:/repo/packages
+      - /repo/node_modules
+      - /repo/main/node_modules
+      - /repo/packages/contracts/node_modules
+      - /repo/main/.next
     env_file:
       - ./main/.env
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - app-network
 
   admin:
     container_name: granat-nauki_admin
-    build: ./admin
+    build:
+      context: .
+      dockerfile: admin/Dockerfile
     ports:
       - "3001:3001"
     volumes:
-      - ./admin:/app
-      - /app/node_modules
+      - ./admin:/repo/admin
+      - ./packages:/repo/packages
+      - /repo/node_modules
+      - /repo/admin/node_modules
+      - /repo/packages/contracts/node_modules
     environment:
       - API_PROXY_TARGET=http://main:3000
-    depends_on:
-      - main
-    networks:
-      - app-network
 
   db:
     container_name: granat-nauki_db
@@ -62,7 +63,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - app-network
-
 
 volumes:
   db-data:
