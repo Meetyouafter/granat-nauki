@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import Section from '../../../components/Section/Section';
 import styles from './page.module.scss';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import metadata from '@/data/metadata';
 
 export async function generateMetadata({

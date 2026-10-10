@@ -18,7 +18,7 @@ import {
 
 import styles from './ReviewCard.module.scss'
 
-const STATUS_CLASS: Record<ReviewStatus, string> = {
+const STATUS_CLASS: Record<ReviewStatus, string | undefined> = {
   draft: styles.statusDraft,
   pending: styles.statusPending,
   published: styles.statusPublished,

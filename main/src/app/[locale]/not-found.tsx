@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Button from '@ui/Button/Button';
 import Text from '@ui/Text/Text';
 import { paths } from '@constants';

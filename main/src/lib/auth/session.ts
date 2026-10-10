@@ -67,8 +67,10 @@ const parseToken = (token: string) => {
   if (parts.length !== 2) return null;
 
   const [id, encodedSecret] = parts;
+  if (!id || !encodedSecret) return null;
+
   const secret = Buffer.from(encodedSecret, 'base64url');
-  if (!id || secret.length !== SECRET_BYTES) return null;
+  if (secret.length !== SECRET_BYTES) return null;
 
   return { id, secret };
 };

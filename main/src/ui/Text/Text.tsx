@@ -10,7 +10,7 @@ interface IText<T extends ElementType> {
   size?: TextSize;
   weight?: TextWeight;
   italic?: boolean;
-  className?: string;
+  className?: string | undefined;
 }
 
 type TextProps<T extends ElementType> = IText<T> &

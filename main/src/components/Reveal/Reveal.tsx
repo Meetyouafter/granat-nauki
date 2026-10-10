@@ -5,7 +5,7 @@ import styles from './Reveal.module.scss';
 
 type Props = {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
 };
 
 export default function Reveal({ children, className }: Props) {
@@ -18,7 +18,7 @@ export default function Reveal({ children, className }: Props) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setVisible(true);
           observer.disconnect();
         }

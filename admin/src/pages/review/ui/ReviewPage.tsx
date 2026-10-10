@@ -57,7 +57,7 @@ const serviceOptions = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
 const formatOptions = Object.entries(FORMAT_LABELS) as [SessionFormat, string][]
 const statusOptions = Object.entries(STATUS_LABELS) as [ReviewStatus, string][]
 
-const STATUS_SEGMENT_CLASS: Record<ReviewStatus, string> = {
+const STATUS_SEGMENT_CLASS: Record<ReviewStatus, string | undefined> = {
   draft: styles.segmentDraft,
   pending: styles.segmentPending,
   published: styles.segmentPublished,

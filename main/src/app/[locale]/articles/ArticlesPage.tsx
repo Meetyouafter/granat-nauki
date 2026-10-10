@@ -1,6 +1,6 @@
 import styles from './ArticlesPage.module.scss';
-import { FC } from 'react';
-import { ArticleDto } from '@/types';
+import type { FC } from 'react';
+import type { ArticleDto } from '@/types';
 
 interface IArticlesPage {
   articles: ArticleDto[];

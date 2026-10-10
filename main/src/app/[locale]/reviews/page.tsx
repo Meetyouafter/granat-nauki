@@ -5,7 +5,7 @@ import ReviewForm from '../../../components/ReviewForm/ReviewForm';
 import styles from './page.module.scss';
 import { reviewsData } from '../../../data/reviewsData';
 import metadata from '@/data/metadata';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params,

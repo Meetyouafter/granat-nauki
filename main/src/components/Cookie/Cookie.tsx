@@ -54,9 +54,7 @@ const Cookie = () => {
 
   return (
     isCookieAccepted ? null : (
-      <div className={classNames(styles.root, {
-        [styles.root_hidden]: isHidden
-      })}>
+      <div className={classNames(styles.root, isHidden && styles.root_hidden)}>
         <h6 className={styles.title}>{t('title')}</h6>
         <p className={styles.description}>{t('description')}</p>
         <div className={styles.actions}>

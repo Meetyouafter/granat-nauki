@@ -5,7 +5,7 @@ import styles from './CardGrid.module.scss';
 interface ICardGrid {
   minWidth?: number;
   ordered?: boolean;
-  className?: string;
+  className?: string | undefined;
   children?: ReactNode;
 }
 

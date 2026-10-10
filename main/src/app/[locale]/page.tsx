@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import metadata from '@/data/metadata';
 import Api from '@/utils/Api';
 import MainPage from './MainPage';
-import { FaqItemDto, ArticleDto } from '@/types';
+import type { FaqItemDto, ArticleDto } from '@/types';
 
 export async function generateMetadata({
   params,

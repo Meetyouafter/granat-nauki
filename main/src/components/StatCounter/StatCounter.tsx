@@ -6,7 +6,7 @@ import styles from './StatCounter.module.scss';
 type Props = {
   value: number;
   suffix?: string;
-  className?: string;
+  className?: string | undefined;
   duration?: number;
 };
 
@@ -20,7 +20,7 @@ export default function StatCounter({ value, suffix = '', className, duration = 
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        if (!entry?.isIntersecting) return;
         observer.disconnect();
 
         const start = performance.now();

@@ -4,7 +4,7 @@ import { contacts } from '@constants';
 
 import styles from './page.module.scss';
 import metadata from '@/data/metadata';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params,

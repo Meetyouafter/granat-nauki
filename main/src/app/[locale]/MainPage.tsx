@@ -11,7 +11,7 @@ import TextLink from '@ui/TextLink/TextLink';
 import Slider from '@ui/Slider/Slider';
 import styles from './MainPage.module.scss';
 import { getTranslations } from 'next-intl/server';
-import { ArticleDto, FaqItemDto } from '@/types';
+import type { ArticleDto, FaqItemDto } from '@/types';
 
 interface IMainPage {
   faqData: FaqItemDto[];

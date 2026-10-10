@@ -25,7 +25,7 @@ interface IFaqRow {
   isFirst: boolean
   isLast: boolean
   isEntering?: boolean
-  errors?: IFaqRowErrors
+  errors?: IFaqRowErrors | undefined
   moveRow: (dragIndex: number, hoverIndex: number) => void
   onChange: (id: number, patch: Partial<FaqItemDto>) => void
   onDeleteRequest: () => void

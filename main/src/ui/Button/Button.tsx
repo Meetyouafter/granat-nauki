@@ -8,7 +8,7 @@ export type ButtonVariant = 'primary' | 'secondary';
 interface IButton {
   variant?: ButtonVariant;
   href?: string;
-  className?: string;
+  className?: string | undefined;
   children?: ReactNode;
   onClick?: () => void;
 }
@@ -17,8 +17,10 @@ const Button: FC<IButton> = ({ variant = 'primary', href, className, children, o
   const rootClassName = classNames(styles.button, styles[`variant-${variant}`], className);
 
   if (href) {
+    // next/link не принимает onClick={undefined} (exactOptionalPropertyTypes),
+    // поэтому onClick передаётся, только если он есть
     return (
-      <Link href={href} className={rootClassName} onClick={onClick}>
+      <Link href={href} className={rootClassName} {...(onClick && { onClick })}>
         {children}
       </Link>
     );

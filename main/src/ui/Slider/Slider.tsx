@@ -15,7 +15,7 @@ interface ISliderItem {
 
 interface ISlider {
   items: ISliderItem[];
-  className?: string;
+  className?: string | undefined;
 }
 
 const Slider: FC<ISlider> = ({ items, className }) => {
@@ -58,7 +58,7 @@ const Slider: FC<ISlider> = ({ items, className }) => {
           fill
           priority={index === 0}
           sizes="(max-width: 768px) 100vw, 50vw"
-          className={classNames(styles.image, { [styles.imageActive]: index === activeIndex })}
+          className={classNames(styles.image, index === activeIndex && styles.imageActive)}
         />
       ))}
     </button>

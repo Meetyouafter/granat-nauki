@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Cookie from '@components/Cookie/Cookie';
 import { cookies } from 'next/headers';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { THEME } from '@constants';
 import metadata from '@data/metadata';
 import type { Theme } from '@/contexts/ThemeContext';

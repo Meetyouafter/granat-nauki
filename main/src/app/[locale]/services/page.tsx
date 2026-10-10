@@ -4,7 +4,7 @@ import ServiceCard from '../../../components/ServiceCard/ServiceCard';
 import styles from './page.module.scss';
 import { servicesData } from '../../../data/servicesData';
 import metadata from '@/data/metadata';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
@@ -23,17 +23,22 @@ const ServicesPage = async () => {
     <main className={styles.main}>
       <Section title={t('title')} lead={t('lead')}>
         <ul className={styles.list}>
-          {items.map((item, index) => (
-            <ServiceCard
-              key={item.title}
-              title={item.title}
-              description={item.description}
-              duration={item.duration}
-              price={servicesData[index].price}
-              image={servicesData[index].image}
-              index={index}
-            />
-          ))}
+          {items.map((item, index) => {
+            const service = servicesData[index];
+            if (!service) return null;
+
+            return (
+              <ServiceCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+                duration={item.duration}
+                price={service.price}
+                image={service.image}
+                index={index}
+              />
+            );
+          })}
         </ul>
       </Section>
     </main>

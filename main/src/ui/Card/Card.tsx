@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './Card.module.scss';
 
 interface ICard {
-  className?: string;
+  className?: string | undefined;
   children?: ReactNode;
 }
 

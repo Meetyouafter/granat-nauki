@@ -9,6 +9,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY main/package.json main/
 COPY admin/package.json admin/
 COPY packages/contracts/package.json packages/contracts/
+COPY packages/tsconfig/package.json packages/tsconfig/
 RUN pnpm install --frozen-lockfile --filter "frontend..."
 
 COPY packages packages

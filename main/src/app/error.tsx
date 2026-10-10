@@ -1,7 +1,7 @@
 'use client';
 
 import Section from "@/components/Section/Section";
-import { FC } from "react";
+import type { FC } from "react";
 
 interface IError {
   error: Error;

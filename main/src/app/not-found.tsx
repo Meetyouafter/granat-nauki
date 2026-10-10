@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import Header from '@components/Header/Header';

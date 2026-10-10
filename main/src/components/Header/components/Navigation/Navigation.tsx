@@ -5,7 +5,7 @@ import { usePathname } from '@/i18n/navigation';
 import { paths } from '@constants';
 import styles from './Navigation.module.scss';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import type { FC } from 'react';
 import cns from 'classnames';
 
 interface INavigation {
@@ -26,19 +26,23 @@ const Navigation: FC<INavigation> = ({ handleToggleMenu, isMobile }) => {
     { href: paths.faq, label: t('faq') },
   ];
 
+  // next/link не принимает onClick={undefined} (exactOptionalPropertyTypes),
+  // поэтому onClick передаётся, только если он есть
+  const linkProps = handleToggleMenu ? { onClick: handleToggleMenu } : {};
+
   return (
-    <nav className={cns(styles.root, { [styles.mobile]: isMobile })}>
+    <nav className={cns(styles.root, isMobile && styles.mobile)}>
       {links.map(({ href, label }) => (
         <Link
           key={href}
-          className={cns(styles.link, { [styles.active]: pathname === href })}
+          className={cns(styles.link, pathname === href && styles.active)}
           href={href}
-          onClick={handleToggleMenu}
+          {...linkProps}
         >
           {label}
         </Link>
       ))}
-      <Link className={styles.cta} href={paths.contacts} onClick={handleToggleMenu}>{t('contacts')}</Link>
+      <Link className={styles.cta} href={paths.contacts} {...linkProps}>{t('contacts')}</Link>
     </nav>
   );
 };

@@ -4,7 +4,7 @@ import cns from 'classnames';
 
 interface IContainer {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
 }
 
 const Container: FC<IContainer> = ({ children, className }) => (

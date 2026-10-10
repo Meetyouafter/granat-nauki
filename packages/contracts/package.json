@@ -14,6 +14,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@granat/tsconfig": "workspace:*",
     "typescript": "catalog:"
   }
 }

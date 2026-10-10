@@ -1,6 +1,6 @@
 type Props = {
   variant?: 'plate' | 'seed';
-  className?: string;
+  className?: string | undefined;
 };
 
 const seeds: Array<[number, number, number]> = [

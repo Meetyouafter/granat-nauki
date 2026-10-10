@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import Section from '../../../components/Section/Section';
 import styles from './FaqPage.module.scss';
-import { FC } from 'react';
-import { FaqItemDto } from '@/types';
+import type { FC } from 'react';
+import type { FaqItemDto } from '@/types';
 
 interface IFaqPage {
   faqData: FaqItemDto[];

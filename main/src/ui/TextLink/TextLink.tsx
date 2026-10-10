@@ -5,7 +5,7 @@ import styles from './TextLink.module.scss';
 
 interface ITextLink {
   href: string;
-  className?: string;
+  className?: string | undefined;
   children?: ReactNode;
 }
 

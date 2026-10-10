@@ -1,7 +1,7 @@
 'use client';
 
 import { THEME } from '@constants';
-import { createContext, useContext, useState, ReactNode, useLayoutEffect, useCallback } from 'react';
+import { createContext, useContext, useState, type ReactNode, useLayoutEffect, useCallback } from 'react';
 
 export type Theme = 'light' | 'dark';
 
@@ -22,7 +22,7 @@ export function useTheme() {
 
 interface ThemeProviderProps {
   children: ReactNode;
-  initialTheme?: Theme;
+  initialTheme?: Theme | undefined;
 }
 
 export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {

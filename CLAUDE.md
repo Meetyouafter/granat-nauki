@@ -14,6 +14,11 @@
 main/                Next.js 16 (App Router): public site + the whole server side (DB, admin API, auth)
 admin/               Vite + React admin SPA, Feature-Sliced Design
 packages/contracts/  @granat/contracts: what main and admin share (limits, zod schemas, error codes, DTO types)
+packages/tsconfig/   @granat/tsconfig: base.json with the shared strict compiler options; every tsconfig extends it
+                     and only adds its own (lib, jsx, paths, include). Loosen a flag locally with a TODO, never in base.
+                     The one strict flag deliberately left out is noPropertyAccessFromIndexSignature: CSS modules are
+                     typed { [key: string]: string }, so it would forbid styles.title. With noUncheckedIndexedAccess
+                     styles.title is string | undefined, hence className props are declared `className?: string | undefined`.
 docs/                design audit and site brief
 ```
 
