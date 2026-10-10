@@ -1,25 +1,27 @@
 @use '@shared/styles/typography';
 
 .main {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: var(--space-4);
+  min-height: 100vh;
   padding: var(--space-6);
 }
 
 .footer {
   @include typography.text-sm;
-  color: var(--color-text-secondary);
+
   text-align: center;
+  color: var(--color-text-secondary);
 }
 
 .link {
   @include typography.semibold;
-  color: var(--color-accent);
+
   transition: color var(--duration-fast) var(--ease-standard);
+  color: var(--color-accent);
 
   &:hover {
     color: var(--color-accent-hover);

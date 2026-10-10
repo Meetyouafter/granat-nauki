@@ -13,6 +13,7 @@
 .variant-primary {
   @include typography.text-sm;
   @include typography.bold;
+
   border: none;
   color: var(--color-text-inverse);
   background: var(--color-cta-primary);
@@ -29,6 +30,7 @@
 .variant-secondary {
   @include typography.text-sm;
   @include typography.semibold;
+
   border: 2px solid var(--color-border-primary);
   color: var(--color-text-primary);
   background: var(--color-surface-primary);

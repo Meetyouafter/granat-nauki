@@ -15,6 +15,8 @@ Request/response types, validation limits, zod schemas and error codes come from
 
 Lint rules come from the shared `@granat/eslint-config` (same as `main`: semicolons, single quotes, typescript-eslint `strictTypeChecked`); `admin/eslint.config.js` only adds the FSD boundaries and `react-refresh`. Import order is enforced by `eslint-plugin-simple-import-sort`, groups separated by a blank line, alphabetical within each: side effects → react → other packages → one group per layer in FSD order (`@app @pages @widgets @features @entities @shared`) → relative paths → styles last. Don't hand-order imports — run `pnpm eslint . --fix`.
 
+SCSS is checked by stylelint from the shared `@granat/stylelint-config` (same rules as `main`: `stylelint-config-standard-scss` plus our naming and order). Class and `@keyframes` names are camelCase, no hand-written `-webkit-` prefixes (autoprefixer adds them at build time). Properties are ordered by groups (visibility → transform → position → layout → margin → border → dimensions → padding → overflow → animation → font → color), `@include` goes before declarations. Don't order by hand — `pnpm lint:css` fixes it.
+
 ## Always use color tokens
 
 Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use the CSS custom properties defined in `admin/src/shared/styles/colors.scss` (`--color-bg`, `--color-surface`, `--color-text`, `--color-text-secondary`, `--color-border`, `--color-accent`, `--color-accent-hover`, `--color-cta`, `--color-cta-hover`, `--color-error`, `--color-error-bg`, `--color-shadow-rgb`, plus the status tones `--color-success`/`-bg`, `--color-processing`/`-bg`, `--color-pending`/`-bg` used by `StatusBadge`):

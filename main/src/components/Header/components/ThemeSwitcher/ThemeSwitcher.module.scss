@@ -20,19 +20,19 @@
   border-radius: 34px;
   transition: .4s;
   background-color: var(--color-surface-secondary);
-  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.3);
+  box-shadow: 0 0 0 3px rgb(var(--color-accent-rgb), 0.3);
   cursor: pointer;
 
   &::before {
     z-index: 2;
     position: absolute;
-    inset: -1px 0 0 0;
+    inset: -1px 0 0;
     border-radius: 50%;
     width: 32px;
     height: 32px;
     transition: .4s;
     background-color: var(--color-bg-primary);
-    box-shadow: 0 1px 3px rgba(var(--color-shadow-rgb), 0.4);
+    box-shadow: 0 1px 3px rgb(var(--color-shadow-rgb), 0.4);
     content: "";
   }
 }
@@ -51,6 +51,6 @@
   right: 2px;
 }
 
-input:checked+.slider:before {
+input:checked+.slider::before {
   transform: translateX(32px);
 }

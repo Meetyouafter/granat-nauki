@@ -35,7 +35,7 @@
     &:hover {
         transform: translateY(-8px);
         border-color: var(--color-accent-primary);
-        box-shadow: 0 12px 24px rgba(var(--color-shadow-rgb), 0.15);
+        box-shadow: 0 12px 24px rgb(var(--color-shadow-rgb), 0.15);
 
         .imageWrapper {
             transform: scale(1.05);
@@ -100,6 +100,7 @@
 .title {
     @include typography.text-lg;
     @include typography.bold;
+
     margin: 0;
     transition: color 0.3s ease;
     color: var(--color-text-primary);
@@ -112,6 +113,7 @@
 
 .description {
     @include typography.text-sm;
+
     opacity: 0.8;
     flex: 1;
     margin: 0;
@@ -120,6 +122,7 @@
 
     @include mixins.mobile {
         @include typography.text-xs;
+
         line-height: 1.6;
     }
 }
@@ -141,6 +144,7 @@
 
 .duration {
     @include typography.text-xs;
+
     opacity: 0.7;
     display: flex;
     align-items: center;
@@ -153,6 +157,7 @@
 
     &::before {
         @include typography.text-sm;
+
         content: '⏱';
     }
 }
@@ -160,6 +165,7 @@
 .price {
     @include typography.text-md;
     @include typography.bold;
+
     color: var(--color-accent-primary);
 
     @include mixins.mobile {

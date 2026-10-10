@@ -22,6 +22,11 @@ packages/tsconfig/   @granat/tsconfig: base.json with the shared strict compiler
 packages/eslint-config/  @granat/eslint-config: base() and reactConfig, the one set of ESLint rules for every package
                      (ESLint 9, typescript-eslint strictTypeChecked, @stylistic, import sorting). A package's
                      eslint.config only adds its own: alias groups for import sorting, Next plugin, FSD boundaries.
+packages/stylelint-config/  @granat/stylelint-config: SCSS rules for main and admin: stylelint-config-standard-scss
+                     + property order by groups; each app's .stylelintrc.json only extends it. CSS-module class and
+                     @keyframes names are camelCase (`.trustBarCard`, read as styles.trustBarCard); a prop-value
+                     modifier may use one dash (`.size-lg` for styles[`size-${size}`]). Mixins are kebab-case.
+                     No hand-written vendor prefixes: Next adds them, admin runs autoprefixer (postcss.config.js).
 docs/                design audit and site brief
 ```
 
@@ -49,7 +54,7 @@ Checks (in `main/`, `admin/` or `packages/contracts/`):
 pnpm check              # everything below, nothing auto-fixed
 pnpm typecheck          # tsc --noEmit (admin: tsc -b --noEmit)
 pnpm lint               # eslint
-pnpm lint:css:check     # stylelint, main only (lint:css runs it with --fix)
+pnpm lint:css:check     # stylelint, main and admin (lint:css runs it with --fix)
 pnpm build              # main and admin; required to pass, with check, before any commit
 ```
 

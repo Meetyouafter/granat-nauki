@@ -9,8 +9,9 @@
 .cancel {
   @include typography.text-xs;
   @include typography.semibold;
-  padding: 10px 20px;
+
   border-radius: var(--radius-md);
+  padding: 10px 20px;
   color: var(--color-text-secondary);
 
   &:hover {
@@ -21,11 +22,12 @@
 .save {
   @include typography.text-xs;
   @include typography.semibold;
-  padding: 10px 20px;
+
   border-radius: var(--radius-md);
+  padding: 10px 20px;
+  transition: background-color var(--duration-fast) var(--ease-standard);
   color: var(--color-surface);
   background-color: var(--color-cta);
-  transition: background-color var(--duration-fast) var(--ease-standard);
 
   &:hover {
     background-color: var(--color-cta-hover);

@@ -13,17 +13,17 @@
   overflow: hidden;
   transition: all 0.3s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 1px 3px rgba(var(--color-shadow-rgb), 0.05);
+  box-shadow: 0 1px 3px rgb(var(--color-shadow-rgb), 0.05);
 
   &:hover {
     transform: translateY(-2px);
     border-color: var(--color-border-secondary);
-    box-shadow: 0 4px 12px rgba(var(--color-shadow-rgb), 0.08);
+    box-shadow: 0 4px 12px rgb(var(--color-shadow-rgb), 0.08);
   }
 
   &[open] {
     border-color: var(--color-accent-primary);
-    box-shadow: 0 4px 16px rgba(var(--color-accent-rgb), 0.12);
+    box-shadow: 0 4px 16px rgb(var(--color-accent-rgb), 0.12);
 
     .summary {
       color: var(--color-accent-primary);
@@ -37,6 +37,7 @@
   .summary {
     @include typography.text-sm;
     @include typography.semibold;
+
     position: relative;
     display: flex;
     align-items: center;
@@ -59,6 +60,7 @@
 
     &::after {
       @include typography.text-xxs;
+
       flex-shrink: 0;
       margin-left: auto;
       transition: transform 0.3s ease, color 0.2s ease;
@@ -78,8 +80,9 @@
   p {
     @include typography.text-sm;
     @include typography.regular;
+
     margin: 0;
-    padding: 0 24px 24px 24px;
+    padding: 0 24px 24px;
     animation: fadeInDown 0.3s ease;
     line-height: 1.6;
     color: var(--color-text-secondary);
@@ -105,13 +108,15 @@
     .summary {
       @include typography.text-sm;
       @include typography.semibold;
+
       padding: 16px 20px;
     }
 
     p {
       @include typography.text-sm;
       @include typography.regular;
-      padding: 0 20px 20px 20px;
+
+      padding: 0 20px 20px;
     }
   }
 }

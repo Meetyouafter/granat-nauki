@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@granat/eslint-config": "workspace:*",
+    "@granat/stylelint-config": "workspace:*",
     "@granat/tsconfig": "workspace:*",
     "@next/eslint-plugin-next": "^16.4.0",
     "@types/node": "^20",
@@ -37,12 +38,9 @@
     "dotenv": "^18.0.3",
     "eslint": "catalog:",
     "jiti": "^2.6.1",
-    "postcss-scss": "^4.0.9",
     "prisma": "^7.10.0",
     "sass": "^1.93.2",
-    "stylelint": "^17.14.0",
-    "stylelint-order": "^8.1.1",
-    "stylelint-scss": "^7.2.0",
+    "stylelint": "catalog:",
     "tsx": "^4.23.15",
     "typescript": "catalog:"
   }

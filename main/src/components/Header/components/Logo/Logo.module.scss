@@ -20,6 +20,7 @@
 .wordmark {
   @include typography.display;
   @include typography.text-md;
+
   font-style: italic;
   color: var(--color-text-primary);
 }

@@ -11,6 +11,7 @@ COPY admin/package.json admin/
 COPY packages/contracts/package.json packages/contracts/
 COPY packages/tsconfig/package.json packages/tsconfig/
 COPY packages/eslint-config/package.json packages/eslint-config/
+COPY packages/stylelint-config/package.json packages/stylelint-config/
 RUN pnpm install --frozen-lockfile --filter "admin..."
 
 COPY packages packages

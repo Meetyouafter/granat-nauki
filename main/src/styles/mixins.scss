@@ -9,13 +9,13 @@
 }
 
 @mixin tablet {
-  @media (max-width: 1024px) {
+  @media (width <= 1024px) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     @content;
   }
 }
@@ -29,8 +29,9 @@
   }
 }
 
-@mixin main_button {
+@mixin main-button {
   @include typography.semibold;
+
   border-radius: 8px;
   padding: 8px 12px;
   transition: background-color 0.2s ease;
@@ -42,8 +43,9 @@
   }
 }
 
-@mixin secondary_button {
+@mixin secondary-button {
   @include typography.semibold;
+
   border-radius: 8px;
   padding: 8px 12px;
   color: var(--color-text-primary);

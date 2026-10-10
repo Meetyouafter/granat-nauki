@@ -1,5 +1,5 @@
 @keyframes pulse {
-  from {
+  0% {
     transform: scale3d(1, 1, 1);
   }
 
@@ -7,7 +7,7 @@
     transform: scale3d(1.04, 1.04, 1.04);
   }
 
-  to {
+  100% {
     transform: scale3d(1, 1, 1);
   }
 }

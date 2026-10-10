@@ -13,9 +13,10 @@ Always run all of these, in `main/`, `admin/` and every package in `packages/`, 
 
 ```bash
 cd main               && pnpm check && pnpm build   # typecheck + eslint + stylelint, then next build
-cd admin              && pnpm check && pnpm build   # typecheck + eslint, then tsc -b && vite build
+cd admin              && pnpm check && pnpm build   # typecheck + eslint + stylelint, then tsc -b && vite build
 cd packages/contracts && pnpm check                  # typecheck + eslint
 cd packages/eslint-config && pnpm check              # typecheck + eslint
+cd packages/stylelint-config && pnpm check           # eslint
 ```
 
 - `check` = `typecheck` + `lint` (+ `lint:css:check` in main). Nothing is auto-fixed.

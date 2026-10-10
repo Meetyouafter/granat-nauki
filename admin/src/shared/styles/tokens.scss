@@ -16,10 +16,10 @@
   --radius-pill: 999px;
 
   /* Shadow */
-  --shadow-xs: 0 1px 2px rgba(var(--color-shadow-rgb), 0.06);
-  --shadow-sm: 0 2px 6px rgba(var(--color-shadow-rgb), 0.08);
-  --shadow-md: 0 6px 16px rgba(var(--color-shadow-rgb), 0.12);
-  --shadow-lg: 0 10px 30px rgba(var(--color-shadow-rgb), 0.3);
+  --shadow-xs: 0 1px 2px rgb(var(--color-shadow-rgb), 0.06);
+  --shadow-sm: 0 2px 6px rgb(var(--color-shadow-rgb), 0.08);
+  --shadow-md: 0 6px 16px rgb(var(--color-shadow-rgb), 0.12);
+  --shadow-lg: 0 10px 30px rgb(var(--color-shadow-rgb), 0.3);
   --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent);
 
   /* Motion */

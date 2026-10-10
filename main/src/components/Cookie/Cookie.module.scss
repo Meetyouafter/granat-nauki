@@ -16,18 +16,20 @@
     max-width: 100%;
   }
 
-  &_hidden {
+  &Hidden {
     animation: fadeOutDown 0.4s ease forwards;
   }
 
   .title {
     @include typography.text-md;
+
     margin-bottom: 8px;
     color: var(--color-text-primary);
   }
 
   .description {
     @include typography.text-sm;
+
     margin-bottom: 8px;
     color: var(--color-text-primary);
   }
@@ -39,12 +41,14 @@
   }
 
   .button {
-    @include mixins.main_button;
+    @include mixins.main-button;
+
     min-width: 120px;
   }
 
   .rejectButton {
-    @include mixins.secondary_button;
+    @include mixins.secondary-button;
+
     border: 1px solid var(--color-border-primary);
     min-width: 120px;
   }

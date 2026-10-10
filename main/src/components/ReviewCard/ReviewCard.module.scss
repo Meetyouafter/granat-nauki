@@ -23,12 +23,12 @@
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     background: var(--color-surface-primary);
-    box-shadow: 0 12px 32px rgba(var(--color-shadow-rgb), 0.18);
+    box-shadow: 0 12px 32px rgb(var(--color-shadow-rgb), 0.18);
 
     &:hover {
         transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
         border-color: var(--color-accent-primary);
-        box-shadow: 0 18px 40px rgba(var(--color-shadow-rgb), 0.22);
+        box-shadow: 0 18px 40px rgb(var(--color-shadow-rgb), 0.22);
 
         .shine {
             opacity: 0.8;
@@ -43,6 +43,7 @@
 
 .badge {
     @include typography.text-xxs;
+
     position: absolute;
     top: 12px;
     left: 12px;
@@ -50,7 +51,7 @@
     padding: 6px 10px;
     letter-spacing: 0.02em;
     color: #fff;
-    background: rgba(var(--color-shadow-rgb), 0.55);
+    background: rgb(var(--color-shadow-rgb), 0.55);
     backdrop-filter: blur(6px);
 }
 
@@ -61,9 +62,9 @@
     inset: 0;
     transition: transform 0.8s ease, opacity 0.8s ease;
     background: linear-gradient(120deg,
-            rgba(255, 255, 255, 0) 20%,
-            rgba(255, 255, 255, 0.35) 50%,
-            rgba(255, 255, 255, 0) 80%);
+            rgb(255 255 255 / 0%) 20%,
+            rgb(255 255 255 / 35%) 50%,
+            rgb(255 255 255 / 0%) 80%);
     pointer-events: none;
 }
 

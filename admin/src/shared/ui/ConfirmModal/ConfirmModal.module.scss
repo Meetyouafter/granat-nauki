@@ -1,35 +1,37 @@
 @use '@shared/styles/typography';
 
 .overlay {
+  z-index: var(--z-modal);
   position: fixed;
   inset: 0;
-  z-index: var(--z-modal);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(var(--color-shadow-rgb), 0.4);
+  background-color: rgb(var(--color-shadow-rgb), 0.4);
 }
 
 .dialog {
-  background-color: var(--color-surface);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  max-width: 480px;
   width: calc(100% - 48px);
+  max-width: 480px;
+  padding: var(--space-6);
+  background-color: var(--color-surface);
   box-shadow: var(--shadow-lg);
 }
 
 .title {
   @include typography.text-md;
   @include typography.semibold;
-  color: var(--color-text);
+
   margin-bottom: var(--space-2);
+  color: var(--color-text);
 }
 
 .message {
   @include typography.text-sm;
-  color: var(--color-text-secondary);
+
   margin-bottom: var(--space-5);
+  color: var(--color-text-secondary);
 }
 
 .actions {
@@ -41,8 +43,9 @@
 .cancel {
   @include typography.text-xs;
   @include typography.semibold;
-  padding: 10px 16px;
+
   border-radius: var(--radius-md);
+  padding: 10px 16px;
   color: var(--color-text-secondary);
 
   &:hover {
@@ -53,8 +56,9 @@
 .confirm {
   @include typography.text-xs;
   @include typography.semibold;
-  padding: 10px 16px;
+
   border-radius: var(--radius-md);
+  padding: 10px 16px;
   color: var(--color-surface);
   background-color: var(--color-error);
 

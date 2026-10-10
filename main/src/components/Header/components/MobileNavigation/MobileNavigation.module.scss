@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0;
   transition: all 0.3s ease;
-  background-color: rgba(var(--color-shadow-rgb), 0.5);
+  background-color: rgb(var(--color-shadow-rgb), 0.5);
 
   &.open {
     opacity: 1;

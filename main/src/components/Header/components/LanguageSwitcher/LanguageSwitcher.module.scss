@@ -10,6 +10,7 @@
 
   span {
     @include typography.text-sm;
+
     position: relative;
     color: var(--color-text-secondary);
 
@@ -20,7 +21,7 @@
       width: 0;
       height: 2px;
       transition: width 0.3s ease;
-      background-color: currentColor;
+      background-color: currentcolor;
       content: "";
     }
   }

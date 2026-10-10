@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """PostToolUse: after Claude edits a file, lint just that file and report problems back.
-eslint for ts/tsx/js in main/, admin/ and packages/*, stylelint for scss in main/, prisma validate for the schema.
+eslint for ts/tsx/js in main/, admin/ and packages/*, stylelint for scss in main/ and admin/, prisma validate for the schema.
 Report-only: nothing is auto-fixed."""
 import json
 import os
@@ -26,7 +26,7 @@ bin_dir = os.path.join(cwd, 'node_modules', '.bin')
 
 if re.search(r'\.(tsx?|mts|jsx?)$', inner):
     label, command = 'eslint', [os.path.join(bin_dir, 'eslint'), inner]
-elif package == 'main' and inner.endswith('.scss'):
+elif package in ('main', 'admin') and inner.endswith('.scss'):
     label, command = 'stylelint', [os.path.join(bin_dir, 'stylelint'), inner]
 elif package == 'main' and inner == 'prisma/schema.prisma':
     label, command = 'prisma validate', [os.path.join(bin_dir, 'prisma'), 'validate']

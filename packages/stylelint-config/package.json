@@ -1,0 +1,28 @@
+{
+  "name": "@granat/stylelint-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "check": "pnpm lint"
+  },
+  "dependencies": {
+    "postcss-scss": "catalog:",
+    "stylelint-config-standard-scss": "catalog:",
+    "stylelint-order": "catalog:",
+    "stylelint-scss": "catalog:"
+  },
+  "peerDependencies": {
+    "stylelint": "catalog:"
+  },
+  "devDependencies": {
+    "@granat/eslint-config": "workspace:*",
+    "eslint": "catalog:",
+    "stylelint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

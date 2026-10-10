@@ -4,12 +4,12 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  padding: var(--space-4);
-  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xs);
+  padding: var(--space-4);
   transition: box-shadow var(--duration-base) var(--ease-standard);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xs);
 
   &:hover {
     box-shadow: var(--shadow-sm);
@@ -25,6 +25,7 @@
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -48,19 +49,21 @@
 
 .handle {
   @include typography.text-md;
-  color: var(--color-text-secondary);
+
   line-height: 1;
+  color: var(--color-text-secondary);
   cursor: grab;
 }
 
 .reorder {
   @include typography.text-xs;
-  color: var(--color-text-secondary);
-  line-height: 1;
-  padding: var(--space-1);
+
   border-radius: var(--radius-sm);
+  padding: var(--space-1);
   transition: background-color var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard);
+  line-height: 1;
+  color: var(--color-text-secondary);
 
   &:hover:not(:disabled) {
     color: var(--color-accent);
@@ -75,9 +78,9 @@
 
 .fields {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--space-2);
-  flex: 1;
   min-width: 0;
 }
 
@@ -85,16 +88,16 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: var(--space-1) var(--space-2);
-  background: transparent;
-  color: var(--color-text);
-  font-family: inherit;
   transition: border-color var(--duration-fast) var(--ease-standard),
     box-shadow var(--duration-fast) var(--ease-standard);
+  font-family: inherit;
+  color: var(--color-text);
+  background: transparent;
 
   &:focus-visible {
-    outline: none;
     border-color: var(--color-accent);
     box-shadow: var(--shadow-focus);
+    outline: none;
   }
 }
 
@@ -104,6 +107,7 @@
 
 .fieldError {
   @include typography.text-xs;
+
   color: var(--color-error);
 }
 
@@ -114,9 +118,10 @@
 
 .description {
   @include typography.text-xs;
+
   color: var(--color-text-secondary);
-  resize: vertical;
   field-sizing: content;
+  resize: vertical;
 }
 
 .statuses {
@@ -127,11 +132,12 @@
 
 .delete {
   @include typography.text-sm;
-  color: var(--color-text-secondary);
-  padding: var(--space-1) var(--space-2);
+
   border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
   transition: background-color var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard);
+  color: var(--color-text-secondary);
 
   &:hover {
     color: var(--color-error);
@@ -143,17 +149,17 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .row {
     flex-wrap: wrap;
   }
 
   .dragControls,
   .delete {
-    order: 1;
     flex-direction: row;
     min-width: 44px;
     min-height: 44px;
+    order: 1;
   }
 
   .dragControls {
@@ -173,7 +179,7 @@
   }
 
   .fields {
-    order: 2;
     flex-basis: 100%;
+    order: 2;
   }
 }

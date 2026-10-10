@@ -3,6 +3,7 @@
 
 .root {
   @include mixins.container;
+
   padding-top: 48px;
   padding-bottom: 64px;
   animation: fadeIn 0.6s ease-out;
@@ -45,7 +46,7 @@
   aspect-ratio: 1;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 32px rgba(var(--color-shadow-rgb), 0.12);
+  box-shadow: 0 8px 32px rgb(var(--color-shadow-rgb), 0.12);
 
   @include mixins.mobile {
     margin: 0 auto;
@@ -54,7 +55,7 @@
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 48px rgba(var(--color-shadow-rgb), 0.16);
+    box-shadow: 0 12px 48px rgb(var(--color-shadow-rgb), 0.16);
   }
 
   img {
@@ -72,9 +73,9 @@
 .title {
   @include typography.text-xxl;
   @include typography.extrabold;
+
   margin: 0;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
@@ -86,18 +87,21 @@
   @include mixins.mobile {
     @include typography.text-lg;
     @include typography.extrabold;
+
     text-align: center;
   }
 }
 
 .subtitle {
   @include typography.text-md;
+
   margin: 0;
   line-height: 1.6;
   color: var(--color-text-secondary);
 
   @include mixins.mobile {
     @include typography.text-sm;
+
     line-height: 1.6;
     text-align: center;
   }
@@ -129,6 +133,7 @@
 .sectionTitle {
   @include typography.text-lg;
   @include typography.bold;
+
   margin: 0;
   color: var(--color-text-primary);
 
@@ -147,7 +152,7 @@
   padding: 32px;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.04);
+  box-shadow: 0 4px 16px rgb(var(--color-shadow-rgb), 0.04);
 
   @include mixins.mobile {
     border-radius: 16px;
@@ -156,7 +161,7 @@
 
   &:hover {
     border-color: var(--color-border-secondary);
-    box-shadow: 0 8px 24px rgba(var(--color-shadow-rgb), 0.08);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb), 0.08);
   }
 }
 
@@ -169,12 +174,14 @@
 .labelText {
   @include typography.text-xs;
   @include typography.semibold;
+
   color: var(--color-text-primary);
 }
 
 .input,
 .textarea {
   @include typography.text-sm;
+
   border: 2px solid var(--color-border-primary);
   border-radius: 12px;
   width: 100%;
@@ -192,7 +199,7 @@
   &:focus {
     transform: translateY(-1px);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.1);
+    box-shadow: 0 0 0 4px rgb(var(--color-accent-rgb), 0.1);
   }
 
   &:hover:not(:focus) {
@@ -209,6 +216,7 @@
 .submit {
   @include typography.text-sm;
   @include typography.bold;
+
   margin-top: 8px;
   border: none;
   border-radius: 12px;
@@ -216,18 +224,18 @@
   transition: all 0.3s ease;
   color: var(--color-text-inverse);
   background: linear-gradient(135deg, var(--color-cta-primary), var(--color-cta-hover));
-  box-shadow: 0 4px 12px rgba(var(--color-cta-rgb), 0.3);
+  box-shadow: 0 4px 12px rgb(var(--color-cta-rgb), 0.3);
   cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(var(--color-cta-rgb), 0.4);
+    box-shadow: 0 6px 20px rgb(var(--color-cta-rgb), 0.4);
     filter: brightness(1.05);
   }
 
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(var(--color-cta-rgb), 0.3);
+    box-shadow: 0 2px 8px rgb(var(--color-cta-rgb), 0.3);
   }
 }
 
@@ -248,13 +256,13 @@
   text-decoration: none;
   color: inherit;
   background: var(--color-surface-primary);
-  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.04);
+  box-shadow: 0 2px 8px rgb(var(--color-shadow-rgb), 0.04);
 
   &:hover {
     transform: translateY(-4px);
     background: var(--color-surface-elevated);
     border-color: var(--color-accent-primary);
-    box-shadow: 0 8px 24px rgba(var(--color-accent-rgb), 0.15);
+    box-shadow: 0 8px 24px rgb(var(--color-accent-rgb), 0.15);
   }
 
   &:active {
@@ -294,6 +302,7 @@
 .contactLabel {
   @include typography.text-xxs;
   @include typography.semibold;
+
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--color-text-tertiary);
@@ -302,6 +311,7 @@
 .contactValue {
   @include typography.text-sm;
   @include typography.semibold;
+
   color: var(--color-text-primary);
 }
 

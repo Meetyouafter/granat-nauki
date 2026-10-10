@@ -15,21 +15,24 @@
 .title {
   @include typography.text-lg;
   @include typography.semibold;
+
   color: var(--color-error);
 }
 
 .message {
   @include typography.text-sm;
-  color: var(--color-text-secondary);
+
   max-width: 400px;
+  color: var(--color-text-secondary);
 }
 
 .button {
   @include typography.text-xs;
   @include typography.semibold;
+
   margin-top: var(--space-3);
-  padding: 10px 20px;
   border-radius: var(--radius-md);
+  padding: 10px 20px;
   color: var(--color-surface);
   background-color: var(--color-cta);
 

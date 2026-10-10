@@ -4,8 +4,7 @@
 .root {
   display: flex;
   align-items: center;
-  row-gap: 24px;
-  column-gap: 16px;
+  gap: 24px 16px;
 
   @include mixins.tablet {
     display: none;
@@ -21,6 +20,7 @@
 
   .link {
     @include mixins.link;
+
     position: relative;
 
     @include mixins.tablet {
@@ -47,7 +47,7 @@
   }
 
   .cta {
-    @include mixins.main_button;
+    @include mixins.main-button;
 
     @include mixins.tablet {
       width: 100%;
