@@ -1,17 +1,19 @@
+import { getTranslations } from 'next-intl/server';
+
+import type { ArticleDto, FaqItemDto } from '@/types';
+import PomegranateMark from '@components/PomegranateMark/PomegranateMark';
+import Reveal from '@components/Reveal/Reveal';
+import Section from '@components/Section/Section';
+import StatCounter from '@components/StatCounter/StatCounter';
 import { paths } from '@constants';
-import Section from '../../components/Section/Section';
-import Reveal from '../../components/Reveal/Reveal';
-import StatCounter from '../../components/StatCounter/StatCounter';
-import PomegranateMark from '../../components/PomegranateMark/PomegranateMark';
-import Text from '@ui/Text/Text';
+import Button from '@ui/Button/Button';
 import Card from '@ui/Card/Card';
 import CardGrid from '@ui/CardGrid/CardGrid';
-import Button from '@ui/Button/Button';
-import TextLink from '@ui/TextLink/TextLink';
 import Slider from '@ui/Slider/Slider';
+import Text from '@ui/Text/Text';
+import TextLink from '@ui/TextLink/TextLink';
+
 import styles from './MainPage.module.scss';
-import { getTranslations } from 'next-intl/server';
-import type { ArticleDto, FaqItemDto } from '@/types';
 
 interface IMainPage {
   faqData: FaqItemDto[];
@@ -21,7 +23,7 @@ interface IMainPage {
 const MainPage = async ({ faqData, articlesData }: IMainPage) => {
   const t = await getTranslations('HomePage');
 
-  const heroSlides = [1, 2, 3, 4, 5].map((index) => ({
+  const heroSlides = [1, 2, 3, 4, 5].map(index => ({
     src: `/images/homePage/slide${index}.jpg`,
     alt: `${t('hero.title')} ${index}`,
   }));
@@ -62,7 +64,7 @@ const MainPage = async ({ faqData, articlesData }: IMainPage) => {
       <Reveal>
         <Section id="trust-bar" title={t('trustBar.title')} lead={t('trustBar.lead')}>
           <CardGrid minWidth={240}>
-            {t.raw('trustBar.items').map((item: { title: string; description: string }, index: number) => (
+            {(t.raw('trustBar.items') as { title: string; description: string }[]).map((item, index) => (
               <Card key={index} className={styles.trustBarCard}>
                 <PomegranateMark variant="seed" className={styles.trustBarIcon} />
                 <Text as="h3" size="sm" weight="bold" className={styles.trustBarCardTitle}>
@@ -147,7 +149,7 @@ const MainPage = async ({ faqData, articlesData }: IMainPage) => {
       <Reveal>
         <Section id="services" title={t('services.title')} lead={t('services.lead')}>
           <CardGrid minWidth={240}>
-            {t.raw('services.items').map((item: string, index: number) => (
+            {(t.raw('services.items') as string[]).map((item, index) => (
               <Card key={index} className={styles.serviceCard}>
                 <PomegranateMark variant="seed" className={styles.serviceIcon} />
                 <Text as="h3" size="md" weight="semibold" className={styles.serviceTitle}>
@@ -162,7 +164,7 @@ const MainPage = async ({ faqData, articlesData }: IMainPage) => {
       <Reveal>
         <Section id="reviews" title={t('reviews.title')} lead={t('reviews.lead')}>
           <CardGrid minWidth={300}>
-            {t.raw('reviews.items').map((item: string, index: number) => (
+            {(t.raw('reviews.items') as string[]).map((item, index) => (
               <Card key={index} className={styles.reviewCard}>
                 <span className={styles.reviewQuote}>&ldquo;</span>
                 <Text as="p" size="sm" italic className={styles.reviewText}>
@@ -200,7 +202,7 @@ const MainPage = async ({ faqData, articlesData }: IMainPage) => {
       <Reveal>
         <Section id="how-it-works" title={t('howItWorks.title')} lead={t('howItWorks.lead')}>
           <CardGrid ordered minWidth={220}>
-            {t.raw('howItWorks.steps').map((step: { title: string; description: string }, index: number) => (
+            {(t.raw('howItWorks.steps') as { title: string; description: string }[]).map((step, index) => (
               <Card key={index} className={styles.stepCard}>
                 <div className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</div>
                 <Text as="h3" size="md" weight="bold" className={styles.stepTitle}>

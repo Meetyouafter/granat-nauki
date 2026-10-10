@@ -1,8 +1,11 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+
+import classNames from 'classnames';
+
 import styles from './ReviewCard.module.scss';
 
 type ReviewCardProps = {
@@ -17,6 +20,9 @@ export default function ReviewCard({ src, alt, index }: ReviewCardProps) {
   const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -25,20 +31,20 @@ export default function ReviewCard({ src, alt, index }: ReviewCardProps) {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(node);
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      observer.disconnect();
     };
   }, []);
 
   return (
     <li
       ref={ref}
-      className={`${styles.card} ${isVisible ? styles.visible : ''}`}
+      className={classNames(styles.card, isVisible && styles.visible)}
       style={{ animationDelay: `${index * 0.08}s` }}
     >
       <div className={styles.imageWrapper}>
@@ -55,10 +61,3 @@ export default function ReviewCard({ src, alt, index }: ReviewCardProps) {
     </li>
   );
 }
-
-
-
-
-
-
-

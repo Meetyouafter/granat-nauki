@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router';
 
-import { Header } from '@widgets/header'
+import { Header } from '@widgets/header';
 
-import styles from './RootLayout.module.scss'
+import styles from './RootLayout.module.scss';
 
 const RootLayout = () => {
   return (
@@ -12,7 +12,7 @@ const RootLayout = () => {
         <Outlet />
       </main>
     </>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

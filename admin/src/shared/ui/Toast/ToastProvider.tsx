@@ -1,35 +1,35 @@
-import { type ReactNode, useCallback, useState } from 'react'
+import { type ReactNode, useCallback, useState } from 'react';
 
-import classNames from 'classnames'
+import classNames from 'classnames';
 
-import { ToastContext, type ToastType } from './ToastContext'
+import { ToastContext, type ToastType } from './ToastContext';
 
-import styles from './Toast.module.scss'
+import styles from './Toast.module.scss';
 
 interface IToast {
-  id: number
-  type: ToastType
-  message: string
+  id: number;
+  type: ToastType;
+  message: string;
 }
 
-let nextToastId = 0
+let nextToastId = 0;
 
 function ToastProvider({ children }: { children: ReactNode }) {
-  const [toasts, setToasts] = useState<IToast[]>([])
+  const [toasts, setToasts] = useState<IToast[]>([]);
 
   const notify = useCallback((type: ToastType, message: string) => {
-    const id = nextToastId++
-    setToasts((prev) => [...prev, { id, type, message }])
+    const id = nextToastId++;
+    setToasts(prev => [...prev, { id, type, message }]);
     setTimeout(() => {
-      setToasts((prev) => prev.filter((toast) => toast.id !== id))
-    }, 3000)
-  }, [])
+      setToasts(prev => prev.filter(toast => toast.id !== id));
+    }, 3000);
+  }, []);
 
   return (
     <ToastContext.Provider value={{ notify }}>
       {children}
       <div className={styles.stack}>
-        {toasts.map((toast) => (
+        {toasts.map(toast => (
           <div
             key={toast.id}
             className={classNames(styles.toast, toast.type === 'error' && styles.error)}
@@ -39,7 +39,7 @@ function ToastProvider({ children }: { children: ReactNode }) {
         ))}
       </div>
     </ToastContext.Provider>
-  )
+  );
 }
 
-export default ToastProvider
+export default ToastProvider;

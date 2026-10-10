@@ -1,37 +1,39 @@
-import type { FC } from 'react'
-import { useNavigate } from 'react-router'
+import type { FC } from 'react';
+import { useNavigate } from 'react-router';
 
-import classNames from 'classnames'
+import classNames from 'classnames';
 
-import { paths } from '@shared/config'
-import { StatusBadge } from '@shared/ui/StatusBadge'
+import { paths } from '@shared/config';
+import { StatusBadge } from '@shared/ui/StatusBadge';
 
-import { formatAge } from '../lib/formatAge'
-import { formatReviewDate } from '../lib/formatReviewDate'
+import { formatAge } from '../lib/formatAge';
+import { formatReviewDate } from '../lib/formatReviewDate';
 import {
   FORMAT_LABELS,
   type ReviewDto,
   type ReviewStatus,
   SERVICE_LABELS,
   STATUS_LABELS,
-} from '../model/types'
+} from '../model/types';
 
-import styles from './ReviewCard.module.scss'
+import styles from './ReviewCard.module.scss';
 
 const STATUS_CLASS: Record<ReviewStatus, string | undefined> = {
   draft: styles.statusDraft,
   pending: styles.statusPending,
   published: styles.statusPublished,
   rejected: styles.statusRejected,
-}
+};
 
 interface IReviewCard {
-  review: ReviewDto
+  review: ReviewDto;
 }
 
 const ReviewCard: FC<IReviewCard> = ({ review }) => {
-  const navigate = useNavigate()
-  const handleRedirect = () => navigate(`${paths.reviews}/${review.id}`)
+  const navigate = useNavigate();
+  const handleRedirect = () => {
+    void navigate(`${paths.reviews}/${review.id}`);
+  };
 
   return (
     <article className={styles.card} onClick={handleRedirect}>
@@ -53,20 +55,23 @@ const ReviewCard: FC<IReviewCard> = ({ review }) => {
         <span className={styles.tag}>{SERVICE_LABELS[review.service]}</span>
         <span className={styles.tag}>{FORMAT_LABELS[review.format]}</span>
         <span className={styles.tag}>{formatAge(review.age)}</span>
-        <span className={styles.id}>#{review.id}</span>
+        <span className={styles.id}>
+          #
+          {review.id}
+        </span>
       </div>
 
       <footer className={styles.footer}>
         <button
           type="button"
           className={styles.editButton}
-          onClick={handleRedirect} 
+          onClick={handleRedirect}
         >
           Редактировать
         </button>
       </footer>
     </article>
-  )
-}
+  );
+};
 
-export default ReviewCard
+export default ReviewCard;

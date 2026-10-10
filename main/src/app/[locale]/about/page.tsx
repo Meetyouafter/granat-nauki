@@ -1,17 +1,21 @@
-import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
-import Section from '../../../components/Section/Section';
-import styles from './page.module.scss';
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import { hasLocale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+
 import metadata from '@/data/metadata';
+import { routing } from '@/i18n/routing';
+import Section from '@components/Section/Section';
+
+import styles from './page.module.scss';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return metadata.about[locale as keyof typeof metadata.about] ?? metadata.about.en;
+  return hasLocale(routing.locales, locale) ? metadata.about[locale] : metadata.about.en;
 }
 
 const AboutPage = async () => {

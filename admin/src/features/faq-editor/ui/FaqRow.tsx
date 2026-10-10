@@ -1,35 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import { useEffect, useRef, useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
-import classNames from 'classnames'
+import classNames from 'classnames';
 
-import { type FaqItem, type FaqItemDto, getFaqItemId } from '@entities/faq'
+import { type FaqItem, type FaqItemDto, getFaqItemId } from '@entities/faq';
 
-import { ConfirmModal } from '@shared/ui/ConfirmModal'
-import { StatusBadge } from '@shared/ui/StatusBadge'
+import { ConfirmModal } from '@shared/ui/ConfirmModal';
+import { StatusBadge } from '@shared/ui/StatusBadge';
 
-import type { IFaqRowErrors } from '../model/types'
+import type { IFaqRowErrors } from '../model/types';
 
-import styles from './FaqRow.module.scss'
+import styles from './FaqRow.module.scss';
 
-const ROW_TYPE = 'FAQ_ROW'
+const ROW_TYPE = 'FAQ_ROW';
 
 interface IDragItem {
-  index: number
-  moved: boolean
+  index: number;
+  moved: boolean;
 }
 
 interface IFaqRow {
-  item: FaqItem
-  index: number
-  isFirst: boolean
-  isLast: boolean
-  isEntering?: boolean
-  errors?: IFaqRowErrors | undefined
-  moveRow: (dragIndex: number, hoverIndex: number) => void
-  onChange: (id: number, patch: Partial<FaqItemDto>) => void
-  onDeleteRequest: () => void
-  onEnterAnimationEnd?: () => void
+  item: FaqItem;
+  index: number;
+  isFirst: boolean;
+  isLast: boolean;
+  isEntering?: boolean;
+  errors?: IFaqRowErrors | undefined;
+  moveRow: (dragIndex: number, hoverIndex: number) => void;
+  onChange: (id: number, patch: Partial<FaqItemDto>) => void;
+  onDeleteRequest: () => void;
+  onEnterAnimationEnd?: () => void;
 }
 
 function FaqRow({
@@ -44,36 +44,36 @@ function FaqRow({
   onDeleteRequest,
   onEnterAnimationEnd,
 }: IFaqRow) {
-  const ref = useRef<HTMLLIElement>(null)
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
+  const ref = useRef<HTMLLIElement>(null);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
-  const id = getFaqItemId(item)
+  const id = getFaqItemId(item);
 
   const [{ isDragging }, drag] = useDrag({
     type: ROW_TYPE,
     item: (): IDragItem => ({ index, moved: false }),
-    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
-  })
+    collect: monitor => ({ isDragging: monitor.isDragging() }),
+  });
 
-  const [{ isOver }, drop] = useDrop<IDragItem, void, { isOver: boolean }>({
+  const [{ isOver }, drop] = useDrop<IDragItem, undefined, { isOver: boolean }>({
     accept: ROW_TYPE,
-    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    collect: monitor => ({ isOver: monitor.isOver() }),
     hover: (draggedItem) => {
-      if (draggedItem.index === index) return
-      moveRow(draggedItem.index, index)
-      draggedItem.index = index
-      draggedItem.moved = true
+      if (draggedItem.index === index) return;
+      moveRow(draggedItem.index, index);
+      draggedItem.index = index;
+      draggedItem.moved = true;
     },
-  })
+  });
 
   useEffect(() => {
-    drag(drop(ref))
-  }, [drag, drop])
+    drag(drop(ref));
+  }, [drag, drop]);
 
   const handleDeleteConfirm = () => {
-    setIsConfirmingDelete(false)
-    onDeleteRequest()
-  }
+    setIsConfirmingDelete(false);
+    onDeleteRequest();
+  };
 
   return (
     <li
@@ -89,7 +89,7 @@ function FaqRow({
         <button
           type="button"
           className={styles.reorder}
-          onClick={() => moveRow(index, index - 1)}
+          onClick={() => { moveRow(index, index - 1); }}
           disabled={isFirst}
           aria-label={`Переместить вопрос №${index + 1} вверх`}
         >
@@ -98,7 +98,7 @@ function FaqRow({
         <button
           type="button"
           className={styles.reorder}
-          onClick={() => moveRow(index, index + 1)}
+          onClick={() => { moveRow(index, index + 1); }}
           disabled={isLast}
           aria-label={`Переместить вопрос №${index + 1} вниз`}
         >
@@ -109,7 +109,7 @@ function FaqRow({
         <input
           className={classNames(styles.field, styles.title, errors?.title && styles.fieldInvalid)}
           value={item.title}
-          onChange={(event) => onChange(id, { title: event.target.value })}
+          onChange={(event) => { onChange(id, { title: event.target.value }); }}
           placeholder="Заголовок вопроса"
           aria-label={`Заголовок вопроса №${index + 1}`}
           aria-invalid={errors?.title || undefined}
@@ -122,7 +122,7 @@ function FaqRow({
             errors?.description && styles.fieldInvalid,
           )}
           value={item.description}
-          onChange={(event) => onChange(id, { description: event.target.value })}
+          onChange={(event) => { onChange(id, { description: event.target.value }); }}
           placeholder="Описание ответа"
           aria-label={`Описание ответа №${index + 1}`}
           aria-invalid={errors?.description || undefined}
@@ -138,7 +138,7 @@ function FaqRow({
       <button
         type="button"
         className={styles.delete}
-        onClick={() => setIsConfirmingDelete(true)}
+        onClick={() => { setIsConfirmingDelete(true); }}
         aria-label="Удалить вопрос"
       >
         ✕
@@ -150,11 +150,11 @@ function FaqRow({
           confirmLabel="Удалить"
           cancelLabel="Отмена"
           onConfirm={handleDeleteConfirm}
-          onCancel={() => setIsConfirmingDelete(false)}
+          onCancel={() => { setIsConfirmingDelete(false); }}
         />
       )}
     </li>
-  )
+  );
 }
 
-export default FaqRow
+export default FaqRow;

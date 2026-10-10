@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import styles from './StatCounter.module.scss';
 
 type Props = {
@@ -35,7 +36,9 @@ export default function StatCounter({ value, suffix = '', className, duration = 
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [value, duration]);
 
   return (

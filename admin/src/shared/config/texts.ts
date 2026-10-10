@@ -1,4 +1,4 @@
-import { MIN_PASSWORD_LENGTH } from "./constants"
+import { MIN_PASSWORD_LENGTH } from './constants';
 
 export const FORM_TEXTS = {
   signup: {
@@ -24,5 +24,5 @@ export const FORM_TEXTS = {
     placeholder: '••••••••',
     emptyError: 'Введите пароль',
     lengthError: `Пароль не должен быть короче ${MIN_PASSWORD_LENGTH} символов`,
-  }
-} as const
+  },
+} as const;

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
+
 import styles from './Reveal.module.scss';
 
 type Props = {
@@ -27,7 +28,9 @@ export default function Reveal({ children, className }: Props) {
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const classNames = [styles.reveal, visible && styles.visible, className].filter(Boolean).join(' ');

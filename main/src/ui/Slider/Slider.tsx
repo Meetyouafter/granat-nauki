@@ -1,9 +1,10 @@
 'use client';
 
-import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+
 import classNames from 'classnames';
+
 import styles from './Slider.module.scss';
 
 const AUTOPLAY_INTERVAL_MS = 3000;
@@ -22,21 +23,21 @@ const Slider: FC<ISlider> = ({ items, className }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const goToNext = () => {
-    setActiveIndex((current) => (current + 1) % items.length);
-  };
+  const goToNext = useCallback(() => {
+    setActiveIndex(current => (current + 1) % items.length);
+  }, [items.length]);
 
-  const restartAutoplay = () => {
+  const restartAutoplay = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(goToNext, AUTOPLAY_INTERVAL_MS);
-  };
+  }, [goToNext]);
 
   useEffect(() => {
     restartAutoplay();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [items.length]);
+  }, [restartAutoplay]);
 
   const handleClick = () => {
     goToNext();

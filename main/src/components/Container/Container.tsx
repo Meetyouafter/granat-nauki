@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
-import styles from './Container.module.scss';
+
 import cns from 'classnames';
+
+import styles from './Container.module.scss';
 
 interface IContainer {
   children: ReactNode;
@@ -12,5 +14,3 @@ const Container: FC<IContainer> = ({ children, className }) => (
 );
 
 export default Container;
-
-

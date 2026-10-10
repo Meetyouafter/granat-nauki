@@ -1,4 +1,5 @@
 import 'server-only';
+
 import { hash, type Options, verify } from '@node-rs/argon2';
 
 const MIN_PEPPER_BYTES = 32;

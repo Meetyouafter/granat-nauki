@@ -9,12 +9,13 @@ Commit or push **only when the current user message asks for it**. The `guard.py
 
 ## 1. Gate: checks and build in both packages
 
-Always run all of these, in `main/`, `admin/` and `packages/contracts/`, regardless of which files changed — before staging anything:
+Always run all of these, in `main/`, `admin/` and every package in `packages/`, regardless of which files changed — before staging anything:
 
 ```bash
 cd main               && pnpm check && pnpm build   # typecheck + eslint + stylelint, then next build
 cd admin              && pnpm check && pnpm build   # typecheck + eslint, then tsc -b && vite build
-cd packages/contracts && pnpm check                  # typecheck
+cd packages/contracts && pnpm check                  # typecheck + eslint
+cd packages/eslint-config && pnpm check              # typecheck + eslint
 ```
 
 - `check` = `typecheck` + `lint` (+ `lint:css:check` in main). Nothing is auto-fixed.

@@ -1,5 +1,5 @@
-export * from './data';
 export * from './apiStatuses';
+export * from './data';
 export * from './paths';
 
 export const COOKIE_ACCEPTED = 'cookie_accepted' as const;

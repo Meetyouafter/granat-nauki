@@ -1,8 +1,8 @@
-export { getReview } from './api/getReview'
-export { getReviews } from './api/getReviews'
-export { formatAge } from './lib/formatAge'
-export { formatReviewDate } from './lib/formatReviewDate'
-export { toDateInputValue } from './lib/toDateInputValue'
+export { getReview } from './api/getReview';
+export { getReviews } from './api/getReviews';
+export { formatAge } from './lib/formatAge';
+export { formatReviewDate } from './lib/formatReviewDate';
+export { toDateInputValue } from './lib/toDateInputValue';
 export {
   FORMAT_LABELS,
   MAX_CHILD_AGE,
@@ -13,5 +13,5 @@ export {
   type ServiceType,
   type SessionFormat,
   STATUS_LABELS,
-} from './model/types'
-export { default as ReviewCard } from './ui/ReviewCard'
+} from './model/types';
+export { default as ReviewCard } from './ui/ReviewCard';

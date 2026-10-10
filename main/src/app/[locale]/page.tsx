@@ -1,16 +1,20 @@
 import type { Metadata } from 'next';
+import { hasLocale } from 'next-intl';
+
 import metadata from '@/data/metadata';
+import { routing } from '@/i18n/routing';
+import type { ArticleDto, FaqItemDto } from '@/types';
 import Api from '@/utils/Api';
+
 import MainPage from './MainPage';
-import type { FaqItemDto, ArticleDto } from '@/types';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return metadata.main[locale as keyof typeof metadata.main] ?? metadata.main.en;
+  return hasLocale(routing.locales, locale) ? metadata.main[locale] : metadata.main.en;
 }
 
 async function getFaqData(locale: string) {
@@ -31,7 +35,7 @@ async function getArticlesData(locale: string) {
   }
 };
 
-const Page = async ({params}: { params: Promise<{ locale: string }>}) => {
+const Page = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
   const faqData = await getFaqData(locale);
   const articlesData = await getArticlesData(locale);

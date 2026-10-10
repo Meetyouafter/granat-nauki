@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+
+import classNames from 'classnames';
+
 import styles from './ServiceCard.module.scss';
 
 type ServiceCardProps = {
@@ -25,6 +28,9 @@ export default function ServiceCard({
   const cardRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
+    const node = cardRef.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -33,24 +39,20 @@ export default function ServiceCard({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
+    observer.observe(node);
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
+      observer.disconnect();
     };
   }, []);
 
   return (
     <li
       ref={cardRef}
-      className={`${styles.card} ${isVisible ? styles.visible : ''}`}
+      className={classNames(styles.card, isVisible && styles.visible)}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className={styles.imageWrapper}>
@@ -73,9 +75,3 @@ export default function ServiceCard({
     </li>
   );
 }
-
-
-
-
-
-

@@ -9,7 +9,7 @@ import { validateSessionToken } from './session';
 /*
 Три уровня функций:
 getCurrentSession() - когда аноним допустим
-requireUser()	- любой залогиненный: USER запрашивает доступ
+requireUser() - любой залогиненный: USER запрашивает доступ
 requireAdmin() - всё, что касается контента
 
 401: «не знаю, кто ты». Фронт отправит на страницу входа.

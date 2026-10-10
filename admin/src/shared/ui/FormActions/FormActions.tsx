@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import { ConfirmModal } from '../ConfirmModal'
+import { ConfirmModal } from '../ConfirmModal';
 
-import styles from './FormActions.module.scss'
+import styles from './FormActions.module.scss';
 
 interface IFormActions {
-  onSave: () => void
-  saveLabel?: string
-  cancelLabel?: string
-  disabled?: boolean
+  onSave: () => void;
+  saveLabel?: string;
+  cancelLabel?: string;
+  disabled?: boolean;
 }
 
 function FormActions({
@@ -18,18 +18,18 @@ function FormActions({
   cancelLabel = 'Отменить',
   disabled = false,
 }: IFormActions) {
-  const navigate = useNavigate()
-  const [isCancelling, setIsCancelling] = useState(false)
+  const navigate = useNavigate();
+  const [isCancelling, setIsCancelling] = useState(false);
 
   const handleCancelConfirm = () => {
-    setIsCancelling(false)
-    navigate('/')
-  }
+    setIsCancelling(false);
+    void navigate('/');
+  };
 
   return (
     <>
       <div className={styles.actions}>
-        <button type="button" className={styles.cancel} onClick={() => setIsCancelling(true)}>
+        <button type="button" className={styles.cancel} onClick={() => { setIsCancelling(true); }}>
           {cancelLabel}
         </button>
         <button type="button" className={styles.save} onClick={onSave} disabled={disabled}>
@@ -43,11 +43,11 @@ function FormActions({
           confirmLabel="Да, отменить"
           cancelLabel="Продолжить редактирование"
           onConfirm={handleCancelConfirm}
-          onCancel={() => setIsCancelling(false)}
+          onCancel={() => { setIsCancelling(false); }}
         />
       )}
     </>
-  )
+  );
 }
 
-export default FormActions
+export default FormActions;

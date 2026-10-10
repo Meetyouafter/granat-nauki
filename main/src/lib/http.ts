@@ -1,4 +1,5 @@
 import 'server-only';
+
 import { z } from 'zod';
 
 import { API_STATUSES } from '@/constants';
@@ -30,7 +31,7 @@ export const parseBody = async <T extends z.ZodType>(request: Request, schema: T
   if (!result.success) {
     throw new AppError(API_STATUSES.VALIDATION_ERROR, z.flattenError(result.error).fieldErrors);
   }
-  return result.data as z.infer<T>;
+  return result.data;
 };
 
 type Handler = (request: Request) => Promise<Response>;

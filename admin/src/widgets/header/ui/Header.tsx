@@ -1,12 +1,12 @@
-import { NavLink } from 'react-router'
+import { NavLink } from 'react-router';
 
-import classNames from 'classnames'
+import classNames from 'classnames';
 
-import { paths } from '@shared/config'
+import { paths } from '@shared/config';
 
-import { NAV_ITEMS } from '../model/navItems'
+import { NAV_ITEMS } from '../model/navItems';
 
-import styles from './Header.module.scss'
+import styles from './Header.module.scss';
 
 const Header = () => {
   return (
@@ -24,7 +24,7 @@ const Header = () => {
         ))}
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

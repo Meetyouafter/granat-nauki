@@ -1,5 +1,7 @@
 import type { CSSProperties, FC, ReactNode } from 'react';
+
 import classNames from 'classnames';
+
 import styles from './CardGrid.module.scss';
 
 interface ICardGrid {

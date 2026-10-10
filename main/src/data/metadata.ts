@@ -14,13 +14,13 @@ const metadata = {
       title: {
         template: '%s | Гранат Науки',
         default: 'Гранат Науки',
-      }
+      },
     },
     en: {
       title: {
         template: '%s | Granat Nauki',
         default: 'Granat Nauki',
-      }
+      },
     },
   },
   about: {
@@ -96,4 +96,3 @@ const metadata = {
 };
 
 export default metadata;
-  

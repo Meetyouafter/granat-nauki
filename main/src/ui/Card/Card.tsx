@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
+
 import classNames from 'classnames';
+
 import styles from './Card.module.scss';
 
 interface ICard {

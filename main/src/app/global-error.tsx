@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
+
 import '@styles/index.scss';
 import styles from './global-error.module.scss';
 
@@ -27,7 +29,7 @@ const GlobalError = ({ error, reset }: Props) => {
           )}
           <div className={styles.actions}>
             <button type="button" onClick={reset}>Попробовать снова</button>
-            <a href="/">На главную</a>
+            <Link href="/">На главную</Link>
           </div>
         </main>
       </body>

@@ -1,18 +1,22 @@
-import { getTranslations } from 'next-intl/server';
-import Section from '../../../components/Section/Section';
-import ServiceCard from '../../../components/ServiceCard/ServiceCard';
-import styles from './page.module.scss';
-import { servicesData } from '../../../data/servicesData';
-import metadata from '@/data/metadata';
 import type { Metadata } from 'next';
+import { hasLocale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+
+import metadata from '@/data/metadata';
+import { routing } from '@/i18n/routing';
+import Section from '@components/Section/Section';
+import ServiceCard from '@components/ServiceCard/ServiceCard';
+import { servicesData } from '@data/servicesData';
+
+import styles from './page.module.scss';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return metadata.services[locale as keyof typeof metadata.services] ?? metadata.services.en;
+  return hasLocale(routing.locales, locale) ? metadata.services[locale] : metadata.services.en;
 }
 
 const ServicesPage = async () => {

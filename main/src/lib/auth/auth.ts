@@ -28,11 +28,11 @@ export const signin = async (input: SigninInput) => {
 
   const user = await prisma.user.findUnique({
     where: { email },
-    select: { id: true, passwordHash: true }
+    select: { id: true, passwordHash: true },
   });
 
-  const isPasswordOk =
-    await verifyPassword(user?.passwordHash ?? await getDummyHash(), password);
+  const isPasswordOk
+    = await verifyPassword(user?.passwordHash ?? await getDummyHash(), password);
 
   if (!user || !isPasswordOk) throw new AppError(API_STATUSES.INVALID_CREDENTIALS);
 
@@ -47,8 +47,8 @@ export const signup = async (input: SignupInput) => {
     user = await prisma.user.create({
       data: {
         email,
-        passwordHash: await hashPassword(password)
-      }
+        passwordHash: await hashPassword(password),
+      },
     });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {

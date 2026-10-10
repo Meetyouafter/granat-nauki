@@ -4,4 +4,4 @@ export const formatReviewDate = (reviewDate: string) =>
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  })
+  });

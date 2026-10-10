@@ -1,4 +1,4 @@
 export interface IFaqRowErrors {
-  title?: boolean
-  description?: boolean
+  title?: boolean;
+  description?: boolean;
 }

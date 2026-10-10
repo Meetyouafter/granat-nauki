@@ -1,8 +1,8 @@
-import { FORM_TEXTS } from '@shared/config/texts'
+import { FORM_TEXTS } from '@shared/config/texts';
 
-import useForm from '../model/useForm'
+import useForm from '../model/useForm';
 
-import styles from './SignUpPage.module.scss'
+import styles from './SignUpPage.module.scss';
 
 const SignUpPage = () => {
   const {
@@ -11,8 +11,8 @@ const SignUpPage = () => {
     errors,
     handleEmailChange,
     handlePasswordChange,
-    handleSubmit
-  } = useForm()
+    handleSubmit,
+  } = useForm();
 
   return (
     <div className={styles.wrapper}>
@@ -45,7 +45,7 @@ const SignUpPage = () => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignUpPage
+export default SignUpPage;

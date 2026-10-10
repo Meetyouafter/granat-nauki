@@ -1,8 +1,10 @@
 'use client';
 
-import { useTheme } from '@/contexts/ThemeContext';
-import styles from './ThemeSwitcher.module.scss';
 import Image from 'next/image';
+
+import { useTheme } from '@/contexts/ThemeContext';
+
+import styles from './ThemeSwitcher.module.scss';
 
 const ThemeSwitcher = () => {
   const { theme, toggleTheme } = useTheme();

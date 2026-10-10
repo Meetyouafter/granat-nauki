@@ -1,9 +1,10 @@
-import styles from './Header.module.scss';
-import Logo from './components/Logo/Logo';
-import Navigation from './components/Navigation/Navigation';
-import MobileNavigation from './components/MobileNavigation/MobileNavigation';
-import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
 import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
+import Logo from './components/Logo/Logo';
+import MobileNavigation from './components/MobileNavigation/MobileNavigation';
+import Navigation from './components/Navigation/Navigation';
+import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
+
+import styles from './Header.module.scss';
 
 const Header = () => (
   <header className={styles.root}>

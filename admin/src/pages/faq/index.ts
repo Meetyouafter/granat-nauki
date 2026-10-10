@@ -1,1 +1,1 @@
-export { default as FaqPage } from './ui/FaqPage'
+export { default as FaqPage } from './ui/FaqPage';

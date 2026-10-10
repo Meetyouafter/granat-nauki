@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import Link from 'next/link';
+
 import classNames from 'classnames';
+
 import styles from './Button.module.scss';
 
 export type ButtonVariant = 'primary' | 'secondary';

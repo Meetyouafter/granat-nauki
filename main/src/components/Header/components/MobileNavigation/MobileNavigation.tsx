@@ -1,31 +1,35 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import Navigation from '../Navigation/Navigation';
-import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
-import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
-import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
-import styles from './MobileNavigation.module.scss';
+import { useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
+import { usePathname } from 'next/navigation';
+
+import classNames from 'classnames';
+
+import HamburgerMenu from '@components/Header/components/HamburgerMenu/HamburgerMenu';
+import LanguageSwitcher from '@components/Header/components/LanguageSwitcher/LanguageSwitcher';
+import Navigation from '@components/Header/components/Navigation/Navigation';
+import ThemeSwitcher from '@components/Header/components/ThemeSwitcher/ThemeSwitcher';
+
+import styles from './MobileNavigation.module.scss';
+
+// портал в document.body можно рендерить только на клиенте
+const subscribeNoop = () => () => undefined;
+const getIsClient = () => true;
+const getIsServer = () => false;
 
 const MobileNavigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
+  // меню открыто для конкретного адреса: при переходе на другую страницу оно закрывается само
+  const [openedAt, setOpenedAt] = useState<string | null>(null);
+  const isOpen = openedAt === pathname;
+  const isClient = useSyncExternalStore(subscribeNoop, getIsClient, getIsServer);
 
-  const handleToggleMenu = () => setIsOpen(prev => !prev);
+  const handleToggleMenu = () => {
+    setOpenedAt(isOpen ? null : pathname);
+  };
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Закрываем меню при изменении маршрута
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
-  if (!isMounted) {
+  if (!isClient) {
     return null;
   }
 
@@ -33,10 +37,10 @@ const MobileNavigation = () => {
     <>
       <HamburgerMenu isOpen={isOpen} onClick={handleToggleMenu} />
       <div
-        className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
+        className={classNames(styles.overlay, isOpen && styles.open)}
         onClick={handleToggleMenu}
       />
-      <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
+      <div className={classNames(styles.menu, isOpen && styles.open)}>
         <Navigation handleToggleMenu={handleToggleMenu} isMobile />
         <div className={styles.settings}>
           <ThemeSwitcher />
@@ -44,9 +48,8 @@ const MobileNavigation = () => {
         </div>
       </div>
     </>,
-    document.body
+    document.body,
   );
 };
 
 export default MobileNavigation;
-

@@ -1,32 +1,12 @@
-import js from '@eslint/js'
-import stylistic from '@stylistic/eslint-plugin'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { base, reactConfig } from '@granat/eslint-config';
+import { defineConfig } from 'eslint/config';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
 /**
  * FSD: слои импортируются только «сверху вниз».
  * app → pages → widgets → features → entities → shared
  */
-const LAYERS = ['app', 'pages', 'widgets', 'features', 'entities', 'shared']
-
-/**
- * Порядок импортов: react и его библиотеки → остальные пакеты → слои сверху вниз →
- * относительные пути → стили. Внутри группы — по алфавиту.
- * Побеждает самое длинное совпадение, поэтому `@shared/...` попадает в свою группу,
- * а не в общую группу пакетов, а `./Foo.module.scss` — в стили, а не в относительные.
- */
-const IMPORT_GROUPS = [
-  ['^\\u0000'],
-  ['^react'],
-  ['^@?\\w'],
-  ...LAYERS.map((layer) => [`^@${layer}`]),
-  ['^\\.'],
-  ['\\.s?css$'],
-]
+const LAYERS = ['app', 'pages', 'widgets', 'features', 'entities', 'shared'];
 
 /**
  * Слои, которые запрещено импортировать из слоя `layer`: всё, что выше него,
@@ -34,18 +14,18 @@ const IMPORT_GROUPS = [
  * Исключение — shared: он поделён на сегменты, а не на слайсы, и внутри себя
  * (ui → config, api → lib) ходит свободно.
  */
-const forbiddenLayers = (layer) =>
-  LAYERS.slice(0, LAYERS.indexOf(layer) + (layer === 'shared' ? 0 : 1))
+const forbiddenLayers = layer =>
+  LAYERS.slice(0, LAYERS.indexOf(layer) + (layer === 'shared' ? 0 : 1));
 
 /** Правило границ слоёв для одного слоя. */
-const layerBoundary = (layer) => ({
+const layerBoundary = layer => ({
   files: [`src/${layer}/**/*.{ts,tsx}`],
   rules: {
     'no-restricted-imports': [
       'error',
       {
         patterns: [
-          ...forbiddenLayers(layer).map((forbidden) => ({
+          ...forbiddenLayers(layer).map(forbidden => ({
             group: [`@${forbidden}`, `@${forbidden}/**`],
             message:
               forbidden === layer
@@ -67,31 +47,15 @@ const layerBoundary = (layer) => ({
       },
     ],
   },
-})
+});
 
 export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    plugins: {
-      'simple-import-sort': simpleImportSort,
-      '@stylistic': stylistic,
-    },
-    languageOptions: {
-      globals: globals.browser,
-    },
-    rules: {
-      'simple-import-sort/imports': ['error', { groups: IMPORT_GROUPS }],
-      '@stylistic/comma-spacing': ['error', { before: false, after: true }],
-      '@stylistic/object-curly-spacing': ['error', 'always'],
-      '@stylistic/max-len': ['error', { code: 100, ignoreUrls: true }],
-    },
-  },
+  ...base({
+    tsconfigRootDir: import.meta.dirname,
+    // каждый слой FSD — своя группа импортов, сверху вниз
+    aliasGroups: LAYERS.map(layer => [`^@${layer}`]),
+  }),
+  ...reactConfig,
+  reactRefresh.configs.vite,
   ...LAYERS.map(layerBoundary),
-])
+]);

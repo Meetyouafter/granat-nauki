@@ -1,8 +1,11 @@
 import { getTranslations } from 'next-intl/server';
+
 import { paths } from '@constants';
 import Text from '@ui/Text/Text';
 import TextLink from '@ui/TextLink/TextLink';
+
 import Socials from './components/Socials/Socials';
+
 import styles from './Footer.module.scss';
 
 export default async function Footer() {
@@ -35,5 +38,3 @@ export default async function Footer() {
     </footer>
   );
 }
-
-

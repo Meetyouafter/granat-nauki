@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Link, useParams } from 'react-router'
+import { useState } from 'react';
+import { Link, useParams } from 'react-router';
 
-import classNames from 'classnames'
+import classNames from 'classnames';
 
 import {
   FORMAT_LABELS,
@@ -14,26 +14,26 @@ import {
   type SessionFormat,
   STATUS_LABELS,
   toDateInputValue,
-} from '@entities/review'
+} from '@entities/review';
 
-import { paths } from '@shared/config'
-import { FormActions } from '@shared/ui/FormActions'
-import { Loader } from '@shared/ui/Loader'
-import { StatusBadge } from '@shared/ui/StatusBadge'
-import { useToast } from '@shared/ui/Toast'
+import { paths } from '@shared/config';
+import { FormActions } from '@shared/ui/FormActions';
+import { Loader } from '@shared/ui/Loader';
+import { StatusBadge } from '@shared/ui/StatusBadge';
+import { useToast } from '@shared/ui/Toast';
 
-import styles from './ReviewPage.module.scss'
+import styles from './ReviewPage.module.scss';
 
 interface IReviewForm {
-  review: string
-  age: string
-  service: ServiceType
-  format: SessionFormat
-  reviewDate: string
-  status: ReviewStatus
+  review: string;
+  age: string;
+  service: ServiceType;
+  format: SessionFormat;
+  reviewDate: string;
+  status: ReviewStatus;
 }
 
-type ReviewFormErrors = Partial<Record<keyof IReviewForm, string>>
+type ReviewFormErrors = { [K in keyof IReviewForm]?: string | undefined };
 
 const EMPTY_FORM: IReviewForm = {
   review: '',
@@ -42,7 +42,7 @@ const EMPTY_FORM: IReviewForm = {
   format: 'online',
   reviewDate: toDateInputValue(new Date().toISOString()),
   status: 'draft',
-}
+};
 
 const toForm = (review: ReviewDto): IReviewForm => ({
   review: review.review,
@@ -51,58 +51,58 @@ const toForm = (review: ReviewDto): IReviewForm => ({
   format: review.format,
   reviewDate: toDateInputValue(review.reviewDate),
   status: review.status,
-})
+});
 
-const serviceOptions = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
-const formatOptions = Object.entries(FORMAT_LABELS) as [SessionFormat, string][]
-const statusOptions = Object.entries(STATUS_LABELS) as [ReviewStatus, string][]
+const serviceOptions = Object.entries(SERVICE_LABELS) as [ServiceType, string][];
+const formatOptions = Object.entries(FORMAT_LABELS) as [SessionFormat, string][];
+const statusOptions = Object.entries(STATUS_LABELS) as [ReviewStatus, string][];
 
 const STATUS_SEGMENT_CLASS: Record<ReviewStatus, string | undefined> = {
   draft: styles.segmentDraft,
   pending: styles.segmentPending,
   published: styles.segmentPublished,
   rejected: styles.segmentRejected,
-}
+};
 
 const validate = ({ review, age, reviewDate }: IReviewForm) => {
-  const errors: ReviewFormErrors = {}
+  const errors: ReviewFormErrors = {};
 
-  if (!review.trim()) errors.review = 'Заполните текст отзыва'
+  if (!review.trim()) errors.review = 'Заполните текст отзыва';
 
-  const parsedAge = Number(age)
+  const parsedAge = Number(age);
   if (!age.trim() || Number.isNaN(parsedAge)) {
-    errors.age = 'Укажите возраст'
+    errors.age = 'Укажите возраст';
   } else if (!Number.isInteger(parsedAge)) {
-    errors.age = 'Возраст должен быть целым числом'
+    errors.age = 'Возраст должен быть целым числом';
   } else if (parsedAge < MIN_CHILD_AGE || parsedAge > MAX_CHILD_AGE) {
-    errors.age = `Возраст от ${MIN_CHILD_AGE} до ${MAX_CHILD_AGE} лет`
+    errors.age = `Возраст от ${MIN_CHILD_AGE} до ${MAX_CHILD_AGE} лет`;
   }
 
-  if (!reviewDate) errors.reviewDate = 'Укажите дату отзыва'
+  if (!reviewDate) errors.reviewDate = 'Укажите дату отзыва';
 
-  return errors
-}
+  return errors;
+};
 
 const ReviewPage = () => {
-  const { id = '' } = useParams()
-  const { notify } = useToast()
+  const { id = '' } = useParams();
+  const { notify } = useToast();
 
-  const isLoading = false
+  const isLoading = false as boolean;
   // const error: null = null
   // TODO: заменить на запрос отзыва, когда появится API отзывов
-  const data = undefined as ReviewDto | undefined
+  const data = undefined as ReviewDto | undefined;
 
-  const [values, setValues] = useState<IReviewForm>(EMPTY_FORM)
-  const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>()
-  const [errors, setErrors] = useState<ReviewFormErrors>({})
+  const [values, setValues] = useState<IReviewForm>(EMPTY_FORM);
+  const [syncedReview, setSyncedReview] = useState<ReviewDto | undefined>();
+  const [errors, setErrors] = useState<ReviewFormErrors>({});
 
   if (data && data !== syncedReview) {
-    setSyncedReview(data)
-    setValues(toForm(data))
-    setErrors({})
+    setSyncedReview(data);
+    setValues(toForm(data));
+    setErrors({});
   }
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <Loader />;
 
   // if (error instanceof ApiError && error.status === 404) {
   //   return (
@@ -121,21 +121,23 @@ const ReviewPage = () => {
   // if (error) return <ErrorState message={error.message} />
 
   const handleChange = (patch: Partial<IReviewForm>) => {
-    setValues((prev) => ({ ...prev, ...patch }))
+    setValues(prev => ({ ...prev, ...patch }));
     setErrors((prev) => {
-      const next = { ...prev }
-      Object.keys(patch).forEach((field) => delete next[field as keyof IReviewForm])
-      return next
-    })
-  }
+      const next = { ...prev };
+      for (const field of Object.keys(patch) as (keyof IReviewForm)[]) {
+        next[field] = undefined;
+      }
+      return next;
+    });
+  };
 
   const handleSave = () => {
-    const nextErrors = validate(values)
-    setErrors(nextErrors)
+    const nextErrors = validate(values);
+    setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      notify('error', 'Заполните обязательные поля перед сохранением')
-      return
+      notify('error', 'Заполните обязательные поля перед сохранением');
+      return;
     }
 
     const payload = {
@@ -146,11 +148,11 @@ const ReviewPage = () => {
       format: values.format,
       reviewDate: new Date(values.reviewDate),
       status: values.status,
-    }
+    };
 
     // TODO: отправить payload, когда появится PUT /reviews/:id
-    console.info('SaveReviewDto', payload)
-  }
+    console.info('SaveReviewDto', payload);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -159,12 +161,15 @@ const ReviewPage = () => {
           ← К списку отзывов
         </Link>
         <div className={styles.titleRow}>
-          <h1 className={styles.title}>Отзыв #{id}</h1>
+          <h1 className={styles.title}>
+            Отзыв #
+            {id}
+          </h1>
           {data?.translationStatus && <StatusBadge status={data.translationStatus} />}
         </div>
       </header>
 
-      <form className={styles.form} onSubmit={(event) => event.preventDefault()}>
+      <form className={styles.form} onSubmit={(event) => { event.preventDefault(); }}>
         <div className={classNames(styles.field, styles.fieldWide)}>
           <label className={styles.label} htmlFor="review">
             Текст отзыва
@@ -173,7 +178,7 @@ const ReviewPage = () => {
             id="review"
             className={classNames(styles.control, styles.textarea, errors.review && styles.invalid)}
             value={values.review}
-            onChange={(event) => handleChange({ review: event.target.value })}
+            onChange={(event) => { handleChange({ review: event.target.value }); }}
             placeholder="Текст отзыва"
             aria-invalid={Boolean(errors.review) || undefined}
             rows={6}
@@ -193,7 +198,7 @@ const ReviewPage = () => {
             max={MAX_CHILD_AGE}
             className={classNames(styles.control, errors.age && styles.invalid)}
             value={values.age}
-            onChange={(event) => handleChange({ age: event.target.value })}
+            onChange={(event) => { handleChange({ age: event.target.value }); }}
             placeholder={`${MIN_CHILD_AGE}–${MAX_CHILD_AGE}`}
             aria-invalid={Boolean(errors.age) || undefined}
           />
@@ -209,7 +214,7 @@ const ReviewPage = () => {
             type="date"
             className={classNames(styles.control, errors.reviewDate && styles.invalid)}
             value={values.reviewDate}
-            onChange={(event) => handleChange({ reviewDate: event.target.value })}
+            onChange={(event) => { handleChange({ reviewDate: event.target.value }); }}
             aria-invalid={Boolean(errors.reviewDate) || undefined}
           />
           {errors.reviewDate && <span className={styles.error}>{errors.reviewDate}</span>}
@@ -223,7 +228,7 @@ const ReviewPage = () => {
             id="service"
             className={styles.control}
             value={values.service}
-            onChange={(event) => handleChange({ service: event.target.value as ServiceType })}
+            onChange={(event) => { handleChange({ service: event.target.value as ServiceType }); }}
           >
             {serviceOptions.map(([value, label]) => (
               <option key={value} value={value}>
@@ -241,7 +246,7 @@ const ReviewPage = () => {
             id="format"
             className={styles.control}
             value={values.format}
-            onChange={(event) => handleChange({ format: event.target.value as SessionFormat })}
+            onChange={(event) => { handleChange({ format: event.target.value as SessionFormat }); }}
           >
             {formatOptions.map(([value, label]) => (
               <option key={value} value={value}>
@@ -271,7 +276,7 @@ const ReviewPage = () => {
                   className={styles.segmentInput}
                   value={value}
                   checked={values.status === value}
-                  onChange={() => handleChange({ status: value })}
+                  onChange={() => { handleChange({ status: value }); }}
                 />
                 <span className={styles.segmentDot} aria-hidden="true" />
                 {label}
@@ -284,7 +289,7 @@ const ReviewPage = () => {
 
       <FormActions onSave={handleSave} />
     </div>
-  )
-}
+  );
+};
 
-export default ReviewPage
+export default ReviewPage;

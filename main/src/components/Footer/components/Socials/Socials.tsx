@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import Image from 'next/image';
+
 import { contacts, socialLinks } from '@constants';
 
 import styles from './Socials.module.scss';

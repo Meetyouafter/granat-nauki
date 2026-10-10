@@ -1,4 +1,7 @@
 import type { FC } from 'react';
+
+import classNames from 'classnames';
+
 import styles from './HamburgerMenu.module.scss';
 
 interface IHamburgerMenu {
@@ -9,7 +12,7 @@ interface IHamburgerMenu {
 const HamburgerMenu: FC<IHamburgerMenu> = ({ isOpen, onClick }) => {
   return (
     <button
-      className={`${styles.root} ${isOpen ? styles.open : ''}`}
+      className={classNames(styles.root, isOpen && styles.open)}
       onClick={onClick}
       aria-label="Toggle menu"
       aria-expanded={isOpen}
@@ -22,4 +25,3 @@ const HamburgerMenu: FC<IHamburgerMenu> = ({ isOpen, onClick }) => {
 };
 
 export default HamburgerMenu;
-

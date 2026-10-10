@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import Link from 'next/link';
+
 import classNames from 'classnames';
+
 import styles from './TextLink.module.scss';
 
 interface ITextLink {

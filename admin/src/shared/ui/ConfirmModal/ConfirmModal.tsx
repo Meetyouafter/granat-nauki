@@ -1,12 +1,12 @@
-import styles from './ConfirmModal.module.scss'
+import styles from './ConfirmModal.module.scss';
 
 interface IConfirmModal {
-  title: string
-  message: string
-  confirmLabel?: string
-  cancelLabel?: string
-  onConfirm: () => void
-  onCancel: () => void
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 function ConfirmModal({
@@ -19,7 +19,7 @@ function ConfirmModal({
 }: IConfirmModal) {
   return (
     <div className={styles.overlay} onClick={onCancel}>
-      <div className={styles.dialog} onClick={(event) => event.stopPropagation()}>
+      <div className={styles.dialog} onClick={(event) => { event.stopPropagation(); }}>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.message}>{message}</p>
         <div className={styles.actions}>
@@ -32,7 +32,7 @@ function ConfirmModal({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ConfirmModal
+export default ConfirmModal;

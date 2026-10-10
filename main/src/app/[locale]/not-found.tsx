@@ -1,18 +1,22 @@
-import Image from 'next/image';
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import { hasLocale } from 'next-intl';
+
+import metadata from '@/data/metadata';
+import { routing } from '@/i18n/routing';
+import { paths } from '@constants';
 import Button from '@ui/Button/Button';
 import Text from '@ui/Text/Text';
-import { paths } from '@constants';
-import metadata from '@/data/metadata';
+
 import styles from './not-found.module.scss';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return metadata.notFound[locale as keyof typeof metadata.notFound] ?? metadata.notFound.en;
+  return hasLocale(routing.locales, locale) ? metadata.notFound[locale] : metadata.notFound.en;
 }
 
 const NotFound = () => (

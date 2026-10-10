@@ -1,39 +1,45 @@
+import { ReviewCard, type ReviewDto } from '@entities/review';
 
-import { ReviewCard, type ReviewDto } from '@entities/review'
+import { ErrorState } from '@shared/ui/ErrorState';
+import { Loader } from '@shared/ui/Loader';
 
-import { ErrorState } from '@shared/ui/ErrorState'
-import { Loader } from '@shared/ui/Loader'
-
-import styles from './ReviewsPage.module.scss'
+import styles from './ReviewsPage.module.scss';
 
 const ReviewsPage = () => {
-  const isLoading = false
-  const error = new Error('')
-  const data: ReviewDto[] = []
+  // TODO: заменить на запрос отзывов, когда появится API отзывов
+  const isLoading = false as boolean;
+  const error = null as Error | null;
+  const data = [] as ReviewDto[];
 
-  if (isLoading) return <Loader />
-  if (error) return <ErrorState message={error.message} />
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorState message={error.message} />;
 
-  const reviews = data ?? []
+  const reviews = data;
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>Отзывы ({reviews.length})</h1>
-      {reviews.length === 0 ? (
-        <div className={styles.empty}>
-          <p className={styles.emptyText}>Пока нет ни одного отзыва</p>
-        </div>
-      ) : (
-        <ul className={styles.grid}>
-          {reviews.map((review) => (
-            <li key={review.id}>
-              <ReviewCard review={review} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <h1 className={styles.title}>
+        Отзывы (
+        {reviews.length}
+        )
+      </h1>
+      {reviews.length === 0
+        ? (
+            <div className={styles.empty}>
+              <p className={styles.emptyText}>Пока нет ни одного отзыва</p>
+            </div>
+          )
+        : (
+            <ul className={styles.grid}>
+              {reviews.map(review => (
+                <li key={review.id}>
+                  <ReviewCard review={review} />
+                </li>
+              ))}
+            </ul>
+          )}
     </div>
-  )
-}
+  );
+};
 
-export default ReviewsPage
+export default ReviewsPage;

@@ -1,7 +1,9 @@
 import 'server-only';
+
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
-import { prisma } from '@/lib/db';
+
 import type { Prisma } from '@/generated/prisma/client';
+import { prisma } from '@/lib/db';
 
 /*
   Работа с сессией пользователя
@@ -36,7 +38,7 @@ const INACTIVITY_TIMEOUT = 7 * DAY;
 const ABSOLUTE_TIMEOUT = 30 * DAY;
 const REFRESH_INTERVAL = HOUR;
 
-const ID_BYTES = 15;     // 120 bits
+const ID_BYTES = 15; // 120 bits
 const SECRET_BYTES = 32; // 256 bits
 
 type DbClient = Prisma.TransactionClient;
@@ -75,10 +77,10 @@ const parseToken = (token: string) => {
   return { id, secret };
 };
 
-const getSessionExpiresAt = (session: { lastVerifiedAt: Date, createdAt: Date }) => {
+const getSessionExpiresAt = (session: { lastVerifiedAt: Date; createdAt: Date }) => {
   return new Date(Math.min(
     session.lastVerifiedAt.getTime() + INACTIVITY_TIMEOUT,
-    session.createdAt.getTime() + ABSOLUTE_TIMEOUT
+    session.createdAt.getTime() + ABSOLUTE_TIMEOUT,
   ));
 };
 

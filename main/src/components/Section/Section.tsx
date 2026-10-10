@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
-import Container from '../Container/Container';
+
+import Container from '@components/Container/Container';
+
 import styles from './Section.module.scss';
 
 type Props = {
@@ -20,5 +22,3 @@ export default function Section({ id, title, lead, children }: Props) {
     </section>
   );
 }
-
-

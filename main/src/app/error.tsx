@@ -1,7 +1,8 @@
 'use client';
 
-import Section from "@/components/Section/Section";
-import type { FC } from "react";
+import type { FC } from 'react';
+
+import Section from '@/components/Section/Section';
 
 interface IError {
   error: Error;
@@ -12,7 +13,7 @@ const Error: FC<IError> = ({ error, reset }) => {
   return (
     <Section>
       <p>{error.message}</p>
-      <button onClick={() => reset()}>Повторить</button>
+      <button onClick={() => { reset(); }}>Повторить</button>
     </Section>
   );
 };

@@ -24,23 +24,18 @@
     "redux": "^5.0.1"
   },
   "devDependencies": {
+    "@granat/eslint-config": "workspace:*",
     "@granat/tsconfig": "workspace:*",
-    "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "classnames": "^2.5.1",
-    "eslint": "^10.6.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint": "catalog:",
     "eslint-plugin-react-refresh": "^0.5.3",
-    "eslint-plugin-simple-import-sort": "^14.0.0",
-    "globals": "^17.7.0",
     "openapi-typescript": "^7.13.0",
     "sass": "^1.101.7",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.62.0",
     "vite": "^8.1.1"
   }
 }

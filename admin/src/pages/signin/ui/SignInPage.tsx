@@ -1,8 +1,8 @@
-import { FORM_TEXTS } from '@shared/config/texts'
+import { FORM_TEXTS } from '@shared/config/texts';
 
-import useForm from '../model/useForm'
+import useForm from '../model/useForm';
 
-import styles from './SignInPage.module.scss'
+import styles from './SignInPage.module.scss';
 
 const SignInPage = () => {
   const {
@@ -13,8 +13,8 @@ const SignInPage = () => {
     commonError,
     handleEmailChange,
     handlePasswordChange,
-    handleSubmit
-  } = useForm()
+    handleSubmit,
+  } = useForm();
 
   return (
     <div className={styles.wrapper}>
@@ -48,7 +48,7 @@ const SignInPage = () => {
         <p className={styles.error} aria-live="polite">{commonError && 'aw'}</p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignInPage
+export default SignInPage;

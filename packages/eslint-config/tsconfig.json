@@ -1,0 +1,4 @@
+{
+  "extends": "@granat/tsconfig/base.json",
+  "include": ["index.d.ts"]
+}

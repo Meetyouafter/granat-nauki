@@ -1,1 +1,1 @@
-export const getReviews = async () => {}
+export const getReviews = async () => {};

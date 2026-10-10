@@ -1,14 +1,15 @@
+import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+
+import { type Theme, ThemeProvider } from '@/contexts/ThemeContext';
+import { routing } from '@/i18n/routing';
+import Cookie from '@components/Cookie/Cookie';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
-import { ThemeProvider } from '@/contexts/ThemeContext';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import Cookie from '@components/Cookie/Cookie';
-import { cookies } from 'next/headers';
-import type { Metadata } from 'next';
 import { THEME } from '@constants';
 import metadata from '@data/metadata';
-import type { Theme } from '@/contexts/ThemeContext';
 
 export async function generateMetadata({
   params,
@@ -16,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return metadata.template[locale as keyof typeof metadata.template] ?? metadata.template.en;
+  return hasLocale(routing.locales, locale) ? metadata.template[locale] : metadata.template.en;
 }
 
 type Props = {

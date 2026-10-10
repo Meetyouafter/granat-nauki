@@ -1,7 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
 import styles from './ReviewForm.module.scss';
 
 const ReviewForm = () => {
@@ -12,7 +13,7 @@ const ReviewForm = () => {
     <div className={styles.wrapper}>
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => { setIsOpen(!isOpen); }}
         className={styles.toggleButton}
       >
         {isOpen ? t('toggleClose') : t('toggleOpen')}
@@ -36,8 +37,3 @@ const ReviewForm = () => {
 };
 
 export default ReviewForm;
-
-
-
-
-

@@ -1,16 +1,16 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes } from 'react-router';
 
-import { FaqPage } from '@pages/faq'
-import { HomePage } from '@pages/home'
-import { ReviewPage } from '@pages/review'
-import { ReviewsPage } from '@pages/reviews'
-import { SignInPage } from '@pages/signin'
-import { SignUpPage } from '@pages/signup'
+import { FaqPage } from '@pages/faq';
+import { HomePage } from '@pages/home';
+import { ReviewPage } from '@pages/review';
+import { ReviewsPage } from '@pages/reviews';
+import { SignInPage } from '@pages/signin';
+import { SignUpPage } from '@pages/signup';
 
-import { paths } from '@shared/config'
+import { paths } from '@shared/config';
 
-import RootLayout from '../layouts/rootLayout/RootLayout'
-import SignLayout from '../layouts/signLayout/SignLayout'
+import RootLayout from '../layouts/rootLayout/RootLayout';
+import SignLayout from '../layouts/signLayout/SignLayout';
 
 function AppRoutes() {
   return (
@@ -26,7 +26,7 @@ function AppRoutes() {
         <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default AppRoutes
+export default AppRoutes;

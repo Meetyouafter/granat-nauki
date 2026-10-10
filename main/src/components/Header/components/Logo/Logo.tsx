@@ -1,8 +1,10 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import styles from './Logo.module.scss';
+
 import { paths } from '@constants';
+
+import styles from './Logo.module.scss';
 
 const Logo = async () => {
   const t = await getTranslations('Header');

@@ -1,7 +1,15 @@
 'use client';
 
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useLayoutEffect,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+
 import { THEME } from '@constants';
-import { createContext, useContext, useState, type ReactNode, useLayoutEffect, useCallback } from 'react';
 
 export type Theme = 'light' | 'dark';
 
@@ -25,30 +33,42 @@ interface ThemeProviderProps {
   initialTheme?: Theme | undefined;
 }
 
+const DARK_QUERY = '(prefers-color-scheme: dark)';
+
+const subscribeToSystemTheme = (onChange: () => void) => {
+  const query = window.matchMedia(DARK_QUERY);
+  query.addEventListener('change', onChange);
+  return () => {
+    query.removeEventListener('change', onChange);
+  };
+};
+
+const getSystemTheme = (): Theme => (window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light');
+
+// на сервере системная тема неизвестна
+const getServerSystemTheme = () => null;
+
 export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme | null>(initialTheme ?? null);
-
-  const actionSetTheme = useCallback((correctTheme: Theme) => {
-    document.documentElement.setAttribute('data-theme', correctTheme);
-    setTheme(correctTheme);
-
-    const maxAge = 365 * 24 * 60 * 60; // 1 год
-    document.cookie = `${THEME}=${correctTheme}; path=/; max-age=${maxAge}`;
-  }, []);
+  // тема, выбранная пользователем (из cookie или переключателем); null — следуем за системой
+  const [chosenTheme, setChosenTheme] = useState<Theme | null>(initialTheme ?? null);
+  const systemTheme = useSyncExternalStore(
+    subscribeToSystemTheme,
+    getSystemTheme,
+    getServerSystemTheme,
+  );
+  const theme = chosenTheme ?? systemTheme;
 
   useLayoutEffect(() => {
-    // тема уже пришла с сервера (из cookie) — донастраивать нечего
-    if (theme) {
-      return;
-    }
+    if (!theme) return;
 
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', theme);
+    const maxAge = 365 * 24 * 60 * 60; // 1 год
+    document.cookie = `${THEME}=${theme}; path=/; max-age=${maxAge}`;
+  }, [theme]);
 
-    const correctTheme = prefersDark ? 'dark' : 'light';
-    actionSetTheme(correctTheme);
-  }, [theme, actionSetTheme]);
-
-  const toggleTheme = () => actionSetTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleTheme = () => {
+    setChosenTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

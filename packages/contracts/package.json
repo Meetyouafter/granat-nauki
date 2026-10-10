@@ -8,13 +8,16 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "check": "pnpm typecheck"
+    "lint": "eslint .",
+    "check": "pnpm typecheck && pnpm lint"
   },
   "dependencies": {
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@granat/eslint-config": "workspace:*",
     "@granat/tsconfig": "workspace:*",
+    "eslint": "catalog:",
     "typescript": "catalog:"
   }
 }

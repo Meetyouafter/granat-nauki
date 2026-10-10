@@ -1,17 +1,19 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
+import { type AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
+
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import Header from '@components/Header/Header';
-import Footer from '@components/Footer/Footer';
 import metadata from '@/data/metadata';
-import NotFoundContent from './[locale]/not-found';
 import { routing } from '@/i18n/routing';
+import Footer from '@components/Footer/Footer';
+import Header from '@components/Header/Header';
+
+import NotFoundContent from './[locale]/not-found';
 
 export const generateMetadata = (): Metadata => metadata.notFound[routing.defaultLocale];
 
 const NotFound = async () => {
   const locale = routing.defaultLocale;
-  const messages = (await import(`@/locales/${locale}.json`)).default;
+  const messages = ((await import(`@/locales/${locale}.json`)) as { default: AbstractIntlMessages }).default;
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

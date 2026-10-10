@@ -3,9 +3,11 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+
+import { paths } from '@constants';
 import Button from '@ui/Button/Button';
 import Text from '@ui/Text/Text';
-import { paths } from '@constants';
+
 import styles from './error.module.scss';
 
 type Props = {

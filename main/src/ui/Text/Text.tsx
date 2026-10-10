@@ -1,5 +1,7 @@
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
+
 import classNames from 'classnames';
+
 import styles from './Text.module.scss';
 
 export type TextSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -13,8 +15,8 @@ interface IText<T extends ElementType> {
   className?: string | undefined;
 }
 
-type TextProps<T extends ElementType> = IText<T> &
-  Omit<ComponentPropsWithoutRef<T>, keyof IText<T>>;
+type TextProps<T extends ElementType> = IText<T>
+  & Omit<ComponentPropsWithoutRef<T>, keyof IText<T>>;
 
 const Text = <T extends ElementType = 'p',>({
   as,

@@ -4,4 +4,4 @@ export const paths = {
   home: '/dashboard',
   faq: '/faq',
   reviews: '/reviews',
-} as const
+} as const;

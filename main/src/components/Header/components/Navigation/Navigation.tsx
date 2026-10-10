@@ -1,12 +1,15 @@
 'use client';
 
+import type { FC } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+import cns from 'classnames';
+
 import { usePathname } from '@/i18n/navigation';
 import { paths } from '@constants';
+
 import styles from './Navigation.module.scss';
-import { useTranslations } from 'next-intl';
-import type { FC } from 'react';
-import cns from 'classnames';
 
 interface INavigation {
   handleToggleMenu?: () => void;

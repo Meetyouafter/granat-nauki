@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """PostToolUse: after Claude edits a file, lint just that file and report problems back.
-eslint for ts/tsx/js in main/ and admin/, stylelint for scss in main/, prisma validate for the schema.
+eslint for ts/tsx/js in main/, admin/ and packages/*, stylelint for scss in main/, prisma validate for the schema.
 Report-only: nothing is auto-fixed."""
 import json
 import os
@@ -16,7 +16,7 @@ if not path:
     sys.exit(0)
 
 relpath = os.path.relpath(os.path.abspath(path), ROOT)
-match = re.match(r'(main|admin)/(.+)$', relpath)
+match = re.match(r'(main|admin|packages/[^/]+)/(.+)$', relpath)
 if not match or '/generated/' in relpath or '/node_modules/' in relpath:
     sys.exit(0)
 

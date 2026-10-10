@@ -1,11 +1,11 @@
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
-import { paths } from '@shared/config'
+import { paths } from '@shared/config';
 
-import styles from './ErrorState.module.scss'
+import styles from './ErrorState.module.scss';
 
 interface IErrorState {
-  message?: string
+  message?: string;
 }
 
 function ErrorState({ message }: IErrorState) {
@@ -17,7 +17,7 @@ function ErrorState({ message }: IErrorState) {
         Вернуться на главную
       </Link>
     </div>
-  )
+  );
 }
 
-export default ErrorState
+export default ErrorState;

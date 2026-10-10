@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
+import { Alegreya, Manrope } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
 
-import '@styles/index.scss';
-
-import { Alegreya, Manrope } from 'next/font/google';
-import { THEME } from '@constants';
 import type { Theme } from '@/contexts/ThemeContext';
+import { THEME } from '@constants';
+
+import '@styles/index.scss';
 
 export const metadata: Metadata = {
   icons: {

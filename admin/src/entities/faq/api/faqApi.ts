@@ -1,2 +1,2 @@
-export { getFaqs } from './getFaqs'
-export { saveFaqs, type SaveFaqItem } from './saveFaqs'
+export { getFaqs } from './getFaqs';
+export { type SaveFaqItem, saveFaqs } from './saveFaqs';

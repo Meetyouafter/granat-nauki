@@ -19,6 +19,9 @@ packages/tsconfig/   @granat/tsconfig: base.json with the shared strict compiler
                      The one strict flag deliberately left out is noPropertyAccessFromIndexSignature: CSS modules are
                      typed { [key: string]: string }, so it would forbid styles.title. With noUncheckedIndexedAccess
                      styles.title is string | undefined, hence className props are declared `className?: string | undefined`.
+packages/eslint-config/  @granat/eslint-config: base() and reactConfig, the one set of ESLint rules for every package
+                     (ESLint 9, typescript-eslint strictTypeChecked, @stylistic, import sorting). A package's
+                     eslint.config only adds its own: alias groups for import sorting, Next plugin, FSD boundaries.
 docs/                design audit and site brief
 ```
 
@@ -45,10 +48,12 @@ Checks (in `main/`, `admin/` or `packages/contracts/`):
 ```bash
 pnpm check              # everything below, nothing auto-fixed
 pnpm typecheck          # tsc --noEmit (admin: tsc -b --noEmit)
-pnpm lint               # eslint (not in contracts)
+pnpm lint               # eslint
 pnpm lint:css:check     # stylelint, main only (lint:css runs it with --fix)
 pnpm build              # main and admin; required to pass, with check, before any commit
 ```
+
+Code style (enforced by `@granat/eslint-config`, autofix with `pnpm eslint . --fix`): semicolons, single quotes (double in JSX), 2-space indent, trailing commas in multiline, max line 100. Import order: side effects → react/next → packages → the package's aliases → relative → styles. Promises are never left floating: `await`, `.catch(...)`, or `void navigate(...)` for fire-and-forget; async handlers are wrapped (`onSubmit={handleSubmit}` where `handleSubmit` is sync and calls `void submit()`).
 
 From the root, `pnpm -r --no-bail check` runs it in every package. Without `--no-bail` pnpm kills the other packages' scripts (SIGKILL) as soon as one fails.
 

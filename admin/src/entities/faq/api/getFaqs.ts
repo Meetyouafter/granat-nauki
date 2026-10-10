@@ -1,7 +1,9 @@
+import type { FaqItemDto } from '../model/types';
+
 export const getFaqs = async () => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/faq`)
+  const response = await fetch('/api/faq');
   if (!response.ok) {
-    throw new Error(`Failed to get FAQ (${response.statusText})`)
+    throw new Error(`Failed to get FAQ (${response.statusText})`);
   }
-  return response.json()
-}
+  return (await response.json()) as FaqItemDto[];
+};
