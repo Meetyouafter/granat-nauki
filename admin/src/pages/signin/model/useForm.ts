@@ -1,8 +1,6 @@
 import { type ChangeEvent, type SubmitEvent, useState } from 'react';
-import { useNavigate } from 'react-router';
 
 import { useSigninMutation } from '@shared/api';
-import { paths } from '@shared/config';
 import { FORM_TEXTS } from '@shared/config/texts';
 
 const getEmailError = (email: string) => {
@@ -28,7 +26,6 @@ const useForm = () => {
   });
 
   const [signin, { isLoading, error, reset }] = useSigninMutation();
-  const navigate = useNavigate();
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setErrors(prev => ({ ...prev, email: null }));
@@ -45,7 +42,6 @@ const useForm = () => {
   const submit = async () => {
     try {
       await signin({ email, password }).unwrap();
-      void navigate(paths.home);
     } catch {
       // ошибку показывает commonError из состояния мутации
     }
@@ -68,8 +64,6 @@ const useForm = () => {
 
     void submit();
   };
-
-  console.log(error);
 
   return {
     isLoading,

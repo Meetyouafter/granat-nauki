@@ -4,4 +4,5 @@ export const paths = {
   home: '/dashboard',
   faq: '/faq',
   reviews: '/reviews',
+  accessRights: '/accessRights',
 } as const;

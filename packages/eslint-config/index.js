@@ -69,6 +69,8 @@ export const base = ({ tsconfigRootDir, aliasGroups = [] }) => [
         allowNever: false,
         allowArray: false,
       }],
+      // `() => { return x; }` → `() => x`
+      'arrow-body-style': ['error', 'as-needed'],
       'no-duplicate-imports': 'error',
       'simple-import-sort/imports': ['error', { groups: importGroups(aliasGroups) }],
       'simple-import-sort/exports': 'error',
@@ -82,5 +84,14 @@ export const reactConfig = [
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
   reactHooks.configs.flat.recommended,
-  { settings: { react: { version: 'detect' } } },
+  {
+    settings: { react: { version: 'detect' } },
+    rules: {
+      // Компоненты только стрелочные: `const Foo = () => ...`
+      'react/function-component-definition': ['error', {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      }],
+    },
+  },
 ];

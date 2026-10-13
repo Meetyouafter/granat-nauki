@@ -11,22 +11,30 @@ import { paths } from '@shared/config';
 
 import RootLayout from '../layouts/rootLayout/RootLayout';
 import SignLayout from '../layouts/signLayout/SignLayout';
+import { GuestRoute, ProtectedRoute } from './guards';
 
-function AppRoutes() {
+const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<SignLayout />}>
-        <Route index element={<SignInPage />} />
-        <Route path={paths.signup} element={<SignUpPage />} />
+      <Route element={<GuestRoute />}>
+        <Route element={<SignLayout />}>
+          <Route index element={<SignInPage />} />
+          <Route path={paths.signup} element={<SignUpPage />} />
+        </Route>
       </Route>
-      <Route element={<RootLayout />}>
-        <Route path={paths.home} element={<HomePage />} />
-        <Route path={paths.faq} element={<FaqPage />} />
-        <Route path={paths.reviews} element={<ReviewsPage />} />
-        <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
+      <Route element={<ProtectedRoute role="USER" />}>
+        <Route path={paths.accessRights} element={null} />
+      </Route>
+      <Route element={<ProtectedRoute role="ADMIN" />}>
+        <Route element={<RootLayout />}>
+          <Route path={paths.home} element={<HomePage />} />
+          <Route path={paths.faq} element={<FaqPage />} />
+          <Route path={paths.reviews} element={<ReviewsPage />} />
+          <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
+        </Route>
       </Route>
     </Routes>
   );
-}
+};
 
 export default AppRoutes;
