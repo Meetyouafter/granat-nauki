@@ -21,3 +21,11 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      - name: Prizma generate
+        run: pnpm --filter main exec prisma generate
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/granat
+
+      - name: check
+        run: pnpm check

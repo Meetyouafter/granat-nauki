@@ -34,7 +34,7 @@ Project plan and decisions made so far: [todo/](todo/README.md), one file per se
 
 There is no separate backend; everything server-side lives in `main/`.
 
-pnpm workspace (`pnpm-workspace.yaml`): one `pnpm-lock.yaml` and one `node_modules/.pnpm` at the root, pnpm version pinned in the root `package.json` (`packageManager`). Shared dependency versions (`zod`, `typescript`) live in the `catalog:` and are referenced as `"catalog:"`; local packages as `"workspace:*"`. pnpm is strict: a package sees only what its own `package.json` declares, so "Cannot find module" after a move means a missing dependency, not a broken install. Install scripts run only for packages allowed in `allowBuilds`. The `main` package is named `frontend` (`pnpm --filter frontend ...`).
+pnpm workspace (`pnpm-workspace.yaml`): one `pnpm-lock.yaml` and one `node_modules/.pnpm` at the root, pnpm version pinned in the root `package.json` (`packageManager`). Shared dependency versions (`zod`, `typescript`) live in the `catalog:` and are referenced as `"catalog:"`; local packages as `"workspace:*"`. pnpm is strict: a package sees only what its own `package.json` declares, so "Cannot find module" after a move means a missing dependency, not a broken install. Install scripts run only for packages allowed in `allowBuilds`.
 
 ## Running
 
