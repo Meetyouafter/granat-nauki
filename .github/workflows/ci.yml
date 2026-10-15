@@ -2,14 +2,22 @@ name: CI
 
 on:
   push:
-    brances: [main]
+    branches: [dev, main]
   pull_request:
+    branches: [main]
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v7
 
-      - run: ls -la
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cashe: pnpm
+
+      - run: pnpm install --frozen-lockfile
