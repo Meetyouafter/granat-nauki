@@ -12,12 +12,12 @@ interface IFormActions {
   disabled?: boolean;
 }
 
-function FormActions({
+const FormActions = ({
   onSave,
   saveLabel = 'Сохранить',
   cancelLabel = 'Отменить',
   disabled = false,
-}: IFormActions) {
+}: IFormActions) => {
   const navigate = useNavigate();
   const [isCancelling, setIsCancelling] = useState(false);
 
@@ -48,6 +48,6 @@ function FormActions({
       )}
     </>
   );
-}
+};
 
 export default FormActions;

@@ -15,7 +15,7 @@ Request/response types, validation limits, zod schemas and error codes come from
 
 Lint rules come from the shared `@granat/eslint-config` (same as `main`: semicolons, single quotes, typescript-eslint `strictTypeChecked`); `admin/eslint.config.js` only adds the FSD boundaries and `react-refresh`. Import order is enforced by `eslint-plugin-simple-import-sort`, groups separated by a blank line, alphabetical within each: side effects → react → other packages → one group per layer in FSD order (`@app @pages @widgets @features @entities @shared`) → relative paths → styles last. Don't hand-order imports — run `pnpm eslint . --fix`.
 
-SCSS is checked by stylelint from the shared `@granat/stylelint-config` (same rules as `main`: `stylelint-config-standard-scss` plus our naming and order). Class and `@keyframes` names are camelCase, no hand-written `-webkit-` prefixes (autoprefixer adds them at build time). Properties are ordered by groups (visibility → transform → position → layout → margin → border → dimensions → padding → overflow → animation → font → color), `@include` goes before declarations. Don't order by hand — `pnpm lint:css` fixes it.
+SCSS is checked by stylelint from the shared `@granat/stylelint-config` (same rules as `main`: `stylelint-config-standard-scss` plus our naming and order). Class and `@keyframes` names are camelCase, no hand-written `-webkit-` prefixes (autoprefixer adds them at build time). Properties are ordered by groups (visibility → transform → position → layout → margin → border → dimensions → padding → overflow → animation → font → color), `@include` goes before declarations. Don't order by hand — `pnpm fix` fixes it.
 
 ## Always use color tokens
 

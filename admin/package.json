@@ -6,24 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "typecheck": "tsc -b --noEmit",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run lint:css:check",
     "preview": "vite preview",
-    "gen:api-types": "openapi-typescript http://localhost:4000/api-json -o src/shared/api/generated.d.ts",
-    "lint:css": "stylelint \"src/**/*.scss\" --fix",
-    "lint:css:check": "stylelint \"src/**/*.scss\""
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint . && stylelint \"src/**/*.scss\"",
+    "fix": "eslint . --fix && stylelint \"src/**/*.scss\" --fix",
+    "check": "pnpm typecheck && pnpm lint"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.12.0",
     "@granat/contracts": "workspace:*",
+    "@reduxjs/toolkit": "^2.12.0",
     "react": "^19.2.7",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.7",
     "react-redux": "^9.3.0",
-    "react-router": "^8.3.0",
-    "redux": "^5.0.1"
+    "react-router": "^8.3.0"
   },
   "devDependencies": {
     "@granat/eslint-config": "workspace:*",
@@ -37,7 +34,6 @@
     "classnames": "^2.5.1",
     "eslint": "catalog:",
     "eslint-plugin-react-refresh": "^0.5.3",
-    "openapi-typescript": "^7.13.0",
     "sass": "^1.101.7",
     "stylelint": "catalog:",
     "typescript": "catalog:",

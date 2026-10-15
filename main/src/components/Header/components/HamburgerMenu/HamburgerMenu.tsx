@@ -9,19 +9,17 @@ interface IHamburgerMenu {
   onClick: () => void;
 }
 
-const HamburgerMenu: FC<IHamburgerMenu> = ({ isOpen, onClick }) => {
-  return (
-    <button
-      className={classNames(styles.root, isOpen && styles.open)}
-      onClick={onClick}
-      aria-label="Toggle menu"
-      aria-expanded={isOpen}
-    >
-      <span className={styles.line}></span>
-      <span className={styles.line}></span>
-      <span className={styles.line}></span>
-    </button>
-  );
-};
+const HamburgerMenu: FC<IHamburgerMenu> = ({ isOpen, onClick }) => (
+  <button
+    className={classNames(styles.root, isOpen && styles.open)}
+    onClick={onClick}
+    aria-label="Toggle menu"
+    aria-expanded={isOpen}
+  >
+    <span className={styles.line}></span>
+    <span className={styles.line}></span>
+    <span className={styles.line}></span>
+  </button>
+);
 
 export default HamburgerMenu;

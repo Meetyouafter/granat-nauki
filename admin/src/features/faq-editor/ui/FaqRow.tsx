@@ -32,7 +32,7 @@ interface IFaqRow {
   onEnterAnimationEnd?: () => void;
 }
 
-function FaqRow({
+const FaqRow = ({
   item,
   index,
   isFirst,
@@ -43,7 +43,7 @@ function FaqRow({
   onChange,
   onDeleteRequest,
   onEnterAnimationEnd,
-}: IFaqRow) {
+}: IFaqRow) => {
   const ref = useRef<HTMLLIElement>(null);
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
@@ -155,6 +155,6 @@ function FaqRow({
       )}
     </li>
   );
-}
+};
 
 export default FaqRow;

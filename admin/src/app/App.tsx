@@ -3,12 +3,10 @@ import AppRoutes from './routes/AppRoutes';
 
 import './styles/index.scss';
 
-function App() {
-  return (
-    <AppProviders>
-      <AppRoutes />
-    </AppProviders>
-  );
-}
+const App = () => (
+  <AppProviders>
+    <AppRoutes />
+  </AppProviders>
+);
 
 export default App;

@@ -19,7 +19,7 @@ cd packages/eslint-config && pnpm check              # typecheck + eslint
 cd packages/stylelint-config && pnpm check           # eslint
 ```
 
-- `check` = `typecheck` + `lint` (+ `lint:css:check` in main). Nothing is auto-fixed.
+- `check` = `typecheck` + `lint` (`lint` includes stylelint in main and admin). Nothing is auto-fixed.
 - Builds run on the host: `main/.next` and `admin/dist` are gitignored, and the dev container keeps its own `.next` volume, so the running dev server is not affected.
 - **Any failure → no commit, no push.** Report which command failed with the relevant output (first errors, counts), and stop. Don't fix code as part of the commit flow — the user decides: they fix it, ask you to fix it, or explicitly say "коммить всё равно" (only then commit despite failures, and say so in the report).
 

@@ -1,29 +1,29 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import classNames from 'classnames';
 
 import styles from './ServiceCard.module.scss';
 
-type ServiceCardProps = {
+interface IServiceCard {
   title: string;
   description: string;
   duration: string;
   price: string;
   image: string;
   index: number;
-};
+}
 
-export default function ServiceCard({
+const ServiceCard: FC<IServiceCard> = ({
   title,
   description,
   duration,
   price,
   image,
   index,
-}: ServiceCardProps) {
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLLIElement>(null);
 
@@ -74,4 +74,6 @@ export default function ServiceCard({
       </div>
     </li>
   );
-}
+};
+
+export default ServiceCard;

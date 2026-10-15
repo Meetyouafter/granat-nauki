@@ -8,6 +8,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "fix": "eslint . --fix",
     "check": "pnpm lint"
   },
   "dependencies": {

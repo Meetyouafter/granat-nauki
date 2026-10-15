@@ -48,19 +48,22 @@ docker compose logs -f main
 
 The build context is the repo root (`main/Dockerfile`, `admin/Dockerfile`, root `.dockerignore`); inside the containers the repo lives at `/repo`. `./main` (or `./admin`) and `./packages` are bind-mounted, every `node_modules` is an anonymous volume. Rebuild with `-V` only after changing a `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml` or a `Dockerfile`. Site: `http://localhost:3000/ru`, admin: `http://localhost:3001`.
 
-Checks (in `main/`, `admin/` or `packages/contracts/`):
+Checks (in any package, or from the root for all of them):
 
 ```bash
-pnpm check              # everything below, nothing auto-fixed
+pnpm check              # typecheck + lint, nothing auto-fixed
 pnpm typecheck          # tsc --noEmit (admin: tsc -b --noEmit)
-pnpm lint               # eslint
-pnpm lint:css:check     # stylelint, main and admin (lint:css runs it with --fix)
+pnpm lint               # eslint (+ stylelint in main and admin)
+pnpm fix                # the same linters with --fix
 pnpm build              # main and admin; required to pass, with check, before any commit
+pnpm verify             # root only: check, then build
 ```
 
-Code style (enforced by `@granat/eslint-config`, autofix with `pnpm eslint . --fix`): semicolons, single quotes (double in JSX), 2-space indent, trailing commas in multiline, max line 100. Import order: side effects → react/next → packages → the package's aliases → relative → styles. Promises are never left floating: `await`, `.catch(...)`, or `void navigate(...)` for fire-and-forget; async handlers are wrapped (`onSubmit={handleSubmit}` where `handleSubmit` is sync and calls `void submit()`).
+`build` does not run `check` and never auto-fixes: CI runs `check` and `build` as separate steps, fixing is `pnpm fix` or the editor.
 
-From the root, `pnpm -r --no-bail check` runs it in every package. Without `--no-bail` pnpm kills the other packages' scripts (SIGKILL) as soon as one fails.
+Code style (enforced by `@granat/eslint-config`, autofix with `pnpm fix`): semicolons, single quotes (double in JSX), 2-space indent, trailing commas in multiline, max line 100. Import order: side effects → react/next → packages → the package's aliases → relative → styles. Promises are never left floating: `await`, `.catch(...)`, or `void navigate(...)` for fire-and-forget; async handlers are wrapped (`onSubmit={handleSubmit}` where `handleSubmit` is sync and calls `void submit()`).
+
+From the root, `pnpm check` runs `pnpm -r --no-bail check` in every package. Without `--no-bail` pnpm kills the other packages' scripts (SIGKILL) as soon as one fails.
 
 No tests yet.
 

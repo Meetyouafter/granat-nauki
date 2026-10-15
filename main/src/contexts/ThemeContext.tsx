@@ -48,7 +48,7 @@ const getSystemTheme = (): Theme => (window.matchMedia(DARK_QUERY).matches ? 'da
 // на сервере системная тема неизвестна
 const getServerSystemTheme = () => null;
 
-export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
+export const ThemeProvider = ({ children, initialTheme }: ThemeProviderProps) => {
   // тема, выбранная пользователем (из cookie или переключателем); null — следуем за системой
   const [chosenTheme, setChosenTheme] = useState<Theme | null>(initialTheme ?? null);
   const systemTheme = useSyncExternalStore(
@@ -75,4 +75,4 @@ export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
       {children}
     </ThemeContext.Provider>
   );
-}
+};

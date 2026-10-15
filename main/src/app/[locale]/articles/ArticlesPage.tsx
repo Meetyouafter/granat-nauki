@@ -8,17 +8,15 @@ interface IArticlesPage {
   articles: ArticleDto[];
 }
 
-const ArticlesPage: FC<IArticlesPage> = ({ articles }) => {
-  return (
-    <main className={styles.main}>
-      {articles.map(article => (
-        <div key={article.id}>
-          <h2>{article.title}</h2>
-          <p>{article.content}</p>
-        </div>
-      ))}
-    </main>
-  );
-};
+const ArticlesPage: FC<IArticlesPage> = ({ articles }) => (
+  <main className={styles.main}>
+    {articles.map(article => (
+      <div key={article.id}>
+        <h2>{article.title}</h2>
+        <p>{article.content}</p>
+      </div>
+    ))}
+  </main>
+);
 
 export default ArticlesPage;

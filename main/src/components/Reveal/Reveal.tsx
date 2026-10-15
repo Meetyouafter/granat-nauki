@@ -1,15 +1,14 @@
 'use client';
 
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type FC, type PropsWithChildren, useEffect, useRef, useState } from 'react';
 
 import styles from './Reveal.module.scss';
 
-type Props = {
-  children: ReactNode;
+interface IReveal {
   className?: string | undefined;
 };
 
-export default function Reveal({ children, className }: Props) {
+const Reveal: FC<PropsWithChildren<IReveal>> = ({ children, className }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -40,4 +39,6 @@ export default function Reveal({ children, className }: Props) {
       {children}
     </div>
   );
-}
+};
+
+export default Reveal;

@@ -13,28 +13,26 @@ import RootLayout from '../layouts/rootLayout/RootLayout';
 import SignLayout from '../layouts/signLayout/SignLayout';
 import { GuestRoute, ProtectedRoute } from './guards';
 
-const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route element={<GuestRoute />}>
-        <Route element={<SignLayout />}>
-          <Route index element={<SignInPage />} />
-          <Route path={paths.signup} element={<SignUpPage />} />
-        </Route>
+const AppRoutes = () => (
+  <Routes>
+    <Route element={<GuestRoute />}>
+      <Route element={<SignLayout />}>
+        <Route index element={<SignInPage />} />
+        <Route path={paths.signup} element={<SignUpPage />} />
       </Route>
-      <Route element={<ProtectedRoute role="USER" />}>
-        <Route path={paths.accessRights} element={null} />
+    </Route>
+    <Route element={<ProtectedRoute role="USER" />}>
+      <Route path={paths.accessRights} element={null} />
+    </Route>
+    <Route element={<ProtectedRoute role="ADMIN" />}>
+      <Route element={<RootLayout />}>
+        <Route path={paths.home} element={<HomePage />} />
+        <Route path={paths.faq} element={<FaqPage />} />
+        <Route path={paths.reviews} element={<ReviewsPage />} />
+        <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
       </Route>
-      <Route element={<ProtectedRoute role="ADMIN" />}>
-        <Route element={<RootLayout />}>
-          <Route path={paths.home} element={<HomePage />} />
-          <Route path={paths.faq} element={<FaqPage />} />
-          <Route path={paths.reviews} element={<ReviewsPage />} />
-          <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
-        </Route>
-      </Route>
-    </Routes>
-  );
-};
+    </Route>
+  </Routes>
+);
 
 export default AppRoutes;

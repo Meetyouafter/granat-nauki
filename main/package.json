@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development next dev -p 3000",
-    "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production next start",
-    "prod": "pnpm run build && pnpm run start",
-    "lint:css": "stylelint \"src/**/*.scss\" --fix",
-    "lint": "eslint .",
-    "lint:css:check": "stylelint \"src/**/*.scss\"",
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run lint:css:check"
+    "lint": "eslint . && stylelint \"src/**/*.scss\"",
+    "fix": "eslint . --fix && stylelint \"src/**/*.scss\" --fix",
+    "check": "pnpm typecheck && pnpm lint"
   },
   "dependencies": {
     "@node-rs/argon2": "^2.2.1",

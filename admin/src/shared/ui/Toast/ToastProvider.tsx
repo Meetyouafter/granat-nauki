@@ -14,7 +14,7 @@ interface IToast {
 
 let nextToastId = 0;
 
-function ToastProvider({ children }: { children: ReactNode }) {
+const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
 
   const notify = useCallback((type: ToastType, message: string) => {
@@ -40,6 +40,6 @@ function ToastProvider({ children }: { children: ReactNode }) {
       </div>
     </ToastContext.Provider>
   );
-}
+};
 
 export default ToastProvider;

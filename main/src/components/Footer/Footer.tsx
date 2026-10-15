@@ -8,7 +8,7 @@ import Socials from './components/Socials/Socials';
 
 import styles from './Footer.module.scss';
 
-export default async function Footer() {
+const Footer = async () => {
   const t = await getTranslations('Footer');
   const year = new Date().getFullYear();
 
@@ -37,4 +37,6 @@ export default async function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

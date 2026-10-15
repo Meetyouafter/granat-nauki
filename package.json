@@ -3,7 +3,9 @@
   "private": true,
   "packageManager": "pnpm@12.10.1",
   "scripts": {
-    "check": "pnpm -r check",
-    "build": "pnpm -r build"
+    "check": "pnpm -r --no-bail check",
+    "fix": "pnpm -r fix",
+    "build": "pnpm -r build",
+    "verify": "pnpm check && pnpm build"
   }
 }

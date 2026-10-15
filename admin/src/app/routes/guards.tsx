@@ -9,7 +9,7 @@ const homeFor = (role: Role) => role === 'ADMIN'
   ? paths.home
   : paths.accessRights;
 
-export function GuestRoute() {
+export const GuestRoute = () => {
   const session = useSession();
 
   if (session.status === 'loading') return null;
@@ -19,7 +19,7 @@ export function GuestRoute() {
   return <Outlet />;
 };
 
-export function ProtectedRoute({ role }: { role?: Role }) {
+export const ProtectedRoute = ({ role }: { role?: Role }) => {
   const session = useSession();
 
   switch (session.status) {
@@ -35,4 +35,4 @@ export function ProtectedRoute({ role }: { role?: Role }) {
       }
       return <Outlet />;
   }
-}
+};

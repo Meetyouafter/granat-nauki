@@ -15,7 +15,7 @@ interface IStatusBadge {
   status: TranslationStatus;
 }
 
-function StatusBadge({ status }: IStatusBadge) {
+const StatusBadge = ({ status }: IStatusBadge) => {
   const { icon, label, tone } = STATUS_MAP[status];
 
   return (
@@ -30,6 +30,6 @@ function StatusBadge({ status }: IStatusBadge) {
       {label}
     </span>
   );
-}
+};
 
 export default StatusBadge;

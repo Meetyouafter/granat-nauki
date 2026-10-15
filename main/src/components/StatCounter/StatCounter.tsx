@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
+
+import cns from 'classnames';
 
 import styles from './StatCounter.module.scss';
 
-type Props = {
+interface IStatCounter {
   value: number;
   suffix?: string;
   className?: string | undefined;
   duration?: number;
-};
+}
 
-export default function StatCounter({ value, suffix = '', className, duration = 1200 }: Props) {
+const StatCounter: FC<IStatCounter> = ({ value, suffix = '', className, duration = 1200 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const [count, setCount] = useState(0);
 
@@ -42,9 +44,11 @@ export default function StatCounter({ value, suffix = '', className, duration = 
   }, [value, duration]);
 
   return (
-    <span ref={ref} className={[styles.counter, className].filter(Boolean).join(' ')}>
+    <span ref={ref} className={cns(styles.counter, className)}>
       {count}
       {suffix}
     </span>
   );
-}
+};
+
+export default StatCounter;
