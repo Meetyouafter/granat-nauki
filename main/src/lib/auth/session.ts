@@ -77,12 +77,12 @@ const parseToken = (token: string) => {
   return { id, secret };
 };
 
-const getSessionExpiresAt = (session: { lastVerifiedAt: Date; createdAt: Date }) => {
-  return new Date(Math.min(
-    session.lastVerifiedAt.getTime() + INACTIVITY_TIMEOUT,
-    session.createdAt.getTime() + ABSOLUTE_TIMEOUT,
-  ));
-};
+const getSessionExpiresAt = (
+  session: { lastVerifiedAt: Date; createdAt: Date },
+) => new Date(Math.min(
+  session.lastVerifiedAt.getTime() + INACTIVITY_TIMEOUT,
+  session.createdAt.getTime() + ABSOLUTE_TIMEOUT,
+));
 
 export const validateSessionToken = async (token: string) => {
   const parsed = parseToken(token);

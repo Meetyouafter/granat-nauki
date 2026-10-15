@@ -30,7 +30,7 @@ cd packages/stylelint-config && pnpm check           # eslint
    - "закоммить всё" → all changes shown by status.
    - "закоммить X" → only the files for X; leave the rest.
    - Unclear grouping → show the grouped list and ask before staging.
-3. **Never stage**: `.env*` (except `.env.example`), `package-lock.json` (the repo uses pnpm), `TODO.md`, `HELPER.md`, `docs/`, `.agents/`, `main/src/generated/`, `node_modules/`, `.next/`, `dist/`, `*.tsbuildinfo` changes caused by the build. If one shows up, stop and tell the user.
+3. **Never stage**: `.env*` (except `.env.example`), `package-lock.json` (the repo uses pnpm), `todo/`, `HELPER.md`, `docs/`, `.agents/`, `main/src/generated/`, `node_modules/`, `.next/`, `dist/`, `*.tsbuildinfo` changes caused by the build. If one shows up, stop and tell the user.
 4. Stage by explicit paths (`git add path1 path2`); `git add -A` only when the user said "всё".
 5. If the staged changes are unrelated to each other, propose splitting them into separate commits.
 

@@ -30,7 +30,7 @@ packages/stylelint-config/  @granat/stylelint-config: SCSS rules for main and ad
 docs/                design audit and site brief
 ```
 
-Project plan and decisions made so far: [TODO.md](TODO.md) (local file, not in git).
+Project plan and decisions made so far: [todo/](todo/README.md), one file per section (local, not in git).
 
 There is no separate backend; everything server-side lives in `main/`.
 
