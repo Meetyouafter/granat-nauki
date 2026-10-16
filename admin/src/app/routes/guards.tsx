@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router';
 import type { Role } from '@granat/contracts';
 
 import { paths } from '@shared/config';
+import { ErrorState } from '@shared/ui/ErrorState';
 import { useSession } from '@shared/utils/useSession';
 
 const homeFor = (role: Role) => role === 'ADMIN'
@@ -26,7 +27,13 @@ export const ProtectedRoute = ({ role }: { role?: Role }) => {
     case 'loading':
       return null;
     case 'error':
-      return <p>Не удалось проверить сессию</p>;
+      return (
+        <ErrorState
+          title="Не удалось проверить сессию"
+          message="Сервер не ответил. Проверьте соединение и попробуйте ещё раз."
+          onRetry={session.retry}
+        />
+      );
     case 'guest':
       return <Navigate to={paths.signin} replace />;
     case 'authenticated':

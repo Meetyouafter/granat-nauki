@@ -1,0 +1,95 @@
+@use '@shared/styles/typography';
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-7);
+  text-align: center;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.icon {
+  @include typography.text-md;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  width: 56px;
+  height: 56px;
+  color: var(--color-accent);
+  background-color: var(--color-bg);
+}
+
+.title {
+  @include typography.text-lg;
+  @include typography.semibold;
+
+  color: var(--color-text);
+}
+
+.description {
+  @include typography.text-sm;
+
+  color: var(--color-text-secondary);
+}
+
+.account {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+}
+
+.accountLabel {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  color: var(--color-text-secondary);
+}
+
+.accountValue {
+  @include typography.text-sm;
+
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.submit {
+  @include typography.text-sm;
+  @include typography.semibold;
+
+  border-radius: var(--radius-md);
+  width: 100%;
+  padding: var(--space-3) var(--space-5);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+  color: var(--color-surface);
+  background-color: var(--color-cta);
+
+  &:hover {
+    background-color: var(--color-cta-hover);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus);
+    outline: none;
+  }
+}

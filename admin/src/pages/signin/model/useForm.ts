@@ -1,26 +1,35 @@
 import { type ChangeEvent, type SubmitEvent, useState } from 'react';
 
-import { useSigninMutation } from '@shared/api';
-import { FORM_TEXTS } from '@shared/config/texts';
+import { type SigninInput, signinSchema } from '@granat/contracts';
 
-const getEmailError = (email: string) => {
-  if (!email.length) {
-    return FORM_TEXTS.email.emptyError;
-  }
-  return null;
-};
+import { getErrorMessage, useSigninMutation } from '@shared/api';
+import { FORM_TEXTS } from '@shared/config';
 
-const getPasswordError = (password: string) => {
-  if (!password.length) {
-    return FORM_TEXTS.password.emptyError;
+type FormErrors = Record<keyof SigninInput, string | null>;
+
+const validate = (form: SigninInput) => {
+  const result = signinSchema.safeParse(form);
+  const errors: FormErrors = { email: null, password: null };
+
+  if (!result.success) {
+    for (const { path } of result.error.issues) {
+      if (path[0] === 'email') errors.email = FORM_TEXTS.email.matchError;
+      if (path[0] === 'password')
+        errors.password = FORM_TEXTS.password.maxLengthError;
+    }
   }
-  return null;
+  if (!form.email.trim()) errors.email = FORM_TEXTS.email.emptyError;
+  if (!form.password) errors.password = FORM_TEXTS.password.emptyError;
+
+  const isValid = result.success && Object.values(errors).every(error => error === null);
+
+  return { errors, data: isValid ? result.data : null };
 };
 
 const useForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<Record<string, string | null>>({
+  const [errors, setErrors] = useState<FormErrors>({
     email: null,
     password: null,
   });
@@ -39,9 +48,9 @@ const useForm = () => {
     setPassword(event.target.value);
   };
 
-  const submit = async () => {
+  const submit = async (credentials: SigninInput) => {
     try {
-      await signin({ email, password }).unwrap();
+      await signin(credentials).unwrap();
     } catch {
       // ошибку показывает commonError из состояния мутации
     }
@@ -50,19 +59,14 @@ const useForm = () => {
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const emailError = getEmailError(email);
-    const passwordError = getPasswordError(password);
+    const { errors: validationErrors, data } = validate({ email, password });
 
-    if (emailError || passwordError) {
-      setErrors(prev => ({
-        ...prev,
-        email: emailError,
-        password: passwordError,
-      }));
+    if (!data) {
+      setErrors(validationErrors);
       return;
     }
 
-    void submit();
+    void submit(data);
   };
 
   return {
@@ -70,7 +74,7 @@ const useForm = () => {
     email,
     password,
     errors,
-    commonError: error,
+    commonError: getErrorMessage(error),
     handleEmailChange,
     handlePasswordChange,
     handleSubmit,

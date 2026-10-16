@@ -1,7 +1,9 @@
 import { type ChangeEvent, type SubmitEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { EMAIL_REGEXP, MIN_PASSWORD_LENGTH, paths } from '@shared/config';
+import { EMAIL_REGEXP, MIN_PASSWORD_LENGTH } from '@granat/contracts';
+
+import { paths } from '@shared/config';
 import { FORM_TEXTS } from '@shared/config/texts';
 
 const getEmailError = (email: string) => {

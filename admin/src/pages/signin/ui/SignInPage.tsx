@@ -45,7 +45,7 @@ const SignInPage = () => {
         <button disabled={isLoading} type="submit" className={styles.submit}>
           {FORM_TEXTS.signin.button}
         </button>
-        <p className={styles.error} aria-live="polite">{commonError && 'aw'}</p>
+        <p className={styles.error} aria-live="polite">{commonError}</p>
       </form>
     </div>
   );

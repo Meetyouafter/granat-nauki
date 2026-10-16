@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router';
 
+import { AccessRightsPage } from '@pages/access-rights';
 import { FaqPage } from '@pages/faq';
 import { HomePage } from '@pages/home';
 import { ReviewPage } from '@pages/review';
@@ -22,7 +23,7 @@ const AppRoutes = () => (
       </Route>
     </Route>
     <Route element={<ProtectedRoute role="USER" />}>
-      <Route path={paths.accessRights} element={null} />
+      <Route path={paths.accessRights} element={<AccessRightsPage />} />
     </Route>
     <Route element={<ProtectedRoute role="ADMIN" />}>
       <Route element={<RootLayout />}>
