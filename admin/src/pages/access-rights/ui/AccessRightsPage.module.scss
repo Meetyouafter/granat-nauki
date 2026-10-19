@@ -1,9 +1,10 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
 .page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .topBar {
@@ -12,22 +13,15 @@
   justify-content: space-between;
   gap: var(--space-4);
   border-bottom: 1px solid var(--color-border);
-  padding: var(--space-4) var(--space-6);
-}
-
-.brand {
-  @include typography.text-sm;
-  @include typography.semibold;
-
-  flex-shrink: 0;
-  white-space: nowrap;
-  color: var(--color-text);
+  height: var(--size-header);
+  padding: 0 var(--space-6);
+  background-color: var(--color-surface);
 }
 
 .account {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   min-width: 0;
 }
 
@@ -40,68 +34,28 @@
   text-overflow: ellipsis;
 }
 
-.signout {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  flex-shrink: 0;
-  border-radius: var(--radius-sm);
-  padding: var(--space-1) var(--space-2);
-  transition: color var(--duration-fast) var(--ease-standard);
-  color: var(--color-text-secondary);
-
-  &:hover {
-    color: var(--color-text);
-  }
-
-  &:focus-visible {
-    box-shadow: var(--shadow-focus);
-    outline: none;
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: default;
-  }
+.main {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
 }
 
-.main {
+.panel {
+  @include mixins.surface;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  max-width: 560px;
-  padding: var(--space-8) var(--space-6);
-  margin-inline: auto;
+  max-width: 520px;
+  padding: var(--space-7);
+  box-shadow: var(--shadow-sm);
 }
 
 .badge {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  margin-bottom: var(--space-3);
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  transition:
-    color var(--duration-base) var(--ease-standard),
-    background-color var(--duration-base) var(--ease-standard);
-  color: var(--color-text-secondary);
-  background-color: var(--color-surface);
-}
-
-.badgePending {
-  color: var(--color-processing);
-  background-color: var(--color-processing-bg);
-}
-
-.badgeRejected {
-  color: var(--color-error);
-  background-color: var(--color-error-bg);
-}
-
-.badgeApproved {
-  color: var(--color-success);
-  background-color: var(--color-success-bg);
+  margin-bottom: var(--space-4);
 }
 
 .title {
@@ -109,7 +63,6 @@
   @include typography.semibold;
 
   margin-bottom: var(--space-2);
-  text-wrap: balance;
   color: var(--color-text);
 }
 
@@ -117,53 +70,7 @@
   @include typography.text-sm;
 
   margin-bottom: var(--space-6);
-  text-wrap: pretty;
   color: var(--color-text-secondary);
-}
-
-.request {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-5);
-  transition: background-color var(--duration-fast) var(--ease-standard);
-  color: var(--color-surface);
-  background-color: var(--color-cta);
-
-  &:hover {
-    background-color: var(--color-cta-hover);
-  }
-
-  &:focus-visible {
-    box-shadow: var(--shadow-focus);
-    outline: none;
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: default;
-  }
-}
-
-.secondary {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-5);
-  transition: border-color var(--duration-fast) var(--ease-standard);
-  color: var(--color-text);
-
-  &:hover {
-    border-color: var(--color-text-secondary);
-  }
-
-  &:focus-visible {
-    box-shadow: var(--shadow-focus);
-    outline: none;
-  }
 }
 
 .error {
@@ -180,6 +87,10 @@
   }
 
   .main {
-    padding: var(--space-7) var(--space-4);
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .panel {
+    padding: var(--space-6) var(--space-5);
   }
 }

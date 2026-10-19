@@ -1,3 +1,5 @@
+import { Button } from '../Button';
+
 import styles from './ConfirmModal.module.scss';
 
 interface IConfirmModal {
@@ -18,16 +20,22 @@ const ConfirmModal = ({
   onCancel,
 }: IConfirmModal) => (
   <div className={styles.overlay} onClick={onCancel}>
-    <div className={styles.dialog} onClick={(event) => { event.stopPropagation(); }}>
-      <h2 className={styles.title}>{title}</h2>
+    <div
+      className={styles.dialog}
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirm-modal-title"
+      onClick={(event) => { event.stopPropagation(); }}
+    >
+      <h2 className={styles.title} id="confirm-modal-title">{title}</h2>
       <p className={styles.message}>{message}</p>
       <div className={styles.actions}>
-        <button type="button" className={styles.cancel} onClick={onCancel}>
+        <Button variant="secondary" onClick={onCancel}>
           {cancelLabel}
-        </button>
-        <button type="button" className={styles.confirm} onClick={onConfirm}>
+        </Button>
+        <Button variant="danger" onClick={onConfirm}>
           {confirmLabel}
-        </button>
+        </Button>
       </div>
     </div>
   </div>

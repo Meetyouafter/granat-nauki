@@ -1,41 +1,15 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  margin: 0 auto;
-  max-width: 1120px;
-  padding: var(--space-7) 0;
-}
-
-.title {
-  @include typography.text-lg;
-  @include typography.semibold;
-
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-text);
-}
-
-.count {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  color: var(--color-text-secondary);
-  background-color: var(--color-surface);
-  font-variant-numeric: tabular-nums;
+  @include mixins.page;
 }
 
 .tableWrap {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  @include mixins.surface;
+
   overflow-x: auto;
   transition: opacity var(--duration-base) var(--ease-standard);
-  background-color: var(--color-surface);
 }
 
 .fetching {
@@ -63,12 +37,19 @@
 
     white-space: nowrap;
     color: var(--color-text-secondary);
+    background-color: var(--color-surface-muted);
   }
 
   td {
-    @include typography.text-sm;
-
     color: var(--color-text);
+  }
+
+  tbody tr {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+
+    &:hover {
+      background-color: var(--color-surface-muted);
+    }
   }
 
   tbody tr:last-child td {
@@ -83,29 +64,12 @@
 }
 
 .email {
+  @include typography.semibold;
+
   overflow-wrap: anywhere;
 }
 
-.empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-7);
-}
-
-.emptyText {
-  @include typography.text-sm;
-
-  color: var(--color-text-secondary);
-}
-
 @media (width <= 640px) {
-  .wrapper {
-    padding: var(--space-3);
-  }
-
   .table {
     th,
     td {

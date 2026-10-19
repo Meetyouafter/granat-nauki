@@ -1,39 +1,5 @@
-@use '@shared/styles/typography';
-
-.badge {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  white-space: nowrap;
-}
-
-.pending {
-  color: var(--color-pending);
-  background-color: var(--color-pending-bg);
-}
-
-.processing {
-  color: var(--color-processing);
-  background-color: var(--color-processing-bg);
-}
-
-.success {
-  color: var(--color-success);
-  background-color: var(--color-success-bg);
-}
-
-.error {
-  color: var(--color-error);
-  background-color: var(--color-error-bg);
-}
-
 .spinner {
-  border: 2px solid currentcolor;
+  border: 1.5px solid currentcolor;
   border-radius: 50%;
   width: 10px;
   height: 10px;

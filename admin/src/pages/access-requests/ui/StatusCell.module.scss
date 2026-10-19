@@ -1,80 +1,10 @@
-@use '@shared/styles/typography';
-
-.badge {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  display: inline-flex;
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  white-space: nowrap;
-}
-
-.badgePending {
-  color: var(--color-processing);
-  background-color: var(--color-processing-bg);
-}
-
-.badgeRejected {
-  color: var(--color-error);
-  background-color: var(--color-error-bg);
-}
-
-.badgeApproved {
-  color: var(--color-success);
-  background-color: var(--color-success-bg);
-}
-
 .actions {
   display: inline-flex;
   gap: var(--space-2);
 }
 
-.action {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  height: 28px;
-  padding: 0 var(--space-2);
-  transition:
-    color var(--duration-fast) var(--ease-standard),
-    border-color var(--duration-fast) var(--ease-standard),
-    background-color var(--duration-fast) var(--ease-standard);
-  white-space: nowrap;
-
-  &:focus-visible {
-    box-shadow: var(--shadow-focus);
-    outline: none;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-}
-
-.approve {
-  color: var(--color-success);
-  background-color: var(--color-success-bg);
-
-  &:hover:not(:disabled) {
-    color: var(--color-surface);
-    background-color: var(--color-success);
-  }
-}
-
-.reject {
-  color: var(--color-text-secondary);
-  border-color: var(--color-border);
-
-  &:hover:not(:disabled) {
-    color: var(--color-error);
-    background-color: var(--color-error-bg);
-    border-color: var(--color-error);
-  }
+.reject:hover:not(:disabled) {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  border-color: color-mix(in srgb, var(--color-error) 40%, transparent);
 }

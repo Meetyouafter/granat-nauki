@@ -2,7 +2,7 @@
 
 html,
 body {
-  @include typography.text-sm;
+  @include typography.text-xs;
 
   margin: 0;
   width: 100%;

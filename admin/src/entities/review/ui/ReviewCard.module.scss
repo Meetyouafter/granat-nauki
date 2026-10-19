@@ -1,21 +1,21 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
 .card {
+  @include mixins.surface;
+
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
   height: 100%;
-  padding: var(--space-4);
-  transition: box-shadow var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-xs);
+  padding: var(--space-4) var(--space-5);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
   cursor: pointer;
 
   &:hover {
-    border-color: var(--color-accent);
+    border-color: var(--color-border-strong);
     box-shadow: var(--shadow-sm);
   }
 }
@@ -31,6 +31,7 @@
   @include typography.text-xs;
 
   color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 .badges {
@@ -39,35 +40,6 @@
   align-items: center;
   gap: var(--space-2);
   margin-left: auto;
-}
-
-.status {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  white-space: nowrap;
-}
-
-.statusDraft {
-  color: var(--color-pending);
-  background-color: var(--color-pending-bg);
-}
-
-.statusPending {
-  color: var(--color-processing);
-  background-color: var(--color-processing-bg);
-}
-
-.statusPublished {
-  color: var(--color-success);
-  background-color: var(--color-success-bg);
-}
-
-.statusRejected {
-  color: var(--color-error);
-  background-color: var(--color-error-bg);
 }
 
 .text {
@@ -88,47 +60,14 @@
   padding-top: var(--space-3);
 }
 
-.tag {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-pill);
-  padding: 2px var(--space-2);
-  white-space: nowrap;
-  color: var(--color-accent);
-  background-color: var(--color-processing-bg);
-}
-
 .id {
   @include typography.text-xs;
 
   margin-left: auto;
-  color: var(--color-text-secondary);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
 }
 
 .footer {
   display: flex;
-}
-
-.editButton {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-2) var(--space-4);
-  transition: border-color var(--duration-fast) var(--ease-standard),
-    background-color var(--duration-fast) var(--ease-standard);
-  color: var(--color-accent);
-  background-color: transparent;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--color-processing-bg);
-    border-color: var(--color-accent);
-  }
-
-  &:focus-visible {
-    box-shadow: var(--shadow-focus);
-  }
 }

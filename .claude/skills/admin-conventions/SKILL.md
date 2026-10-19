@@ -19,25 +19,33 @@ SCSS is checked by stylelint from the shared `@granat/stylelint-config` (same ru
 
 ## Always use color tokens
 
-Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use the CSS custom properties defined in `admin/src/shared/styles/colors.scss` (`--color-bg`, `--color-surface`, `--color-text`, `--color-text-secondary`, `--color-border`, `--color-accent`, `--color-accent-hover`, `--color-cta`, `--color-cta-hover`, `--color-error`, `--color-error-bg`, `--color-shadow-rgb`, plus the status tones `--color-success`/`-bg`, `--color-processing`/`-bg`, `--color-pending`/`-bg` used by `StatusBadge`):
+Never hardcode a hex/rgb color value in a component or its `.module.scss`. Use the CSS custom properties defined in `admin/src/shared/styles/colors.scss`:
 
-```scss
-.link {
-  color: var(--color-text-secondary);
+- neutrals: `--color-bg`, `--color-surface`, `--color-surface-muted` (table head, row hover, empty states), `--color-border`, `--color-border-strong` (inputs), `--color-text`, `--color-text-secondary`, `--color-text-tertiary` (placeholders, meta), `--color-text-inverse`
+- the one action color: `--color-accent` / `-hover` / `-subtle` (dark sage, the site's brand hue darkened for contrast): primary buttons, links, active nav, focus
+- danger: `--color-error` / `-hover` / `-bg` (soft brick, not an alarm red)
+- status tones for badges: `--color-success`/`-bg`, `--color-processing`/`-bg`, `--color-pending`/`-bg`
+- `--color-shadow-rgb` for shadows and translucent hovers: `rgb(var(--color-shadow-rgb), 0.05)`
 
-  &:hover {
-    color: var(--color-text);
-  }
-}
-```
+Palette reworked 2026-10-19: the old teal accent + brown `--color-cta` pair and the neon `#f9330d` error were dropped. There is no separate CTA color in the admin: one accent for every primary action. Don't add a generic `warning`/`info` tier or a one-off hex; if a need doesn't fit, add a token to `colors.scss`.
 
-The token set was trimmed 2026-07-24 (no tertiary bg/text variants, no generic warning/info) and the FAQ status-badge work (2026-08-04) reintroduced a scoped set of status tones for `TranslationStatus` (success/processing/pending, each with a `-bg` pair) — reuse those for any other status/badge UI rather than adding new ones. Still don't add a generic `warning`/`info` tier or a one-off hex value; if a new need doesn't fit an existing token, add a token to `colors.scss` rather than inlining a color.
+Non-color tokens live in `admin/src/shared/styles/tokens.scss`: `--space-*`, `--radius-*`, `--shadow-*` (incl. `--shadow-focus`, `--shadow-focus-error`), motion, z-index, sizes (`--size-control-sm/md` 32/40px, `--size-header`, `--size-content`). Use them instead of px that happen to match.
 
-Non-color tokens (spacing, radius, shadow, motion easing/duration, z-index) live in `admin/src/shared/styles/tokens.scss` — use `var(--space-*)`, `var(--radius-*)`, `var(--shadow-*)` etc. there instead of hardcoding px/ms values that happen to match the scale.
+Shared SCSS mixins in `admin/src/shared/styles/mixins.scss`: `surface` (bordered panel), `control` (text-field look), `focus-ring`, `page($max-width)` (page column under the header).
+
+## Use the shared UI primitives
+
+Don't hand-style buttons, inputs or pills in a page; use `shared/ui`:
+
+- `Button` (`variant: primary | secondary | ghost | danger`, `size: sm | md`, `isIconOnly`, `isLoading`); `getButtonClassName()` for a router `Link` that looks like a button
+- `Field` (label + control + error line that keeps its height) with `Input` / `Textarea` / `Select` (`isInvalid` → `aria-invalid`); `PasswordInput` is built on `Input`
+- `Badge` (`tone: neutral | accent | pending | processing | success | error`); `StatusBadge` is built on it
+- `PageHeader` (title, `count`, `extra` next to the title, `actions`, `back` link), `EmptyState` (text + optional action)
+- `ConfirmModal`, `FormActions` (sticky save bar), `Toast`, `Loader`, `Pagination`, icons in `shared/ui/icons` (no emoji or unicode glyphs as icons)
 
 ## Always use typography mixins
 
-Never hand-write `font-size`/`line-height`/`font-family` in a component's `.module.scss`. Use the mixins from `admin/src/shared/styles/typography.scss` (`text-xxs` through `text-xxl`, `display`, `body-font`, `regular`/`semibold`/`bold`/`extrabold`):
+Never hand-write `font-size`/`line-height`/`font-family` in a component's `.module.scss`. Use the mixins from `admin/src/shared/styles/typography.scss` (`text-xs` 14px, `text-sm` 16px, `text-md` 20px, `text-lg` 24px; `regular`/`semibold`/`bold`):
 
 ```scss
 @use '@shared/styles/typography';
@@ -48,7 +56,7 @@ Never hand-write `font-size`/`line-height`/`font-family` in a component's `.modu
 }
 ```
 
-`body-font` is already applied globally on `html, body` (`admin/src/app/styles/globals.scss`) — only opt into `display` when a component specifically needs the display/heading family.
+The base size is `text-xs` (14px) on `html, body` (`admin/src/app/styles/globals.scss`): the admin is a dense work tool. Controls use `text-sm` (no iOS zoom on focus), page titles `text-lg`.
 
 ## Combining class names — use `classnames`
 

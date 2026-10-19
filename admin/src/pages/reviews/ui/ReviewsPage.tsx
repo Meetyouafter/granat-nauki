@@ -1,7 +1,9 @@
 import { ReviewCard, type ReviewDto } from '@entities/review';
 
+import { EmptyState } from '@shared/ui/EmptyState';
 import { ErrorState } from '@shared/ui/ErrorState';
 import { Loader } from '@shared/ui/Loader';
+import { PageHeader } from '@shared/ui/PageHeader';
 
 import styles from './ReviewsPage.module.scss';
 
@@ -18,16 +20,10 @@ const ReviewsPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>
-        Отзывы (
-        {reviews.length}
-        )
-      </h1>
+      <PageHeader title="Отзывы" count={reviews.length} />
       {reviews.length === 0
         ? (
-            <div className={styles.empty}>
-              <p className={styles.emptyText}>Пока нет ни одного отзыва</p>
-            </div>
+            <EmptyState text="Пока нет ни одного отзыва" />
           )
         : (
             <ul className={styles.grid}>

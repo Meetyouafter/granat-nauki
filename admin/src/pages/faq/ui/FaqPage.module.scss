@@ -1,19 +1,7 @@
-@use '@shared/styles/typography';
+@use '@shared/styles/mixins';
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  margin: 0 auto;
-  max-width: 1120px;
-  padding: var(--space-7) 0;
-}
-
-.title {
-  @include typography.text-lg;
-  @include typography.semibold;
-
-  color: var(--color-text);
+  @include mixins.page;
 }
 
 .list {
@@ -22,51 +10,4 @@
   gap: var(--space-3);
   padding: 0;
   list-style: none;
-}
-
-.empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-7);
-}
-
-.emptyText {
-  @include typography.text-sm;
-
-  color: var(--color-text-secondary);
-}
-
-.addButton {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  align-self: flex-start;
-  border-radius: var(--radius-md);
-  padding: 10px 20px;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
-  color: var(--color-surface);
-  background-color: var(--color-cta);
-
-  &:hover {
-    background-color: var(--color-cta-hover);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.97);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-
-@media (width <= 640px) {
-  .wrapper {
-    padding: var(--space-3);
-  }
 }

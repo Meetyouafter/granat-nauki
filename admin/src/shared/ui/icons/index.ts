@@ -1,7 +1,11 @@
+export { default as AlertIcon } from './AlertIcon';
 export { default as ArrowUpIcon } from './ArrowUpIcon';
 export { default as CheckIcon } from './CheckIcon';
 export { default as ChevronIcon } from './ChevronIcon';
+export { default as ClockIcon } from './ClockIcon';
 export { default as CrossIcon } from './CrossIcon';
 export { default as EyeIcon } from './EyeIcon';
+export { default as GripIcon } from './GripIcon';
 export type { IconProps } from './iconProps';
+export { default as PlusIcon } from './PlusIcon';
 export { default as SortIcon } from './SortIcon';

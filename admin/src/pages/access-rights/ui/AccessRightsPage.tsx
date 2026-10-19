@@ -1,6 +1,7 @@
-import classNames from 'classnames';
-
+import { Badge, type BadgeTone } from '@shared/ui/Badge';
+import { Button } from '@shared/ui/Button';
 import { Loader } from '@shared/ui/Loader';
+import { Logo } from '@shared/ui/Logo';
 
 import { TEXTS } from '../model/texts';
 import { useAccessRequest } from '../model/useAccessRequest';
@@ -8,11 +9,11 @@ import { useAccessRequest } from '../model/useAccessRequest';
 import styles from './AccessRightsPage.module.scss';
 
 const BADGE_TONES = {
-  none: undefined,
-  PENDING: styles.badgePending,
-  REJECTED: styles.badgeRejected,
-  APPROVED: styles.badgeApproved,
-} as const;
+  none: 'neutral',
+  PENDING: 'processing',
+  REJECTED: 'error',
+  APPROVED: 'success',
+} as const satisfies Record<string, BadgeTone>;
 
 const AccessRightsPage = () => {
   const {
@@ -40,27 +41,22 @@ const AccessRightsPage = () => {
         <>
           <h1 className={styles.title}>{TEXTS.loadError.title}</h1>
           <p className={styles.lead}>{TEXTS.loadError.lead}</p>
-          <button type="button" className={styles.secondary} onClick={handleRetry}>
+          <Button variant="secondary" onClick={handleRetry}>
             {TEXTS.loadError.button}
-          </button>
+          </Button>
         </>
       );
     }
 
     return (
       <>
-        <span className={classNames(styles.badge, BADGE_TONES[state])}>{texts.badge}</span>
+        <Badge className={styles.badge} tone={BADGE_TONES[state]}>{texts.badge}</Badge>
         <h1 className={styles.title}>{texts.title}</h1>
         <p className={styles.lead} aria-live="polite">{texts.lead}</p>
         {canRequest && (
-          <button
-            type="button"
-            className={styles.request}
-            onClick={handleRequestAccess}
-            disabled={isCreating}
-          >
+          <Button onClick={handleRequestAccess} isLoading={isCreating}>
             {status === 'REJECTED' ? TEXTS.retryButton : TEXTS.button}
-          </button>
+          </Button>
         )}
         <p className={styles.error} aria-live="polite">{createErrorMessage}</p>
       </>
@@ -70,23 +66,20 @@ const AccessRightsPage = () => {
   return (
     <div className={styles.page}>
       <header className={styles.topBar}>
-        <span className={styles.brand}>{TEXTS.brand}</span>
+        <Logo />
         <div className={styles.account}>
           {session.status === 'authenticated' && (
             <span className={styles.email}>{session.user.email}</span>
           )}
-          <button
-            type="button"
-            className={styles.signout}
-            onClick={handleSignout}
-            disabled={isSigningOut}
-          >
+          <Button variant="ghost" size="sm" onClick={handleSignout} isLoading={isSigningOut}>
             {TEXTS.signout}
-          </button>
+          </Button>
         </div>
       </header>
 
-      <main className={styles.main}>{renderContent()}</main>
+      <main className={styles.main}>
+        <div className={styles.panel}>{renderContent()}</div>
+      </main>
     </div>
   );
 };

@@ -1,17 +1,23 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
 .row {
+  @include mixins.surface;
+
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
   padding: var(--space-4);
-  transition: box-shadow var(--duration-base) var(--ease-standard);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-xs);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
 
   &:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  &:focus-within {
+    border-color: var(--color-border-strong);
     box-shadow: var(--shadow-sm);
   }
 
@@ -44,36 +50,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
 }
 
 .handle {
-  @include typography.text-md;
-
-  line-height: 1;
-  color: var(--color-text-secondary);
+  margin: var(--space-1) 0;
+  color: var(--color-text-tertiary);
   cursor: grab;
 }
 
-.reorder {
-  @include typography.text-xs;
+.up {
+  rotate: 90deg;
+}
 
-  border-radius: var(--radius-sm);
-  padding: var(--space-1);
-  transition: background-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard);
-  line-height: 1;
-  color: var(--color-text-secondary);
-
-  &:hover:not(:disabled) {
-    color: var(--color-accent);
-    background-color: var(--color-bg);
-  }
-
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+.down {
+  rotate: -90deg;
 }
 
 .fields {
@@ -84,20 +74,16 @@
   min-width: 0;
 }
 
+/* Inline editors: borderless until hovered or focused */
 .field {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-1) var(--space-2);
-  transition: border-color var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-fast) var(--ease-standard);
-  font-family: inherit;
-  color: var(--color-text);
-  background: transparent;
+  @include mixins.control;
 
-  &:focus-visible {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-focus);
-    outline: none;
+  padding: var(--space-1) var(--space-2);
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover:not(:focus-visible) {
+    border-color: var(--color-border);
   }
 }
 
@@ -108,11 +94,11 @@
 .fieldError {
   @include typography.text-xs;
 
+  padding: 0 var(--space-2);
   color: var(--color-error);
 }
 
 .title {
-  @include typography.text-sm;
   @include typography.semibold;
 }
 
@@ -128,25 +114,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-1);
+  padding: 0 var(--space-2);
 }
 
-.delete {
-  @include typography.text-sm;
-
-  border-radius: var(--radius-sm);
-  padding: var(--space-1) var(--space-2);
-  transition: background-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard);
-  color: var(--color-text-secondary);
-
-  &:hover {
-    color: var(--color-error);
-    background-color: var(--color-bg);
-  }
-
-  &:active {
-    transform: scale(0.97);
-  }
+.delete:hover:not(:disabled) {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
 }
 
 @media (width <= 640px) {
@@ -154,28 +127,20 @@
     flex-wrap: wrap;
   }
 
-  .dragControls,
-  .delete {
+  .dragControls {
     flex-direction: row;
-    min-width: 44px;
-    min-height: 44px;
     order: 1;
   }
 
-  .dragControls {
-    display: flex;
+  .reorder,
+  .delete {
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .delete {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-left: auto;
-  }
-
-  .reorder {
-    min-width: 44px;
-    min-height: 44px;
+    order: 1;
   }
 
   .fields {

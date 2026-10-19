@@ -13,17 +13,25 @@
 
 .toast {
   @include typography.text-xs;
-  @include typography.regular;
 
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-success);
   border-radius: var(--radius-md);
-  max-width: 280px;
-  padding: var(--space-2) var(--space-3);
-  color: var(--color-text-secondary);
+  max-width: 320px;
+  padding: var(--space-3) var(--space-4);
+  animation: toastIn var(--duration-base) var(--ease-standard);
+  color: var(--color-text);
   background-color: var(--color-surface);
-  box-shadow: 0 2px 8px rgb(var(--color-shadow-rgb), 0.25);
+  box-shadow: var(--shadow-md);
 }
 
 .error {
   border-left-color: var(--color-error);
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }

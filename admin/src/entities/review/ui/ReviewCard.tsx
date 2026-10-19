@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router';
 
-import classNames from 'classnames';
-
 import { paths } from '@shared/config';
+import { Badge, type BadgeTone } from '@shared/ui/Badge';
+import { Button } from '@shared/ui/Button';
 import { StatusBadge } from '@shared/ui/StatusBadge';
 
 import { formatAge } from '../lib/formatAge';
@@ -18,11 +18,11 @@ import {
 
 import styles from './ReviewCard.module.scss';
 
-const STATUS_CLASS: Record<ReviewStatus, string | undefined> = {
-  draft: styles.statusDraft,
-  pending: styles.statusPending,
-  published: styles.statusPublished,
-  rejected: styles.statusRejected,
+const STATUS_TONE: Record<ReviewStatus, BadgeTone> = {
+  draft: 'pending',
+  pending: 'processing',
+  published: 'success',
+  rejected: 'error',
 };
 
 interface IReviewCard {
@@ -42,9 +42,9 @@ const ReviewCard: FC<IReviewCard> = ({ review }) => {
           {formatReviewDate(review.reviewDate)}
         </time>
         <div className={styles.badges}>
-          <span className={classNames(styles.status, STATUS_CLASS[review.status])}>
+          <Badge tone={STATUS_TONE[review.status]}>
             {STATUS_LABELS[review.status]}
-          </span>
+          </Badge>
           {review.translationStatus && <StatusBadge status={review.translationStatus} />}
         </div>
       </header>
@@ -52,9 +52,9 @@ const ReviewCard: FC<IReviewCard> = ({ review }) => {
       <p className={styles.text}>{review.review}</p>
 
       <div className={styles.meta}>
-        <span className={styles.tag}>{SERVICE_LABELS[review.service]}</span>
-        <span className={styles.tag}>{FORMAT_LABELS[review.format]}</span>
-        <span className={styles.tag}>{formatAge(review.age)}</span>
+        <Badge>{SERVICE_LABELS[review.service]}</Badge>
+        <Badge>{FORMAT_LABELS[review.format]}</Badge>
+        <Badge>{formatAge(review.age)}</Badge>
         <span className={styles.id}>
           #
           {review.id}
@@ -62,13 +62,9 @@ const ReviewCard: FC<IReviewCard> = ({ review }) => {
       </div>
 
       <footer className={styles.footer}>
-        <button
-          type="button"
-          className={styles.editButton}
-          onClick={handleRedirect}
-        >
+        <Button variant="secondary" size="sm" onClick={handleRedirect}>
           Редактировать
-        </button>
+        </Button>
       </footer>
     </article>
   );

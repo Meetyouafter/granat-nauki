@@ -1,19 +1,20 @@
-import { type ComponentPropsWithoutRef, useState } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
+import { type IInput, Input } from '../Field';
 import { EyeIcon } from '../icons';
 
 import styles from './PasswordInput.module.scss';
 
-type IPasswordInput = Omit<ComponentPropsWithoutRef<'input'>, 'type'>;
+type IPasswordInput = Omit<IInput, 'type'>;
 
 const PasswordInput = ({ className, ...props }: IPasswordInput) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <div className={styles.wrapper}>
-      <input
+      <Input
         {...props}
         type={isVisible ? 'text' : 'password'}
         className={classNames(styles.input, className)}

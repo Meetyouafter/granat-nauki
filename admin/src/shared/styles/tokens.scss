@@ -21,6 +21,13 @@
   --shadow-md: 0 6px 16px rgb(var(--color-shadow-rgb), 0.12);
   --shadow-lg: 0 10px 30px rgb(var(--color-shadow-rgb), 0.3);
   --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  --shadow-focus-error: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent);
+
+  /* Sizes */
+  --size-control-sm: 32px;
+  --size-control-md: 40px;
+  --size-header: 56px;
+  --size-content: 1120px;
 
   /* Motion */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);

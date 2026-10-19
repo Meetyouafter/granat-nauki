@@ -1,0 +1,44 @@
+@use '@shared/styles/typography';
+
+.badge {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-pill);
+  padding: 2px var(--space-2);
+  white-space: nowrap;
+}
+
+.tone-neutral {
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.tone-accent {
+  color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+}
+
+.tone-pending {
+  color: var(--color-pending);
+  background-color: var(--color-pending-bg);
+}
+
+.tone-processing {
+  color: var(--color-processing);
+  background-color: var(--color-processing-bg);
+}
+
+.tone-success {
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
+}
+
+.tone-error {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+}

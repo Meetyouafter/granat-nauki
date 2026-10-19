@@ -1,5 +1,4 @@
 export const TEXTS = {
-  brand: 'Гранат науки',
   signout: 'Выйти',
   button: 'Запросить права',
   retryButton: 'Запросить ещё раз',

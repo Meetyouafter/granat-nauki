@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
+import { EmptyState } from '@shared/ui/EmptyState';
 import { ErrorState } from '@shared/ui/ErrorState';
 import { Loader } from '@shared/ui/Loader';
+import { PageHeader } from '@shared/ui/PageHeader';
 import { Pagination } from '@shared/ui/Pagination';
 
 import { TEXTS } from '../model/texts';
@@ -38,21 +40,14 @@ const AccessRequestsPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>
-        {TEXTS.title}
-        <span className={styles.count}>{total}</span>
-      </h1>
+      <PageHeader title={TEXTS.title} count={total} />
       <AccessRequestsToolbar
         statusFilter={statusFilter}
         onStatusFilterChange={handleStatusFilter}
       />
       {accessRequests.length === 0
         ? (
-            <div className={styles.empty}>
-              <p className={styles.emptyText}>
-                {statusFilter === 'ALL' ? TEXTS.empty : TEXTS.notFound}
-              </p>
-            </div>
+            <EmptyState text={statusFilter === 'ALL' ? TEXTS.empty : TEXTS.notFound} />
           )
         : (
             <div

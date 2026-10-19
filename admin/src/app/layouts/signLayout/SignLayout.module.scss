@@ -1,3 +1,4 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
 .main {
@@ -5,25 +6,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
-  min-height: 100vh;
-  padding: var(--space-6);
+  gap: var(--space-5);
+  min-height: 100dvh;
+  padding: var(--space-6) var(--space-4);
 }
 
 .footer {
-  @include typography.text-sm;
-
   text-align: center;
   color: var(--color-text-secondary);
 }
 
 .link {
   @include typography.semibold;
+  @include mixins.focus-ring;
 
+  border-radius: var(--radius-sm);
   transition: color var(--duration-fast) var(--ease-standard);
   color: var(--color-accent);
 
   &:hover {
+    text-decoration: underline;
     color: var(--color-accent-hover);
+    text-underline-offset: 3px;
   }
 }

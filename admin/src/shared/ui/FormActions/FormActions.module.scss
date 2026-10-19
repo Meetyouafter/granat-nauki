@@ -1,40 +1,11 @@
-@use '@shared/styles/typography';
-
 .actions {
+  z-index: 1;
+  position: sticky;
+  bottom: 0;
   display: flex;
   justify-content: flex-end;
-  gap: var(--space-3);
-}
-
-.cancel {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-md);
-  padding: 10px 20px;
-  color: var(--color-text-secondary);
-
-  &:hover {
-    background-color: var(--color-bg);
-  }
-}
-
-.save {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-md);
-  padding: 10px 20px;
-  transition: background-color var(--duration-fast) var(--ease-standard);
-  color: var(--color-surface);
-  background-color: var(--color-cta);
-
-  &:hover {
-    background-color: var(--color-cta-hover);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  gap: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+  background-color: var(--color-bg);
 }

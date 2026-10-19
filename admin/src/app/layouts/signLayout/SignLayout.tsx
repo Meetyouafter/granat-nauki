@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router';
 
 import { FORM_TEXTS, paths } from '@shared/config';
+import { Logo } from '@shared/ui/Logo';
 
 import styles from './SignLayout.module.scss';
 
@@ -11,6 +12,7 @@ const SignLayout = () => {
 
   return (
     <main className={styles.main}>
+      <Logo size="md" />
       <Outlet />
       <p className={styles.footer}>
         {texts.switchQuestion}

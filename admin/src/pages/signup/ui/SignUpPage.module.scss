@@ -1,79 +1,41 @@
+@use '@shared/styles/mixins';
 @use '@shared/styles/typography';
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 .card {
+  @include mixins.surface;
+
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  gap: var(--space-1);
   width: 100%;
-  max-width: 360px;
-  padding: 32px;
-  background-color: var(--color-surface);
-  box-shadow: 0 10px 30px rgb(var(--color-shadow-rgb), 0.15);
+  max-width: 380px;
+  padding: var(--space-7);
+  box-shadow: var(--shadow-md);
 }
 
 .title {
   @include typography.text-lg;
   @include typography.semibold;
 
-  margin-bottom: 8px;
-  text-align: center;
+  margin-bottom: var(--space-5);
   color: var(--color-text);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.label {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  color: var(--color-text-secondary);
-}
-
-.input {
-  @include typography.text-sm;
-
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-family: inherit;
-  color: var(--color-text);
-  background: transparent;
-
-  &:focus {
-    border-color: var(--color-accent);
-    outline: none;
-  }
 }
 
 .submit {
-  @include typography.text-sm;
-  @include typography.semibold;
-
-  margin-top: 8px;
-  border-radius: 8px;
-  padding: 12px 20px;
-  color: var(--color-surface);
-  background-color: var(--color-cta);
-
-  &:hover {
-    background-color: var(--color-cta-hover);
-  }
+  margin-top: var(--space-2);
 }
 
 .error {
   @include typography.text-xs;
 
+  margin-top: var(--space-2);
   min-height: 1lh;
+  text-align: center;
   color: var(--color-error);
+}
+
+@media (width <= 480px) {
+  .card {
+    padding: var(--space-6) var(--space-5);
+  }
 }

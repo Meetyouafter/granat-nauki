@@ -6,10 +6,14 @@ import { FaqRow, type IFaqRowErrors } from '@features/faq-editor';
 
 import { type FaqItem, type FaqItemDto, getFaqItemId } from '@entities/faq';
 
+import { Button } from '@shared/ui/Button';
+import { EmptyState } from '@shared/ui/EmptyState';
 // import { ErrorState } from '@shared/ui/ErrorState'
 import { FormActions } from '@shared/ui/FormActions';
+import { PlusIcon } from '@shared/ui/icons';
 import { Loader } from '@shared/ui/Loader';
 import { LoaderOverlay } from '@shared/ui/LoaderOverlay';
+import { PageHeader } from '@shared/ui/PageHeader';
 import { useToast } from '@shared/ui/Toast';
 
 import styles from './FaqPage.module.scss';
@@ -93,12 +97,27 @@ const FaqPage = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>Вопросы</h1>
+        <PageHeader
+          title="Вопросы"
+          count={items.length}
+          actions={(
+            <Button variant="secondary" onClick={handleAdd} disabled={isSaving}>
+              <PlusIcon />
+              Добавить вопрос
+            </Button>
+          )}
+        />
         {items.length === 0
           ? (
-              <div className={styles.empty}>
-                <p className={styles.emptyText}>Пока нет ни одного вопроса</p>
-              </div>
+              <EmptyState
+                text="Пока нет ни одного вопроса"
+                action={(
+                  <Button onClick={handleAdd} disabled={isSaving}>
+                    <PlusIcon />
+                    Добавить первый вопрос
+                  </Button>
+                )}
+              />
             )
           : (
               <ul className={styles.list}>
@@ -122,15 +141,7 @@ const FaqPage = () => {
                 })}
               </ul>
             )}
-        <button
-          type="button"
-          className={styles.addButton}
-          onClick={handleAdd}
-          disabled={isSaving}
-        >
-          + Добавить вопрос
-        </button>
-        <FormActions onSave={handleSave} disabled={isSaving} />
+        <FormActions onSave={handleSave} isSaving={isSaving} />
       </div>
       {isSaving && <LoaderOverlay />}
     </DndProvider>

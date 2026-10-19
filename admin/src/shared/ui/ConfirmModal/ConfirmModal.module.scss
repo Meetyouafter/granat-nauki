@@ -7,14 +7,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(var(--color-shadow-rgb), 0.4);
+  padding: var(--space-4);
+  animation: fadeIn var(--duration-base) var(--ease-standard);
+  background-color: rgb(var(--color-shadow-rgb), 0.35);
 }
 
 .dialog {
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  width: calc(100% - 48px);
-  max-width: 480px;
+  width: 100%;
+  max-width: 440px;
   padding: var(--space-6);
+  animation: dialogIn var(--duration-base) var(--ease-standard);
   background-color: var(--color-surface);
   box-shadow: var(--shadow-lg);
 }
@@ -28,41 +32,26 @@
 }
 
 .message {
-  @include typography.text-sm;
-
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
   color: var(--color-text-secondary);
 }
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
-.cancel {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-md);
-  padding: 10px 16px;
-  color: var(--color-text-secondary);
-
-  &:hover {
-    background-color: var(--color-bg);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 }
 
-.confirm {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  border-radius: var(--radius-md);
-  padding: 10px 16px;
-  color: var(--color-surface);
-  background-color: var(--color-error);
-
-  &:hover {
-    opacity: 0.9;
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }

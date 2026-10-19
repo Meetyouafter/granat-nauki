@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
 import classNames from 'classnames';
 
@@ -17,8 +17,10 @@ import {
 } from '@entities/review';
 
 import { paths } from '@shared/config';
+import { Field, Input, Select, Textarea } from '@shared/ui/Field';
 import { FormActions } from '@shared/ui/FormActions';
 import { Loader } from '@shared/ui/Loader';
+import { PageHeader } from '@shared/ui/PageHeader';
 import { StatusBadge } from '@shared/ui/StatusBadge';
 import { useToast } from '@shared/ui/Toast';
 
@@ -107,13 +109,11 @@ const ReviewPage = () => {
   // if (error instanceof ApiError && error.status === 404) {
   //   return (
   //     <div className={styles.wrapper}>
-  //       <header className={styles.header}>
-  //         <Link className={styles.back} to={paths.reviews}>
-  //           ← К списку отзывов
-  //         </Link>
-  //         <h1 className={styles.title}>Отзыв не найден</h1>
-  //       </header>
-  //       <p className={styles.notFound}>Отзыв #{id} не существует или был удалён.</p>
+  //       <PageHeader
+  //         title="Отзыв не найден"
+  //         back={{ to: paths.reviews, label: 'К списку отзывов' }}
+  //       />
+  //       <EmptyState text={`Отзыв #${id} не существует или был удалён.`} />
   //     </div>
   //   )
   // }
@@ -156,77 +156,51 @@ const ReviewPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <header className={styles.header}>
-        <Link className={styles.back} to={paths.reviews}>
-          ← К списку отзывов
-        </Link>
-        <div className={styles.titleRow}>
-          <h1 className={styles.title}>
-            Отзыв #
-            {id}
-          </h1>
-          {data?.translationStatus && <StatusBadge status={data.translationStatus} />}
-        </div>
-      </header>
+      <PageHeader
+        title={`Отзыв #${id}`}
+        back={{ to: paths.reviews, label: 'К списку отзывов' }}
+        extra={data?.translationStatus && <StatusBadge status={data.translationStatus} />}
+      />
 
       <form className={styles.form} onSubmit={(event) => { event.preventDefault(); }}>
-        <div className={classNames(styles.field, styles.fieldWide)}>
-          <label className={styles.label} htmlFor="review">
-            Текст отзыва
-          </label>
-          <textarea
+        <Field id="review" label="Текст отзыва" error={errors.review} className={styles.fieldWide}>
+          <Textarea
             id="review"
-            className={classNames(styles.control, styles.textarea, errors.review && styles.invalid)}
             value={values.review}
             onChange={(event) => { handleChange({ review: event.target.value }); }}
             placeholder="Текст отзыва"
-            aria-invalid={Boolean(errors.review) || undefined}
+            isInvalid={Boolean(errors.review)}
             rows={6}
           />
-          {errors.review && <span className={styles.error}>{errors.review}</span>}
-        </div>
+        </Field>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="age">
-            Возраст ребёнка
-          </label>
-          <input
+        <Field id="age" label="Возраст ребёнка" error={errors.age}>
+          <Input
             id="age"
             type="number"
             inputMode="numeric"
             min={MIN_CHILD_AGE}
             max={MAX_CHILD_AGE}
-            className={classNames(styles.control, errors.age && styles.invalid)}
             value={values.age}
             onChange={(event) => { handleChange({ age: event.target.value }); }}
             placeholder={`${MIN_CHILD_AGE}–${MAX_CHILD_AGE}`}
-            aria-invalid={Boolean(errors.age) || undefined}
+            isInvalid={Boolean(errors.age)}
           />
-          {errors.age && <span className={styles.error}>{errors.age}</span>}
-        </div>
+        </Field>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="reviewDate">
-            Дата отзыва
-          </label>
-          <input
+        <Field id="reviewDate" label="Дата отзыва" error={errors.reviewDate}>
+          <Input
             id="reviewDate"
             type="date"
-            className={classNames(styles.control, errors.reviewDate && styles.invalid)}
             value={values.reviewDate}
             onChange={(event) => { handleChange({ reviewDate: event.target.value }); }}
-            aria-invalid={Boolean(errors.reviewDate) || undefined}
+            isInvalid={Boolean(errors.reviewDate)}
           />
-          {errors.reviewDate && <span className={styles.error}>{errors.reviewDate}</span>}
-        </div>
+        </Field>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="service">
-            Услуга
-          </label>
-          <select
+        <Field id="service" label="Услуга">
+          <Select
             id="service"
-            className={styles.control}
             value={values.service}
             onChange={(event) => { handleChange({ service: event.target.value as ServiceType }); }}
           >
@@ -235,16 +209,12 @@ const ReviewPage = () => {
                 {label}
               </option>
             ))}
-          </select>
-        </div>
+          </Select>
+        </Field>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="format">
-            Формат
-          </label>
-          <select
+        <Field id="format" label="Формат">
+          <Select
             id="format"
-            className={styles.control}
             value={values.format}
             onChange={(event) => { handleChange({ format: event.target.value as SessionFormat }); }}
           >
@@ -253,10 +223,10 @@ const ReviewPage = () => {
                 {label}
               </option>
             ))}
-          </select>
-        </div>
+          </Select>
+        </Field>
 
-        <div className={classNames(styles.field, styles.fieldWide)}>
+        <div className={classNames(styles.status, styles.fieldWide)}>
           <span className={styles.label} id="status-label">
             Статус
           </span>
@@ -284,7 +254,6 @@ const ReviewPage = () => {
             ))}
           </div>
         </div>
-
       </form>
 
       <FormActions onSave={handleSave} />

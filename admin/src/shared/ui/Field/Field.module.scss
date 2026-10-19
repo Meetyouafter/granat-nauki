@@ -1,0 +1,59 @@
+@use '@shared/styles/mixins';
+@use '@shared/styles/typography';
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.label {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  width: fit-content;
+  color: var(--color-text);
+}
+
+.hint {
+  @include typography.text-xs;
+
+  color: var(--color-text-secondary);
+}
+
+.error {
+  @include typography.text-xs;
+
+  min-height: 1lh;
+  color: var(--color-error);
+}
+
+.control {
+  @include mixins.control;
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.selectWrap {
+  position: relative;
+  display: flex;
+}
+
+.select {
+  padding-right: calc(var(--space-3) * 2 + 12px);
+  cursor: pointer;
+  appearance: none;
+}
+
+.selectIcon {
+  rotate: -90deg;
+  position: absolute;
+  top: calc(50% - 6px);
+  right: var(--space-3);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}

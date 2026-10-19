@@ -1,20 +1,33 @@
 :root {
-  --color-bg: #f2f0ef;
+  /* Neutrals: warm greys, soft borders */
+  --color-bg: #f6f5f2;
   --color-surface: #fff;
-  --color-text: #262524;
-  --color-text-secondary: #5c5a57;
-  --color-border: #bbbdbc;
-  --color-accent: #245f73;
-  --color-accent-hover: #1d4e5f;
-  --color-cta: #733e24;
-  --color-cta-hover: #5f331d;
-  --color-error: #f9330d;
-  --color-error-bg: #ffe3e0;
-  --color-shadow-rgb: 38, 37, 36;
+  --color-surface-muted: #faf9f7;
+  --color-border: #e5e2db;
+  --color-border-strong: #cfcbc2;
+  --color-text: #2b2a27;
+  --color-text-secondary: #6b675f;
+  --color-text-tertiary: #8f8a80;
+  --color-text-inverse: #fff;
+
+  /* The one action color: dark sage (the site's brand hue, darkened for contrast) */
+  --color-accent: #4f6b47;
+  --color-accent-hover: #435c3c;
+  --color-accent-subtle: #eef3ec;
+
+  /* Danger: soft brick, not an alarm red */
+  --color-error: #a8483a;
+  --color-error-hover: #8f3c30;
+  --color-error-bg: #f8e9e6;
+
+  /* Status tones (badges) */
   --color-success: #3f7a4e;
-  --color-success-bg: #e9f2ea;
-  --color-processing: #245f73;
-  --color-processing-bg: #e5eef1;
-  --color-pending: #7a7873;
-  --color-pending-bg: #ececea;
+  --color-success-bg: #e8f1e9;
+  --color-processing: #3d6f78;
+  --color-processing-bg: #e6f0f1;
+  --color-pending: #77736b;
+  --color-pending-bg: #efeeeb;
+
+  /* Shadows, used as rgb(var(--color-shadow-rgb), alpha) */
+  --color-shadow-rgb: 43, 42, 39;
 }

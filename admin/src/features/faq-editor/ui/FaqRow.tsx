@@ -5,7 +5,9 @@ import classNames from 'classnames';
 
 import { type FaqItem, type FaqItemDto, getFaqItemId } from '@entities/faq';
 
+import { Button } from '@shared/ui/Button';
 import { ConfirmModal } from '@shared/ui/ConfirmModal';
+import { ChevronIcon, CrossIcon, GripIcon } from '@shared/ui/icons';
 import { StatusBadge } from '@shared/ui/StatusBadge';
 
 import type { IFaqRowErrors } from '../model/types';
@@ -83,27 +85,29 @@ const FaqRow = ({
       onAnimationEnd={isEntering ? onEnterAnimationEnd : undefined}
     >
       <div className={styles.dragControls}>
-        <span className={styles.handle} aria-hidden="true">
-          ⠿
-        </span>
-        <button
-          type="button"
+        <GripIcon className={styles.handle} />
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
           className={styles.reorder}
           onClick={() => { moveRow(index, index - 1); }}
           disabled={isFirst}
           aria-label={`Переместить вопрос №${index + 1} вверх`}
         >
-          ▲
-        </button>
-        <button
-          type="button"
+          <ChevronIcon className={styles.up} />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
           className={styles.reorder}
           onClick={() => { moveRow(index, index + 1); }}
           disabled={isLast}
           aria-label={`Переместить вопрос №${index + 1} вниз`}
         >
-          ▼
-        </button>
+          <ChevronIcon className={styles.down} />
+        </Button>
       </div>
       <div className={styles.fields}>
         <input
@@ -135,14 +139,16 @@ const FaqRow = ({
           </div>
         )}
       </div>
-      <button
-        type="button"
+      <Button
+        variant="ghost"
+        size="sm"
+        isIconOnly
         className={styles.delete}
         onClick={() => { setIsConfirmingDelete(true); }}
         aria-label="Удалить вопрос"
       >
-        ✕
-      </button>
+        <CrossIcon />
+      </Button>
       {isConfirmingDelete && (
         <ConfirmModal
           title="Удалить вопрос?"

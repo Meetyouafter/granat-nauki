@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { Button } from '../Button';
 import { ConfirmModal } from '../ConfirmModal';
 
 import styles from './FormActions.module.scss';
@@ -10,6 +11,7 @@ interface IFormActions {
   saveLabel?: string;
   cancelLabel?: string;
   disabled?: boolean;
+  isSaving?: boolean;
 }
 
 const FormActions = ({
@@ -17,6 +19,7 @@ const FormActions = ({
   saveLabel = 'Сохранить',
   cancelLabel = 'Отменить',
   disabled = false,
+  isSaving = false,
 }: IFormActions) => {
   const navigate = useNavigate();
   const [isCancelling, setIsCancelling] = useState(false);
@@ -29,12 +32,12 @@ const FormActions = ({
   return (
     <>
       <div className={styles.actions}>
-        <button type="button" className={styles.cancel} onClick={() => { setIsCancelling(true); }}>
+        <Button variant="ghost" onClick={() => { setIsCancelling(true); }}>
           {cancelLabel}
-        </button>
-        <button type="button" className={styles.save} onClick={onSave} disabled={disabled}>
+        </Button>
+        <Button onClick={onSave} disabled={disabled} isLoading={isSaving}>
           {saveLabel}
-        </button>
+        </Button>
       </div>
       {isCancelling && (
         <ConfirmModal

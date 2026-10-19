@@ -1,31 +1,96 @@
+@use '@shared/styles/mixins';
+@use '@shared/styles/typography';
+
 .header {
   z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  border-bottom: 1px solid var(--color-border);
+  height: var(--size-header);
+  padding: 0 var(--space-6);
+  background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.inner {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--color-border);
-  height: 64px;
-  padding: 0 24px;
-  background-color: var(--color-surface);
+  gap: var(--space-7);
+  margin: 0 auto;
+  max-width: var(--size-content);
+  height: 100%;
+}
+
+.brand {
+  @include mixins.focus-ring;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
 }
 
 .nav {
   display: flex;
-  gap: 24px;
+  gap: var(--space-1);
+  overflow-x: auto;
 }
 
 .link {
+  @include typography.text-xs;
+  @include typography.semibold;
+  @include mixins.focus-ring;
+
+  border-radius: var(--radius-md);
+  padding: 6px var(--space-3);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
   color: var(--color-text-secondary);
 
   &:hover {
     color: var(--color-text);
+    background-color: rgb(var(--color-shadow-rgb), 0.05);
   }
 }
 
-.linkActive {
-  font-weight: 600;
+.linkActive,
+.linkActive:hover {
   color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+  min-width: 0;
+}
+
+.email {
+  @include typography.text-xs;
+
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  text-overflow: ellipsis;
+}
+
+@media (width <= 900px) {
+  .email {
+    display: none;
+  }
+}
+
+@media (width <= 640px) {
+  .header {
+    padding: 0 var(--space-4);
+  }
+
+  .inner {
+    gap: var(--space-4);
+  }
 }

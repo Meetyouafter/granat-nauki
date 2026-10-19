@@ -1,14 +1,21 @@
-import classNames from 'classnames';
+import type { ReactNode } from 'react';
+
+import { Badge, type BadgeTone } from '../Badge';
+import { AlertIcon, CheckIcon, ClockIcon } from '../icons';
 
 import styles from './StatusBadge.module.scss';
 
 export type TranslationStatus = 'pending' | 'processing' | 'done' | 'failed';
 
-const STATUS_MAP: Record<TranslationStatus, { icon: string; label: string; tone: string }> = {
-  pending: { icon: '⏳', label: 'В очереди', tone: 'pending' },
-  processing: { icon: '', label: 'Переводится…', tone: 'processing' },
-  done: { icon: '✓', label: 'Переведено', tone: 'success' },
-  failed: { icon: '⚠', label: 'Ошибка перевода', tone: 'error' },
+const STATUS_MAP: Record<TranslationStatus, { icon: ReactNode; label: string; tone: BadgeTone }> = {
+  pending: { icon: <ClockIcon />, label: 'В очереди', tone: 'pending' },
+  processing: {
+    icon: <span className={styles.spinner} aria-hidden="true" />,
+    label: 'Переводится…',
+    tone: 'processing',
+  },
+  done: { icon: <CheckIcon />, label: 'Переведено', tone: 'success' },
+  failed: { icon: <AlertIcon />, label: 'Ошибка перевода', tone: 'error' },
 };
 
 interface IStatusBadge {
@@ -19,16 +26,10 @@ const StatusBadge = ({ status }: IStatusBadge) => {
   const { icon, label, tone } = STATUS_MAP[status];
 
   return (
-    <span className={classNames(styles.badge, styles[tone])} role="status" title={label}>
-      {status === 'processing'
-        ? (
-            <span className={styles.spinner} aria-hidden="true" />
-          )
-        : (
-            <span aria-hidden="true">{icon}</span>
-          )}
+    <Badge tone={tone} role="status" title={label}>
+      {icon}
       {label}
-    </span>
+    </Badge>
   );
 };
 

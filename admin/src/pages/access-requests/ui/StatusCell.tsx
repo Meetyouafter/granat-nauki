@@ -1,6 +1,7 @@
 import type { AccessRequestDecision, AccessRequestStatus } from '@granat/contracts';
-import classNames from 'classnames';
 
+import { Badge } from '@shared/ui/Badge';
+import { Button } from '@shared/ui/Button';
 import { CheckIcon, CrossIcon } from '@shared/ui/icons';
 
 import { TEXTS } from '../model/texts';
@@ -8,9 +9,9 @@ import { TEXTS } from '../model/texts';
 import styles from './StatusCell.module.scss';
 
 const BADGE_TONES = {
-  PENDING: styles.badgePending,
-  REJECTED: styles.badgeRejected,
-  APPROVED: styles.badgeApproved,
+  PENDING: 'processing',
+  REJECTED: 'error',
+  APPROVED: 'success',
 } as const;
 
 interface IStatusCell {
@@ -23,9 +24,9 @@ interface IStatusCell {
 const StatusCell = ({ status, email, isDeciding = false, onDecide }: IStatusCell) => {
   if (status !== 'PENDING') {
     return (
-      <span className={classNames(styles.badge, BADGE_TONES[status])}>
+      <Badge tone={BADGE_TONES[status]}>
         {TEXTS.statuses[status]}
-      </span>
+      </Badge>
     );
   }
 
@@ -36,24 +37,20 @@ const StatusCell = ({ status, email, isDeciding = false, onDecide }: IStatusCell
       aria-label={`${TEXTS.decision.groupLabel}: ${email}`}
       aria-busy={isDeciding}
     >
-      <button
-        type="button"
-        className={classNames(styles.action, styles.approve)}
-        onClick={() => { onDecide('APPROVED'); }}
-        disabled={isDeciding}
-      >
+      <Button size="sm" onClick={() => { onDecide('APPROVED'); }} disabled={isDeciding}>
         <CheckIcon />
         {TEXTS.decision.APPROVED}
-      </button>
-      <button
-        type="button"
-        className={classNames(styles.action, styles.reject)}
+      </Button>
+      <Button
+        variant="secondary"
+        size="sm"
+        className={styles.reject}
         onClick={() => { onDecide('REJECTED'); }}
         disabled={isDeciding}
       >
         <CrossIcon />
         {TEXTS.decision.REJECTED}
-      </button>
+      </Button>
     </div>
   );
 };
