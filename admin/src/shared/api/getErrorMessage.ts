@@ -15,6 +15,7 @@ const ERROR_MESSAGES = {
   ACCESS_REQUEST_NOT_FOUND: 'Запрос не найден. Обновите страницу',
   ACCESS_REQUEST_ALREADY_DECIDED: 'По этому запросу уже приняли решение',
   INTERNAL_SERVER_ERROR: 'Не удалось выполнить запрос',
+  TOO_MANY_REQUESTS: 'Слишком много запросов. Попробуйте позже',
 } satisfies Record<ApiErrorCode, string>;
 
 const UNKNOWN_ERROR = 'Что-то пошло не так. Попробуйте ещё раз';

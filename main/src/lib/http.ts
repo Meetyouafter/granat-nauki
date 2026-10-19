@@ -8,6 +8,15 @@ import { AppError } from '@/lib/errors';
 const SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS'];
 
 /*
+IP клиента для rate limit и логов.
+Только X-Real-IP: его ставит nginx из адреса соединения и перезаписывает присланный клиентом.
+X-Forwarded-For не берём: Next дописывает его, только если заголовка нет (??=),
+так что клиент может прислать любой. В dev nginx нет, все попадают в общий 'unknown'.
+**/
+export const getClientIp = (request: Request) =>
+  request.headers.get('x-real-ip') ?? 'unknown';
+
+/*
 Эта проверка защищает от CSRF.
 Браузер сам прикладывает cookie к любому запросу на admin.site.ru,
 даже если запрос запустила чужая страница.

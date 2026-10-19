@@ -50,6 +50,11 @@ export const INTERNAL_SERVER_ERROR = {
   message: 'INTERNAL_SERVER_ERROR',
 } as const;
 
+export const TOO_MANY_REQUESTS = {
+  status: 429,
+  message: 'TOO_MANY_REQUESTS',
+} as const;
+
 export const API_STATUSES = {
   VALIDATION_ERROR,
   INVALID_CREDENTIALS,
@@ -61,6 +66,7 @@ export const API_STATUSES = {
   ACCESS_REQUEST_NOT_FOUND,
   ACCESS_REQUEST_ALREADY_DECIDED,
   INTERNAL_SERVER_ERROR,
+  TOO_MANY_REQUESTS,
 } as const;
 
 export type ApiErrorCode = keyof typeof API_STATUSES;
