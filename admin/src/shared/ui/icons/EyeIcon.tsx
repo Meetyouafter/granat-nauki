@@ -1,18 +1,18 @@
-interface IEyeIcon {
-  isCrossed: boolean;
+import { type IconProps, STROKE_ICON_PROPS } from './iconProps';
+
+interface IEyeIcon extends IconProps {
+  isCrossed?: boolean;
 }
 
-const EyeIcon = ({ isCrossed }: IEyeIcon) => (
+const EyeIcon = ({ isCrossed = false, ...props }: IEyeIcon) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
     strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    {...STROKE_ICON_PROPS}
     aria-hidden="true"
+    {...props}
   >
     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
     <circle cx="12" cy="12" r="3" />

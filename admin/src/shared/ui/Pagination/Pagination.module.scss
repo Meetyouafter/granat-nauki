@@ -1,0 +1,64 @@
+@use '@shared/styles/typography';
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--space-2);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+
+  &:hover:not(:disabled, [aria-current='page']) {
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus);
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  &[aria-current='page'] {
+    color: var(--color-surface);
+    background-color: var(--color-accent);
+    cursor: default;
+  }
+}
+
+.gap {
+  @include typography.text-xs;
+
+  min-width: 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.next {
+  transform: rotate(180deg);
+}

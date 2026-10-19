@@ -94,6 +94,7 @@ export const reactConfig = [
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function',
       }],
+      'react/no-multi-comp': ['error', { ignoreStateless: false }],
     },
   },
 ];

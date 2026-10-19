@@ -6,21 +6,9 @@ import { paths } from '@shared/config';
 import { ErrorState } from '@shared/ui/ErrorState';
 import { useSession } from '@shared/utils/useSession';
 
-const homeFor = (role: Role) => role === 'ADMIN'
-  ? paths.home
-  : paths.accessRights;
+import { homeFor } from './homeFor';
 
-export const GuestRoute = () => {
-  const session = useSession();
-
-  if (session.status === 'loading') return null;
-  if (session.status === 'authenticated') {
-    return <Navigate to={homeFor(session.user.role)} replace />;
-  }
-  return <Outlet />;
-};
-
-export const ProtectedRoute = ({ role }: { role?: Role }) => {
+const ProtectedRoute = ({ role }: { role?: Role }) => {
   const session = useSession();
 
   switch (session.status) {
@@ -43,3 +31,5 @@ export const ProtectedRoute = ({ role }: { role?: Role }) => {
       return <Outlet />;
   }
 };
+
+export default ProtectedRoute;

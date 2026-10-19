@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef, useState } from 'react';
 
 import classNames from 'classnames';
 
-import EyeIcon from './EyeIcon';
+import { EyeIcon } from '../icons';
 
 import styles from './PasswordInput.module.scss';
 

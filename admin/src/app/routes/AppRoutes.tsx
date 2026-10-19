@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router';
 
+import { AccessRequestsPage } from '@pages/access-requests';
 import { AccessRightsPage } from '@pages/access-rights';
 import { FaqPage } from '@pages/faq';
 import { HomePage } from '@pages/home';
@@ -28,6 +29,7 @@ const AppRoutes = () => (
     <Route element={<ProtectedRoute role="ADMIN" />}>
       <Route element={<RootLayout />}>
         <Route path={paths.home} element={<HomePage />} />
+        <Route path={paths.accessRequests} element={<AccessRequestsPage />} />
         <Route path={paths.faq} element={<FaqPage />} />
         <Route path={paths.reviews} element={<ReviewsPage />} />
         <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />

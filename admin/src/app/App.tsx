@@ -1,3 +1,5 @@
+import './config/dayjs';
+
 import AppProviders from './providers/AppProviders';
 import AppRoutes from './routes/AppRoutes';
 

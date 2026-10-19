@@ -49,6 +49,19 @@ const layerBoundary = layer => ({
   },
 });
 
+/** Иконки живут только в shared/ui/icons: по одной на файл, без инлайн-<svg> в компонентах. */
+const ICONS_DIR = 'src/shared/ui/icons/**';
+const inlineSvgBan = {
+  files: ['src/**/*.tsx'],
+  ignores: [ICONS_DIR],
+  rules: {
+    'no-restricted-syntax': ['error', {
+      selector: 'JSXOpeningElement[name.name="svg"]',
+      message: 'Иконки выносятся в @shared/ui/icons (одна иконка на файл), а не пишутся инлайном.',
+    }],
+  },
+};
+
 export default defineConfig([
   ...base({
     tsconfigRootDir: import.meta.dirname,
@@ -58,4 +71,5 @@ export default defineConfig([
   ...reactConfig,
   reactRefresh.configs.vite,
   ...LAYERS.map(layerBoundary),
+  inlineSvgBan,
 ]);

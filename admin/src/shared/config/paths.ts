@@ -5,4 +5,5 @@ export const paths = {
   faq: '/faq',
   reviews: '/reviews',
   accessRights: '/accessRights',
+  accessRequests: '/accessRequests',
 } as const;

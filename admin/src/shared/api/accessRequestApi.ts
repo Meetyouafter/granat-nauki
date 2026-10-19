@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import type { MyAccessRequestResponse } from '@granat/contracts';
+import type {
+  AccessRequestsQuery,
+  AccessRequestsResponse,
+  MyAccessRequestResponse,
+} from '@granat/contracts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const accessRequestApi = createApi({
@@ -7,6 +11,13 @@ export const accessRequestApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/access-requests' }),
   tagTypes: ['MyAccessRequest'],
   endpoints: builder => ({
+    getAllAccessRequests: builder.query<AccessRequestsResponse, AccessRequestsQuery>({
+      query: params => ({
+        url: '',
+        method: 'GET',
+        params,
+      }),
+    }),
     getMyAccessRequest: builder.query<MyAccessRequestResponse, void>({
       query: () => ({
         url: '/me',
@@ -27,4 +38,5 @@ export const accessRequestApi = createApi({
 export const {
   useGetMyAccessRequestQuery,
   useCreateAccessRequestMutation,
+  useGetAllAccessRequestsQuery,
 } = accessRequestApi;

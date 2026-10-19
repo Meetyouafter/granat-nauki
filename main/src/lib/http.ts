@@ -34,6 +34,16 @@ export const parseBody = async <T extends z.ZodType>(request: Request, schema: T
   return result.data;
 };
 
+export const parseQuery = <T extends z.ZodType>(request: Request, schema: T) => {
+  const query = Object.fromEntries(new URL(request.url).searchParams);
+
+  const result = schema.safeParse(query);
+  if (!result.success) {
+    throw new AppError(API_STATUSES.VALIDATION_ERROR, z.flattenError(result.error).fieldErrors);
+  }
+  return result.data;
+};
+
 type Handler = (request: Request) => Promise<Response>;
 
 const errorToResponse = (error: unknown) => {
