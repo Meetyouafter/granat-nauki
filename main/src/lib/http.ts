@@ -16,6 +16,14 @@ X-Forwarded-For не берём: Next дописывает его, только 
 export const getClientIp = (request: Request) =>
   request.headers.get('x-real-ip') ?? 'unknown';
 
+const MAX_USER_AGENT_LENGTH = 512;
+
+// Устройство для списка сеансов. Без nginx IP неизвестен: null, а не общий 'unknown' из rate limit
+export const getSessionMeta = (request: Request) => ({
+  userAgent: request.headers.get('user-agent')?.slice(0, MAX_USER_AGENT_LENGTH) ?? null,
+  ip: request.headers.get('x-real-ip'),
+});
+
 /*
 Эта проверка защищает от CSRF.
 Браузер сам прикладывает cookie к любому запросу на admin.site.ru,

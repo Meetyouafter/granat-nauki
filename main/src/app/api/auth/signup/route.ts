@@ -2,7 +2,7 @@ import { signupSchema } from '@granat/contracts';
 
 import { signup } from '@/lib/auth/auth';
 import { setSessionCookie } from '@/lib/auth/cookies';
-import { getClientIp, parseBody, withErrorHandling } from '@/lib/http';
+import { getClientIp, getSessionMeta, parseBody, withErrorHandling } from '@/lib/http';
 import { signupLimiter } from '@/lib/rateLimit';
 
 export const POST = withErrorHandling(async (request) => {
@@ -12,7 +12,7 @@ export const POST = withErrorHandling(async (request) => {
   signupLimiter.check(ip);
   signupLimiter.hit(ip);
 
-  const session = await signup(body);
+  const session = await signup(body, getSessionMeta(request));
   await setSessionCookie(session.token, session.expiresAt);
 
   return new Response(null, { status: 204 });

@@ -17,8 +17,8 @@ import { prisma } from '@/lib/db';
     { session, user }
 
   Два срока, берём ближайший.
-  - если пользователь неделю не заходил, сессия истекает
-  - сессия истекает через 30 дней после входа, и нужно войти заново
+  - если пользователь не заходил 3 дня, сессия истекает
+  - сессия истекает через 3 дня после входа, и нужно войти заново
     Украденная cookie не живёт вечно, даже если её активно используют.
   - cекрет проверяем до удаления.
     Просроченную сессию удаляем только после того, как убедились, что секрет верный.
@@ -38,8 +38,8 @@ import { prisma } from '@/lib/db';
 
 const HOUR = 60 * 60 * 1000;
 const DAY = 24 * HOUR;
-const INACTIVITY_TIMEOUT = 7 * DAY;
-const ABSOLUTE_TIMEOUT = 30 * DAY;
+const INACTIVITY_TIMEOUT = DAY;
+const ABSOLUTE_TIMEOUT = 3 * DAY;
 const REFRESH_INTERVAL = HOUR;
 
 const ID_BYTES = 15; // 120 bits
@@ -137,13 +137,16 @@ export const validateSessionToken = async (token: string) => {
   };
 };
 
-export const createSession = async (userId: number) => {
+
+export type SessionMeta = { userAgent: string | null; ip: string | null };
+
+export const createSession = async (userId: number, meta: SessionMeta) => {
   await deleteExpiredSessions(Date.now());
 
   const { id, secretHash, token } = generateToken();
 
   const session = await prisma.session.create({
-    data: { id, secretHash, userId },
+    data: { id, secretHash, userId, ...meta },
   });
 
   return { token, expiresAt: getSessionExpiresAt(session) };
@@ -155,4 +158,26 @@ export const invalidateSession = async (sessionId: string, db: DbClient = prisma
 
 export const invalidateUserSessions = async (userId: number, db: DbClient = prisma) => {
   await db.session.deleteMany({ where: { userId } });
+};
+
+export const invalidateOtherUserSessions = async (userId: number, currentSessionId: string) => {
+  await prisma.session.deleteMany({ where: { userId, id: { not: currentSessionId } } });
+};
+
+export const invalidateUserSession = async (userId: number, sessionId: string) => {
+  await prisma.session.deleteMany({ where: { id: sessionId, userId } });
+};
+
+export const listUserSessions = (userId: number) => {
+  const now = Date.now();
+
+  return prisma.session.findMany({
+    where: {
+      userId,
+      lastVerifiedAt: { gt: new Date(now - INACTIVITY_TIMEOUT) },
+      createdAt: { gt: new Date(now - ABSOLUTE_TIMEOUT) },
+    },
+    orderBy: { lastVerifiedAt: 'desc' },
+    select: { id: true, userAgent: true, ip: true, createdAt: true, lastVerifiedAt: true },
+  });
 };

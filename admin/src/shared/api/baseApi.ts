@@ -8,7 +8,7 @@ import {
 
 import { getErrorCode } from './getErrorCode';
 
-export const SESSION_TAGS = ['MyAccessRequest', 'AccessRequests'] as const;
+export const SESSION_TAGS = ['MyAccessRequest', 'AccessRequests', 'Sessions'] as const;
 
 const SESSION_LOST_CODES = new Set(['UNAUTHORIZED', 'FORBIDDEN']);
 

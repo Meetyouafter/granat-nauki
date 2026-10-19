@@ -4,7 +4,7 @@ import { signin } from '@/lib/auth/auth';
 import { setSessionCookie } from '@/lib/auth/cookies';
 import { endCurrentSession } from '@/lib/auth/dal';
 import { AppError } from '@/lib/errors';
-import { getClientIp, parseBody, withErrorHandling } from '@/lib/http';
+import { getClientIp, getSessionMeta, parseBody, withErrorHandling } from '@/lib/http';
 import { signinLimiter } from '@/lib/rateLimit';
 
 export const POST = withErrorHandling(async (request) => {
@@ -17,7 +17,7 @@ export const POST = withErrorHandling(async (request) => {
   signinLimiter.byEmail.check(body.email);
 
   try {
-    const session = await signin(body);
+    const session = await signin(body, getSessionMeta(request));
     signinLimiter.byEmail.reset(body.email);
     await setSessionCookie(session.token, session.expiresAt);
 

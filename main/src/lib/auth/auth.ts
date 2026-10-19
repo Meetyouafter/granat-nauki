@@ -7,7 +7,7 @@ import { prisma } from '@/lib/db';
 import { AppError } from '@/lib/errors';
 
 import { hashPassword, verifyPassword } from './password';
-import { createSession, invalidateSession } from './session';
+import { createSession, invalidateSession, type SessionMeta } from './session';
 
 /*
 Сервис аутентификации. Про HTTP не знает: не читает Request, не ставит cookie, не собирает Response.
@@ -23,7 +23,7 @@ let dummyHash: Promise<string> | undefined;
 **/
 const getDummyHash = () => (dummyHash ??= hashPassword('timing-equalizer-password'));
 
-export const signin = async (input: SigninInput) => {
+export const signin = async (input: SigninInput, meta: SessionMeta) => {
   const { email, password } = input;
 
   const user = await prisma.user.findUnique({
@@ -36,10 +36,10 @@ export const signin = async (input: SigninInput) => {
 
   if (!user || !isPasswordOk) throw new AppError(API_STATUSES.INVALID_CREDENTIALS);
 
-  return createSession(user.id);
+  return createSession(user.id, meta);
 };
 
-export const signup = async (input: SignupInput) => {
+export const signup = async (input: SignupInput, meta: SessionMeta) => {
   const { email, password } = input;
 
   let user;
@@ -57,7 +57,7 @@ export const signup = async (input: SignupInput) => {
     throw error;
   }
 
-  return createSession(user.id);
+  return createSession(user.id, meta);
 };
 
 export const signout = (sessionId: string) => invalidateSession(sessionId);
