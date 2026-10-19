@@ -4,6 +4,12 @@ export const ACCESS_REQUEST_STATUSES = ['PENDING', 'APPROVED', 'REJECTED'] as co
 
 export type AccessRequestStatus = (typeof ACCESS_REQUEST_STATUSES)[number];
 
+export const ACCESS_REQUEST_DECISIONS = [
+  'APPROVED',
+  'REJECTED',
+] as const satisfies readonly AccessRequestStatus[];
+export type AccessRequestDecision = (typeof ACCESS_REQUEST_DECISIONS)[number];
+
 export type AccessRequestDto = { status: AccessRequestStatus; createdAt: string };
 export type MyAccessRequestResponse = {
   status: AccessRequestStatus | null; createdAt: string | null;
@@ -22,3 +28,5 @@ export type AccessRequestsResponse = {
   total: number;
   totalPages: number;
 };
+
+export type AccessRequestDecisionResponse = { accessRequest: AccessRequestListItem };

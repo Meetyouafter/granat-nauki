@@ -35,6 +35,16 @@ export const ACCESS_REQUEST_PENDING = {
   message: 'ACCESS_REQUEST_PENDING',
 } as const;
 
+export const ACCESS_REQUEST_NOT_FOUND = {
+  status: 404,
+  message: 'ACCESS_REQUEST_NOT_FOUND',
+} as const;
+
+export const ACCESS_REQUEST_ALREADY_DECIDED = {
+  status: 409,
+  message: 'ACCESS_REQUEST_ALREADY_DECIDED',
+} as const;
+
 export const INTERNAL_SERVER_ERROR = {
   status: 500,
   message: 'INTERNAL_SERVER_ERROR',
@@ -48,6 +58,8 @@ export const API_STATUSES = {
   CSRF,
   EMAIL_TAKEN,
   ACCESS_REQUEST_PENDING,
+  ACCESS_REQUEST_NOT_FOUND,
+  ACCESS_REQUEST_ALREADY_DECIDED,
   INTERNAL_SERVER_ERROR,
 } as const;
 

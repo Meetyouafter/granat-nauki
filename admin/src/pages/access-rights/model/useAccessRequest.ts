@@ -22,6 +22,14 @@ export const useAccessRequest = () => {
   const status = myAccessRequest?.status ?? null;
   const canRequest = status === null || status === 'REJECTED';
 
+  const handleRetry = () => {
+    void refetch();
+  };
+
+  const handleSignout = () => {
+    void signout();
+  };
+
   const submit = async () => {
     try {
       await createAccessRequest().unwrap();
@@ -40,7 +48,7 @@ export const useAccessRequest = () => {
     createErrorMessage: getErrorMessage(createError),
     isSigningOut,
     handleRequestAccess: submit,
-    handleSignout: signout,
-    handleRetry: refetch,
+    handleSignout,
+    handleRetry,
   };
 };

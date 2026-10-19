@@ -1,10 +1,17 @@
 import { useSearchParams } from 'react-router';
 
-import { accessRequestsQuerySchema, type AccessRequestsResponse } from '@granat/contracts';
-
 import {
+  type AccessRequestDecision,
+  accessRequestsQuerySchema,
+  type AccessRequestsResponse,
+} from '@granat/contracts';
+
+import { getErrorMessage } from '@shared/api';
+import {
+  useDecideAccessRequestMutation,
   useGetAllAccessRequestsQuery,
 } from '@shared/api/accessRequestApi';
+import { useToast } from '@shared/ui/Toast';
 
 import type { SortDirection, SortKey, StatusFilter } from './types';
 
@@ -23,6 +30,9 @@ export const useAccessRequest = () => {
     isFetching: isAccessRequestFetching,
     error: accessRequestError,
   } = useGetAllAccessRequestsQuery(query);
+  const [decide, { isLoading: isDeciding, originalArgs: decideArgs }]
+    = useDecideAccessRequestMutation();
+  const { notify } = useToast();
 
   const handleSort = (sort: SortKey, direction: SortDirection) => {
     urlParams.set('sort', sort);
@@ -46,6 +56,13 @@ export const useAccessRequest = () => {
     navigateTo(`?${urlParams.toString()}`);
   };
 
+  const handleDecide = (id: number, status: AccessRequestDecision) => {
+    void decide({ id, status }).then((result) => {
+      const message = getErrorMessage(result.error);
+      if (message) notify('error', message);
+    });
+  };
+
   return {
     accessRequests: data?.data ?? NO_REQUESTS,
     total: data?.total ?? 0,
@@ -59,5 +76,7 @@ export const useAccessRequest = () => {
     handleSort,
     handleStatusFilter,
     handlePageChange,
+    decidingId: isDeciding ? decideArgs?.id ?? null : null,
+    handleDecide,
   };
 };

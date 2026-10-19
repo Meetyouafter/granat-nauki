@@ -2,10 +2,12 @@ import 'server-only';
 
 import {
   ACCESS_REQUESTS_PAGE_SIZE,
+  type AccessRequestDecision,
   type AccessRequestsQuery,
   API_STATUSES,
 } from '@granat/contracts';
 
+import { invalidateUserSessions } from '@/lib/auth/session';
 import { prisma } from '@/lib/db';
 import { AppError } from '@/lib/errors';
 
@@ -58,5 +60,39 @@ export const createAccessRequest = (userId: number) =>
     return tx.accessRequest.create({
       data: { userId },
       select: accessRequestSelect,
+    });
+  });
+
+/*
+Решение по заявке принимается один раз: менять можно только PENDING.
+updateMany с status: 'PENDING' в where — защита от гонки: если два админа решают одну заявку
+одновременно, второй получит count 0 и ALREADY_DECIDED, а не перезапишет решение первого.
+При одобрении пользователь получает роль ADMIN, его сессии сбрасываются: войдёт заново уже админом.
+**/
+export const decideAccessRequest = (id: number, decision: AccessRequestDecision) =>
+  prisma.$transaction(async (tx) => {
+    const accessRequest = await tx.accessRequest.findUnique({
+      where: { id },
+      select: { userId: true, status: true },
+    });
+    if (!accessRequest) throw new AppError(API_STATUSES.ACCESS_REQUEST_NOT_FOUND);
+    if (accessRequest.status !== 'PENDING') {
+      throw new AppError(API_STATUSES.ACCESS_REQUEST_ALREADY_DECIDED);
+    }
+
+    const { count } = await tx.accessRequest.updateMany({
+      where: { id, status: 'PENDING' },
+      data: { status: decision },
+    });
+    if (count === 0) throw new AppError(API_STATUSES.ACCESS_REQUEST_ALREADY_DECIDED);
+
+    if (decision === 'APPROVED') {
+      await tx.user.update({ where: { id: accessRequest.userId }, data: { role: 'ADMIN' } });
+      await invalidateUserSessions(accessRequest.userId, tx);
+    }
+
+    return tx.accessRequest.findUniqueOrThrow({
+      where: { id },
+      select: accessRequestAdminSelect,
     });
   });

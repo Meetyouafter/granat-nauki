@@ -9,14 +9,9 @@ import { TEXTS } from '../model/texts';
 import { useAccessRequest } from '../model/useAccessRequest';
 import AccessRequestsToolbar from './AccessRequestsToolbar';
 import SortableHeader from './SortableHeader';
+import StatusCell from './StatusCell';
 
 import styles from './AccessRequestsPage.module.scss';
-
-const BADGE_TONES = {
-  PENDING: styles.badgePending,
-  REJECTED: styles.badgeRejected,
-  APPROVED: styles.badgeApproved,
-} as const;
 
 const AccessRequestsPage = () => {
   const {
@@ -32,6 +27,8 @@ const AccessRequestsPage = () => {
     handleSort,
     handleStatusFilter,
     handlePageChange,
+    decidingId,
+    handleDecide,
   } = useAccessRequest();
 
   if (isAccessRequestLoading) return <Loader />;
@@ -91,9 +88,12 @@ const AccessRequestsPage = () => {
                         </time>
                       </td>
                       <td>
-                        <span className={classNames(styles.badge, BADGE_TONES[request.status])}>
-                          {TEXTS.statuses[request.status]}
-                        </span>
+                        <StatusCell
+                          status={request.status}
+                          email={request.user.email}
+                          isDeciding={decidingId === request.id}
+                          onDecide={(decision) => { handleDecide(request.id, decision); }}
+                        />
                       </td>
                     </tr>
                   ))}

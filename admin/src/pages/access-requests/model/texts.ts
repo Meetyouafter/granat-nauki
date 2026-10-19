@@ -10,6 +10,11 @@ export const TEXTS = {
     APPROVED: 'Одобрен',
     REJECTED: 'Отклонён',
   },
+  decision: {
+    groupLabel: 'Решение по запросу',
+    APPROVED: 'Одобрить',
+    REJECTED: 'Отклонить',
+  },
   filters: {
     label: 'Фильтр по статусу',
     ALL: 'Все',

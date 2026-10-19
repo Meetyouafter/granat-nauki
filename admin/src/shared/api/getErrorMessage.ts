@@ -10,6 +10,8 @@ const ERROR_MESSAGES = {
   CSRF: 'Запрос отклонён. Обновите страницу и попробуйте снова',
   EMAIL_TAKEN: 'Эта почта уже зарегистрирована',
   ACCESS_REQUEST_PENDING: 'Запрос уже отправлен и ждёт решения',
+  ACCESS_REQUEST_NOT_FOUND: 'Запрос не найден. Обновите страницу',
+  ACCESS_REQUEST_ALREADY_DECIDED: 'По этому запросу уже приняли решение',
   INTERNAL_SERVER_ERROR: 'Не удалось выполнить запрос',
 } satisfies Record<ApiErrorCode, string>;
 

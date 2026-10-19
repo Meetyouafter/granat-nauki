@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type {
+  AccessRequestDecisionInput,
+  AccessRequestDecisionResponse,
   AccessRequestsQuery,
   AccessRequestsResponse,
   MyAccessRequestResponse,
@@ -9,7 +11,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const accessRequestApi = createApi({
   reducerPath: 'accessRequestApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api/access-requests' }),
-  tagTypes: ['MyAccessRequest'],
+  tagTypes: ['MyAccessRequest', 'AccessRequests'],
   endpoints: builder => ({
     getAllAccessRequests: builder.query<AccessRequestsResponse, AccessRequestsQuery>({
       query: params => ({
@@ -17,6 +19,7 @@ export const accessRequestApi = createApi({
         method: 'GET',
         params,
       }),
+      providesTags: ['AccessRequests'],
     }),
     getMyAccessRequest: builder.query<MyAccessRequestResponse, void>({
       query: () => ({
@@ -32,6 +35,17 @@ export const accessRequestApi = createApi({
       }),
       invalidatesTags: ['MyAccessRequest'],
     }),
+    decideAccessRequest: builder.mutation<
+      AccessRequestDecisionResponse,
+      AccessRequestDecisionInput & { id: number }
+    >({
+      query: ({ id, status }) => ({
+        url: `/${String(id)}`,
+        method: 'PATCH',
+        body: { status },
+      }),
+      invalidatesTags: ['AccessRequests'],
+    }),
   }),
 });
 
@@ -39,4 +53,5 @@ export const {
   useGetMyAccessRequestQuery,
   useCreateAccessRequestMutation,
   useGetAllAccessRequestsQuery,
+  useDecideAccessRequestMutation,
 } = accessRequestApi;

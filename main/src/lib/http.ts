@@ -44,7 +44,15 @@ export const parseQuery = <T extends z.ZodType>(request: Request, schema: T) => 
   return result.data;
 };
 
-type Handler = (request: Request) => Promise<Response>;
+export const parseParams = async <T extends z.ZodType>(params: Promise<unknown>, schema: T) => {
+  const result = schema.safeParse(await params);
+  if (!result.success) {
+    throw new AppError(API_STATUSES.VALIDATION_ERROR, z.flattenError(result.error).fieldErrors);
+  }
+  return result.data;
+};
+
+type Handler<Context = unknown> = (request: Request, context: Context) => Promise<Response>;
 
 const errorToResponse = (error: unknown) => {
   if (error instanceof AppError) {
@@ -78,11 +86,13 @@ const withNoStore = (response: Response) => {
   }
 };
 
-export const withErrorHandling = (handler: Handler): Handler => async (request) => {
+export const withErrorHandling = <Context = unknown>(
+  handler: Handler<Context>,
+): Handler<Context> => async (request, context) => {
   let response: Response;
   try {
     if (!SAFE_METHODS.includes(request.method)) assertSameOrigin(request);
-    response = await handler(request);
+    response = await handler(request, context);
   } catch (error) {
     response = errorToResponse(error);
   }
