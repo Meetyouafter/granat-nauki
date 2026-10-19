@@ -4,6 +4,7 @@ export const TEXTS = {
     email: 'Почта',
     createdAt: 'Дата запроса',
     status: 'Статус',
+    decidedBy: 'Решил',
   },
   statuses: {
     PENDING: 'На рассмотрении',

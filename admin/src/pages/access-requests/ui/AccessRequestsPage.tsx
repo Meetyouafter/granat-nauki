@@ -71,6 +71,7 @@ const AccessRequestsPage = () => {
                       onSort={handleSort}
                     />
                     <th scope="col">{TEXTS.columns.status}</th>
+                    <th scope="col">{TEXTS.columns.decidedBy}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,7 @@ const AccessRequestsPage = () => {
                           onDecide={(decision) => { handleDecide(request.id, decision); }}
                         />
                       </td>
+                      <td className={styles.decidedBy}>{request.decidedBy?.email}</td>
                     </tr>
                   ))}
                 </tbody>

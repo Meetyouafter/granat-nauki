@@ -69,6 +69,11 @@
   overflow-wrap: anywhere;
 }
 
+.decidedBy {
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+
 @media (width <= 640px) {
   .table {
     th,
