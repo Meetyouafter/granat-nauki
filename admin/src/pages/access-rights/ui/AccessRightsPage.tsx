@@ -58,7 +58,7 @@ const AccessRightsPage = () => {
             {status === 'REJECTED' ? TEXTS.retryButton : TEXTS.button}
           </Button>
         )}
-        <p className={styles.error} aria-live="polite">{createErrorMessage}</p>
+        {createErrorMessage && <p className={styles.error} role="alert">{createErrorMessage}</p>}
       </>
     );
   };

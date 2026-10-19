@@ -6,16 +6,14 @@ import type {
   AccessRequestsResponse,
   MyAccessRequestResponse,
 } from '@granat/contracts';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const accessRequestApi = createApi({
-  reducerPath: 'accessRequestApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/access-requests' }),
-  tagTypes: ['MyAccessRequest', 'AccessRequests'],
+import { baseApi } from './baseApi';
+
+export const accessRequestApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getAllAccessRequests: builder.query<AccessRequestsResponse, AccessRequestsQuery>({
       query: params => ({
-        url: '',
+        url: '/access-requests',
         method: 'GET',
         params,
       }),
@@ -23,14 +21,14 @@ export const accessRequestApi = createApi({
     }),
     getMyAccessRequest: builder.query<MyAccessRequestResponse, void>({
       query: () => ({
-        url: '/me',
+        url: '/access-requests/me',
         method: 'GET',
       }),
       providesTags: ['MyAccessRequest'],
     }),
     createAccessRequest: builder.mutation<MyAccessRequestResponse, void>({
       query: () => ({
-        url: '',
+        url: '/access-requests',
         method: 'POST',
       }),
       invalidatesTags: ['MyAccessRequest'],
@@ -40,7 +38,7 @@ export const accessRequestApi = createApi({
       AccessRequestDecisionInput & { id: number }
     >({
       query: ({ id, status }) => ({
-        url: `/${String(id)}`,
+        url: `/access-requests/${String(id)}`,
         method: 'PATCH',
         body: { status },
       }),

@@ -1,8 +1,9 @@
-import { getErrorMessage, useSignoutMutation } from '@shared/api';
 import {
+  getErrorMessage,
   useCreateAccessRequestMutation,
   useGetMyAccessRequestQuery,
-} from '@shared/api/accessRequestApi';
+  useSignoutMutation,
+} from '@shared/api';
 import { useSession } from '@shared/utils/useSession';
 
 export const useAccessRequest = () => {
@@ -38,6 +39,10 @@ export const useAccessRequest = () => {
     }
   };
 
+  const handleRequestAccess = () => {
+    void submit();
+  };
+
   return {
     session,
     status,
@@ -47,7 +52,7 @@ export const useAccessRequest = () => {
     isCreating,
     createErrorMessage: getErrorMessage(createError),
     isSigningOut,
-    handleRequestAccess: submit,
+    handleRequestAccess,
     handleSignout,
     handleRetry,
   };

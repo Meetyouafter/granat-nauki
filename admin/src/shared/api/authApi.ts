@@ -1,38 +1,36 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type { MeResponse, SigninInput, SignupInput } from '@granat/contracts';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/auth' }),
-  tagTypes: ['Me'],
+import { baseApi, SESSION_TAGS } from './baseApi';
+
+export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     signin: builder.mutation<undefined, SigninInput>({
       query: credentials => ({
-        url: '/signin',
+        url: '/auth/signin',
         method: 'POST',
         body: credentials,
       }),
-      invalidatesTags: ['Me'],
+      invalidatesTags: ['Me', ...SESSION_TAGS],
     }),
     signup: builder.mutation<undefined, SignupInput>({
       query: credentials => ({
-        url: '/signup',
+        url: '/auth/signup',
         method: 'POST',
         body: credentials,
       }),
-      invalidatesTags: ['Me'],
+      invalidatesTags: ['Me', ...SESSION_TAGS],
     }),
     signout: builder.mutation<undefined, void>({
       query: () => ({
-        url: '/signout',
+        url: '/auth/signout',
         method: 'POST',
       }),
       invalidatesTags: ['Me'],
     }),
     me: builder.query<MeResponse, void>({
       query: () => ({
-        url: '/me',
+        url: '/auth/me',
         method: 'GET',
       }),
       providesTags: ['Me'],

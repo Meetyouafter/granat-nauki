@@ -11,6 +11,8 @@ description: Code-level styling conventions for the granat-nauki admin panel (Vi
 
 New shared component → `shared/ui/<Name>/` with an `index.ts`. New API call → the matching `entities/<slice>`, never a page.
 
+There is one RTK Query api, `baseApi` (`shared/api/baseApi.ts`, `baseUrl: '/api'`); every API file adds endpoints with `baseApi.injectEndpoints`, never its own `createApi` (separate apis keep separate caches that tags can't reach, which leaked the previous user's data after re-login, fixed 2026-10-19). Data that belongs to the signed-in user gets a tag listed in `SESSION_TAGS`: `signin`/`signup` invalidate all of them, `signout` only `Me` (mounted queries would otherwise refetch into 401 before the redirect).
+
 Request/response types, validation limits, zod schemas and error codes come from `@granat/contracts` (a regular package, allowed in any layer), never re-declared here: `builder.query<MeResponse, void>`, `signupSchema.safeParse(form)`, `MIN_PASSWORD_LENGTH`. UI-only types (form state, view models) stay in the slice.
 
 Lint rules come from the shared `@granat/eslint-config` (same as `main`: semicolons, single quotes, typescript-eslint `strictTypeChecked`); `admin/eslint.config.js` only adds the FSD boundaries and `react-refresh`. Import order is enforced by `eslint-plugin-simple-import-sort`, groups separated by a blank line, alphabetical within each: side effects → react → other packages → one group per layer in FSD order (`@app @pages @widgets @features @entities @shared`) → relative paths → styles last. Don't hand-order imports — run `pnpm eslint . --fix`.

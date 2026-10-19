@@ -76,12 +76,15 @@
 .error {
   @include typography.text-xs;
 
-  margin-top: var(--space-2);
-  min-height: 1lh;
+  margin-top: var(--space-3);
   color: var(--color-error);
 }
 
 @media (width <= 480px) {
+  .email {
+    display: none;
+  }
+
   .topBar {
     padding-inline: var(--space-4);
   }

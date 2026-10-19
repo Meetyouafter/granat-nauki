@@ -6,11 +6,11 @@ import {
   type AccessRequestsResponse,
 } from '@granat/contracts';
 
-import { getErrorMessage } from '@shared/api';
 import {
+  getErrorMessage,
   useDecideAccessRequestMutation,
   useGetAllAccessRequestsQuery,
-} from '@shared/api/accessRequestApi';
+} from '@shared/api';
 import { useToast } from '@shared/ui/Toast';
 
 import type { SortDirection, SortKey, StatusFilter } from './types';
