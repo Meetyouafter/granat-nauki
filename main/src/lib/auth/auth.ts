@@ -1,12 +1,12 @@
 import 'server-only';
 
-import { API_STATUSES } from '@/constants';
+import { API_STATUSES, type SigninInput, type SignupInput } from '@granat/contracts';
+
 import { Prisma } from '@/generated/prisma/client';
 import { prisma } from '@/lib/db';
 import { AppError } from '@/lib/errors';
 
 import { hashPassword, verifyPassword } from './password';
-import type { SigninInput, SignupInput } from './schemas';
 import { createSession, invalidateSession } from './session';
 
 /*

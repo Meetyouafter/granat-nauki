@@ -1,6 +1,7 @@
 import 'server-only';
 
-import { API_STATUSES } from '@/constants';
+import { API_STATUSES } from '@granat/contracts';
+
 import { AppError } from '@/lib/errors';
 
 import { deleteSessionCookie, getSessionCookie, setSessionCookie } from './cookies';

@@ -1,4 +1,4 @@
-import type { ApiError } from '@/constants';
+import type { ApiError } from '@granat/contracts';
 
 export class AppError extends Error {
   readonly code: ApiError['message'];

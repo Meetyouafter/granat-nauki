@@ -1,4 +1,5 @@
 import { FORM_TEXTS } from '@shared/config/texts';
+import { PasswordInput } from '@shared/ui/PasswordInput';
 
 import useForm from '../model/useForm';
 
@@ -33,12 +34,12 @@ const SignInPage = () => {
         </label>
         <label className={styles.field}>
           <span className={styles.label}>{FORM_TEXTS.password.label}</span>
-          <input
-            type="password"
+          <PasswordInput
             className={styles.input}
             value={password}
             onChange={handlePasswordChange}
             placeholder={FORM_TEXTS.password.placeholder}
+            autoComplete="current-password"
           />
           <p className={styles.error} aria-live="polite">{errors.password}</p>
         </label>

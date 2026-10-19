@@ -15,6 +15,9 @@ services:
       - /repo/main/.next
     env_file:
       - ./main/.env
+    depends_on:
+      db:
+        condition: service_healthy
 
   admin:
     container_name: granat-nauki_admin
@@ -31,6 +34,8 @@ services:
       - /repo/packages/contracts/node_modules
     environment:
       - API_PROXY_TARGET=http://main:3000
+    depends_on:
+      - main
 
   db:
     container_name: granat-nauki_db
@@ -50,8 +55,6 @@ services:
       - POSTGRES_DB=${POSTGRES_DATABASE}
     volumes:
       - db-data:/var/lib/postgresql
-    networks:
-      - app-network
 
 # логи
   dozzle:
@@ -61,12 +64,6 @@ services:
       - "8888:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - app-network
 
 volumes:
   db-data:
-
-networks:
-  app-network:
-    driver: bridge

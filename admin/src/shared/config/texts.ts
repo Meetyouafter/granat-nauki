@@ -26,4 +26,9 @@ export const FORM_TEXTS = {
     lengthError: `Пароль не должен быть короче ${MIN_PASSWORD_LENGTH} символов`,
     maxLengthError: `Пароль не должен быть длиннее ${MAX_PASSWORD_LENGTH} символов`,
   },
+  passwordConfirm: {
+    label: 'Повторите пароль',
+    emptyError: 'Повторите пароль',
+    matchError: 'Пароли не совпадают',
+  },
 } as const;

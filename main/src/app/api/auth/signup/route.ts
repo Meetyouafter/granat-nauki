@@ -1,6 +1,7 @@
+import { signupSchema } from '@granat/contracts';
+
 import { signup } from '@/lib/auth/auth';
 import { setSessionCookie } from '@/lib/auth/cookies';
-import { signupSchema } from '@/lib/auth/schemas';
 import { parseBody, withErrorHandling } from '@/lib/http';
 
 export const POST = withErrorHandling(async (request) => {

@@ -1,71 +1,105 @@
 import { type ChangeEvent, type SubmitEvent, useState } from 'react';
-import { useNavigate } from 'react-router';
 
-import { EMAIL_REGEXP, MIN_PASSWORD_LENGTH } from '@granat/contracts';
+import { MIN_PASSWORD_LENGTH, type SignupInput, signupSchema } from '@granat/contracts';
 
-import { paths } from '@shared/config';
-import { FORM_TEXTS } from '@shared/config/texts';
+import { getErrorMessage, useSignupMutation } from '@shared/api';
+import { FORM_TEXTS } from '@shared/config';
 
-const getEmailError = (email: string) => {
-  if (!email.length) {
-    return FORM_TEXTS.email.emptyError;
-  } else if (!EMAIL_REGEXP.test(email)) {
-    return FORM_TEXTS.email.matchError;
+interface FormValues extends SignupInput {
+  passwordConfirm: string;
+}
+
+type FormErrors = Record<keyof FormValues, string | null>;
+
+const validate = ({ passwordConfirm, ...form }: FormValues) => {
+  const result = signupSchema.safeParse(form);
+  const errors: FormErrors = { email: null, password: null, passwordConfirm: null };
+
+  if (!result.success) {
+    for (const { path } of result.error.issues) {
+      if (path[0] === 'email') errors.email = FORM_TEXTS.email.matchError;
+      if (path[0] === 'password') {
+        errors.password = form.password.length < MIN_PASSWORD_LENGTH
+          ? FORM_TEXTS.password.lengthError
+          : FORM_TEXTS.password.maxLengthError;
+      }
+    }
   }
-  return null;
-};
+  if (!form.email.trim()) errors.email = FORM_TEXTS.email.emptyError;
+  if (!form.password) errors.password = FORM_TEXTS.password.emptyError;
 
-const getPasswordError = (password: string) => {
-  if (!password.length) {
-    return FORM_TEXTS.password.emptyError;
-  } else if (password.length < MIN_PASSWORD_LENGTH) {
-    return FORM_TEXTS.password.lengthError;
+  if (!passwordConfirm) {
+    errors.passwordConfirm = FORM_TEXTS.passwordConfirm.emptyError;
+  } else if (passwordConfirm !== form.password) {
+    errors.passwordConfirm = FORM_TEXTS.passwordConfirm.matchError;
   }
-  return null;
+
+  const isValid = result.success && Object.values(errors).every(error => error === null);
+
+  return { errors, data: isValid ? result.data : null };
 };
 
 const useForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<Record<string, string | null>>({
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [errors, setErrors] = useState<FormErrors>({
     email: null,
     password: null,
+    passwordConfirm: null,
   });
 
-  const navigate = useNavigate();
+  const [signup, { isLoading, error, reset }] = useSignupMutation();
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setErrors(prev => ({ ...prev, email: null }));
+    reset();
     setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setErrors(prev => ({ ...prev, password: null }));
+    setErrors(prev => ({ ...prev, password: null, passwordConfirm: null }));
+    reset();
     setPassword(event.target.value);
+  };
+
+  const handlePasswordConfirmChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setErrors(prev => ({ ...prev, passwordConfirm: null }));
+    reset();
+    setPasswordConfirm(event.target.value);
+  };
+
+  const submit = async (credentials: SignupInput) => {
+    try {
+      await signup(credentials).unwrap();
+    } catch {
+      // ошибку показывает commonError из состояния мутации
+    }
   };
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const emailError = getEmailError(email);
-    const passwordError = getPasswordError(password);
+    const { errors: validationErrors, data } = validate({ email, password, passwordConfirm });
 
-    if (emailError || passwordError) {
-      setErrors(prev => ({ ...prev, email: emailError, password: passwordError }));
+    if (!data) {
+      setErrors(validationErrors);
       return;
     }
 
-    if (Object.values(errors).every(error => error === null)) {
-      void navigate(paths.home);
-    }
+    void submit(data);
   };
 
   return {
+    isLoading,
     email,
     password,
+    passwordConfirm,
     errors,
+    commonError: getErrorMessage(error),
     handleEmailChange,
     handlePasswordChange,
+    handlePasswordConfirmChange,
     handleSubmit,
   };
 };

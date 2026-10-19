@@ -1,5 +1,6 @@
+import { signupSchema } from '@granat/contracts';
+
 import { hashPassword } from '@/lib/auth/password';
-import { signupSchema } from '@/lib/auth/schemas';
 import { invalidateUserSessions } from '@/lib/auth/session';
 import { prisma } from '@/lib/db';
 

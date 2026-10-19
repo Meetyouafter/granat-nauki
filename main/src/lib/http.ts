@@ -1,8 +1,8 @@
 import 'server-only';
 
+import { API_STATUSES } from '@granat/contracts';
 import { z } from 'zod';
 
-import { API_STATUSES } from '@/constants';
 import { AppError } from '@/lib/errors';
 
 const SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS'];
