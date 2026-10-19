@@ -1,6 +1,8 @@
-import { API_STATUSES, type ApiErrorCode } from '@granat/contracts';
+import type { ApiErrorCode } from '@granat/contracts';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+import { getErrorCode } from './getErrorCode';
 
 const ERROR_MESSAGES = {
   VALIDATION_ERROR: 'Неверный формат. Проверьте введённые данные',
@@ -17,9 +19,6 @@ const ERROR_MESSAGES = {
 
 const UNKNOWN_ERROR = 'Что-то пошло не так. Попробуйте ещё раз';
 
-const isApiErrorCode = (value: unknown): value is ApiErrorCode =>
-  typeof value === 'string' && value in API_STATUSES;
-
 export const getErrorMessage = (
   error: FetchBaseQueryError | SerializedError | undefined,
 ): string | null => {
@@ -33,15 +32,6 @@ export const getErrorMessage = (
     return ERROR_MESSAGES.INTERNAL_SERVER_ERROR;
   }
 
-  const { data } = error;
-
-  if (
-    typeof data === 'object'
-    && data !== null
-    && 'error' in data
-    && isApiErrorCode(data.error)
-  ) {
-    return ERROR_MESSAGES[data.error];
-  }
-  return UNKNOWN_ERROR;
+  const code = getErrorCode(error);
+  return code ? ERROR_MESSAGES[code] : UNKNOWN_ERROR;
 };

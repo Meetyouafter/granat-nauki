@@ -63,12 +63,6 @@ export const createAccessRequest = (userId: number) =>
     });
   });
 
-/*
-Решение по заявке принимается один раз: менять можно только PENDING.
-updateMany с status: 'PENDING' в where — защита от гонки: если два админа решают одну заявку
-одновременно, второй получит count 0 и ALREADY_DECIDED, а не перезапишет решение первого.
-При одобрении пользователь получает роль ADMIN, его сессии сбрасываются: войдёт заново уже админом.
-**/
 export const decideAccessRequest = (id: number, decision: AccessRequestDecision) =>
   prisma.$transaction(async (tx) => {
     const accessRequest = await tx.accessRequest.findUnique({
