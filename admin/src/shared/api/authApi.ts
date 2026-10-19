@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import type { MeResponse, SigninInput, SignupInput } from '@granat/contracts';
+import type {
+  ChangePasswordInput,
+  MeResponse,
+  SigninInput,
+  SignupInput,
+} from '@granat/contracts';
 
 import { baseApi, SESSION_TAGS } from './baseApi';
 
@@ -28,6 +33,14 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
+    changePassword: builder.mutation<undefined, ChangePasswordInput>({
+      query: body => ({
+        url: '/auth/change-password',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Sessions'],
+    }),
     me: builder.query<MeResponse, void>({
       query: () => ({
         url: '/auth/me',
@@ -42,5 +55,6 @@ export const {
   useSigninMutation,
   useSignupMutation,
   useSignoutMutation,
+  useChangePasswordMutation,
   useMeQuery,
 } = authApi;

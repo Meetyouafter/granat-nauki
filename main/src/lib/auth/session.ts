@@ -137,7 +137,6 @@ export const validateSessionToken = async (token: string) => {
   };
 };
 
-
 export type SessionMeta = { userAgent: string | null; ip: string | null };
 
 export const createSession = async (userId: number, meta: SessionMeta) => {

@@ -2,9 +2,12 @@
 @use '@shared/styles/typography';
 
 .block {
+  @include mixins.surface;
+
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  padding: var(--space-6);
 }
 
 .header {
@@ -100,6 +103,12 @@
   overflow: hidden;
   white-space: nowrap;
   clip-path: inset(50%);
+}
+
+@media (width <= 480px) {
+  .block {
+    padding: var(--space-5);
+  }
 }
 
 @media (width <= 640px) {

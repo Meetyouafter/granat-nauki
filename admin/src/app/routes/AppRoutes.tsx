@@ -6,6 +6,7 @@ import { FaqPage } from '@pages/faq';
 import { HomePage } from '@pages/home';
 import { ReviewPage } from '@pages/review';
 import { ReviewsPage } from '@pages/reviews';
+import { SettingsPage } from '@pages/settings';
 import { SignInPage } from '@pages/signin';
 import { SignUpPage } from '@pages/signup';
 
@@ -33,6 +34,7 @@ const AppRoutes = () => (
         <Route path={paths.faq} element={<FaqPage />} />
         <Route path={paths.reviews} element={<ReviewsPage />} />
         <Route path={`${paths.reviews}/:id`} element={<ReviewPage />} />
+        <Route path={paths.settings} element={<SettingsPage />} />
       </Route>
     </Route>
   </Routes>

@@ -5,4 +5,5 @@ export const NAV_ITEMS = [
   { label: 'FAQ', to: paths.faq },
   { label: 'Отзывы', to: paths.reviews },
   { label: 'Запросы на доступ', to: paths.accessRequests },
+  { label: 'Настройки', to: paths.settings },
 ];

@@ -61,3 +61,8 @@ export const signinLimiter = {
 };
 
 export const signupLimiter = createLimiter('signup:ip', { limit: 5, windowMs: 15 * MINUTE });
+
+export const changePasswordLimiter = createLimiter('change-password:user', {
+  limit: 5,
+  windowMs: 15 * MINUTE,
+});

@@ -6,4 +6,5 @@ export const paths = {
   reviews: '/reviews',
   accessRights: '/accessRights',
   accessRequests: '/accessRequests',
+  settings: '/settings',
 } as const;
