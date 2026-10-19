@@ -19,6 +19,7 @@ const accessRequestAdminSelect = {
   createdAt: true,
   updatedAt: true,
   user: { select: { id: true, email: true } },
+  decidedBy: { select: { id: true, email: true } },
 } as const;
 
 export const getAllAccessRequests = async (query: AccessRequestsQuery) => {
@@ -63,7 +64,11 @@ export const createAccessRequest = (userId: number) =>
     });
   });
 
-export const decideAccessRequest = (id: number, decision: AccessRequestDecision) =>
+export const decideAccessRequest = (
+  id: number,
+  decision: AccessRequestDecision,
+  decidedById: number,
+) =>
   prisma.$transaction(async (tx) => {
     const accessRequest = await tx.accessRequest.findUnique({
       where: { id },
@@ -76,7 +81,7 @@ export const decideAccessRequest = (id: number, decision: AccessRequestDecision)
 
     const { count } = await tx.accessRequest.updateMany({
       where: { id, status: 'PENDING' },
-      data: { status: decision },
+      data: { status: decision, decidedById },
     });
     if (count === 0) throw new AppError(API_STATUSES.ACCESS_REQUEST_ALREADY_DECIDED);
 

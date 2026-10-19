@@ -35,8 +35,9 @@ model User {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
-  sessions       Session[]
-  accessRequests AccessRequest[]
+  sessions              Session[]
+  accessRequests        AccessRequest[] @relation("AccessRequestAuthor")
+  decidedAccessRequests AccessRequest[] @relation("AccessRequestDecider")
 
   @@map("users")
 }
@@ -55,15 +56,18 @@ model Session {
 }
 
 model AccessRequest {
-  id        Int                 @id @default(autoincrement())
-  userId    Int                 @map("user_id")
-  status    AccessRequestStatus @default(PENDING)
-  createdAt DateTime            @default(now()) @map("created_at")
-  updatedAt DateTime            @updatedAt @map("updated_at")
+  id          Int                 @id @default(autoincrement())
+  userId      Int                 @map("user_id")
+  status      AccessRequestStatus @default(PENDING)
+  decidedById Int?                @map("decided_by_id")
+  createdAt   DateTime            @default(now()) @map("created_at")
+  updatedAt   DateTime            @updatedAt @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User  @relation("AccessRequestAuthor", fields: [userId], references: [id], onDelete: Cascade)
+  decidedBy User? @relation("AccessRequestDecider", fields: [decidedById], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([status])
+  @@index([decidedById])
   @@map("access_requests")
 }

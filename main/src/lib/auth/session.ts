@@ -30,6 +30,10 @@ import { prisma } from '@/lib/db';
   - secretHash наружу не отдаём. В результате только id сессии, expiresAt и пользователь.
   - Роль читается из базы при каждой проверке.
     Если админ отзовёт права, это сработает на следующем же запросе.
+
+  Просроченные сессии удаляются в validateSessionToken, но только если их cookie ещё приходит.
+  Брошенные (вкладку закрыли, cookie стёрли) остались бы навсегда, поэтому чистим при каждом входе.
+  Условие то же, что в getSessionExpiresAt: любой из двух сроков истёк.
 **/
 
 const HOUR = 60 * 60 * 1000;
@@ -84,6 +88,17 @@ const getSessionExpiresAt = (
   session.createdAt.getTime() + ABSOLUTE_TIMEOUT,
 ));
 
+const deleteExpiredSessions = async (now: number) => {
+  await prisma.session.deleteMany({
+    where: {
+      OR: [
+        { lastVerifiedAt: { lte: new Date(now - INACTIVITY_TIMEOUT) } },
+        { createdAt: { lte: new Date(now - ABSOLUTE_TIMEOUT) } },
+      ],
+    },
+  });
+};
+
 export const validateSessionToken = async (token: string) => {
   const parsed = parseToken(token);
   if (!parsed) return null;
@@ -123,6 +138,8 @@ export const validateSessionToken = async (token: string) => {
 };
 
 export const createSession = async (userId: number) => {
+  await deleteExpiredSessions(Date.now());
+
   const { id, secretHash, token } = generateToken();
 
   const session = await prisma.session.create({

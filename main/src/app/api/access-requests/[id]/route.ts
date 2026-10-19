@@ -10,11 +10,11 @@ import { parseBody, parseParams, withErrorHandling } from '@/lib/http';
 
 export const PATCH = withErrorHandling(
   async (request, { params }: RouteContext<'/api/access-requests/[id]'>) => {
-    await requireAdmin();
+    const { user } = await requireAdmin();
     const { id } = await parseParams(params, accessRequestIdParamsSchema);
     const { status } = await parseBody(request, accessRequestDecisionSchema);
 
-    const accessRequest = await decideAccessRequest(id, status);
+    const accessRequest = await decideAccessRequest(id, status, user.id);
 
     return Response.json({
       accessRequest: {

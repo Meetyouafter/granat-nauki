@@ -21,6 +21,7 @@ export type AccessRequestListItem = {
   createdAt: string;
   updatedAt: string;
   user: { id: number; email: string };
+  decidedBy: { id: number; email: string } | null;
 };
 export type AccessRequestsResponse = {
   data: AccessRequestListItem[];
