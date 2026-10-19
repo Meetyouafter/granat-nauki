@@ -69,7 +69,9 @@ export const base = ({ tsconfigRootDir, aliasGroups = [] }) => [
         allowNever: false,
         allowArray: false,
       }],
-      // `() => { return x; }` → `() => x`
+      '@typescript-eslint/no-misused-promises': ['error', {
+        checksVoidReturn: { attributes: false },
+      }],
       'arrow-body-style': ['error', 'as-needed'],
       'no-duplicate-imports': 'error',
       'simple-import-sort/imports': ['error', { groups: importGroups(aliasGroups) }],

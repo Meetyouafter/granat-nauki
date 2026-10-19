@@ -1,84 +1,131 @@
 @use '@shared/styles/typography';
 
-.main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--space-6);
-}
-
-.card {
+.page {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 420px;
-  padding: var(--space-7);
-  text-align: center;
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-md);
+  min-height: 100vh;
 }
 
-.icon {
-  @include typography.text-md;
-
+.topBar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+}
+
+.brand {
+  @include typography.text-sm;
+  @include typography.semibold;
+
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.email {
+  @include typography.text-xs;
+
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  text-overflow: ellipsis;
+}
+
+.signout {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  transition: color var(--duration-fast) var(--ease-standard);
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus);
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-8) var(--space-6);
+  margin-inline: auto;
+}
+
+.badge {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  margin-bottom: var(--space-3);
   border-radius: var(--radius-pill);
-  width: 56px;
-  height: 56px;
-  color: var(--color-accent);
-  background-color: var(--color-bg);
+  padding: 2px var(--space-2);
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+}
+
+.badgePending {
+  color: var(--color-processing);
+  background-color: var(--color-processing-bg);
+}
+
+.badgeRejected {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+.badgeApproved {
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
 }
 
 .title {
   @include typography.text-lg;
   @include typography.semibold;
 
+  margin-bottom: var(--space-2);
+  text-wrap: balance;
   color: var(--color-text);
 }
 
-.description {
+.lead {
   @include typography.text-sm;
 
+  margin-bottom: var(--space-6);
+  text-wrap: pretty;
   color: var(--color-text-secondary);
 }
 
-.account {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-}
-
-.accountLabel {
+.request {
   @include typography.text-xs;
   @include typography.semibold;
 
-  color: var(--color-text-secondary);
-}
-
-.accountValue {
-  @include typography.text-sm;
-
-  color: var(--color-text);
-  overflow-wrap: anywhere;
-}
-
-.submit {
-  @include typography.text-sm;
-  @include typography.semibold;
-
   border-radius: var(--radius-md);
-  width: 100%;
   padding: var(--space-3) var(--space-5);
   transition: background-color var(--duration-fast) var(--ease-standard);
   color: var(--color-surface);
@@ -91,5 +138,48 @@
   &:focus-visible {
     box-shadow: var(--shadow-focus);
     outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.secondary {
+  @include typography.text-xs;
+  @include typography.semibold;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+  color: var(--color-text);
+
+  &:hover {
+    border-color: var(--color-text-secondary);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus);
+    outline: none;
+  }
+}
+
+.error {
+  @include typography.text-xs;
+
+  margin-top: var(--space-2);
+  min-height: 1lh;
+  color: var(--color-error);
+}
+
+@media (width <= 480px) {
+  .topBar {
+    padding-inline: var(--space-4);
+  }
+
+  .main {
+    padding: var(--space-7) var(--space-4);
   }
 }

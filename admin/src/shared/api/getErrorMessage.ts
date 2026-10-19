@@ -9,6 +9,7 @@ const ERROR_MESSAGES = {
   FORBIDDEN: 'Нет доступа',
   CSRF: 'Запрос отклонён. Обновите страницу и попробуйте снова',
   EMAIL_TAKEN: 'Эта почта уже зарегистрирована',
+  ACCESS_REQUEST_PENDING: 'Запрос уже отправлен и ждёт решения',
   INTERNAL_SERVER_ERROR: 'Не удалось выполнить запрос',
 } satisfies Record<ApiErrorCode, string>;
 

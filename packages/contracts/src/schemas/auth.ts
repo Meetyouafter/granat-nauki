@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-import { MAX_EMAIL_LENGTH, MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH } from './limits';
-
-const email = z.string().trim().toLowerCase().max(MAX_EMAIL_LENGTH).pipe(z.email());
+import { MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH } from '../limits';
+import { email } from './email';
 
 export const signinSchema = z.object({
   email,

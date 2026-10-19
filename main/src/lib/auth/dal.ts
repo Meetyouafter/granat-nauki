@@ -5,7 +5,7 @@ import { API_STATUSES } from '@granat/contracts';
 import { AppError } from '@/lib/errors';
 
 import { deleteSessionCookie, getSessionCookie, setSessionCookie } from './cookies';
-import { validateSessionToken } from './session';
+import { invalidateSession, validateSessionToken } from './session';
 
 /*
 Три уровня функций:
@@ -40,6 +40,11 @@ export const getCurrentSession = async () => {
 
   await setSessionCookie(token, current.session.expiresAt);
   return current;
+};
+
+export const endCurrentSession = async () => {
+  const current = await getCurrentSession();
+  if (current) await invalidateSession(current.session.id);
 };
 
 export const requireUser = async () => {

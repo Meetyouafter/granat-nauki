@@ -29,6 +29,12 @@ export const EMAIL_TAKEN = {
   message: 'EMAIL_TAKEN',
 } as const;
 
+// у пользователя уже есть запрос доступа на рассмотрении
+export const ACCESS_REQUEST_PENDING = {
+  status: 409,
+  message: 'ACCESS_REQUEST_PENDING',
+} as const;
+
 export const INTERNAL_SERVER_ERROR = {
   status: 500,
   message: 'INTERNAL_SERVER_ERROR',
@@ -41,6 +47,7 @@ export const API_STATUSES = {
   FORBIDDEN,
   CSRF,
   EMAIL_TAKEN,
+  ACCESS_REQUEST_PENDING,
   INTERNAL_SERVER_ERROR,
 } as const;
 

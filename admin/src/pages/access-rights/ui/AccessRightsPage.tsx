@@ -1,55 +1,93 @@
-import { useState } from 'react';
+import classNames from 'classnames';
 
-import { useSession } from '@shared/utils/useSession';
+import { Loader } from '@shared/ui/Loader';
+
+import { TEXTS } from '../model/texts';
+import { useAccessRequest } from '../model/useAccessRequest';
 
 import styles from './AccessRightsPage.module.scss';
 
-const TEXTS = {
-  title: 'Нет доступа к админке',
-  description: 'Ваш аккаунт создан, но редактировать контент сайта может только администратор. '
-    + 'Отправьте запрос, и после одобрения вам откроются все разделы.',
-  account: 'Аккаунт',
-  button: 'Запросить доступ',
-  pendingTitle: 'Запрос отправлен',
-  pendingDescription: 'Администратор рассмотрит его в ближайшее время. '
-    + 'После одобрения войдите в админку заново.',
+const BADGE_TONES = {
+  none: undefined,
+  PENDING: styles.badgePending,
+  REJECTED: styles.badgeRejected,
+  APPROVED: styles.badgeApproved,
 } as const;
 
-// TODO: заменить на статус запроса из API (POST/GET /api/access-requests)
-type RequestState = 'idle' | 'pending';
-
 const AccessRightsPage = () => {
-  const session = useSession();
-  const [requestState, setRequestState] = useState<RequestState>('idle');
+  const {
+    session,
+    status,
+    canRequest,
+    isAccessRequestLoading,
+    hasLoadError,
+    isCreating,
+    createErrorMessage,
+    isSigningOut,
+    handleRequestAccess,
+    handleSignout,
+    handleRetry,
+  } = useAccessRequest();
 
-  const email = session.status === 'authenticated' ? session.user.email : null;
-  const isPending = requestState === 'pending';
+  const state = status ?? 'none';
+  const texts = TEXTS.states[state];
 
-  const handleRequest = () => {
-    setRequestState('pending');
+  const renderContent = () => {
+    if (isAccessRequestLoading) return <Loader />;
+
+    if (hasLoadError) {
+      return (
+        <>
+          <h1 className={styles.title}>{TEXTS.loadError.title}</h1>
+          <p className={styles.lead}>{TEXTS.loadError.lead}</p>
+          <button type="button" className={styles.secondary} onClick={handleRetry}>
+            {TEXTS.loadError.button}
+          </button>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <span className={classNames(styles.badge, BADGE_TONES[state])}>{texts.badge}</span>
+        <h1 className={styles.title}>{texts.title}</h1>
+        <p className={styles.lead} aria-live="polite">{texts.lead}</p>
+        {canRequest && (
+          <button
+            type="button"
+            className={styles.request}
+            onClick={handleRequestAccess}
+            disabled={isCreating}
+          >
+            {status === 'REJECTED' ? TEXTS.retryButton : TEXTS.button}
+          </button>
+        )}
+        <p className={styles.error} aria-live="polite">{createErrorMessage}</p>
+      </>
+    );
   };
 
   return (
-    <main className={styles.main}>
-      <section className={styles.card}>
-        <span className={styles.icon} aria-hidden="true">{isPending ? '✓' : '🔒'}</span>
-        <h1 className={styles.title}>{isPending ? TEXTS.pendingTitle : TEXTS.title}</h1>
-        <p className={styles.description}>
-          {isPending ? TEXTS.pendingDescription : TEXTS.description}
-        </p>
-        {email && (
-          <dl className={styles.account}>
-            <dt className={styles.accountLabel}>{TEXTS.account}</dt>
-            <dd className={styles.accountValue}>{email}</dd>
-          </dl>
-        )}
-        {!isPending && (
-          <button type="button" className={styles.submit} onClick={handleRequest}>
-            {TEXTS.button}
+    <div className={styles.page}>
+      <header className={styles.topBar}>
+        <span className={styles.brand}>{TEXTS.brand}</span>
+        <div className={styles.account}>
+          {session.status === 'authenticated' && (
+            <span className={styles.email}>{session.user.email}</span>
+          )}
+          <button
+            type="button"
+            className={styles.signout}
+            onClick={handleSignout}
+            disabled={isSigningOut}
+          >
+            {TEXTS.signout}
           </button>
-        )}
-      </section>
-    </main>
+        </div>
+      </header>
+
+      <main className={styles.main}>{renderContent()}</main>
+    </div>
   );
 };
 
