@@ -1,11 +1,12 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
+import path from 'node:path';
+
 const nextConfig: NextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: path.join(__dirname, '..'),
   reactCompiler: true,
-  env: {
-    PORT: '1111',
-  },
 };
 
 const withNextIntl = createNextIntlPlugin();

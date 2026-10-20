@@ -1,0 +1,57 @@
+# Prod: образы без исходников, миграции перед стартом, база не открыта наружу.
+# Запуск: docker compose -f docker-compose.prod.yaml up -d --build
+name: granat-nauki-prod
+
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - db-data:/var/lib/postgresql
+
+  # выполняет migrate deploy и завершается; main стартует только после успеха
+  migrations:
+    build: { context: ., dockerfile: main/Dockerfile, target: migrations }
+    env_file: ./main/.env
+    depends_on:
+      db: { condition: service_healthy }
+
+  main:
+    build:
+      context: .
+      dockerfile: main/Dockerfile
+      target: runner
+    restart:
+      unless-stopped
+    env_file:
+      - ./main/.env
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+
+  admin:
+    build:
+      context: .
+      dockerfile: admin/Dockerfile
+      target: runner
+    restart:
+      unless-stopped
+    ports:
+      - "127.0.0.1:3001:80"
+    depends_on:
+      - main
+
+volumes:
+  db-data:
