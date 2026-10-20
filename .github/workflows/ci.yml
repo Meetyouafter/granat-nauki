@@ -88,33 +88,33 @@ jobs:
   docker:
     runs-on: ubuntu-24.04
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: main
-            dockerfile: main/Dockerfile
-            target: runner
-          - name: migrations
-            dockerfile: main/Dockerfile
-            target: migrations
-          - name: admin
-            dockerfile: admin/Dockerfile
-            target: runner
-
-    name: docker (${{ matrix.name }})
-
     steps:
       - uses: actions/checkout@v7
 
       - uses: docker/setup-buildx-action@v4
 
-      - name: Build ${{ matrix.target }} from ${{ matrix.dockerfile }}
+      - name: Build main runner
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: ${{ matrix.dockerfile }}
-          target: ${{ matrix.target }}
-          push: false
-          cache-from: type=gha,scope=${{ matrix.name }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
+          file: main/Dockerfile
+          target: runner
+          cache-from: type=gha,scope=main
+          cache-to: type=gha,mode=max,scope=main
+
+      - name: Build main migrations
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: main/Dockerfile
+          target: migrations
+          cache-from: type=gha,scope=main
+
+      - name: Build admin runner
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: admin/Dockerfile
+          target: runner
+          cache-from: type=gha,scope=admin
+          cache-to: type=gha,mode=max,scope=admin
