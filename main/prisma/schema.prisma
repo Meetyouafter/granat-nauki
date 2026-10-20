@@ -30,6 +30,7 @@ enum AccessRequestStatus {
 model User {
   id           Int      @id @default(autoincrement())
   email        String   @unique
+  hash        String   @unique
   passwordHash String   @map("password_hash")
   role         Role     @default(USER)
   createdAt    DateTime @default(now()) @map("created_at")
