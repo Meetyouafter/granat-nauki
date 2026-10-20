@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: How to commit and push in granat-nauki when the user explicitly asks ("закоммить", "запушь", "commit", "push") — full lint + typecheck + build of both packages first, what to stage and never stage, best-practice commit messages, pushing to main. Use only on an explicit request in the current message; never commit on your own initiative.
+description: How to commit and push in granat-nauki when the user explicitly asks ("закоммить", "запушь", "commit", "push") — full lint + typecheck + build of both packages first, what to stage and never stage, best-practice commit messages, pushing to develop (never to main). Use only on an explicit request in the current message; never commit on your own initiative.
 ---
 
 # Committing in granat-nauki
@@ -69,7 +69,13 @@ Show the message to the user in the report.
 
 ## 4. Push
 
-Only if asked ("запушь", "закоммить и запушь"): `git push` to the current branch's upstream (`origin/main`). The user works directly on `main` — no branches or PRs unless asked. Push only after the gate in step 1 passed and the commit succeeded.
+Only if asked ("запушь", "закоммить и запушь"): `git push` to the current branch's upstream. Push only after the gate in step 1 passed and the commit succeeded.
+
+Branches: work happens on `develop`; `main` is the stable branch deploys come from and is protected on GitHub (a ruleset requires a PR with green `check` and `migrations` jobs, merge commit only, no direct or force push). So:
+
+- Commit and push on `develop` (`origin/develop`). If the current branch is `main`, stop and tell the user instead of committing.
+- Never push to `main` and never merge into it locally. Changes reach `main` only through a PR `develop → main`, which the user opens and merges.
+- Other branches only when the user asks for one.
 
 ## 5. Report
 

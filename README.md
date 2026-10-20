@@ -1,5 +1,7 @@
 # Гранат науки
 
+[![CI](https://github.com/Meetyouafter/granat-nauki/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Meetyouafter/granat-nauki/actions/workflows/ci.yml)
+
 Сайт детского психолога (подготовка к школе, репетиторство) и админка для его контента.
 
 ## Архитектура
@@ -156,3 +158,17 @@ pnpm verify   # check, затем build
 ```
 
 Перед коммитом должны проходить `check` и `build`. `build` сам ничего не проверяет и не исправляет. Стиль кода задаёт `@granat/eslint-config`: точки с запятой, одинарные кавычки, отступ 2 пробела, строка до 100 символов, фиксированный порядок импортов. Тестов пока нет.
+
+## Ветки и CI
+
+- Работа идёт в `develop`: коммиты и push туда. `main` стабильная, с неё будет деплой.
+- В `main` изменения попадают только через PR `develop → main`, слияние только merge commit. Не squash: `develop` живёт постоянно, а squash разводит историю веток и даёт ложные конфликты в следующем PR.
+- `main` защищена ruleset'ом на GitHub: прямой push, force push и удаление запрещены, PR нельзя слить, пока не прошли проверки CI.
+
+CI (`.github/workflows/ci.yml`, GitHub Actions) запускается на push в `develop` и `main` и на PR в `main`:
+
+| Job | Что делает |
+| --- | --- |
+| `check` | `pnpm install`, `prisma generate`, `pnpm check` (в main с проверкой ключей ru/en), `pnpm build` |
+| `migrations` | применяет все миграции к пустому Postgres и через `prisma migrate diff` проверяет, что `schema.prisma` с ними совпадает: ловит изменение схемы без миграции |
+| `docker` | собирает prod-образы (main `runner`, main `migrations`, admin `runner`) без публикации, чтобы Dockerfile не ломался незаметно |
