@@ -25,7 +25,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Prizma generate
+      - name: Prisma generate
         run: pnpm --filter main exec prisma generate
 
       - name: Check
@@ -33,3 +33,50 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  migrations:
+    runs-on: ubuntu-24.04
+
+    services:
+      postgres:
+        image: postgres:18
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: granat
+        options: >-
+          --health-cmd "pg_isready -U ci -d granat"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://ci:ci@localhost:5432/granat
+
+    defaults:
+      run:
+        working-directory: main
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --filter main...
+
+      - name: Apply migrations on empty database
+        run: pnpm exec prisma migrate deploy
+
+      - name: Schema check after migrations
+        run: >-
+          pnpm exec prisma migrate diff
+          --from-config-datasource
+          --to-schema prisma/schema.prisma
+          --exit-code
