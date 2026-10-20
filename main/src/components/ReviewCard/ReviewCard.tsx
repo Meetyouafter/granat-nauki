@@ -1,65 +1,23 @@
-'use client';
-
-import { type FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-
-import classNames from 'classnames';
 
 import styles from './ReviewCard.module.scss';
 
 interface IReviewCard {
   src: string;
   alt: string;
-  index: number;
 }
 
-const ReviewCard: FC<IReviewCard> = ({ src, alt, index }) => {
-  const t = useTranslations('ReviewsPage');
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.2 },
-    );
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <li
-      ref={ref}
-      className={classNames(styles.card, isVisible && styles.visible)}
-      style={{ animationDelay: `${index * 0.08}s` }}
-    >
-      <div className={styles.imageWrapper}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className={styles.image}
-        />
-        <span className={styles.badge}>{t('screenshotBadge')}</span>
-        <div className={styles.shine} />
-      </div>
-    </li>
-  );
-};
+const ReviewCard: FC<IReviewCard> = ({ src, alt }) => (
+  <li className={styles.card}>
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+      className={styles.image}
+    />
+  </li>
+);
 
 export default ReviewCard;

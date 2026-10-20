@@ -4,11 +4,17 @@
   @include typography.text-sm;
   @include typography.semibold;
 
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   text-decoration: none;
   color: var(--color-accent-primary);
 
   &:hover {
     color: var(--color-accent-hover);
+  }
+
+  &:focus-visible {
+    border-radius: 4px;
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
   }
 }

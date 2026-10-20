@@ -1,12 +1,12 @@
 const metadata = {
   main: {
     ru: {
-      title: 'Главная',
-      description: 'Гранат Науки — это практикующий психолог, тьютор и репетитор по подготовке к школе. Я помогаю детям подготовиться к школе и развиться в социально-коммуникативной сфере.',
+      title: { absolute: 'Детский психолог и подготовка к школе | Гранат Науки' },
+      description: 'Татьяна Левусь, детский психолог и тьютор. Помогаю детям подготовиться к школе, справляться с эмоциями и учёбой. Онлайн и очно.',
     },
     en: {
-      title: 'Main',
-      description: 'Granat Nauki — is a practicing psychologist, tutor and school-readiness coach. I help children prepare for school and develop in the social-communicative sphere.',
+      title: { absolute: 'Child psychologist and school preparation | Granat Nauki' },
+      description: 'Tatiana Levus, child psychologist and tutor. I help children get ready for school and cope with emotions and studies. Online and in person.',
     },
   },
   template: {
@@ -25,62 +25,82 @@ const metadata = {
   },
   about: {
     ru: {
-      title: 'Обо мне',
-      description: 'Практикующий психолог, тьютор и репетитор по подготовке к школе — о профессиональном пути и подходах в работе.',
+      title: 'Обо мне: детский психолог Татьяна Левусь',
+      description: 'Детский психолог, тьютор и специалист по подготовке к школе: профессиональный путь и подходы в работе.',
     },
     en: {
-      title: 'About me',
-      description: 'Practicing child psychologist, tutor and school-readiness coach — my background and approach to working with children.',
+      title: 'About me: child psychologist Tatiana Levus',
+      description: 'Child psychologist, tutor and school-readiness coach: my background and approach to working with children.',
     },
   },
   contacts: {
     ru: {
-      title: 'Контакты',
-      description: 'Свяжитесь со мной удобным способом: Telegram, email, WhatsApp — или оставьте заявку на консультацию.',
+      title: 'Контакты и запись на консультацию',
+      description: 'Напишите мне в Telegram, на email или в WhatsApp. Можно оставить заявку на консультацию.',
     },
     en: {
-      title: 'Contacts',
-      description: 'Get in touch via Telegram, email, or WhatsApp — or send a consultation request.',
+      title: 'Contacts and booking a consultation',
+      description: 'Message me on Telegram, by email or on WhatsApp. You can also send a consultation request.',
     },
   },
   faq: {
     ru: {
-      title: 'Частые вопросы',
+      title: 'Частые вопросы о занятиях с ребёнком',
       description: 'Ответы на частые вопросы о консультациях, формате занятий и подготовке к школе.',
     },
     en: {
-      title: 'FAQ',
+      title: 'FAQ about sessions with your child',
       description: 'Answers to frequently asked questions about sessions, formats, and school readiness preparation.',
     },
   },
   reviews: {
     ru: {
-      title: 'Отзывы',
-      description: 'Отзывы клиентов о консультациях и занятиях.',
+      title: 'Отзывы родителей',
+      description: 'Отзывы родителей о консультациях и занятиях с детьми.',
     },
     en: {
-      title: 'Reviews',
-      description: 'Client reviews about consultations and sessions.',
+      title: 'Reviews from parents',
+      description: 'Parents\' reviews of consultations and sessions with their children.',
     },
   },
   services: {
     ru: {
-      title: 'Услуги',
-      description: 'Развивающие занятия, диагностика, психологические сессии и консультации.',
+      title: 'Услуги детского психолога и цены',
+      description: 'Развивающие занятия, оценка развития, психологические сессии и консультации для детей и родителей.',
     },
     en: {
-      title: 'Services',
-      description: 'Developmental sessions, diagnostics, psychological sessions, and consultations.',
+      title: 'Child psychologist services and prices',
+      description: 'Developmental sessions, developmental assessment, psychological sessions and consultations for children and parents.',
     },
   },
   articles: {
     ru: {
-      title: 'Статьи',
-      description: 'Небольшие заметки про эмоции, отношения и заботу о себе.',
+      title: 'Статьи для родителей',
+      description: 'Заметки для родителей о подготовке к школе, внимании и адаптации ребёнка.',
     },
     en: {
-      title: 'Articles',
-      description: 'Short notes about emotions, relationships and self-care.',
+      title: 'Articles for parents',
+      description: 'Notes for parents on school readiness, attention and settling in.',
+    },
+  },
+  privacy: {
+    ru: {
+      title: 'Политика конфиденциальности',
+      robots: { index: false },
+    },
+    en: {
+      title: 'Privacy Policy',
+      robots: { index: false },
+    },
+  },
+  terms: {
+    ru: {
+      title: 'Пользовательское соглашение',
+      robots: { index: false },
+    },
+    en: {
+      title: 'Terms of Service',
+      robots: { index: false },
     },
   },
   notFound: {

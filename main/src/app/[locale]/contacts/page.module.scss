@@ -1,67 +1,38 @@
 @use '@styles/mixins';
 @use '@styles/typography';
 
-.root {
-  @include mixins.container;
-
-  padding-top: 48px;
-  padding-bottom: 64px;
-  animation: fadeIn 0.6s ease-out;
-
-  @include mixins.tablet {
-    padding-top: 32px;
-    padding-bottom: 48px;
-  }
-
-  @include mixins.mobile {
-    padding-top: 24px;
-    padding-bottom: 32px;
-  }
-}
-
 .header {
   display: grid;
   grid-template-columns: 400px 1fr;
   align-items: center;
-  gap: 48px;
-  margin-bottom: 64px;
+  gap: 64px;
 
   @include mixins.tablet {
     grid-template-columns: 300px 1fr;
-    gap: 32px;
-    margin-bottom: 48px;
+    gap: 48px;
   }
 
   @include mixins.mobile {
     grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 32px;
   }
 }
 
 .picture {
   position: relative;
-  border-radius: 24px;
+  border-radius: 16px;
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 32px rgb(var(--color-shadow-rgb), 0.12);
+  background: var(--color-bg-secondary);
 
   @include mixins.mobile {
-    margin: 0 auto;
     max-width: 300px;
   }
+}
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 48px rgb(var(--color-shadow-rgb), 0.16);
-  }
-
-  img {
-    border-radius: 24px;
-    object-fit: cover;
-  }
+.image {
+  object-fit: cover;
 }
 
 .headerContent {
@@ -70,259 +41,114 @@
   gap: 16px;
 }
 
-.title {
-  @include typography.text-xxl;
-  @include typography.extrabold;
+h1.title {
+  @include typography.display;
 
-  margin: 0;
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  @include mixins.tablet {
-    @include typography.text-xl;
-    @include typography.extrabold;
-  }
-
-  @include mixins.mobile {
-    @include typography.text-lg;
-    @include typography.extrabold;
-
-    text-align: center;
-  }
+  padding-bottom: 4px;
+  color: var(--color-accent-primary);
 }
 
-.subtitle {
-  @include typography.text-md;
-
-  margin: 0;
+p.subtitle {
+  max-width: 52ch;
   line-height: 1.6;
   color: var(--color-text-secondary);
-
-  @include mixins.mobile {
-    @include typography.text-sm;
-
-    line-height: 1.6;
-    text-align: center;
-  }
 }
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   align-items: start;
-  gap: 48px;
+  gap: 64px;
 
   @include mixins.tablet {
-    gap: 32px;
+    gap: 40px;
   }
 
   @include mixins.mobile {
     grid-template-columns: 1fr;
-    gap: 40px;
   }
 }
 
-.formSection,
-.contactsSection {
+.column {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.sectionTitle {
-  @include typography.text-lg;
-  @include typography.bold;
+h2.sectionTitle {
+  @include typography.display;
 
-  margin: 0;
   color: var(--color-text-primary);
-
-  @include mixins.mobile {
-    @include typography.text-md;
-    @include typography.bold;
-  }
 }
 
-.request {
+.form {
   display: flex;
   flex-direction: column;
   gap: 20px;
   border: 1px solid var(--color-border-primary);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 32px;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
   background: var(--color-surface-primary);
-  box-shadow: 0 4px 16px rgb(var(--color-shadow-rgb), 0.04);
 
   @include mixins.mobile {
-    border-radius: 16px;
-    padding: 24px;
+    padding: 24px 20px;
   }
+}
 
-  &:hover {
-    border-color: var(--color-border-secondary);
-    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb), 0.08);
-  }
+.field {
+  @include mixins.form-field;
 }
 
 .label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  @include mixins.form-label;
 }
 
-.labelText {
-  @include typography.text-xs;
-  @include typography.semibold;
-
-  color: var(--color-text-primary);
-}
-
-.input,
-.textarea {
-  @include typography.text-sm;
-
-  border: 2px solid var(--color-border-primary);
-  border-radius: 12px;
-  width: 100%;
-  padding: 14px 16px;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  color: var(--color-text-primary);
-  background: var(--color-bg-primary);
-  outline: none;
-
-  &::placeholder {
-    color: var(--color-text-tertiary);
-  }
-
-  &:focus {
-    transform: translateY(-1px);
-    border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 4px rgb(var(--color-accent-rgb), 0.1);
-  }
-
-  &:hover:not(:focus) {
-    border-color: var(--color-border-secondary);
-  }
-}
-
-.textarea {
-  min-height: 120px;
-  line-height: 1.6;
-  resize: vertical;
+.input {
+  @include mixins.form-input;
 }
 
 .submit {
-  @include typography.text-sm;
+  @include mixins.main-button;
   @include typography.bold;
 
-  margin-top: 8px;
-  border: none;
-  border-radius: 12px;
-  padding: 16px 24px;
-  transition: all 0.3s ease;
-  color: var(--color-text-inverse);
-  background: linear-gradient(135deg, var(--color-cta-primary), var(--color-cta-hover));
-  box-shadow: 0 4px 12px rgb(var(--color-cta-rgb), 0.3);
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgb(var(--color-cta-rgb), 0.4);
-    filter: brightness(1.05);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgb(var(--color-cta-rgb), 0.3);
-  }
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 14px 28px;
 }
 
 .contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+  border-top: 1px solid var(--color-border-secondary);
+  padding: 0;
+  list-style: none;
 
-.contactCard {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border: 2px solid var(--color-border-primary);
-  border-radius: 16px;
-  padding: 20px 24px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: inherit;
-  background: var(--color-surface-primary);
-  box-shadow: 0 2px 8px rgb(var(--color-shadow-rgb), 0.04);
-
-  &:hover {
-    transform: translateY(-4px);
-    background: var(--color-surface-elevated);
-    border-color: var(--color-accent-primary);
-    box-shadow: 0 8px 24px rgb(var(--color-accent-rgb), 0.15);
-  }
-
-  &:active {
-    transform: translateY(-2px);
+  li {
+    border-bottom: 1px solid var(--color-border-secondary);
   }
 }
 
-.contactIcon {
+.contact {
   display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  width: 56px;
-  height: 56px;
-  transition: transform 0.3s ease;
-  color: var(--color-text-inverse);
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
-
-  svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .contactCard:hover & {
-    transform: scale(1.1) rotate(5deg);
-  }
-}
-
-.contactInfo {
-  display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 4px;
+  padding: 20px 0;
+
+  &:hover .contactValue {
+    color: var(--color-accent-primary);
+  }
+
+  &:focus-visible {
+    border-radius: 8px;
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 4px;
+  }
 }
 
 .contactLabel {
-  @include typography.text-xxs;
-  @include typography.semibold;
-
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 }
 
 .contactValue {
-  @include typography.text-sm;
-  @include typography.semibold;
-
+  transition: color 0.2s ease;
   color: var(--color-text-primary);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  overflow-wrap: anywhere;
 }

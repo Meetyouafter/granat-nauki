@@ -1,186 +1,62 @@
-@use '@styles/animations';
 @use '@styles/mixins';
 @use '@styles/typography';
 
 .card {
-    opacity: 0;
-    transform: translateY(30px);
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    border: 1px solid var(--color-border-primary);
-    border-radius: 16px;
-    min-height: 320px;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: var(--color-surface-primary);
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: start;
+  gap: 48px;
+  padding: 32px;
 
-    @include mixins.mobile {
-        flex-direction: column;
-        min-height: 0;
-
-        &:nth-child(even) {
-            flex-direction: column;
-        }
-
-        &:hover {
-            transform: translateY(-4px);
-        }
-    }
-
-    &.visible {
-        animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    &:hover {
-        transform: translateY(-8px);
-        border-color: var(--color-accent-primary);
-        box-shadow: 0 12px 24px rgb(var(--color-shadow-rgb), 0.15);
-
-        .imageWrapper {
-            transform: scale(1.05);
-        }
-
-        .image {
-            filter: brightness(1.1);
-        }
-
-        .title {
-            color: var(--color-accent-primary);
-        }
-    }
-
-    &:nth-child(even) {
-        flex-direction: row-reverse;
-    }
-}
-
-.imageWrapper {
-    position: relative;
-    width: 50%;
-    min-height: 360px;
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: var(--color-bg-secondary);
-
-    @include mixins.tablet {
-        min-height: 320px;
-    }
-
-    @include mixins.mobile {
-        width: 100%;
-        min-height: 220px;
-    }
-}
-
-.image {
-    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    object-fit: cover;
+  @include mixins.mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 20px;
+  }
 }
 
 .content {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 12px;
-    width: 50%;
-    padding: 24px;
-
-    @include mixins.tablet {
-        padding: 22px;
-    }
-
-    @include mixins.mobile {
-        gap: 10px;
-        width: 100%;
-        padding: 20px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.title {
-    @include typography.text-lg;
-    @include typography.bold;
+h2.title {
+  @include typography.display;
 
-    margin: 0;
-    transition: color 0.3s ease;
-    color: var(--color-text-primary);
-
-    @include mixins.mobile {
-        @include typography.text-md;
-        @include typography.bold;
-    }
+  color: var(--color-text-primary);
 }
 
-.description {
-    @include typography.text-sm;
-
-    opacity: 0.8;
-    flex: 1;
-    margin: 0;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-
-    @include mixins.mobile {
-        @include typography.text-xs;
-
-        line-height: 1.6;
-    }
+p.description {
+  max-width: 65ch;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
 }
 
 .details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+
+  @include mixins.mobile {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
     border-top: 1px solid var(--color-border-primary);
     padding-top: 16px;
-
-    @include mixins.mobile {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-}
-
-.duration {
-    @include typography.text-xs;
-
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--color-text-tertiary);
-
-    @include mixins.mobile {
-        @include typography.text-xs;
-    }
-
-    &::before {
-        @include typography.text-sm;
-
-        content: '⏱';
-    }
+    text-align: left;
+  }
 }
 
 .price {
-    @include typography.text-md;
-    @include typography.bold;
+  @include typography.display;
 
-    color: var(--color-accent-primary);
-
-    @include mixins.mobile {
-        @include typography.text-sm;
-    }
+  white-space: nowrap;
+  color: var(--color-accent-primary);
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.duration {
+  color: var(--color-text-tertiary);
 }

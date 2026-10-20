@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { hasLocale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import metadata from '@/data/metadata';
 import { routing } from '@/i18n/routing';
@@ -19,14 +20,18 @@ export async function generateMetadata({
   return hasLocale(routing.locales, locale) ? metadata.notFound[locale] : metadata.notFound.en;
 }
 
-const NotFound = () => (
-  <main className={styles.root}>
-    <Image src="/images/404.png" alt="Страница не найдена" width={320} height={320} className={styles.image} />
-    <Text as="p" size="lg" weight="semibold" className={styles.title}>
-      Страница не найдена
-    </Text>
-    <Button href={paths.home}>Вернуться на главную</Button>
-  </main>
-);
+const NotFound = async () => {
+  const t = await getTranslations('NotFoundPage');
+
+  return (
+    <main className={styles.root}>
+      <Image src="/images/404.png" alt="" width={320} height={320} className={styles.image} />
+      <Text as="h1" size="lg" weight="semibold" className={styles.title}>
+        {t('title')}
+      </Text>
+      <Button href={paths.home}>{t('home')}</Button>
+    </main>
+  );
+};
 
 export default NotFound;

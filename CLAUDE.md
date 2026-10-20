@@ -27,7 +27,7 @@ packages/stylelint-config/  @granat/stylelint-config: SCSS rules for main and ad
                      @keyframes names are camelCase (`.trustBarCard`, read as styles.trustBarCard); a prop-value
                      modifier may use one dash (`.size-lg` for styles[`size-${size}`]). Mixins are kebab-case.
                      No hand-written vendor prefixes: Next adds them, admin runs autoprefixer (postcss.config.js).
-docs/                design audit and site brief
+docs/                reference notes (auth.md: how sign-up, sessions and roles work)
 ```
 
 Project plan and decisions made so far: [todo/](todo/README.md), one file per section (local, not in git).

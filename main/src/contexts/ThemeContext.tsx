@@ -8,6 +8,7 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
+import { flushSync } from 'react-dom';
 
 import { THEME } from '@constants';
 
@@ -67,7 +68,20 @@ export const ThemeProvider = ({ children, initialTheme }: ThemeProviderProps) =>
   }, [theme]);
 
   const toggleTheme = () => {
-    setChosenTheme(theme === 'light' ? 'dark' : 'light');
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const applyTheme = () => {
+      flushSync(() => {
+        setChosenTheme(nextTheme);
+      });
+    };
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('startViewTransition' in document) || reduceMotion) {
+      applyTheme();
+      return;
+    }
+
+    document.startViewTransition(applyTheme);
   };
 
   return (

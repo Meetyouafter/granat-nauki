@@ -1,84 +1,17 @@
-@use '@styles/mixins';
-@use '@styles/typography';
-
 .card {
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
-    perspective: 1200px;
-    position: relative;
-    will-change: transform, opacity;
-    list-style: none;
+  position: relative;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  background: var(--color-surface-primary);
 
-    &.visible {
-        animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-}
-
-.imageWrapper {
-    position: relative;
-    border: 1px solid var(--color-border-primary);
-    border-radius: 14px;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    background: var(--color-surface-primary);
-    box-shadow: 0 12px 32px rgb(var(--color-shadow-rgb), 0.18);
-
-    &:hover {
-        transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
-        border-color: var(--color-accent-primary);
-        box-shadow: 0 18px 40px rgb(var(--color-shadow-rgb), 0.22);
-
-        .shine {
-            opacity: 0.8;
-            transform: translateX(120%);
-        }
-    }
+  &:hover {
+    border-color: var(--color-accent-primary);
+  }
 }
 
 .image {
-    object-fit: cover;
+  object-fit: cover;
 }
-
-.badge {
-    @include typography.text-xxs;
-
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    border-radius: 999px;
-    padding: 6px 10px;
-    letter-spacing: 0.02em;
-    color: #fff;
-    background: rgb(var(--color-shadow-rgb), 0.55);
-    backdrop-filter: blur(6px);
-}
-
-.shine {
-    opacity: 0.2;
-    transform: translateX(-120%);
-    position: absolute;
-    inset: 0;
-    transition: transform 0.8s ease, opacity 0.8s ease;
-    background: linear-gradient(120deg,
-            rgb(255 255 255 / 0%) 20%,
-            rgb(255 255 255 / 35%) 50%,
-            rgb(255 255 255 / 0%) 80%);
-    pointer-events: none;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(28px) scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-

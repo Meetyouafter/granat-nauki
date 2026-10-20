@@ -5,15 +5,17 @@ import classNames from 'classnames';
 import styles from './HamburgerMenu.module.scss';
 
 interface IHamburgerMenu {
+  label: string;
   isOpen: boolean;
   onClick: () => void;
 }
 
-const HamburgerMenu: FC<IHamburgerMenu> = ({ isOpen, onClick }) => (
+const HamburgerMenu: FC<IHamburgerMenu> = ({ label, isOpen, onClick }) => (
   <button
+    type="button"
     className={classNames(styles.root, isOpen && styles.open)}
     onClick={onClick}
-    aria-label="Toggle menu"
+    aria-label={label}
     aria-expanded={isOpen}
   >
     <span className={styles.line}></span>

@@ -1,23 +1,8 @@
-interface IServiceMeta {
-  price: string;
-  image: string;
-}
+export type ServiceId = 'development' | 'assessment' | 'session' | 'consultation';
 
-export const servicesData: IServiceMeta[] = [
-  {
-    price: '2 500 ₽',
-    image: '/images/image.jpg',
-  },
-  {
-    price: '3 000 ₽',
-    image: '/images/image.jpg',
-  },
-  {
-    price: '3 500 ₽',
-    image: '/images/image.jpg',
-  },
-  {
-    price: '2 000 ₽',
-    image: '/images/image.jpg',
-  },
-];
+export const servicePrices: Record<ServiceId, string> = {
+  development: '2 500 ₽',
+  assessment: '3 000 ₽',
+  session: '3 500 ₽',
+  consultation: '2 000 ₽',
+};

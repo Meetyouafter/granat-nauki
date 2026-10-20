@@ -1,21 +1,28 @@
 'use client';
 
-import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
+import cns from 'classnames';
 
 import { useTheme } from '@/contexts/ThemeContext';
 
 import styles from './ThemeSwitcher.module.scss';
 
 const ThemeSwitcher = () => {
+  const t = useTranslations('Header');
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <label htmlFor="theme-switcher" className={styles.switch}>
-      <input id="theme-switcher" type="checkbox" checked={theme === 'light'} onChange={toggleTheme} />
-      <span className={styles.slider}></span>
-      <Image className={styles.moonIcon} src="/icons/moon.svg" alt="Moon" width={24} height={24} />
-      <Image className={styles.sunIcon} src="/icons/sun.svg" alt="Sun" width={24} height={24} />
-    </label>
+    <button
+      type="button"
+      className={styles.button}
+      aria-label={t('theme')}
+      aria-pressed={theme ? theme === 'dark' : undefined}
+      onClick={toggleTheme}
+    >
+      <span className={cns(styles.icon, styles.sun)} aria-hidden="true" />
+      <span className={cns(styles.icon, styles.moon)} aria-hidden="true" />
+    </button>
   );
 };
 

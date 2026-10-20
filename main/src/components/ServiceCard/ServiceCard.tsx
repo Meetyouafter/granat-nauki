@@ -1,9 +1,7 @@
-'use client';
+import type { FC } from 'react';
 
-import { type FC, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-
-import classNames from 'classnames';
+import Card from '@ui/Card/Card';
+import Text from '@ui/Text/Text';
 
 import styles from './ServiceCard.module.scss';
 
@@ -12,68 +10,27 @@ interface IServiceCard {
   description: string;
   duration: string;
   price: string;
-  image: string;
-  index: number;
 }
 
-const ServiceCard: FC<IServiceCard> = ({
-  title,
-  description,
-  duration,
-  price,
-  image,
-  index,
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    const node = cardRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <li
-      ref={cardRef}
-      className={classNames(styles.card, isVisible && styles.visible)}
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      <div className={styles.imageWrapper}>
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className={styles.image}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </div>
-      <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.description}>{description}</p>
-        <div className={styles.details}>
-          <span className={styles.duration}>{duration}</span>
-          <span className={styles.price}>{price}</span>
-        </div>
-      </div>
-    </li>
-  );
-};
+const ServiceCard: FC<IServiceCard> = ({ title, description, duration, price }) => (
+  <Card className={styles.card}>
+    <div className={styles.content}>
+      <Text as="h2" size="md" weight="semibold" italic className={styles.title}>
+        {title}
+      </Text>
+      <Text as="p" className={styles.description}>
+        {description}
+      </Text>
+    </div>
+    <div className={styles.details}>
+      <Text as="span" size="lg" weight="semibold" className={styles.price}>
+        {price}
+      </Text>
+      <Text as="span" size="xs" className={styles.duration}>
+        {duration}
+      </Text>
+    </div>
+  </Card>
+);
 
 export default ServiceCard;

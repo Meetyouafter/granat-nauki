@@ -1,19 +1,40 @@
+@use '@styles/mixins';
 @use '@styles/typography';
 
 .section {
   flex-grow: 1;
-  padding: 32px 0;
+  padding: 64px 0;
+
+  @include mixins.tablet {
+    padding: 48px 0;
+  }
+
+  @include mixins.mobile {
+    padding: 40px 0;
+  }
 }
 
 .title {
   @include typography.display;
-  @include typography.text-lg;
+  @include typography.text-xl;
+  @include typography.semibold;
 
   margin: 0 0 16px;
+  padding-bottom: 2px;
+  font-style: italic;
   color: var(--color-text-primary);
+
+  @include mixins.mobile {
+    @include typography.text-lg;
+  }
 }
 
 .lead {
-  margin: 0 0 24px;
-  color: var(--color-text-tertiary);
+  margin: 0 0 40px;
+  max-width: 65ch;
+  color: var(--color-text-secondary);
+
+  @include mixins.mobile {
+    margin-bottom: 32px;
+  }
 }

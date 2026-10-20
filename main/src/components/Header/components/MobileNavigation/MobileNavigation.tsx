@@ -3,6 +3,7 @@
 import { useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import classNames from 'classnames';
 
@@ -19,6 +20,7 @@ const getIsClient = () => true;
 const getIsServer = () => false;
 
 const MobileNavigation = () => {
+  const t = useTranslations('Header');
   const pathname = usePathname();
   // меню открыто для конкретного адреса: при переходе на другую страницу оно закрывается само
   const [openedAt, setOpenedAt] = useState<string | null>(null);
@@ -35,7 +37,7 @@ const MobileNavigation = () => {
 
   return createPortal(
     <>
-      <HamburgerMenu isOpen={isOpen} onClick={handleToggleMenu} />
+      <HamburgerMenu label={t('menu')} isOpen={isOpen} onClick={handleToggleMenu} />
       <div
         className={classNames(styles.overlay, isOpen && styles.open)}
         onClick={handleToggleMenu}

@@ -1,38 +1,38 @@
 'use client';
 
-import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+
+import cns from 'classnames';
 
 import { usePathname, useRouter } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 
 import styles from './LanguageSwitcher.module.scss';
-
 const LanguageSwitcher = () => {
+  const t = useTranslations('Header.language');
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
 
-  const switchLanguage = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
-  };
-
-  return locale === 'en'
-    ? (
+  return (
+    <div className={styles.root} role="group" aria-label={t('label')}>
+      {routing.locales.map(item => (
         <button
-          onClick={() => { switchLanguage('ru'); }}
-          className={styles.button}
+          key={item}
+          type="button"
+          lang={item}
+          aria-label={t(item)}
+          aria-pressed={item === locale}
+          className={cns(styles.option, item === locale && styles.active)}
+          onClick={() => {
+            if (item !== locale) router.replace(pathname, { locale: item });
+          }}
         >
-          <Image src="/icons/flags/ru.svg" alt="Russian" width={32} height={32} />
+          {item.toUpperCase()}
         </button>
-      )
-    : (
-        <button
-          onClick={() => { switchLanguage('en'); }}
-          className={styles.button}
-        >
-          <Image src="/icons/flags/en.svg" alt="English" width={32} height={32} />
-        </button>
-      );
+      ))}
+    </div>
+  );
 };
 
 export default LanguageSwitcher;

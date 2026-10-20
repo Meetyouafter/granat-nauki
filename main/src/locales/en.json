@@ -9,16 +9,23 @@
             "reviews": "Reviews",
             "faq": "FAQ",
             "contacts": "Book a session"
+        },
+        "menu": "Menu",
+        "theme": "Dark theme",
+        "language": {
+            "label": "Site language",
+            "ru": "Русский",
+            "en": "English"
         }
     },
     "HomePage": {
-        "title": "Child Psychologist and Tutor — Pomegranate of Science",
         "hero": {
             "kicker": "Tatiana Levus · Child Psychologist",
-            "title": "Helping children feel more confident — and helping parents stay close with understanding",
-            "lead": "Psychological support, child development, school readiness, and learning support — from preschool age through grade 9. Online and in-person.",
+            "title": "Helping children feel more confident, and helping parents stay close with understanding",
+            "lead": "Psychological support, child development, school readiness and learning support, from preschool age through grade 9. Online and in person.",
             "ctaPrimary": "Book a consultation",
-            "ctaSecondary": "Learn about me"
+            "ctaSecondary": "Learn about me",
+            "imageAlt": "A smiling girl with a yellow flower lying in the grass"
         },
         "trustBar": {
             "title": "Why families trust me",
@@ -26,15 +33,15 @@
             "items": [
                 {
                     "title": "15 years of practice",
-                    "description": "Working with children and parents since 2011 — from first consultations to full support throughout school."
+                    "description": "Working with children and parents since 2011: from first consultations to support throughout the school years."
                 },
                 {
-                    "title": "Humanistic and CBT approach",
-                    "description": "Combining a caring attitude toward the child with practical cognitive behavioral therapy techniques."
+                    "title": "Humanistic and cognitive-behavioral approach",
+                    "description": "Combining a caring attitude toward the child with practical cognitive-behavioral techniques."
                 },
                 {
-                    "title": "Online and in-person",
-                    "description": "We'll choose the format that works best for your family — from home or in the office."
+                    "title": "Online and in person",
+                    "description": "We'll choose the format that works best for your family: from home or in the office."
                 },
                 {
                     "title": "Supervision and regular training",
@@ -44,50 +51,42 @@
         },
         "aboutPsychologist": {
             "title": "What is a psychologist and why you might need one",
-            "lead": "A psychologist is a professional who helps people make sense of emotions, behavior, and relationships.",
-            "paragraph1": "When working with children, a psychologist does not diagnose or prescribe medication. They create a safe space where a child can express feelings, learn to understand themselves, and find ways to cope with difficulties such as anxiety, fears, conflicts with peers or family, low self-esteem, and challenges with learning and motivation.",
+            "lead": "A psychologist helps people make sense of emotions, behavior, and relationships.",
+            "paragraph1": "A psychologist is not a doctor and does not prescribe medication. They create a safe space where a child can express feelings, learn to understand themselves, and find ways to cope with difficulties such as anxiety, fears, conflicts with peers or family, low self-esteem, and challenges with learning and motivation.",
             "paragraph2": "For parents, a psychologist helps see what lies behind \"difficult\" behavior or moodiness, how to support the child, and how to build trusting relationships. Working together with the family often leads to the most lasting results."
         },
         "personalExperience": {
             "title": "Personal experience and path into the profession",
-            "lead": "I came to psychology from a desire to help people — and especially children — feel understood and accepted.",
+            "lead": "I came to psychology from a desire to help people, and especially children, feel understood and accepted.",
             "short": "I work in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
             "statSuffix": "years of practice",
             "linkText": "Read the full story →"
         },
         "workWithChildren": {
             "title": "Areas of work with children",
-            "lead": "Four areas in which I support children and families.",
+            "lead": "Four areas in which I support children and families. Pick the one that matches your child's age.",
+            "servicesLink": "Services and prices →",
             "childPsychologist": {
-                "title": "Child psychologist (all ages)",
-                "description": "Consultations and sessions for children: anxiety, fears, aggression, difficulties in communication, low self-esteem, adaptation to kindergarten or school, coping with divorce or family conflict. I work using play and talk therapy, and involve parents when needed."
+                "title": "Child psychologist (any age)",
+                "description": "Consultations and sessions for children: anxiety, fears, aggression, difficulties in communication, low self-esteem, adaptation to kindergarten or school, coping with divorce or family conflict. I work through play and conversation, and involve parents when needed."
             },
             "childDevelopment": {
-                "title": "Child development (ages 2–5)",
+                "title": "Child development (ages 2-5)",
                 "description": "Early childhood development: speech, thinking, attention, memory, and fine motor skills through play. We track age norms, build on the child's strengths, and gently support the areas that are still developing."
             },
             "schoolPrep": {
-                "title": "School preparation (ages 5–7)",
+                "title": "School preparation (ages 5-7)",
                 "description": "Comprehensive preparation for 1st grade: developing attention, memory, thinking, and the ability to follow rules. I help the child ease into a school routine and reduce anxiety about starting school."
             },
             "tutor": {
-                "title": "Tutor (grades 5–9)",
-                "description": "Support for students in grades 5–9: organizing study time, planning, developing independence and motivation. I help with workload, stress, and difficulties with teachers or classmates so that learning becomes conscious and manageable."
+                "title": "Tutor (grades 5-9)",
+                "description": "Support for students in grades 5-9: organizing study time, planning, developing independence and motivation. I help with workload, stress, and difficulties with teachers or classmates so that learning becomes conscious and manageable."
             }
-        },
-        "services": {
-            "title": "Not sure where to start?",
-            "lead": "Pick the area that matches your child's age — details above.",
-            "items": [
-                "Any age: psychologist consultation",
-                "Ages 2–5: child development",
-                "Ages 5–7: school preparation",
-                "Grades 5–9: tutoring support"
-            ]
         },
         "reviews": {
             "title": "Client reviews",
-            "lead": "Fragments of feedback after sessions.",
+            "lead": "Fragments of feedback after our meetings.",
+            "linkText": "All reviews →",
             "items": [
                 "«I feel calmer, there's a sense of support and clarity»",
                 "«We worked through important relationship topics, it became easier to communicate»",
@@ -96,7 +95,7 @@
         },
         "articles": {
             "title": "Articles",
-            "lead": "Short notes about emotions, relationships and self-care.",
+            "lead": "Notes for parents on school readiness, attention and settling in.",
             "readMore": "Read more"
         },
         "howItWorks": {
@@ -129,28 +128,29 @@
         "finalCta": {
             "title": "Ready to take the first step?",
             "lead": "Book a consultation, and together we'll figure out the best way to help your child.",
-            "cta": "Book a consultation →"
+            "cta": "Book a consultation"
         }
     },
     "AboutPage": {
         "title": "About me",
         "subtitle": "Practicing child psychologist with 15 years of experience. I work in humanistic and cognitive-behavioral approaches.",
         "experience": "years of experience",
+        "imageAlt": "A smiling girl with a yellow flower lying in the grass",
         "about": {
             "title": "About my work",
-            "description": "I came to psychology from a desire to help people — and especially children — feel understood and accepted. For 15 years now I have been working in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
+            "description": "I came to psychology from a desire to help people, and especially children, feel understood and accepted. For 15 years now I have been working in humanistic and cognitive-behavioral approaches: I rely on a warm connection and clear, evidence-based methods. I regularly attend supervision and training to remain a reliable support for families and children.",
             "help": "It is important to me that every session feels safe and useful: no pressure, with respect for the child's pace and the parents' needs. I see the results when children cope better with emotions and parents feel more confident in supporting them."
         },
         "approaches": {
-            "title": "Therapeutic approaches",
+            "title": "Approaches",
             "humanistic": "Humanistic approach",
-            "cbt": "Cognitive-behavioral therapy"
+            "cbt": "Cognitive-behavioral approach"
         },
         "helpAreas": {
             "title": "What I help with",
-            "anxiety": "Anxiety and panic attacks",
-            "burnout": "Emotional burnout",
-            "relationships": "Relationship difficulties",
+            "anxiety": "Anxiety and fears",
+            "communication": "Difficulties in communication",
+            "adaptation": "Settling into kindergarten and school",
             "selfEsteem": "Self-esteem and confidence"
         },
         "qualifications": {
@@ -160,8 +160,8 @@
                 "description": "Received a degree in psychology, regularly improve my qualifications."
             },
             "supervision": {
-                "title": "Supervision and personal therapy",
-                "description": "Regularly undergo supervision and personal therapy to maintain professional standards."
+                "title": "Supervision",
+                "description": "Regularly undergo supervision to maintain professional standards."
             },
             "training": {
                 "title": "Regular training",
@@ -174,21 +174,25 @@
         "lead": "Professional support for development and psychological well-being.",
         "items": [
             {
+                "id": "development",
                 "title": "Developmental sessions",
-                "description": "Individual sessions focused on developing memory, attention, thinking, and emotional intelligence. Includes exercises for concentration, working with imagery and planning, plus gentle support to build confidence. Suitable for children and adults who want to build resources and learn to handle difficult tasks.",
+                "description": "Individual sessions focused on developing memory, attention, thinking, and emotional intelligence. Includes exercises for concentration, working with imagery and planning, plus gentle support to build confidence. They help the child build resources and learn to handle difficult tasks.",
                 "duration": "50 minutes"
             },
             {
-                "title": "Diagnostics",
-                "description": "Comprehensive psychological assessment: identifying features of development, emotional state, and cognitive processes. Uses questionnaires, projective techniques, and conversation to give a clear picture of the current state and recommendations for next steps.",
+                "id": "assessment",
+                "title": "Developmental assessment",
+                "description": "We look at the child's development, emotional state, attention, memory, and thinking. Questionnaires, projective techniques, and conversation give a clear picture and recommendations for next steps.",
                 "duration": "60 minutes"
             },
             {
+                "id": "session",
                 "title": "Psychological session",
-                "description": "An individual session to work through stress, anxiety, burnout, and personal issues. I attentively guide the process, helping you notice your feelings, understand their causes, and choose sustainable strategies to regain clarity and energy for change.",
+                "description": "An individual meeting where we work with the child's anxiety, fears, stress, and strong emotions. I attentively guide the process, helping the child notice feelings, understand their causes, and find lasting ways to cope.",
                 "duration": "50 minutes"
             },
             {
+                "id": "consultation",
                 "title": "Consultation",
                 "description": "A one-off consultation for a quick look at your situation and decision-making. Suitable when you need an outside perspective, want to clarify options, and get concrete recommendations on steps and risks.",
                 "duration": "30 minutes"
@@ -197,10 +201,9 @@
     },
     "ReviewsPage": {
         "title": "Reviews",
-        "lead": "Real screenshots of thank-you messages — no names, just genuine experiences.",
+        "lead": "Screenshots of thank-you messages from parents, without names.",
         "hint": "All reviews are presented as screenshots.",
-        "reviewAlt": "Review {number}",
-        "screenshotBadge": "Screenshot"
+        "reviewAlt": "Review {number}"
     },
     "ReviewForm": {
         "toggleOpen": "Leave a review",
@@ -217,11 +220,13 @@
     },
     "ArticlesPage": {
         "title": "Articles",
-        "lead": "Short notes about emotions, relationships and self-care."
+        "lead": "Notes for parents on school readiness, attention and settling in.",
+        "empty": "No articles yet."
     },
     "ContactsPage": {
         "title": "Contacts",
         "subtitle": "Get in touch in whichever way is most convenient for you",
+        "imageAlt": "A smiling girl with a yellow flower lying in the grass",
         "contacts": {
             "title": "Contacts",
             "telegram": "Message on Telegram",
@@ -238,6 +243,18 @@
             "messagePlaceholder": "How can I help?",
             "submit": "Send"
         }
+    },
+    "PrivacyPage": {
+        "title": "Privacy Policy",
+        "pending": "The document is being prepared."
+    },
+    "TermsPage": {
+        "title": "Terms of Service",
+        "pending": "The document is being prepared."
+    },
+    "NotFoundPage": {
+        "title": "Page not found",
+        "home": "Back to the homepage"
     },
     "Footer": {
         "copyright": "© {year} Granat Nauki. All rights reserved.",

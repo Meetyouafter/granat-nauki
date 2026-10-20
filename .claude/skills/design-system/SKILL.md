@@ -24,9 +24,11 @@ Neither theme uses stark black/white — text colors are soft warm charcoal / wa
 ## Color tokens — `main/src/styles/colors.scss`
 
 Two roles, deliberately separate — **don't collapse them back into one accent**:
-- `--color-accent-primary` / `-hover` / `-active` — sage `#7c9473` (light) / mint `#8fbfa1` (dark). The **broad brand color**: headings, kicker text, icons (`PomegranateMark`), links, hover borders, focus rings, stat numbers, the logo wordmark. Used pervasively — this is what should read as "calm."
-- `--color-cta-primary` / `-hover` / `-active` — clay `#c17a54` (light) / sand `#dab778` (dark). Reserved **only** for actual calls to action: real button fills (`mixins.scss` `main_button`, home page `.ctaPrimary`, `ReviewForm` submit, contacts page submit). Decorative icon badges and gradient-text headings on unmigrated pages (about/contacts) intentionally still use `--color-accent-primary`, not CTA — they aren't clickable actions.
+- `--color-accent-primary` / `-hover` / `-active` — sage `#5b7254` (light) / mint `#8fbfa1` (dark). The **broad brand color**: headings, kicker text, icons (`PomegranateMark`), links, hover borders, focus rings, stat numbers, the logo wordmark. Used pervasively — this is what should read as "calm."
+- `--color-cta-primary` / `-hover` / `-active` — clay `#a3603b` (light) / sand `#dab778` (dark). Reserved **only** for actual calls to action: real button fills (`mixins.scss` `main_button`, home page `.ctaPrimary`, `ReviewForm` submit, contacts page submit). Decorative icon badges and gradient-text headings on unmigrated pages (about/contacts) intentionally still use `--color-accent-primary`, not CTA — they aren't clickable actions.
 - `--color-success` / `-warning` / `-error` / `-info` — muted, non-alarming versions (e.g. error is soft brick `#b2604a`/`#d98a78`, not a bright alert red) — errors should still feel calm on this site.
+- Light values were deepened on 2026-10-20 (from sage `#7c9473`, clay `#c17a54`, tertiary `#96917f`) so text and CTA labels pass WCAG AA: accent 4.76:1 on bg, `text-inverse` on CTA 4.73:1, tertiary 4.74:1. Check contrast before lightening any of them again.
+- Dark theme applies both via `[data-theme='dark']` and via `prefers-color-scheme: dark` while no theme is chosen (`:root:not([data-theme='light'])`), so SSR already renders the right theme with no light flash. Both blocks include the same `dark-theme` mixin: add a dark token there, not in one of the blocks.
 - Full token list and both themes are in the file itself — read it before adding a new color rather than picking an ad hoc hex.
 
 **Don't** reintroduce cream/beige-only or garnet/burgundy-red accents — both were rejected (the first for being the generic default, the second for reading too intense for a child-psychology audience). **Don't** point a button's `background` at `--color-accent-primary` — that's the brand color, not the CTA color; use `--color-cta-primary`.
@@ -35,6 +37,7 @@ Two roles, deliberately separate — **don't collapse them back into one accent*
 
 The user asked explicitly for soft animation, no "loud" micro-interactions, alongside the palette change:
 - `@keyframes pulse` (`main/src/styles/animations.scss`, used on link/icon hover via `mixins.link`, `Socials`, `LanguageSwitcher`) is a gentle `scale3d(1.04)`, not a bouncy 1.15 — keep new hover pulses at this amplitude or gentler.
+- Motion budget is low (brief: MOTION_INTENSITY 2): hover/focus transitions, the cookie banner and the theme switch only. The theme switch is a 0.4s View Transitions crossfade (`toggleTheme` in `ThemeContext`, durations in `globals.scss`), skipped under reduced motion or without the API; its sun/moon icon is picked by CSS from `data-theme`/`prefers-color-scheme`, so it is right before hydration. No scroll reveals, counters, autoplay carousels or 3D tilt; `Reveal`, `StatCounter` and `ui/Slider` were removed on 2026-10-20 for that reason. `reset.scss` collapses every animation/transition under `prefers-reduced-motion: reduce`.
 - Cookie banner enter/exit use `fadeInUp` / `fadeOutDown` (soft opacity+12px slide) — the old `lightSpeedOutRight` (skew + fly off-screen) was removed as too sharp for this site. Don't bring skew/fly-style exits back here.
 
 ## Type roles — `main/src/styles/typography.scss`
@@ -60,6 +63,11 @@ Established while redoing the home page (`main/src/app/[locale]/page.module.scss
 - Headings/stat numbers: solid `--color-accent-primary` + `display` italic, not `background-clip: text` gradient text.
 - Numbered steps are a legitimate exception to "no numbering as decoration" — the "how sessions work" flow is a real ordered sequence, so `stepNumber` (styled in `--color-cta-primary`, display italic) is fine there. Don't add numbering elsewhere without the same justification.
 
-## Known drift — not yet migrated
+## Layout rules (2026-10-20 design-audit pass, leftovers in `todo/16-audit-leftovers.md`)
 
-`about`, `services`, `faq`, `contacts`, `reviews`, `articles` pages under `main/src/app/[locale]/` were **not** touched in the 2026-07-22 pass and may still have raw emoji or the old card hover-lift/glow pattern (confirmed emoji still present in `about/page.tsx`, and `about/page.module.scss` still has the old large icon font-sizes). When you touch one of these pages, bring it in line with this system rather than leaving it as the old default — don't let the two styles coexist longer than necessary.
+- Radii: cards, image frames, tinted bands 16px; buttons, inputs, tags, focus outlines 8px; toggles and the language switcher 999px. Nothing else.
+- `Section` carries the vertical rhythm (64/48/40px) and the H2 (display italic, `text-xl`, `text-lg` on mobile); `pageTitle` makes it the page's single H1. Leads and prose are capped at 65ch.
+- One layout family per home-page section: split hero, tinted band, prose, stat + prose, 1+3 card bento, bordered quotes, list rows, step line, accordion (`FaqList`), CTA block. Don't add a second auto-fit card grid.
+- Focus is always visible: 2px `--color-accent-primary` outline on `:focus-visible`.
+
+All pages under `main/src/app/[locale]/` are migrated; there is no known legacy styling left.

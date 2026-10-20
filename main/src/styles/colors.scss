@@ -1,49 +1,4 @@
-:root {
-  color-scheme: light;
-
-  /* Backgrounds — warm off-white, soft "reset" tone, not stark */
-  --color-bg-primary: #f6f3ec;
-  --color-bg-secondary: #efeadd;
-  --color-bg-tertiary: #e6dfcc;
-
-  /* Surfaces */
-  --color-surface-primary: #fff;
-  --color-surface-secondary: #fdfbf7;
-  --color-surface-elevated: #fff;
-
-  /* Text — soft warm charcoal, not pure black */
-  --color-text-primary: #35322c;
-  --color-text-secondary: #67635a;
-  --color-text-tertiary: #96917f;
-  --color-text-inverse: #fdfbf7;
-
-  /* Borders */
-  --color-border-primary: #e6e0d0;
-  --color-border-secondary: #d6cdb4;
-
-  /* Brand / Accent — sage green: calm, trust. Used broadly (headings, icons, links). */
-  --color-accent-primary: #7c9473;
-  --color-accent-hover: #6a8062;
-  --color-accent-active: #586b52;
-  --color-accent-rgb: 124, 148, 115;
-
-  /* CTA — warm clay/terracotta, reserved for buttons and primary actions only */
-  --color-cta-primary: #c17a54;
-  --color-cta-hover: #a9663f;
-  --color-cta-active: #8f5330;
-  --color-cta-rgb: 193, 122, 84;
-
-  /* States — muted, non-alarming */
-  --color-success: #6f8a67;
-  --color-warning: #c99a52;
-  --color-error: #b2604a;
-  --color-info: #6f8f92;
-
-  /* Shadows (fixed across themes, used as rgba(var(--color-shadow-rgb), alpha)) */
-  --color-shadow-rgb: 53, 50, 44;
-}
-
-:root[data-theme='dark'] {
+@mixin dark-theme {
   color-scheme: dark;
 
   /* Backgrounds — deep teal, not black: softer, less "techno" */
@@ -59,7 +14,7 @@
   /* Text — soft warm cream, not pure white */
   --color-text-primary: #eee8dc;
   --color-text-secondary: #b9c2b7;
-  --color-text-tertiary: #839388;
+  --color-text-tertiary: #95a69b;
   --color-text-inverse: #16302c;
 
   /* Borders */
@@ -83,4 +38,59 @@
   --color-warning: #dab778;
   --color-error: #d98a78;
   --color-info: #7fa8ac;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Backgrounds — warm off-white, soft "reset" tone, not stark */
+  --color-bg-primary: #f6f3ec;
+  --color-bg-secondary: #efeadd;
+  --color-bg-tertiary: #e6dfcc;
+
+  /* Surfaces */
+  --color-surface-primary: #fff;
+  --color-surface-secondary: #fdfbf7;
+  --color-surface-elevated: #fff;
+
+  /* Text — soft warm charcoal, not pure black */
+  --color-text-primary: #35322c;
+  --color-text-secondary: #67635a;
+  --color-text-tertiary: #716c5b;
+  --color-text-inverse: #fdfbf7;
+
+  /* Borders */
+  --color-border-primary: #e6e0d0;
+  --color-border-secondary: #d6cdb4;
+
+  /* Brand / Accent — sage green: calm, trust. Used broadly (headings, icons, links). */
+  --color-accent-primary: #5b7254;
+  --color-accent-hover: #4c6146;
+  --color-accent-active: #3f5139;
+  --color-accent-rgb: 91, 114, 84;
+
+  /* CTA — warm clay/terracotta, reserved for buttons and primary actions only */
+  --color-cta-primary: #a3603b;
+  --color-cta-hover: #8f5330;
+  --color-cta-active: #7a4527;
+  --color-cta-rgb: 163, 96, 59;
+
+  /* States — muted, non-alarming */
+  --color-success: #6f8a67;
+  --color-warning: #c99a52;
+  --color-error: #b2604a;
+  --color-info: #6f8f92;
+
+  /* Shadows (fixed across themes, used as rgba(var(--color-shadow-rgb), alpha)) */
+  --color-shadow-rgb: 53, 50, 44;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-theme;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-theme;
 }

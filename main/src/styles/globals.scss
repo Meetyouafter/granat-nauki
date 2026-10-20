@@ -1,3 +1,4 @@
+@use 'mixins';
 @use 'typography';
 
 html,
@@ -24,9 +25,19 @@ main {
   flex-grow: 1;
   margin-top: 64px;
   padding: 0 24px;
+
+  @include mixins.mobile {
+    padding: 0;
+  }
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
 }

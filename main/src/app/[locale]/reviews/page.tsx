@@ -24,20 +24,18 @@ const ReviewsPage = async () => {
   const t = await getTranslations('ReviewsPage');
 
   return (
-    <main className={styles.main}>
-      <Section title={t('title')} lead={t('lead')}>
+    <main>
+      <Section title={t('title')} lead={t('lead')} pageTitle>
         <div className={styles.topBar}>
           <ReviewForm />
           <p className={styles.hint}>{t('hint')}</p>
         </div>
-
         <ul className={styles.grid}>
           {reviewsData.map((review, index) => (
             <ReviewCard
               key={`${review.src}-${index}`}
               src={review.src}
               alt={t('reviewAlt', { number: index + 1 })}
-              index={index}
             />
           ))}
         </ul>

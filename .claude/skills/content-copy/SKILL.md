@@ -9,7 +9,7 @@ The site belongs to a practicing child psychologist who also does school prepara
 
 ## Voice
 
-- Warm, first person ("я помогаю"), concrete, no marketing verbs ("уникальная методика", "раскройте потенциал"). The audit (`docs/audit-step1.md`) calls the current voice "genuinely good and worth protecting" — match it, don't polish it into ad copy.
+- Warm, first person ("я помогаю"), concrete, no marketing verbs ("уникальная методика", "раскройте потенциал"). The design audit called the current voice "genuinely good and worth protecting": match it, don't polish it into ad copy.
 - Address parents, talk about children. Topics are child topics: school readiness, adaptation, emotions, behaviour, communication, family consultations. Not adult topics — `AboutPage.helpAreas` currently lists panic attacks and burnout, that's a known content bug, not a pattern.
 - Hero subtext ≤ 20 words, headline ≤ 2 lines.
 

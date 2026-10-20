@@ -71,7 +71,7 @@ Show the message to the user in the report.
 
 Only if asked ("запушь", "закоммить и запушь"): `git push` to the current branch's upstream. Push only after the gate in step 1 passed and the commit succeeded.
 
-Branches: work happens on `develop`; `main` is the stable branch deploys come from and is protected on GitHub (a ruleset requires a PR with green `check` and `migrations` jobs, merge commit only, no direct or force push). So:
+Branches: work happens on `develop`; `main` is the stable branch deploys come from and is protected on GitHub (a ruleset requires a PR with green `check`, `migrations` and `docker` jobs, merge commit only, no direct or force push). So:
 
 - Commit and push on `develop` (`origin/develop`). If the current branch is `main`, stop and tell the user instead of committing.
 - Never push to `main` and never merge into it locally. Changes reach `main` only through a PR `develop → main`, which the user opens and merges.

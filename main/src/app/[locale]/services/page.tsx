@@ -6,7 +6,7 @@ import metadata from '@/data/metadata';
 import { routing } from '@/i18n/routing';
 import Section from '@components/Section/Section';
 import ServiceCard from '@components/ServiceCard/ServiceCard';
-import { servicesData } from '@data/servicesData';
+import { type ServiceId, servicePrices } from '@data/servicesData';
 
 import styles from './page.module.scss';
 
@@ -21,28 +21,26 @@ export async function generateMetadata({
 
 const ServicesPage = async () => {
   const t = await getTranslations('ServicesPage');
-  const items = t.raw('items') as { title: string; description: string; duration: string }[];
+  const items = t.raw('items') as {
+    id: ServiceId;
+    title: string;
+    description: string;
+    duration: string;
+  }[];
 
   return (
-    <main className={styles.main}>
-      <Section title={t('title')} lead={t('lead')}>
+    <main>
+      <Section title={t('title')} lead={t('lead')} pageTitle>
         <ul className={styles.list}>
-          {items.map((item, index) => {
-            const service = servicesData[index];
-            if (!service) return null;
-
-            return (
-              <ServiceCard
-                key={item.title}
-                title={item.title}
-                description={item.description}
-                duration={item.duration}
-                price={service.price}
-                image={service.image}
-                index={index}
-              />
-            );
-          })}
+          {items.map(item => (
+            <ServiceCard
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              duration={item.duration}
+              price={servicePrices[item.id]}
+            />
+          ))}
         </ul>
       </Section>
     </main>

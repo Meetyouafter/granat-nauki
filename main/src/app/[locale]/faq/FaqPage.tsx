@@ -2,9 +2,8 @@ import type { FC } from 'react';
 import { getTranslations } from 'next-intl/server';
 
 import type { FaqItemDto } from '@/types';
+import FaqList from '@components/FaqList/FaqList';
 import Section from '@components/Section/Section';
-
-import styles from './FaqPage.module.scss';
 
 interface IFaqPage {
   faqData: FaqItemDto[];
@@ -15,15 +14,8 @@ const FaqPage: FC<IFaqPage> = async ({ faqData }) => {
 
   return (
     <main>
-      <Section title={t('title')} lead={t('lead')}>
-        <div className={styles.list}>
-          {faqData.map(item => (
-            <details key={item.id} className={styles.item}>
-              <summary className={styles.summary}>{item.title}</summary>
-              <p>{item.description}</p>
-            </details>
-          ))}
-        </div>
+      <Section title={t('title')} lead={t('lead')} pageTitle>
+        <FaqList items={faqData} />
       </Section>
     </main>
   );
