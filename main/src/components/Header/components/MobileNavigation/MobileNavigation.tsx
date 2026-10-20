@@ -43,10 +43,12 @@ const MobileNavigation = () => {
         onClick={handleToggleMenu}
       />
       <div className={classNames(styles.menu, isOpen && styles.open)}>
-        <Navigation handleToggleMenu={handleToggleMenu} isMobile />
-        <div className={styles.settings}>
-          <ThemeSwitcher />
-          <LanguageSwitcher />
+        <div className={styles.content}>
+          <div className={styles.settings}>
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+          </div>
+          <Navigation handleToggleMenu={handleToggleMenu} isMobile />
         </div>
       </div>
     </>,

@@ -18,6 +18,7 @@
 
   &Hidden {
     animation: fadeOutDown 0.4s ease forwards;
+    pointer-events: none;
   }
 
   .title {

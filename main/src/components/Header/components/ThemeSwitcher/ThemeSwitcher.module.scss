@@ -18,8 +18,8 @@
   justify-content: center;
   border: 1px solid var(--color-border-secondary);
   border-radius: 999px;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   transition: color 0.2s ease, border-color 0.2s ease;
   color: var(--color-text-secondary);
 
@@ -36,8 +36,8 @@
 
 .icon {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   transition: transform 0.4s ease, opacity 0.4s ease;
   background-color: currentcolor;
   mask-position: center;

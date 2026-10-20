@@ -5,16 +5,20 @@
   gap: 2px;
   border: 1px solid var(--color-border-secondary);
   border-radius: 999px;
-  padding: 2px;
+  height: 40px;
+  padding: 3px;
 }
 
 .option {
   @include typography.text-xxs;
   @include typography.bold;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  min-width: 36px;
-  padding: 4px 8px;
+  min-width: 40px;
+  padding: 0 10px;
   transition: color 0.2s ease, background-color 0.2s ease;
   letter-spacing: 0.04em;
   color: var(--color-text-secondary);

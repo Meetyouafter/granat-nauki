@@ -21,19 +21,15 @@
   position: fixed;
   inset: 0 auto 0 0;
   display: none;
-  min-width: 320px;
-  padding: 80px 24px 24px;
+  width: 100%;
+  max-width: 400px;
+  padding-top: 80px;
   transition: transform 0.3s ease;
   background-color: var(--color-bg-primary);
-  scrollbar-width: none;
 
   @include mixins.tablet {
     display: flex;
     flex-direction: column;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
   }
 
   &.open {
@@ -41,12 +37,24 @@
   }
 }
 
+.content {
+  flex: 1;
+  min-height: 0;
+  padding: 0 24px 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .settings {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: auto;
-  border-top: 1px solid var(--color-border-secondary);
-  padding-top: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  padding-bottom: 20px;
 }
