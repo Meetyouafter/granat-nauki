@@ -4,6 +4,7 @@ export const paths = {
   home: '/dashboard',
   faq: '/faq',
   reviews: '/reviews',
+  services: '/services',
   accessRights: '/accessRights',
   accessRequests: '/accessRequests',
   settings: '/settings',

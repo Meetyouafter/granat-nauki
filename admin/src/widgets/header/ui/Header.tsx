@@ -8,6 +8,7 @@ import { Logo } from '@shared/ui/Logo';
 
 import { NAV_ITEMS } from '../model/navItems';
 import { useAccount } from '../model/useAccount';
+import NavDropdown from './NavDropdown';
 
 import styles from './Header.module.scss';
 
@@ -21,16 +22,22 @@ const Header = () => {
           <Logo />
         </Link>
         <nav className={styles.nav}>
-          {NAV_ITEMS.map(({ label, to }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === paths.home}
-              className={({ isActive }) => classNames(styles.link, isActive && styles.linkActive)}
-            >
-              {label}
-            </NavLink>
-          ))}
+          {NAV_ITEMS.map(item =>
+            'items' in item
+              ? (
+                  <NavDropdown key={item.label} {...item} />
+                )
+              : (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.to === paths.home}
+                    className={({ isActive }) =>
+                      classNames(styles.link, isActive && styles.linkActive)}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
         </nav>
         <div className={styles.account}>
           {email && <span className={styles.email}>{email}</span>}
