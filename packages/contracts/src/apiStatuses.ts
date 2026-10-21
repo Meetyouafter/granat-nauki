@@ -3,6 +3,11 @@ export const VALIDATION_ERROR = {
   message: 'VALIDATION_ERROR',
 } as const;
 
+export const RESOURCE_NOT_FOUND = {
+  status: 404,
+  message: 'RESOURCE_NOT_FOUND',
+} as const;
+
 export const INVALID_CREDENTIALS = {
   status: 401,
   message: 'INVALID_CREDENTIALS',
@@ -56,6 +61,7 @@ export const TOO_MANY_REQUESTS = {
 } as const;
 
 export const API_STATUSES = {
+  RESOURCE_NOT_FOUND,
   VALIDATION_ERROR,
   INVALID_CREDENTIALS,
   UNAUTHORIZED,

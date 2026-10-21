@@ -1,0 +1,23 @@
+@use '@styles/typography';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 80px;
+  text-align: center;
+}
+
+.title {
+  @include typography.display;
+
+  padding-bottom: 2px;
+  color: var(--color-text-primary);
+}
+
+.text {
+  margin-bottom: 12px;
+  max-width: 80ch;
+  color: var(--color-text-secondary);
+}

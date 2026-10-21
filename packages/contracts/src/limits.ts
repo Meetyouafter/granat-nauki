@@ -2,3 +2,5 @@ export const MIN_PASSWORD_LENGTH = 15; // OWASP recommendation
 export const MAX_PASSWORD_LENGTH = 128;
 export const MAX_EMAIL_LENGTH = 100;
 export const ACCESS_REQUESTS_PAGE_SIZE = 10;
+export const MAX_SERVICE_TITLE_LENGTH = 200;
+export const MAX_SERVICE_DESCRIPTION_LENGTH = 2000;

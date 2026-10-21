@@ -73,3 +73,19 @@ model AccessRequest {
   @@index([decidedById])
   @@map("access_requests")
 }
+
+model Service {
+  id            String   @id @default(cuid())
+  titleRu       String   @map("title_ru")
+  titleEn       String   @map("title_en")
+  descriptionRu String   @map("description_ru")
+  descriptionEn String   @map("description_en")
+  price         Int
+  duration      Int
+  order         Int      @default(0)
+  isPublished   Boolean  @default(false) @map("is_published")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("services")
+}

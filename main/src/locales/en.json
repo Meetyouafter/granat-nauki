@@ -172,32 +172,7 @@
     "ServicesPage": {
         "title": "Services",
         "lead": "Professional support for development and psychological well-being.",
-        "items": [
-            {
-                "id": "development",
-                "title": "Developmental sessions",
-                "description": "Individual sessions focused on developing memory, attention, thinking, and emotional intelligence. Includes exercises for concentration, working with imagery and planning, plus gentle support to build confidence. They help the child build resources and learn to handle difficult tasks.",
-                "duration": "50 minutes"
-            },
-            {
-                "id": "assessment",
-                "title": "Developmental assessment",
-                "description": "We look at the child's development, emotional state, attention, memory, and thinking. Questionnaires, projective techniques, and conversation give a clear picture and recommendations for next steps.",
-                "duration": "60 minutes"
-            },
-            {
-                "id": "session",
-                "title": "Psychological session",
-                "description": "An individual meeting where we work with the child's anxiety, fears, stress, and strong emotions. I attentively guide the process, helping the child notice feelings, understand their causes, and find lasting ways to cope.",
-                "duration": "50 minutes"
-            },
-            {
-                "id": "consultation",
-                "title": "Consultation",
-                "description": "A one-off consultation for a quick look at your situation and decision-making. Suitable when you need an outside perspective, want to clarify options, and get concrete recommendations on steps and risks.",
-                "duration": "30 minutes"
-            }
-        ]
+        "duration": "{count, plural, one {# minute} other {# minutes}}"
     },
     "ReviewsPage": {
         "title": "Reviews",
@@ -254,6 +229,11 @@
     },
     "NotFoundPage": {
         "title": "Page not found",
+        "home": "Back to the homepage"
+    },
+    "EmptyState": {
+        "title": "Nothing here yet",
+        "text": "This section is in progress and will be filled in soon. I am preparing materials for it and trying to make them clear and useful for parents. In the meantime, you can look through other sections of the site or write to me through the contacts page, I will be glad to answer your questions.",
         "home": "Back to the homepage"
     },
     "Footer": {
