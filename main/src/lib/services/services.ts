@@ -40,6 +40,7 @@ export const getServicesPreviewForAdmin = async () => {
       descriptionRu: true,
       price: true,
       duration: true,
+      isPublished: true,
     },
   });
 
@@ -49,6 +50,7 @@ export const getServicesPreviewForAdmin = async () => {
     description: s.descriptionRu,
     price: s.price,
     duration: s.duration,
+    isPublished: s.isPublished,
   }));
 };
 
@@ -72,7 +74,6 @@ export const getServiceForAdmin = async (id: string) => {
 };
 
 export const createService = async (input: ServiceInput) => {
-  // Новая услуга встаёт в конец списка
   const { _max } = await prisma.service.aggregate({ _max: { order: true } });
 
   return prisma.service.create({
@@ -84,6 +85,7 @@ export const createService = async (input: ServiceInput) => {
 export const editService = async (id: string, input: ServiceInput) => {
   const { count } = await prisma.service.updateMany({ where: { id }, data: input });
   if (count === 0) throw new AppError(API_STATUSES.RESOURCE_NOT_FOUND);
+  return id;
 };
 
 export const setServicePublished = async (id: string, isPublished: boolean) => {
@@ -92,7 +94,9 @@ export const setServicePublished = async (id: string, isPublished: boolean) => {
 };
 
 export const deleteService = async (id: string) => {
-  await prisma.service.deleteMany({ where: { id } });
+  const { count } = await prisma.service.deleteMany({ where: { id } });
+  if (count === 0) throw new AppError(API_STATUSES.RESOURCE_NOT_FOUND);
+  return id;
 };
 
 export const reorderServices = async (ids: string[]) => {

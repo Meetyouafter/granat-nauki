@@ -17,6 +17,18 @@ export const serviceSchema = z.object({
 
 export type ServiceInput = z.infer<typeof serviceSchema>;
 
+export const servicePublishSchema = z.object({
+  isPublished: z.boolean(),
+});
+
+export type ServicePublishInput = z.infer<typeof servicePublishSchema>;
+
+export const servicesOrderSchema = z.object({
+  ids: z.array(z.string().nonempty()).min(1),
+});
+
+export type ServicesOrderInput = z.infer<typeof servicesOrderSchema>;
+
 export const serviceIdParamsSchema = z.object({
   id: z.string().nonempty(),
 });
